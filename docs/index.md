@@ -19,8 +19,8 @@
 - [3.2 Unconstrained Optimality Conditions](https://ndcbe.github.io/CBE60499/03.02-Optimality.html)
 - [3.3 Newton Methods](https://ndcbe.github.io/CBE60499/03.03-Netwon-Methods.html)
 - [3.4 Quasi-Newton Methods](https://ndcbe.github.io/CBE60499/03.04-Quasi-Newton-Method.html)
-- [3.5 Globalization with Trust Regions](https://ndcbe.github.io/CBE60499/03.05-Line-Search.html)
-- [3.6 Unconstrained Nonlinear Optimization: Theory and Algorithms](https://ndcbe.github.io/CBE60499/03.06-Trust-Region.html)
+- [3.5 Globalization with Line Search](https://ndcbe.github.io/CBE60499/03.05-Line-Search.html)
+- [3.6 Globalization with Trust Region](https://ndcbe.github.io/CBE60499/03.06-Trust-Region.html)
 
 ### [Chapter 4.0 Constrained Nonlinear Optimization: Theory and Applications](https://ndcbe.github.io/CBE60499/04.00-Constrained.html)
 - [4.1 Convexity Revisited](https://ndcbe.github.io/CBE60499/04.01-Convexity.html)
