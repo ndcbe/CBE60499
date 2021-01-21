@@ -3,6 +3,7 @@
 # CBE60499
 
 ### [Table of Contents](https://ndcbe.github.io/CBE60499/toc.html)
+### [Python Module Index](https://ndcbe.github.io/CBE60499/python_index.html)
 
 ### [Chapter 1.0 Getting Started with Pyomo](https://ndcbe.github.io/CBE60499/01.00-Pyomo-Introduction.html)
 
