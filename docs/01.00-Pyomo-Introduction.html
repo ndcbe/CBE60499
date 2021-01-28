@@ -13348,100 +13348,21 @@ content is available <a href="git@github.com:ndcbe/CBE60499.git">on Github</a>.<
     
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[1]:</div>
+<div class="prompt input_prompt">In&nbsp;[7]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1">## Tip: Please put code like this at the top of your notebook.</span>
 <span class="c1"># We want all of the module/package installations to start up front</span>
 
-<span class="c1"># Packages to interface with your operating system or Colab</span>
-<span class="kn">import</span> <span class="nn">shutil</span>
 <span class="kn">import</span> <span class="nn">sys</span>
-<span class="kn">import</span> <span class="nn">os.path</span>
-
-<span class="k">def</span> <span class="nf">solver_available</span><span class="p">(</span><span class="n">solver_name</span><span class="p">):</span> <span class="k">return</span> <span class="p">(</span><span class="n">shutil</span><span class="o">.</span><span class="n">which</span><span class="p">(</span><span class="n">solver_name</span><span class="p">)</span> <span class="ow">or</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="n">solver_name</span><span class="p">))</span> 
-
-<span class="k">def</span> <span class="nf">on_colab</span><span class="p">():</span> <span class="k">return</span> <span class="s2">&quot;google.colab&quot;</span> <span class="ow">in</span> <span class="n">sys</span><span class="o">.</span><span class="n">modules</span>
-
-<span class="c1">## Install IDAES-PSE</span>
-
-<span class="c1"># Check if idaes is available. If not, install it</span>
-<span class="k">if</span> <span class="ow">not</span> <span class="n">shutil</span><span class="o">.</span><span class="n">which</span><span class="p">(</span><span class="s2">&quot;idaes&quot;</span><span class="p">):</span>
-    <span class="c1"># Tip: &quot;!pip&quot; means run the &#39;pip&#39; command outside the notebook.</span>
-    <span class="o">!</span>pip install -q idaes_pse
-    <span class="k">assert</span><span class="p">(</span><span class="n">shutil</span><span class="o">.</span><span class="n">which</span><span class="p">(</span><span class="s2">&quot;idaes&quot;</span><span class="p">))</span>
-<span class="k">else</span><span class="p">:</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;IDAES found! No need to install.&quot;</span><span class="p">)</span>
-
-<span class="c1">## Install Ipopt</span>
-    
-<span class="c1"># Check if Ipopt (solver) is available. If not, install it.</span>
-<span class="k">if</span> <span class="ow">not</span> <span class="n">solver_available</span><span class="p">(</span><span class="s2">&quot;ipopt&quot;</span><span class="p">):</span>
-    <span class="c1"># Check if we are running on Google Colab</span>
-    <span class="k">if</span> <span class="n">on_colab</span><span class="p">():</span>
-        <span class="c1"># Install idaes solvers</span>
-        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Running idaes get-extensions to install Ipopt and k_aug...&quot;</span><span class="p">)</span>
-        <span class="o">!</span>idaes get-extensions
-        
-        <span class="c1"># Add symbolic link for idaes solvers</span>
-        <span class="o">!</span>ln -s /root/.idaes/bin/ipopt ipopt
-        <span class="o">!</span>ln -s /root/.idaes/bin/k_aug k_aug
-    
-    <span class="c1"># Check again if Ipopt is available</span>
-    <span class="k">if</span> <span class="ow">not</span> <span class="n">solver_available</span><span class="p">(</span><span class="s2">&quot;ipopt&quot;</span><span class="p">):</span>
-    
-        <span class="k">if</span> <span class="n">on_colab</span><span class="p">():</span>
-            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Installing Ipopt via zip file...&quot;</span><span class="p">)</span>
-            <span class="o">!</span>wget -N -q <span class="s2">&quot;https://ampl.com/dl/open/ipopt/ipopt-linux64.zip&quot;</span>
-            <span class="o">!</span>unzip -o -q ipopt-linux64
-        <span class="c1"># Otherwise, try conda</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="k">try</span><span class="p">:</span>
-                <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Installing Ipopt via conda...&quot;</span><span class="p">)</span>
-                <span class="o">!</span>conda install -c conda-forge ipopt 
-            <span class="k">except</span><span class="p">:</span>
-                <span class="k">pass</span>
-
-<span class="k">else</span><span class="p">:</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Ipopt found! No need to install.&quot;</span><span class="p">)</span>
-
-<span class="c1"># Verify Ipopt is now available</span>
-<span class="k">assert</span><span class="p">(</span><span class="n">solver_available</span><span class="p">(</span><span class="s2">&quot;ipopt&quot;</span><span class="p">))</span>
-
-<span class="c1">## Install other solvers</span>
-
-<span class="c1"># Check if glpk is available. If not, install it.</span>
-<span class="k">if</span> <span class="ow">not</span> <span class="n">solver_available</span><span class="p">(</span><span class="s2">&quot;glpk&quot;</span><span class="p">)</span> <span class="ow">and</span> <span class="n">on_colab</span><span class="p">():</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Installing glpk via apt-get...&quot;</span><span class="p">)</span>
-    <span class="o">!</span>apt-get install -y -qq glpk-utils
-
-    
-<span class="c1"># Check if coin-cbc is available. If not, install it.</span>
-<span class="k">if</span> <span class="ow">not</span> <span class="n">solver_available</span><span class="p">(</span><span class="s2">&quot;cbc&quot;</span><span class="p">)</span> <span class="ow">and</span> <span class="n">on_colab</span><span class="p">():</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Installing cbc via apt-get...&quot;</span><span class="p">)</span>
-    <span class="o">!</span>apt-get install -y -qq coinor-cbc
+<span class="k">if</span> <span class="s2">&quot;google.colab&quot;</span> <span class="ow">in</span> <span class="n">sys</span><span class="o">.</span><span class="n">modules</span><span class="p">:</span>
+    <span class="o">!</span>wget <span class="s2">&quot;https://github.com/ndcbe/CBE60499/blob/main/notebooks/helper.py&quot;</span>
+    <span class="kn">import</span> <span class="nn">helper</span>
+    <span class="n">helper</span><span class="o">.</span><span class="n">install_idaes</span><span class="p">()</span>
+    <span class="n">helper</span><span class="o">.</span><span class="n">install_ipopt</span><span class="p">()</span>
 </pre></div>
 
     </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-
-    <div class="prompt"></div>
-
-
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>IDAES found! No need to install.
-Ipopt found! No need to install.
-</pre>
-</div>
-</div>
-
 </div>
 </div>
 
