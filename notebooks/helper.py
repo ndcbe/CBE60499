@@ -8,9 +8,9 @@ def _check_available(executable_name): return (shutil.which(solver_name) or os.p
 def package_available(package_name):
     
     if package_name == "glpk":
-        return _check_availabe("gpsol")        
+        return _check_available("gpsol")        
     else:
-        return _check_availabe(package_name)
+        return _check_available(package_name)
 
 def on_colab(): return "google.colab" in sys.modules
 
