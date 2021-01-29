@@ -14,7 +14,6 @@ def package_available(package_name):
 
 def on_colab(): return "google.colab" in sys.modules
 
-
 def install_idaes():
 
     # Check if idaes is available. If not, install it
@@ -22,7 +21,7 @@ def install_idaes():
         # Tip: "!pip" means run the 'pip' command outside the notebook.
         print("Installing idaes via pip...")
         os.system("pip install -q idaes_pse")
-        assert(package_available("idaes"), "idaes was not successfully installed.")
+        assert package_available("idaes"), "idaes was not successfully installed."
         print("idaes was successfully installed")
     else:
         print("IDAES found! No need to install.")
@@ -64,7 +63,7 @@ def install_ipopt():
         
 
     # Verify Ipopt is now available
-    assert(package_available("ipopt"), "Ipopt is not available")
+    assert package_available("ipopt"), "Ipopt is not available"
     
     print("ipopt was successfully installed")
     
@@ -78,7 +77,7 @@ def install_glpk():
         os.system('apt-get install -y -qq glpk-utils')
         
     # Verify package is now available
-    assert(package_available("glpk"), "glpk is not available")
+    assert package_available("glpk"), "glpk is not available"
 
     
 def install_cbc():
@@ -93,7 +92,7 @@ def install_bonmin():
         os.system('unzip -o -q bonmin-linux64')
     
     # Verify package is now available
-    assert(package_available("bonmin"), "bonmin is not available")
+    assert package_available("bonmin"), "bonmin is not available"
 
 def install_couenne():
     if not package_available("couenne") and on_colab():
@@ -102,7 +101,7 @@ def install_couenne():
         os.system('unzip -o -q couenne-linux64')
         
     # Verify package is now available
-    assert(package_available("couenne"), "couenne is not available")
+    assert package_available("couenne"), "couenne is not available"
 
 
 def install_gecode():
@@ -112,4 +111,4 @@ def install_gecode():
         os.system('unzip -o -q gecode-linux64')
     
     # Verify package is now available
-    assert(package_available("gecode"), "gecode is not available")
+    assert package_available("gecode"), "gecode is not available"
