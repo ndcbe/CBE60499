@@ -23,6 +23,7 @@ def install_idaes():
         os.system("pip install -q idaes_pse")
         assert package_available("idaes"), "idaes was not successfully installed."
         print("idaes was successfully installed")
+        os.system('idaes --version')
     else:
         print("IDAES found! No need to install.")
 
@@ -40,6 +41,9 @@ def install_ipopt():
             # Add symbolic link for idaes solvers
             os.system("ln -s /root/.idaes/bin/ipopt ipopt")
             os.system("ln -s /root/.idaes/bin/k_aug k_aug")
+            
+            os.system('./ipopt --v')
+            os.system('./k_aug --v')
             
 
         # Check again if Ipopt is available
@@ -82,8 +86,17 @@ def install_glpk():
     
 def install_cbc():
     if not package_available("cbc") and on_colab():
-        print("Installing cbc via apt-get...")
-        os.system('apt-get install -y -qq coinor-cbc')
+        #print("Installing cbc via apt-get...")
+        #os.system('apt-get install -y -qq coinor-cbc')
+        print("Installing cbc via zip file...")
+        os.system('wget -N -q "https://ampl.com/dl/open/cbc/cbc-linux64.zip"')
+        os.system('unzip -o -q cbc-linux64')
+        
+    # Verify package is now available
+    assert package_available("cbc"), "cbc is not available"
+    
+    os.system("./cbc -v")
+        
         
 def install_bonmin():
     if not package_available("bonmin") and on_colab():
@@ -93,6 +106,8 @@ def install_bonmin():
     
     # Verify package is now available
     assert package_available("bonmin"), "bonmin is not available"
+    
+    os.system("./bonmin -v")
 
 def install_couenne():
     if not package_available("couenne") and on_colab():
@@ -102,13 +117,17 @@ def install_couenne():
         
     # Verify package is now available
     assert package_available("couenne"), "couenne is not available"
+    
+    os.system("./couenne -v")
 
 
 def install_gecode():
     if not package_available("gecode") and on_colab():
-        print("Installing couenne via via zip file...")
+        print("Installing gecode via via zip file...")
         os.system('wget -N -q "https://ampl.com/dl/open/gecode/gecode-linux64.zip"')
         os.system('unzip -o -q gecode-linux64')
     
     # Verify package is now available
     assert package_available("gecode"), "gecode is not available"
+    
+    os.system("./gecode -v")
