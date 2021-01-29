@@ -3,6 +3,8 @@ import sys
 import os.path
 import os
 
+import subprocess
+
 def _check_available(executable_name): return (shutil.which(executable_name) or os.path.isfile(executable_name)) 
 
 def package_available(package_name):
@@ -13,6 +15,11 @@ def package_available(package_name):
         return _check_available(package_name)
 
 def on_colab(): return "google.colab" in sys.modules
+
+def command_with_output(command):
+    r = subprocess.getoutput(command)
+    print(r)
+
 
 def install_idaes():
 
@@ -42,8 +49,8 @@ def install_ipopt():
             os.system("ln -s /root/.idaes/bin/ipopt ipopt")
             os.system("ln -s /root/.idaes/bin/k_aug k_aug")
             
-            os.system('./ipopt --v')
-            os.system('./k_aug --v')
+            command_with_output('./ipopt --v')
+            command_with_output('./k_aug --v')
             
 
         # Check again if Ipopt is available
@@ -95,7 +102,7 @@ def install_cbc():
     # Verify package is now available
     assert package_available("cbc"), "cbc is not available"
     
-    os.system("./cbc -v")
+    command_with_output("./cbc -v")
         
         
 def install_bonmin():
@@ -107,7 +114,7 @@ def install_bonmin():
     # Verify package is now available
     assert package_available("bonmin"), "bonmin is not available"
     
-    os.system("./bonmin -v")
+    command_with_output("./bonmin -v")
 
 def install_couenne():
     if not package_available("couenne") and on_colab():
@@ -118,7 +125,7 @@ def install_couenne():
     # Verify package is now available
     assert package_available("couenne"), "couenne is not available"
     
-    os.system("./couenne -v")
+    command_with_output("./couenne -v")
 
 
 def install_gecode():
@@ -130,4 +137,4 @@ def install_gecode():
     # Verify package is now available
     assert package_available("gecode"), "gecode is not available"
     
-    os.system("./gecode -v")
+    command_with_output("./gecode -v")
