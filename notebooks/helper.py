@@ -2,6 +2,8 @@ import shutil
 import sys
 import os.path
 import os
+import requests
+import urllib
 
 import subprocess
 
@@ -138,3 +140,43 @@ def install_gecode():
     assert package_available("gecode"), "gecode is not available"
     
     command_with_output("./gecode -v")
+    
+def _download(relative_file_names):
+
+    # GitHub pages url
+    url = "https://ndcbe.github.io/CBE60499/"
+
+    # loop over all files to download
+    for file_path in relative_file_names:
+        print("Checking for",file_path)
+        # split each file_path into a folder and filename
+        stem, filename = os.path.split(file_path)
+    
+        # check if the folder name is not empty
+        if stem:
+            # check if the folder exists
+            if not os.path.exists(stem):
+                print("\tCreating folder",stem)
+                # if the folder does not exist, create it
+                os.mkdir(stem)
+        # if the file does not exist, create it by downloading from GitHub pages
+        if not os.path.isfile(file_path):
+            file_url = urllib.parse.urljoin(url,
+                    urllib.request.pathname2url(file_path))
+            print("\tDownloading",file_url)
+            with open(file_path, 'wb') as f:
+                f.write(requests.get(file_url).content)
+        else:
+            print("\tFile found!")
+
+def download_data(filenames):
+    for f in filenames:
+        f = "/data/"+f
+    
+    _download(filenames)
+
+def download_figures(filenames):
+    for f in filenames:
+        f = "/figures/"+f
+    
+    _download(filenames)
