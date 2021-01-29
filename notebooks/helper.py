@@ -102,7 +102,7 @@ def install_cbc():
     # Verify package is now available
     assert package_available("cbc"), "cbc is not available"
     
-    command_with_output("./cbc -v")
+    # command_with_output("./cbc -v")
         
         
 def install_bonmin():
