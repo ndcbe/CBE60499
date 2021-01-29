@@ -49,8 +49,8 @@ def install_ipopt():
             os.system("ln -s /root/.idaes/bin/ipopt ipopt")
             os.system("ln -s /root/.idaes/bin/k_aug k_aug")
             
-            command_with_output('./ipopt --v')
-            command_with_output('./k_aug --v')
+            command_with_output('./ipopt -v')
+            command_with_output('./k_aug -v')
             
 
         # Check again if Ipopt is available
