@@ -18,7 +18,7 @@ def on_colab(): return "google.colab" in sys.modules
 def install_idaes():
 
     # Check if idaes is available. If not, install it
-    if package_available("idaes"):
+    if not package_available("idaes"):
         # Tip: "!pip" means run the 'pip' command outside the notebook.
         os.system("pip install -q idaes_pse")
         assert(shutil.which("idaes"))
