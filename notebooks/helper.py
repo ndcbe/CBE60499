@@ -20,8 +20,10 @@ def install_idaes():
     # Check if idaes is available. If not, install it
     if not package_available("idaes"):
         # Tip: "!pip" means run the 'pip' command outside the notebook.
+        print("Installing idaes via pip...")
         os.system("pip install -q idaes_pse")
-        assert(shutil.which("idaes"))
+        assert(package_available("idaes"), "idaes was not successfully installed.")
+        print("idaes was successfully installed")
     else:
         print("IDAES found! No need to install.")
 
@@ -39,6 +41,7 @@ def install_ipopt():
             # Add symbolic link for idaes solvers
             os.system("ln -s /root/.idaes/bin/ipopt ipopt")
             os.system("ln -s /root/.idaes/bin/k_aug k_aug")
+            
 
         # Check again if Ipopt is available
         if not package_available("ipopt"):
@@ -54,18 +57,28 @@ def install_ipopt():
                     os.system('conda install -c conda-forge ipopt')
                 except:
                     pass
+        
 
     else:
         print("Ipopt found! No need to install.")
+        
 
     # Verify Ipopt is now available
-    assert(package_available("ipopt"))
+    assert(package_available("ipopt"), "Ipopt is not available")
+    
+    print("ipopt was successfully installed")
+    
+    if package_available("k_aug"):
+        print("k_aug was successfully installed")
 
 
 def install_glpk():
     if not package_available("glpk") and on_colab():
         print("Installing glpk via apt-get...")
         os.system('apt-get install -y -qq glpk-utils')
+        
+    # Verify package is now available
+    assert(package_available("glpk"), "glpk is not available")
 
     
 def install_cbc():
@@ -78,12 +91,18 @@ def install_bonmin():
         print("Installing bonmin via zip file...")
         os.system('wget -N -q "https://ampl.com/dl/open/bonmin/bonmin-linux64.zip"')
         os.system('unzip -o -q bonmin-linux64')
+    
+    # Verify package is now available
+    assert(package_available("bonmin"), "bonmin is not available")
 
 def install_couenne():
     if not package_available("couenne") and on_colab():
         print("Installing couenne via via zip file...")
         os.system('wget -N -q "https://ampl.com/dl/open/couenne/couenne-linux64.zip"')
         os.system('unzip -o -q couenne-linux64')
+        
+    # Verify package is now available
+    assert(package_available("couenne"), "couenne is not available")
 
 
 def install_gecode():
@@ -91,3 +110,6 @@ def install_gecode():
         print("Installing couenne via via zip file...")
         os.system('wget -N -q "https://ampl.com/dl/open/gecode/gecode-linux64.zip"')
         os.system('unzip -o -q gecode-linux64')
+    
+    # Verify package is now available
+    assert(package_available("gecode"), "gecode is not available")
