@@ -17,7 +17,8 @@
 - [2.4 Generalized Disjunctive Programs](https://ndcbe.github.io/CBE60499/02.04-GDP.html)
 - [2.5 Dynamic Optimization](https://ndcbe.github.io/CBE60499/02.05-DAE.html)
 - [2.6 Stochastic Programming](https://ndcbe.github.io/CBE60499/02.06-SP.html)
-- [2.7 CBE 60499: Nonlinear and Stochastic Programming](https://ndcbe.github.io/CBE60499/02.07-Pyomo1.html)
+- [2.7 Pyomo Practice: Homework 1b](https://ndcbe.github.io/CBE60499/02.07-Pyomo1b.html)
+- [2.8 Pyomo Practice: Homework 2a](https://ndcbe.github.io/CBE60499/02.08-Pyomo2a.html)
 
 ### [Chapter 3.0 Unconstrained Nonlinear Optimization: Theory and Algorithms](https://ndcbe.github.io/CBE60499/03.00-Unconstrained.html)
 - [3.1 Mathematics Primer](https://ndcbe.github.io/CBE60499/03.01-Math-Primer.html)
