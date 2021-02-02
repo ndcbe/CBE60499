@@ -3,9 +3,12 @@
 # CBE60499
 
 ### [Table of Contents](https://ndcbe.github.io/CBE60499/toc.html)
+### [Data Index](https://ndcbe.github.io/CBE60499/data_index.html)
+### [Figure Index](https://ndcbe.github.io/CBE60499/figure_index.html)
 ### [Python Module Index](https://ndcbe.github.io/CBE60499/python_index.html)
 
 ### [Chapter 1.0 Getting Started with Pyomo](https://ndcbe.github.io/CBE60499/01.00-Pyomo-Introduction.html)
+- [1.1 60 Minutes to Pyomo: An Energy Storage Model Predictive Control Example](https://ndcbe.github.io/CBE60499/01.01-Pyomo-Nuts-and-Bolts.html)
 
 ### [Chapter 2.0 Optimization Modeling with Applications](https://ndcbe.github.io/CBE60499/02.00-Optimization-Modeling.html)
 - [2.1 Linear Programs](https://ndcbe.github.io/CBE60499/02.01-LP.html)
@@ -14,6 +17,7 @@
 - [2.4 Generalized Disjunctive Programs](https://ndcbe.github.io/CBE60499/02.04-GDP.html)
 - [2.5 Dynamic Optimization](https://ndcbe.github.io/CBE60499/02.05-DAE.html)
 - [2.6 Stochastic Programming](https://ndcbe.github.io/CBE60499/02.06-SP.html)
+- [2.7 CBE 60499: Nonlinear and Stochastic Programming](https://ndcbe.github.io/CBE60499/02.07-Pyomo1.html)
 
 ### [Chapter 3.0 Unconstrained Nonlinear Optimization: Theory and Algorithms](https://ndcbe.github.io/CBE60499/03.00-Unconstrained.html)
 - [3.1 Mathematics Primer](https://ndcbe.github.io/CBE60499/03.01-Math-Primer.html)
