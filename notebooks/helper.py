@@ -2,6 +2,10 @@ import shutil
 import sys
 import os.path
 import os
+import requests
+import urllib
+
+import subprocess
 
 def _check_available(executable_name): return (shutil.which(executable_name) or os.path.isfile(executable_name)) 
 
@@ -14,14 +18,21 @@ def package_available(package_name):
 
 def on_colab(): return "google.colab" in sys.modules
 
+def command_with_output(command):
+    r = subprocess.getoutput(command)
+    print(r)
+
 
 def install_idaes():
 
     # Check if idaes is available. If not, install it
-    if package_available("idaes"):
+    if not package_available("idaes"):
         # Tip: "!pip" means run the 'pip' command outside the notebook.
+        print("Installing idaes via pip...")
         os.system("pip install -q idaes_pse")
-        assert(shutil.which("idaes"))
+        assert package_available("idaes"), "idaes was not successfully installed."
+        print("idaes was successfully installed")
+        os.system('idaes --version')
     else:
         print("IDAES found! No need to install.")
 
@@ -39,6 +50,10 @@ def install_ipopt():
             # Add symbolic link for idaes solvers
             os.system("ln -s /root/.idaes/bin/ipopt ipopt")
             os.system("ln -s /root/.idaes/bin/k_aug k_aug")
+            
+            command_with_output('./ipopt -v')
+            command_with_output('./k_aug -v')
+            
 
         # Check again if Ipopt is available
         if not package_available("ipopt"):
@@ -54,40 +69,114 @@ def install_ipopt():
                     os.system('conda install -c conda-forge ipopt')
                 except:
                     pass
+        
 
     else:
         print("Ipopt found! No need to install.")
+        
 
     # Verify Ipopt is now available
-    assert(package_available("ipopt"))
+    assert package_available("ipopt"), "Ipopt is not available"
+    
+    print("ipopt was successfully installed")
+    
+    if package_available("k_aug"):
+        print("k_aug was successfully installed")
 
 
 def install_glpk():
     if not package_available("glpk") and on_colab():
         print("Installing glpk via apt-get...")
         os.system('apt-get install -y -qq glpk-utils')
+        
+    # Verify package is now available
+    assert package_available("glpk"), "glpk is not available"
 
     
 def install_cbc():
     if not package_available("cbc") and on_colab():
-        print("Installing cbc via apt-get...")
-        os.system('apt-get install -y -qq coinor-cbc')
+        #print("Installing cbc via apt-get...")
+        #os.system('apt-get install -y -qq coinor-cbc')
+        print("Installing cbc via zip file...")
+        os.system('wget -N -q "https://ampl.com/dl/open/cbc/cbc-linux64.zip"')
+        os.system('unzip -o -q cbc-linux64')
+        
+    # Verify package is now available
+    assert package_available("cbc"), "cbc is not available"
+    
+    # command_with_output("./cbc -v")
+        
         
 def install_bonmin():
     if not package_available("bonmin") and on_colab():
         print("Installing bonmin via zip file...")
         os.system('wget -N -q "https://ampl.com/dl/open/bonmin/bonmin-linux64.zip"')
         os.system('unzip -o -q bonmin-linux64')
+    
+    # Verify package is now available
+    assert package_available("bonmin"), "bonmin is not available"
+    
+    command_with_output("./bonmin -v")
 
 def install_couenne():
     if not package_available("couenne") and on_colab():
         print("Installing couenne via via zip file...")
         os.system('wget -N -q "https://ampl.com/dl/open/couenne/couenne-linux64.zip"')
         os.system('unzip -o -q couenne-linux64')
+        
+    # Verify package is now available
+    assert package_available("couenne"), "couenne is not available"
+    
+    command_with_output("./couenne -v")
 
 
 def install_gecode():
     if not package_available("gecode") and on_colab():
-        print("Installing couenne via via zip file...")
+        print("Installing gecode via via zip file...")
         os.system('wget -N -q "https://ampl.com/dl/open/gecode/gecode-linux64.zip"')
         os.system('unzip -o -q gecode-linux64')
+    
+    # Verify package is now available
+    assert package_available("gecode"), "gecode is not available"
+    
+    command_with_output("./gecode -v")
+    
+def _download(relative_file_names):
+
+    # GitHub pages url
+    url = "https://ndcbe.github.io/CBE60499/"
+
+    # loop over all files to download
+    for file_path in relative_file_names:
+        print("Checking for",file_path)
+        # split each file_path into a folder and filename
+        stem, filename = os.path.split(file_path)
+    
+        # check if the folder name is not empty
+        if stem:
+            # check if the folder exists
+            if not os.path.exists(stem):
+                print("\tCreating folder",stem)
+                # if the folder does not exist, create it
+                os.mkdir(stem)
+        # if the file does not exist, create it by downloading from GitHub pages
+        if not os.path.isfile(file_path):
+            file_url = urllib.parse.urljoin(url,
+                    urllib.request.pathname2url(file_path))
+            print("\tDownloading",file_url)
+            with open(file_path, 'wb') as f:
+                f.write(requests.get(file_url).content)
+        else:
+            print("\tFile found!")
+
+def download_data(filenames):
+    for f in filenames:
+        f = "/data/"+f
+    
+    _download(filenames)
+
+def download_figures(filenames):
+    for f in filenames:
+        f = "/figures/"+f
+    
+    _download(filenames)
