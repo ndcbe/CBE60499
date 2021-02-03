@@ -171,13 +171,13 @@ def _download(relative_file_names):
             print("\tFile found!")
 
 def download_data(filenames):
-    for f in filenames:
-        f = "/data/"+f
+    for i in range(len(filenames)):
+        filenames[i] = "/data/"+filenames[i]
     
     _download(filenames)
 
 def download_figures(filenames):
-    for f in filenames:
-        f = "/figures/"+f
+    for i in range(len(filenames)):
+        filenames[i] = "/figures/"+filenames[i]
     
     _download(filenames)
