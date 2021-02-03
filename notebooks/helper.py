@@ -154,7 +154,7 @@ def _download(relative_file_names):
         stem, filename = os.path.split(file_path)
     
         # check if the folder name is not empty
-        if stem:
+        if stem:            
             # check if the folder exists
             if not os.path.exists(stem):
                 print("\tCreating folder",stem)
@@ -172,12 +172,12 @@ def _download(relative_file_names):
 
 def download_data(filenames):
     for i in range(len(filenames)):
-        filenames[i] = "/data/"+filenames[i]
+        filenames[i] = "./data/"+filenames[i]
     
     _download(filenames)
 
 def download_figures(filenames):
     for i in range(len(filenames)):
-        filenames[i] = "/figures/"+filenames[i]
+        filenames[i] = "./figures/"+filenames[i]
     
     _download(filenames)
