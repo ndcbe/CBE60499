@@ -145,7 +145,8 @@ def install_gecode():
 def _download(relative_file_names):
 
     # GitHub pages url
-    url = "https://ndcbe.github.io/CBE60499/"
+    # url = "https://ndcbe.github.io/CBE60499/"
+    url = "https://raw.githubusercontent.com/ndcbe/CBE60499/main/docs/"
 
     # loop over all files to download
     for file_path in relative_file_names:
