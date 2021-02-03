@@ -86,8 +86,10 @@ def install_ipopt():
 
 def install_glpk():
     if not package_available("glpk") and on_colab():
-        print("Installing glpk via apt-get...")
-        os.system('apt-get install -y -qq glpk-utils')
+        #print("Installing glpk via apt-get...")
+        #os.system('apt-get install -y -qq glpk-utils')
+        print("Installing glpk via conda...")
+        os.system('conda install -c conda-forge glpk')
         
     # Verify package is now available
     # assert package_available("glpk"), "glpk is not available"
