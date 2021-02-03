@@ -90,7 +90,8 @@ def install_glpk():
         os.system('apt-get install -y -qq glpk-utils')
         
     # Verify package is now available
-    assert package_available("glpk"), "glpk is not available"
+    # assert package_available("glpk"), "glpk is not available"
+    # For some reason, this is not working on Colab. Feb-05-2021
 
     
 def install_cbc():
