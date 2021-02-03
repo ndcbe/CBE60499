@@ -13135,7 +13135,7 @@ content is available <a href="git@github.com:ndcbe/CBE60499.git">on Github</a>.<
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p><!--NAVIGATION-->
-&lt; <a href="https://ndcbe.github.io/CBE60499/02.06-SP.html">2.6 Stochastic Programming</a> | <a href="toc.html">Contents</a> | <a href="https://ndcbe.github.io/CBE60499/02.08-Pyomo2a.html">2.8 Pyomo Practice: Homework 2a</a> &gt;<p><a href="https://colab.research.google.com/github/ndcbe/CBE60499/blob/master/docs/02.07-Pyomo1b.ipynb"> <img align="left" src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open in Colab" title="Open in Google Colaboratory"></a><p><a href="https://ndcbe.github.io/CBE60499/02.07-Pyomo1b.ipynb"> <img align="left" src="https://img.shields.io/badge/Github-Download-blue.svg" alt="Download" title="Download Notebook"></a></p>
+&lt; <a href="https://ndcbe.github.io/CBE60499/02.05-SP.html">2.5 Stochastic Programming</a> | <a href="toc.html">Contents</a> | <a href="https://ndcbe.github.io/CBE60499/02.07-Pyomo2.html">2.7 Pyomo Homework 2</a> &gt;<p><a href="https://colab.research.google.com/github/ndcbe/CBE60499/blob/master/docs/02.06-Pyomo1.ipynb"> <img align="left" src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open in Colab" title="Open in Google Colaboratory"></a><p><a href="https://ndcbe.github.io/CBE60499/02.06-Pyomo1.ipynb"> <img align="left" src="https://img.shields.io/badge/Github-Download-blue.svg" alt="Download" title="Download Notebook"></a></p>
 
 </div>
 </div>
@@ -13144,10 +13144,42 @@ content is available <a href="git@github.com:ndcbe/CBE60499.git">on Github</a>.<
 
 
     
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># IMPORT DATA FILES USED BY THIS NOTEBOOK</span>
+<span class="kn">import</span> <span class="nn">os</span><span class="o">,</span>  <span class="nn">requests</span>
+
+<span class="n">file_links</span> <span class="o">=</span> <span class="p">[(</span><span class="s2">&quot;data/knapsack_data.csv&quot;</span><span class="p">,</span> <span class="s2">&quot;https://ndcbe.github.io/CBE60499/data/knapsack_data.csv&quot;</span><span class="p">)]</span>
+
+<span class="c1"># This cell has been added by nbpages. Run this cell to download data files required for this notebook.</span>
+
+<span class="k">for</span> <span class="n">filepath</span><span class="p">,</span> <span class="n">fileurl</span> <span class="ow">in</span> <span class="n">file_links</span><span class="p">:</span>
+    <span class="n">stem</span><span class="p">,</span> <span class="n">filename</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">filepath</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">stem</span><span class="p">:</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">stem</span><span class="p">):</span>
+            <span class="n">os</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="n">stem</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="n">filepath</span><span class="p">):</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">filepath</span><span class="p">,</span> <span class="s1">&#39;wb&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+            <span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">fileurl</span><span class="p">)</span>
+            <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">content</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+
+
+
+    
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="2.7-Pyomo-Practice:-Homework-1b">2.7 Pyomo Practice: Homework 1b<a class="anchor-link" href="#2.7-Pyomo-Practice:-Homework-1b">&#182;</a></h1><p><strong>Due Date:</strong> 2/18/2021</p>
+<h1 id="2.6-Pyomo-Homework-1">2.6 Pyomo Homework 1<a class="anchor-link" href="#2.6-Pyomo-Homework-1">&#182;</a></h1><p><strong>Due Date:</strong> 2/16/2021</p>
 
 </div>
 </div>
@@ -13170,6 +13202,7 @@ content is available <a href="git@github.com:ndcbe/CBE60499.git">on Github</a>.<
     <span class="n">helper</span><span class="o">.</span><span class="n">install_idaes</span><span class="p">()</span>
     <span class="n">helper</span><span class="o">.</span><span class="n">install_ipopt</span><span class="p">()</span>
     <span class="n">helper</span><span class="o">.</span><span class="n">install_glpk</span><span class="p">()</span>
+    <span class="n">helper</span><span class="o">.</span><span class="n">download_data</span><span class="p">([</span><span class="s1">&#39;knapsack_data.xlsx&#39;</span><span class="p">,</span><span class="s1">&#39;knapsack_data.csv&#39;</span><span class="p">])</span>
 </pre></div>
 
     </div>
@@ -13215,7 +13248,7 @@ content is available <a href="git@github.com:ndcbe/CBE60499.git">on Github</a>.<
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="2.7.1-Pyomo-Fundamentals">2.7.1 Pyomo Fundamentals<a class="anchor-link" href="#2.7.1-Pyomo-Fundamentals">&#182;</a></h2>
+<h2 id="2.6.1-Pyomo-Fundamentals">2.6.1 Pyomo Fundamentals<a class="anchor-link" href="#2.6.1-Pyomo-Fundamentals">&#182;</a></h2>
 </div>
 </div>
 </div>
@@ -13226,7 +13259,7 @@ content is available <a href="git@github.com:ndcbe/CBE60499.git">on Github</a>.<
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="2.7.1.1-Knapsack-example">2.7.1.1 Knapsack example<a class="anchor-link" href="#2.7.1.1-Knapsack-example">&#182;</a></h3><p>Solve the knapsack problem given below using GLPK and answer the following questions:</p>
+<h3 id="2.6.1.1-Knapsack-example">2.6.1.1 Knapsack example<a class="anchor-link" href="#2.6.1.1-Knapsack-example">&#182;</a></h3><p>Solve the knapsack problem given below using GLPK and answer the following questions:</p>
 <ol>
 <li><p>Which items are acquired in the optimal solution?</p>
 </li>
@@ -13296,7 +13329,7 @@ content is available <a href="git@github.com:ndcbe/CBE60499.git">on Github</a>.<
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="2.7.1.2-Knapsack-example-with-improve-printing">2.7.1.2 Knapsack example with improve printing<a class="anchor-link" href="#2.7.1.2-Knapsack-example-with-improve-printing">&#182;</a></h3><p>Complete the missing lines in the code below to produce formatted output: print the total weight, the value of the items selected (the objective), and the items acquired in the optimal solution. Note, the Pyomo value function should be used to get the floating point value of Pyomo modeling components (e.g., print(value(model.x[i])).</p>
+<h3 id="2.6.1.2-Knapsack-example-with-improve-printing">2.6.1.2 Knapsack example with improve printing<a class="anchor-link" href="#2.6.1.2-Knapsack-example-with-improve-printing">&#182;</a></h3><p>Complete the missing lines in the code below to produce formatted output: print the total weight, the value of the items selected (the objective), and the items acquired in the optimal solution. Note, the Pyomo value function should be used to get the floating point value of Pyomo modeling components (e.g., print(value(model.x[i])).</p>
 
 </div>
 </div>
@@ -13345,7 +13378,7 @@ content is available <a href="git@github.com:ndcbe/CBE60499.git">on Github</a>.<
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="2.7.1.3-Changing-data">2.7.1.3 Changing data<a class="anchor-link" href="#2.7.1.3-Changing-data">&#182;</a></h3><p>Using your code from <strong>Question 1.2</strong>, if we were to increase the value of the wrench, at what point would it become selected as part of the optimal solution?</p>
+<h3 id="2.6.1.3-Changing-data">2.6.1.3 Changing data<a class="anchor-link" href="#2.6.1.3-Changing-data">&#182;</a></h3><p>Using your code from <strong>Question 1.2</strong>, if we were to increase the value of the wrench, at what point would it become selected as part of the optimal solution?</p>
 
 </div>
 </div>
@@ -13387,7 +13420,7 @@ content is available <a href="git@github.com:ndcbe/CBE60499.git">on Github</a>.<
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="2.7.1.4-Loading-data-from-Excel">2.7.1.4 Loading data from Excel<a class="anchor-link" href="#2.7.1.4-Loading-data-from-Excel">&#182;</a></h3><p>In the code above, the data is hardcoded at the top of the file. Instead of hardcoding the data, use Python to load the data from a difference source. You may use Pandas to load data from 'knapsack_data.xlsx' into a dataframe. You will then need to write code to obtain a dictionary from the dataframe.</p>
+<h3 id="2.6.1.4-Loading-data-from-Excel">2.6.1.4 Loading data from Excel<a class="anchor-link" href="#2.6.1.4-Loading-data-from-Excel">&#182;</a></h3><p>In the code above, the data is hardcoded at the top of the file. Instead of hardcoding the data, use Python to load the data from a difference source. You may use Pandas to load data from 'knapsack_data.xlsx' into a dataframe. You will then need to write code to obtain a dictionary from the dataframe.</p>
 
 </div>
 </div>
@@ -13446,7 +13479,7 @@ content is available <a href="git@github.com:ndcbe/CBE60499.git">on Github</a>.<
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="2.7.1.5-NLP-vs.-MIP">2.7.1.5 NLP vs. MIP<a class="anchor-link" href="#2.7.1.5-NLP-vs.-MIP">&#182;</a></h3><p>Solve the knapsack problem with IPOPT instead of glpk. Print the solution values for model.x. What happened? Why?</p>
+<h3 id="2.6.1.5-NLP-vs.-MIP">2.6.1.5 NLP vs. MIP<a class="anchor-link" href="#2.6.1.5-NLP-vs.-MIP">&#182;</a></h3><p>Solve the knapsack problem with IPOPT instead of glpk. Print the solution values for model.x. What happened? Why?</p>
 <p><em>Hint</em>: Switch <code>glpk</code> to <code>ipopt</code> in the call to <code>SolverFactory</code>.</p>
 
 </div>
@@ -13509,7 +13542,7 @@ content is available <a href="git@github.com:ndcbe/CBE60499.git">on Github</a>.<
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="2.7.2-More-Pyomo-Fundamentals">2.7.2 More Pyomo Fundamentals<a class="anchor-link" href="#2.7.2-More-Pyomo-Fundamentals">&#182;</a></h2>
+<h2 id="2.6.2-More-Pyomo-Fundamentals">2.6.2 More Pyomo Fundamentals<a class="anchor-link" href="#2.6.2-More-Pyomo-Fundamentals">&#182;</a></h2>
 </div>
 </div>
 </div>
@@ -13520,7 +13553,7 @@ content is available <a href="git@github.com:ndcbe/CBE60499.git">on Github</a>.<
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="2.7.2.1-Knapsack-problem-with-rules">2.7.2.1 Knapsack problem with rules<a class="anchor-link" href="#2.7.2.1-Knapsack-problem-with-rules">&#182;</a></h3><p>Rules are important for defining in-dexed constraints, however, they can also be used for single (i.e. scalar) constraints. Reimplement the knapsack model from <strong>Question 1.1</strong> using rules for the objective and the constraints.</p>
+<h3 id="2.6.2.1-Knapsack-problem-with-rules">2.6.2.1 Knapsack problem with rules<a class="anchor-link" href="#2.6.2.1-Knapsack-problem-with-rules">&#182;</a></h3><p>Rules are important for defining in-dexed constraints, however, they can also be used for single (i.e. scalar) constraints. Reimplement the knapsack model from <strong>Question 1.1</strong> using rules for the objective and the constraints.</p>
 
 </div>
 </div>
@@ -13549,7 +13582,7 @@ content is available <a href="git@github.com:ndcbe/CBE60499.git">on Github</a>.<
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="2.7.2.2-Integer-formulation-of-the-knapsack-problem">2.7.2.2 Integer formulation of the knapsack problem<a class="anchor-link" href="#2.7.2.2-Integer-formulation-of-the-knapsack-problem">&#182;</a></h3><p>Consider again the knapsack problem. Assume now that we can acquire multiple items of the same type. In this new formulation, $x_i$ is now an integer variable instead of a binary variable. One way to formulate this problem is as follows:</p>
+<h3 id="2.6.2.2-Integer-formulation-of-the-knapsack-problem">2.6.2.2 Integer formulation of the knapsack problem<a class="anchor-link" href="#2.6.2.2-Integer-formulation-of-the-knapsack-problem">&#182;</a></h3><p>Consider again the knapsack problem. Assume now that we can acquire multiple items of the same type. In this new formulation, $x_i$ is now an integer variable instead of a binary variable. One way to formulate this problem is as follows:</p>
 <p>$\max_{q,x} \sum_{i\in{A}}v_ix_i$</p>
 <p>s.t. $\sum_{i\in{A}}w_ix_i\leq W_{max}$</p>
 <p>$x_i=\sum_{j=0}^Njq_{i,j}, \forall i \in{A}$</p>
@@ -13615,7 +13648,7 @@ content is available <a href="git@github.com:ndcbe/CBE60499.git">on Github</a>.<
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p><!--NAVIGATION-->
-&lt; <a href="https://ndcbe.github.io/CBE60499/02.06-SP.html">2.6 Stochastic Programming</a> | <a href="toc.html">Contents</a> | <a href="https://ndcbe.github.io/CBE60499/02.08-Pyomo2a.html">2.8 Pyomo Practice: Homework 2a</a> &gt;<p><a href="https://colab.research.google.com/github/ndcbe/CBE60499/blob/master/docs/02.07-Pyomo1b.ipynb"> <img align="left" src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open in Colab" title="Open in Google Colaboratory"></a><p><a href="https://ndcbe.github.io/CBE60499/02.07-Pyomo1b.ipynb"> <img align="left" src="https://img.shields.io/badge/Github-Download-blue.svg" alt="Download" title="Download Notebook"></a></p>
+&lt; <a href="https://ndcbe.github.io/CBE60499/02.05-SP.html">2.5 Stochastic Programming</a> | <a href="toc.html">Contents</a> | <a href="https://ndcbe.github.io/CBE60499/02.07-Pyomo2.html">2.7 Pyomo Homework 2</a> &gt;<p><a href="https://colab.research.google.com/github/ndcbe/CBE60499/blob/master/docs/02.06-Pyomo1.ipynb"> <img align="left" src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open in Colab" title="Open in Google Colaboratory"></a><p><a href="https://ndcbe.github.io/CBE60499/02.06-Pyomo1.ipynb"> <img align="left" src="https://img.shields.io/badge/Github-Download-blue.svg" alt="Download" title="Download Notebook"></a></p>
 
 </div>
 </div>

@@ -13135,7 +13135,7 @@ content is available <a href="git@github.com:ndcbe/CBE60499.git">on Github</a>.<
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p><!--NAVIGATION-->
-&lt; <a href="https://ndcbe.github.io/CBE60499/01.00-Pyomo-Introduction.html">1.0 Getting Started with Pyomo</a> | <a href="toc.html">Contents</a> | <a href="https://ndcbe.github.io/CBE60499/02.00-Optimization-Modeling.html">2.0 Optimization Modeling with Applications</a> &gt;<p><a href="https://colab.research.google.com/github/ndcbe/CBE60499/blob/master/docs/01.01-Pyomo-Nuts-and-Bolts.ipynb"> <img align="left" src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open in Colab" title="Open in Google Colaboratory"></a><p><a href="https://ndcbe.github.io/CBE60499/01.01-Pyomo-Nuts-and-Bolts.ipynb"> <img align="left" src="https://img.shields.io/badge/Github-Download-blue.svg" alt="Download" title="Download Notebook"></a></p>
+&lt; <a href="https://ndcbe.github.io/CBE60499/01.00-Pyomo-Introduction.html">1.0 Getting Started with Pyomo</a> | <a href="toc.html">Contents</a> | <a href="https://ndcbe.github.io/CBE60499/01.02-Pyomo-Mini-Project.html">1.2 Pyomo Mini-Project: Receding Horizon Stochastic Control</a> &gt;<p><a href="https://colab.research.google.com/github/ndcbe/CBE60499/blob/master/docs/01.01-Pyomo-Nuts-and-Bolts.ipynb"> <img align="left" src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open in Colab" title="Open in Google Colaboratory"></a><p><a href="https://ndcbe.github.io/CBE60499/01.01-Pyomo-Nuts-and-Bolts.ipynb"> <img align="left" src="https://img.shields.io/badge/Github-Download-blue.svg" alt="Download" title="Download Notebook"></a></p>
 
 </div>
 </div>
@@ -13201,6 +13201,10 @@ content is available <a href="git@github.com:ndcbe/CBE60499.git">on Github</a>.<
     <span class="n">helper</span><span class="o">.</span><span class="n">install_idaes</span><span class="p">()</span>
     <span class="n">helper</span><span class="o">.</span><span class="n">install_ipopt</span><span class="p">()</span>
     <span class="n">helper</span><span class="o">.</span><span class="n">install_glpk</span><span class="p">()</span>
+    <span class="n">helper</span><span class="o">.</span><span class="n">download_data</span><span class="p">([</span><span class="s1">&#39;Prices_DAM_ALTA2G_7_B1.csv&#39;</span><span class="p">])</span>
+    <span class="n">helper</span><span class="o">.</span><span class="n">download_figures</span><span class="p">([</span><span class="s1">&#39;battery.png&#39;</span><span class="p">,</span><span class="s1">&#39;pyomo-table-4.1.png&#39;</span><span class="p">,</span>
+                            <span class="s1">&#39;pyomo-table-4.2.png&#39;</span><span class="p">,</span><span class="s1">&#39;pyomo-table-4.3.png&#39;</span><span class="p">,</span>
+                            <span class="s1">&#39;pyomo-table-4.4.png&#39;</span><span class="p">,</span><span class="s1">&#39;pyomo-table-4.6.png&#39;</span><span class="p">])</span>
 </pre></div>
 
     </div>
@@ -14010,7 +14014,7 @@ $$
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>See the table below (Hart et al., 2017) for an explanation of the arguments for <code>Var</code>:</p>
-<p><img src="./figures/pyomo-table-4.1.png" alt="pyomo-table4.1"></p>
+<p><img src="./figures/pyomo-table-4.1.png" alt="pyomo-var-arguments"></p>
 
 </div>
 </div>
@@ -14222,7 +14226,7 @@ $$
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>We see the <code>initialize</code> keyword is used to set the parameter value. When <code>mutable=True</code>, Pyomo builds the model such that we can easily update the parameter and resolved. Later in the notebook, we will see how this is helpful.</p>
 <p>Below is a table (Hart et al., 2017) of options for <code>Param</code>:</p>
-<p><img src="./figures/pyomo-table-4.6.png" alt="pyomo-table4.1"></p>
+<p><img src="./figures/pyomo-table-4.6.png" alt="pyomo-param-arguments"></p>
 
 </div>
 </div>
@@ -14805,7 +14809,7 @@ $$
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>The following table (Hart et al., 2017) summarizes the keyword arguments for <code>Objective</code>:</p>
-<p><img src="./figures/pyomo-table-4.3.png" alt="pyomo-table4.1"></p>
+<p><img src="./figures/pyomo-table-4.3.png" alt="pyomo-objective-arguments"></p>
 
 </div>
 </div>
@@ -14876,7 +14880,7 @@ $$
 <p>Notice the above model includes detailed comments with the units for the left-hand side and right-hand side of each equation. This is strongly recommend; it is easy for units mistakes to go undetected in a complicated Pyomo model. Alternately, you can also use the units feature in Pyomo.</p>
 <p>We see in this example a big advantage of the <code>rule=</code> approach for defininng a constraint. Inside the function <code>EnergyBalance</code> we incorporate a logical statement for how to handle the first timestep (which uses parameter <code>E0</code>).</p>
 <p>Below is a table of keyword arguments for <code>Constraint</code>:</p>
-<p><img src="./figures/pyomo-table-4.4.png" alt="pyomo-table4.4"></p>
+<p><img src="./figures/pyomo-table-4.4.png" alt="pyomo-constraint-arguments"></p>
 
 </div>
 </div>
@@ -16318,7 +16322,7 @@ while j &lt;= 10 do:
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p><!--NAVIGATION-->
-&lt; <a href="https://ndcbe.github.io/CBE60499/01.00-Pyomo-Introduction.html">1.0 Getting Started with Pyomo</a> | <a href="toc.html">Contents</a> | <a href="https://ndcbe.github.io/CBE60499/02.00-Optimization-Modeling.html">2.0 Optimization Modeling with Applications</a> &gt;<p><a href="https://colab.research.google.com/github/ndcbe/CBE60499/blob/master/docs/01.01-Pyomo-Nuts-and-Bolts.ipynb"> <img align="left" src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open in Colab" title="Open in Google Colaboratory"></a><p><a href="https://ndcbe.github.io/CBE60499/01.01-Pyomo-Nuts-and-Bolts.ipynb"> <img align="left" src="https://img.shields.io/badge/Github-Download-blue.svg" alt="Download" title="Download Notebook"></a></p>
+&lt; <a href="https://ndcbe.github.io/CBE60499/01.00-Pyomo-Introduction.html">1.0 Getting Started with Pyomo</a> | <a href="toc.html">Contents</a> | <a href="https://ndcbe.github.io/CBE60499/01.02-Pyomo-Mini-Project.html">1.2 Pyomo Mini-Project: Receding Horizon Stochastic Control</a> &gt;<p><a href="https://colab.research.google.com/github/ndcbe/CBE60499/blob/master/docs/01.01-Pyomo-Nuts-and-Bolts.ipynb"> <img align="left" src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open in Colab" title="Open in Google Colaboratory"></a><p><a href="https://ndcbe.github.io/CBE60499/01.01-Pyomo-Nuts-and-Bolts.ipynb"> <img align="left" src="https://img.shields.io/badge/Github-Download-blue.svg" alt="Download" title="Download Notebook"></a></p>
 
 </div>
 </div>

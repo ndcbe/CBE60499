@@ -13135,7 +13135,124 @@ content is available <a href="git@github.com:ndcbe/CBE60499.git">on Github</a>.<
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p><!--NAVIGATION-->
-&lt; <a href="https://ndcbe.github.io/CBE60499/02.02-NLP.html">2.2 Nonlinear Programs</a> | <a href="toc.html">Contents</a> | <a href="https://ndcbe.github.io/CBE60499/02.04-GDP.html">2.4 Generalized Disjunctive Programs</a> &gt;<p><a href="https://colab.research.google.com/github/ndcbe/CBE60499/blob/master/docs/02.03-IP.ipynb"> <img align="left" src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open in Colab" title="Open in Google Colaboratory"></a><p><a href="https://ndcbe.github.io/CBE60499/02.03-IP.ipynb"> <img align="left" src="https://img.shields.io/badge/Github-Download-blue.svg" alt="Download" title="Download Notebook"></a></p>
+&lt; <a href="https://ndcbe.github.io/CBE60499/01.01-Pyomo-Nuts-and-Bolts.html">1.1 60 Minutes to Pyomo: An Energy Storage Model Predictive Control Example</a> | <a href="toc.html">Contents</a> | <a href="https://ndcbe.github.io/CBE60499/02.00-Optimization-Modeling.html">2.0 Optimization Modeling with Applications</a> &gt;<p><a href="https://colab.research.google.com/github/ndcbe/CBE60499/blob/master/docs/01.02-Pyomo-Mini-Project.ipynb"> <img align="left" src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open in Colab" title="Open in Google Colaboratory"></a><p><a href="https://ndcbe.github.io/CBE60499/01.02-Pyomo-Mini-Project.ipynb"> <img align="left" src="https://img.shields.io/badge/Github-Download-blue.svg" alt="Download" title="Download Notebook"></a></p>
+
+</div>
+</div>
+</div>
+
+
+
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># IMPORT DATA FILES USED BY THIS NOTEBOOK</span>
+<span class="kn">import</span> <span class="nn">os</span><span class="o">,</span>  <span class="nn">requests</span>
+
+<span class="n">file_links</span> <span class="o">=</span> <span class="p">[(</span><span class="s2">&quot;data/Prices_DAM_ALTA2G_7_B1.csv&quot;</span><span class="p">,</span> <span class="s2">&quot;https://ndcbe.github.io/CBE60499/data/Prices_DAM_ALTA2G_7_B1.csv&quot;</span><span class="p">)]</span>
+
+<span class="c1"># This cell has been added by nbpages. Run this cell to download data files required for this notebook.</span>
+
+<span class="k">for</span> <span class="n">filepath</span><span class="p">,</span> <span class="n">fileurl</span> <span class="ow">in</span> <span class="n">file_links</span><span class="p">:</span>
+    <span class="n">stem</span><span class="p">,</span> <span class="n">filename</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">filepath</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">stem</span><span class="p">:</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">stem</span><span class="p">):</span>
+            <span class="n">os</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="n">stem</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="n">filepath</span><span class="p">):</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">filepath</span><span class="p">,</span> <span class="s1">&#39;wb&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+            <span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">fileurl</span><span class="p">)</span>
+            <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">content</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+
+
+
+    
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="1.2-Pyomo-Mini-Project:-Receding-Horizon-Stochastic-Control">1.2 Pyomo Mini-Project: Receding Horizon Stochastic Control<a class="anchor-link" href="#1.2-Pyomo-Mini-Project:-Receding-Horizon-Stochastic-Control">&#182;</a></h1>
+</div>
+</div>
+</div>
+
+
+
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># This code cell installs packages on Colab</span>
+
+<span class="kn">import</span> <span class="nn">sys</span>
+<span class="k">if</span> <span class="s2">&quot;google.colab&quot;</span> <span class="ow">in</span> <span class="n">sys</span><span class="o">.</span><span class="n">modules</span><span class="p">:</span>
+    <span class="o">!</span>wget <span class="s2">&quot;https://raw.githubusercontent.com/ndcbe/CBE60499/main/notebooks/helper.py&quot;</span>
+    <span class="kn">import</span> <span class="nn">helper</span>
+    <span class="n">helper</span><span class="o">.</span><span class="n">install_idaes</span><span class="p">()</span>
+    <span class="n">helper</span><span class="o">.</span><span class="n">install_ipopt</span><span class="p">()</span>
+    <span class="n">helper</span><span class="o">.</span><span class="n">download_data</span><span class="p">([</span><span class="s1">&#39;Prices_DAM_ALTA2G_7_B1.csv&#39;</span><span class="p">])</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+
+
+
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[1]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">pyomo.environ</span> <span class="k">as</span> <span class="nn">pyo</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+
+
+
+    
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>In the previous notebook, we considered model predictive control (MPC) of a battery energy storage system interacting with the electricity market. In essence, we posed an optimization problem:</p>
+<p><em>Given a forecasting for energy prices, what charging and discharging strategy maximizes net market revenue?</em></p>
+<p>In this homework mini-project, you will consider two modifications to make the example more realistic:</p>
+<ol>
+<li>Receding horizon control</li>
+<li>Uncertainty</li>
+</ol>
+<p>The goal is to help you develop Python programming skills.</p>
+<h2 id="Background:-Receding-Horizon-Control">Background: Receding Horizon Control<a class="anchor-link" href="#Background:-Receding-Horizon-Control">&#182;</a></h2><p><em>Please ask questions during class.</em></p>
+<p>Nomenclature: Let $u^*_{i}$ represent the optimal control action from time $t=i$ to $t=i+1$. For the battery system, $u_{i} = [c_i, d_i]^{T}$ (charging and discharging).</p>
+<p>Algorithm:</p>
+<ol>
+<li>Consider time $t=m$. </li>
+<li>Compute the optimal control actions $u^*=[u^*_m, u^*_{m+1}, ..., u^*_{m+N-1}]^T$ from time $t=m$ until $t=N+m$ where $N$ is the length of the planning horizon. In our battery example, we considered $N = 24$.</li>
+<li>Simulate the system for one timestep using control action $u^*_{m}$.</li>
+<li>(Optional). Update the system model or forecasts using new observations.</li>
+<li>Step $t=m+1$ and goto Step 2.</li>
+</ol>
 
 </div>
 </div>
@@ -13147,7 +13264,47 @@ content is available <a href="git@github.com:ndcbe/CBE60499.git">on Github</a>.<
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="2.3-Integer-Programs">2.3 Integer Programs<a class="anchor-link" href="#2.3-Integer-Programs">&#182;</a></h1>
+<h2 id="1.2.1-Pseudocode">1.2.1 Pseudocode<a class="anchor-link" href="#1.2.1-Pseudocode">&#182;</a></h2><p>Pseudocode is an important planning tool for complex computer programs. The idea is to write out the code on paper or a whiteboard using generic programming syntax. As an example, consider calculating the 3rd through 10th elements of the Fibonacci sequence:</p>
+
+<pre><code># Governing equation where f[i] is the ith element of the sequence
+# f[i] = f[i-1] + f[i-2]
+
+# Algorithm:
+
+# Previous previous number in the sequence, f[i-2]
+n_2prev = 1
+
+# Previous number in the sequence, f[i-1]
+n_1prev = 1
+
+# Set counter
+j = 3
+
+while j &lt;= 10 do:
+    # Apply Fib. formula
+    n = n1_prev + n2_prev
+
+    # Print to screen
+    print(n)
+
+    # Shift history.
+    # Previous number becomes previous previous number
+    n2prev = n1prev
+
+    # Current number becomes previous number
+    n1prev = n
+
+    # Increment counter
+    j = j + 1</code></pre>
+<p>Here we sketched out the main algorithm (with comments!) in generic syntax. We did not worry about the correct way to write a while loop in Python. Once we figure out the algorithm we can worry about those details.</p>
+<p>Write pseudocode for the receding horizon control example on paper or a whiteboard. Your algorithm should include the following main steps:</p>
+<ol>
+<li>Load price data from a text file</li>
+<li>Loop over timesteps. Keep track of implemented control actions (charge and discharge), battery SOC, and net revenue.</li>
+<li>Make a plot of battery SOC and control actions that were actually implemented.</li>
+</ol>
+<p>Scan your pseudocode as a PDF and turn in via Gradescope.</p>
+
 </div>
 </div>
 </div>
@@ -13158,7 +13315,9 @@ content is available <a href="git@github.com:ndcbe/CBE60499.git">on Github</a>.<
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="2.3.1-Logic-Modeling">2.3.1 Logic Modeling<a class="anchor-link" href="#2.3.1-Logic-Modeling">&#182;</a></h2>
+<h2 id="1.2.2-Receding-Horizon-Control-with-Pyomo">1.2.2 Receding Horizon Control with Pyomo<a class="anchor-link" href="#1.2.2-Receding-Horizon-Control-with-Pyomo">&#182;</a></h2><p>Implement your pseudocode in Python. Hint: reuse code from the in class example. How can you exploit that price is a mutable paramter in the model?</p>
+<p>Perform receding horizon control for the first 5 days in January 2015. Make a plot to show the implemented control action.</p>
+
 </div>
 </div>
 </div>
@@ -13169,9 +13328,39 @@ content is available <a href="git@github.com:ndcbe/CBE60499.git">on Github</a>.<
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="2.3.2-MILP">2.3.2 MILP<a class="anchor-link" href="#2.3.2-MILP">&#182;</a></h2>
+<h3 id="1.2.2.1-Python-Code">1.2.2.1 Python Code<a class="anchor-link" href="#1.2.2.1-Python-Code">&#182;</a></h3>
 </div>
 </div>
+</div>
+
+
+
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">build_model</span><span class="p">(</span><span class="n">price_data</span><span class="p">,</span> <span class="n">horizon_length</span><span class="p">,</span> <span class="n">include_pbc</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+    <span class="c1"># return m</span>
+    <span class="k">pass</span>
+
+<span class="k">def</span> <span class="nf">update_model</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">new_price_data</span><span class="p">,</span> <span class="n">new_EO</span><span class="p">):</span>
+    <span class="k">pass</span>
+
+<span class="k">def</span> <span class="nf">extract_solution</span><span class="p">(</span><span class="n">m</span><span class="p">):</span>
+    <span class="c1"># return c_first_timestep, d_first_timestep, E_first_timestep</span>
+    <span class="k">pass</span>
+
+<span class="k">def</span> <span class="nf">receding_horizon_simulation</span><span class="p">(</span><span class="n">start_hour</span><span class="p">,</span> <span class="n">simulation_length</span><span class="p">):</span>
+    <span class="c1"># return c_implemented, d_implemented, E_implemented</span>
+    <span class="k">pass</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
 </div>
 
 
@@ -13180,7 +13369,92 @@ content is available <a href="git@github.com:ndcbe/CBE60499.git">on Github</a>.<
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="2.3.3-MINLP">2.3.3 MINLP<a class="anchor-link" href="#2.3.3-MINLP">&#182;</a></h2>
+<h3 id="1.2.2.2-Performance-Over-1-Week">1.2.2.2 Performance Over 1 Week<a class="anchor-link" href="#1.2.2.2-Performance-Over-1-Week">&#182;</a></h3>
+</div>
+</div>
+</div>
+
+
+
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+
+
+
+    
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="1.2.2.3-Impact-of-Horizon-Length">1.2.2.3 Impact of Horizon Length<a class="anchor-link" href="#1.2.2.3-Impact-of-Horizon-Length">&#182;</a></h3>
+</div>
+</div>
+</div>
+
+
+
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+
+
+
+    
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="1.2.2.4-Impact-of-Periodic-Boundary-Condition">1.2.2.4 Impact of Periodic Boundary Condition<a class="anchor-link" href="#1.2.2.4-Impact-of-Periodic-Boundary-Condition">&#182;</a></h3>
+</div>
+</div>
+</div>
+
+
+
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+
+
+
+    
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="1.2.3-Uncertainty">1.2.3 Uncertainty<a class="anchor-link" href="#1.2.3-Uncertainty">&#182;</a></h2><p>Generate white noise with mean zero and standard deviation 5 $/MWh using <code>np.random.normal()</code> and add this to the price forecast. Calculate how much less revenue you make with price uncertainty compared to the perfect information case (Part B). <em>Hint:</em> Each time you run the simulation, you will get a different answer.</p>
+
 </div>
 </div>
 </div>
@@ -13192,7 +13466,7 @@ content is available <a href="git@github.com:ndcbe/CBE60499.git">on Github</a>.<
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p><!--NAVIGATION-->
-&lt; <a href="https://ndcbe.github.io/CBE60499/02.02-NLP.html">2.2 Nonlinear Programs</a> | <a href="toc.html">Contents</a> | <a href="https://ndcbe.github.io/CBE60499/02.04-GDP.html">2.4 Generalized Disjunctive Programs</a> &gt;<p><a href="https://colab.research.google.com/github/ndcbe/CBE60499/blob/master/docs/02.03-IP.ipynb"> <img align="left" src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open in Colab" title="Open in Google Colaboratory"></a><p><a href="https://ndcbe.github.io/CBE60499/02.03-IP.ipynb"> <img align="left" src="https://img.shields.io/badge/Github-Download-blue.svg" alt="Download" title="Download Notebook"></a></p>
+&lt; <a href="https://ndcbe.github.io/CBE60499/01.01-Pyomo-Nuts-and-Bolts.html">1.1 60 Minutes to Pyomo: An Energy Storage Model Predictive Control Example</a> | <a href="toc.html">Contents</a> | <a href="https://ndcbe.github.io/CBE60499/02.00-Optimization-Modeling.html">2.0 Optimization Modeling with Applications</a> &gt;<p><a href="https://colab.research.google.com/github/ndcbe/CBE60499/blob/master/docs/01.02-Pyomo-Mini-Project.ipynb"> <img align="left" src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open in Colab" title="Open in Google Colaboratory"></a><p><a href="https://ndcbe.github.io/CBE60499/01.02-Pyomo-Mini-Project.ipynb"> <img align="left" src="https://img.shields.io/badge/Github-Download-blue.svg" alt="Download" title="Download Notebook"></a></p>
 
 </div>
 </div>
