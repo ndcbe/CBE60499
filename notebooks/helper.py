@@ -155,6 +155,9 @@ def _download(relative_file_names):
     
         # check if the folder name is not empty
         if stem:
+            # add "." for Colab. Doing it here because we do not want it in the URL
+            # stem = '.' + stem
+            
             # check if the folder exists
             if not os.path.exists(stem):
                 print("\tCreating folder",stem)
@@ -171,13 +174,13 @@ def _download(relative_file_names):
             print("\tFile found!")
 
 def download_data(filenames):
-    for f in filenames:
-        f = "/data/"+f
+    for i in range(len(filenames)):
+        filenames[i] = "./data/"+filenames[i]
     
     _download(filenames)
 
 def download_figures(filenames):
-    for f in filenames:
-        f = "/figures/"+f
+    for i in range(len(filenames)):
+        filenames[i] = "./figures/"+filenames[i]
     
     _download(filenames)
