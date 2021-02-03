@@ -154,7 +154,10 @@ def _download(relative_file_names):
         stem, filename = os.path.split(file_path)
     
         # check if the folder name is not empty
-        if stem:            
+        if stem:
+            # add "." for Colab. Doing it here because we do not want it in the URL
+            # stem = '.' + stem
+            
             # check if the folder exists
             if not os.path.exists(stem):
                 print("\tCreating folder",stem)
