@@ -13294,6 +13294,18 @@ content is available <a href="git@github.com:ndcbe/CBE60499.git">on Github</a>.<
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
+<p>This will install Ipopt in a hidden user folder. If you get the error <code>WARNING: Could not locate the 'ipopt' executable</code> add the line <code>import idaes</code> to the top of your notebook then restart the Python kernel. Our library <code>helper</code> takes care of adding Ipopt t</p>
+
+</div>
+</div>
+</div>
+
+
+
+    
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
 <p><strong>macOS users</strong> - unfortunately, IDAES does not include binaries for "good Ipopt". You can either compile the solver yourself after obtaining an academic license for HSL or you can install the "okay Ipopt" using conda:</p>
 
 <pre><code>conda install -c conda-forge ipopt</code></pre>
