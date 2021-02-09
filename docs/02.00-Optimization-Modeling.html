@@ -13135,7 +13135,7 @@ content is available <a href="git@github.com:ndcbe/CBE60499.git">on Github</a>.<
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p><!--NAVIGATION-->
-&lt; <a href="https://ndcbe.github.io/CBE60499/01.02-Pyomo-Mini-Project.html">1.2 Pyomo Mini-Project: Receding Horizon Stochastic Control</a> | <a href="toc.html">Contents</a> | <a href="https://ndcbe.github.io/CBE60499/02.01-LP-NLP.html">2.1 Linear Programs</a> &gt;<p><a href="https://colab.research.google.com/github/ndcbe/CBE60499/blob/master/docs/02.00-Optimization-Modeling.ipynb"> <img align="left" src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open in Colab" title="Open in Google Colaboratory"></a><p><a href="https://ndcbe.github.io/CBE60499/02.00-Optimization-Modeling.ipynb"> <img align="left" src="https://img.shields.io/badge/Github-Download-blue.svg" alt="Download" title="Download Notebook"></a></p>
+&lt; <a href="https://ndcbe.github.io/CBE60499/01.02-Pyomo-Mini-Project.html">1.2 Pyomo Mini-Project: Receding Horizon Stochastic Control</a> | <a href="toc.html">Contents</a> | <a href="https://ndcbe.github.io/CBE60499/02.01-LP-NLP.html">2.1 Continuous Optimization</a> &gt;<p><a href="https://colab.research.google.com/github/ndcbe/CBE60499/blob/master/docs/02.00-Optimization-Modeling.ipynb"> <img align="left" src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open in Colab" title="Open in Google Colaboratory"></a><p><a href="https://ndcbe.github.io/CBE60499/02.00-Optimization-Modeling.ipynb"> <img align="left" src="https://img.shields.io/badge/Github-Download-blue.svg" alt="Download" title="Download Notebook"></a></p>
 
 </div>
 </div>
@@ -13148,6 +13148,103 @@ content is available <a href="git@github.com:ndcbe/CBE60499.git">on Github</a>.<
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h1 id="2.0-Optimization-Modeling-with-Applications">2.0 Optimization Modeling with Applications<a class="anchor-link" href="#2.0-Optimization-Modeling-with-Applications">&#182;</a></h1>
+</div>
+</div>
+</div>
+
+
+
+    
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="2.0.1-Recommended-Reading">2.0.1 Recommended Reading<a class="anchor-link" href="#2.0.1-Recommended-Reading">&#182;</a></h2><p>Please review the following book chapters (in order):</p>
+<ol>
+<li>Chapter 1 of Biegler (2010) introduces classes of optimization problems motivated by applications.</li>
+<li>Chapters 1 and 2 in Hart et al. (2015) provides an overview of Pyomo and optimization modeling.</li>
+<li>Chapters 3 and 4 in Hart et al. (2015) describes core Pyomo features through examples.</li>
+<li>Chapter 7 in Hart et al. (2015) describes special considerations for nonlinear programs.</li>
+<li>Chapter 9 in Hart et al. (2015) describes generalized disjunctive programming (logical decisions).</li>
+<li>Chapter 10 in Hart et al. (2015) describes stochastic programming (sections 10.1 - 10.4 are most relevant).</li>
+<li>Chapter 11 in Hart et al. (2015) describes optimization with differential algebriac equations (DAEs).</li>
+<li>Chapter 10 in Biegler (2010) provides mathematical background for DAE-constrained optimization.</li>
+</ol>
+
+</div>
+</div>
+</div>
+
+
+
+    
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><img src="./figures/pyomo_book_cover.jpg" alt="pyomo_book"></p>
+<p><img src="./figures/nlp_book_cover.jpg" alt="nlp_book"></p>
+
+</div>
+</div>
+</div>
+
+
+
+    
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="2.0.2-Taxonomy-of-Optimization-Problems">2.0.2 Taxonomy of Optimization Problems<a class="anchor-link" href="#2.0.2-Taxonomy-of-Optimization-Problems">&#182;</a></h2><p>Reference: Chapter 1 in Biegler (2010).</p>
+
+</div>
+</div>
+</div>
+
+
+
+    
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>The following chart organizes optimization problems based on key characteristics including variable type (continous versus discrete) and whether the objective and constraints are differentiable. These factors impact which algorithms are best suited for different problems.</p>
+<p><img src="./figures/classification.png" alt="taxonomy"></p>
+
+</div>
+</div>
+</div>
+
+
+
+    
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>This is the most general problem structure we will consider:</p>
+
+</div>
+</div>
+</div>
+
+
+
+    
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><img src="./figures/minlp.png" alt="minlp_formulation"></p>
+
+</div>
+</div>
+</div>
+
+
+
+    
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Here are common (chemical) engineering optimization problems organizied by problem type:
+<img src="./figures/apps_table.png" alt="optimization_examples"></p>
+
 </div>
 </div>
 </div>
@@ -13176,7 +13273,7 @@ content is available <a href="git@github.com:ndcbe/CBE60499.git">on Github</a>.<
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p><!--NAVIGATION-->
-&lt; <a href="https://ndcbe.github.io/CBE60499/01.02-Pyomo-Mini-Project.html">1.2 Pyomo Mini-Project: Receding Horizon Stochastic Control</a> | <a href="toc.html">Contents</a> | <a href="https://ndcbe.github.io/CBE60499/02.01-LP-NLP.html">2.1 Linear Programs</a> &gt;<p><a href="https://colab.research.google.com/github/ndcbe/CBE60499/blob/master/docs/02.00-Optimization-Modeling.ipynb"> <img align="left" src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open in Colab" title="Open in Google Colaboratory"></a><p><a href="https://ndcbe.github.io/CBE60499/02.00-Optimization-Modeling.ipynb"> <img align="left" src="https://img.shields.io/badge/Github-Download-blue.svg" alt="Download" title="Download Notebook"></a></p>
+&lt; <a href="https://ndcbe.github.io/CBE60499/01.02-Pyomo-Mini-Project.html">1.2 Pyomo Mini-Project: Receding Horizon Stochastic Control</a> | <a href="toc.html">Contents</a> | <a href="https://ndcbe.github.io/CBE60499/02.01-LP-NLP.html">2.1 Continuous Optimization</a> &gt;<p><a href="https://colab.research.google.com/github/ndcbe/CBE60499/blob/master/docs/02.00-Optimization-Modeling.ipynb"> <img align="left" src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open in Colab" title="Open in Google Colaboratory"></a><p><a href="https://ndcbe.github.io/CBE60499/02.00-Optimization-Modeling.ipynb"> <img align="left" src="https://img.shields.io/badge/Github-Download-blue.svg" alt="Download" title="Download Notebook"></a></p>
 
 </div>
 </div>

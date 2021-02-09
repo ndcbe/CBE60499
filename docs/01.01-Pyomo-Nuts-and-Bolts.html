@@ -13720,6 +13720,7 @@ $$\mathcal{T} = \{0, 1, ..., N\}$$<p>for time where $N = 24$ for a 24-hour plann
 <li>$d_{max}$ Maximum discharge power, units: MW</li>
 <li>$E_{max}$ Maximum storage energy, units: MWh</li>
 <li>$E_{0}$ Energy in storage at time $t=0$, units: MWh</li>
+<li>$\Delta t = 1$ hour, Timestep for grid decisions and prices (fixed)</li>
 </ul>
 
 </div>
@@ -13757,8 +13758,8 @@ $$\mathcal{T} = \{0, 1, ..., N\}$$<p>for time where $N = 24$ for a 24-hour plann
 <div class="text_cell_render border-box-sizing rendered_html">
 $$
 \begin{align*}
-    \max_{\mathbf{E},\mathbf{d},\mathbf{c}} \quad &amp; \psi := \sum_{t \in \mathcal{T}'} \pi_{t} (d_{t} - c_{t}) \\
-\mathrm{s.t.} \quad &amp; E_{t} = E_{t-1} + c_{t} \sqrt{\eta} - \frac{d_{t}}{\sqrt{\eta}}, ~~ \forall ~ t \in \mathcal{T}' \\
+    \max_{\mathbf{E},\mathbf{d},\mathbf{c}} \quad &amp; \psi := \sum_{t \in \mathcal{T}'} \pi_{t} \Delta t (d_{t} - c_{t}) \\
+\mathrm{s.t.} \quad &amp; E_{t} = E_{t-1} + \Delta t \left( c_{t} \sqrt{\eta} - \frac{d_{t}}{\sqrt{\eta}} \right), ~~ \forall ~ t \in \mathcal{T}' \\
     &amp; E_{0} = E_{N} \\
     &amp; 0 \leq c_{t} \leq c_{max}, ~~\forall ~ t \in \mathcal{T}' \\
     &amp; 0 \leq d_{t} \leq d_{max}, ~~\forall ~ t \in \mathcal{T}' \\
