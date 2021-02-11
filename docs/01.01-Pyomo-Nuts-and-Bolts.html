@@ -14780,8 +14780,8 @@ $$
 <span class="n">m</span><span class="o">.</span><span class="n">OBJ</span> <span class="o">=</span> <span class="n">pyo</span><span class="o">.</span><span class="n">Objective</span><span class="p">(</span><span class="n">rule</span> <span class="o">=</span> <span class="n">objfun</span><span class="p">,</span> <span class="n">sense</span> <span class="o">=</span> <span class="n">pyo</span><span class="o">.</span><span class="n">maximize</span><span class="p">)</span>
 
 <span class="c1"># Approach 2: Use *expr=*</span>
-<span class="c1"># m.OBJ = pyo.Objective(expr = sum((-model.c[t] + model.d[t]) * model.price[t] for t in model.HORIZON), </span>
-<span class="c1">#    sense = maximize)</span>
+<span class="c1"># m.OBJ = pyo.Objective(expr = sum((-m.c[t] + m.d[t]) * m.price[t] for t in model.HORIZON), </span>
+<span class="c1">#    sense = pyo.maximize)</span>
 </pre></div>
 
     </div>
@@ -14920,8 +14920,8 @@ $$
 <p>Here is the optimization model, reproduced from above for convenience:</p>
 $$
 \begin{align*}
-    \max_{\mathbf{E},\mathbf{d},\mathbf{c}} \quad &amp; \psi := \sum_{t \in \mathcal{T}'} \pi_{t} (d_{t} - c_{t}) \\
-\mathrm{s.t.} \quad &amp; E_{t} = E_{t-1} + c_{t} \sqrt{\eta} - \frac{d_{t}}{\sqrt{\eta}}, ~~ \forall ~ t \in \mathcal{T}' \\
+    \max_{\mathbf{E},\mathbf{d},\mathbf{c}} \quad &amp; \psi := \sum_{t \in \mathcal{T}'} \pi_{t} \Delta t (d_{t} - c_{t}) \\
+\mathrm{s.t.} \quad &amp; E_{t} = E_{t-1} + \Delta t \left( c_{t} \sqrt{\eta} - \frac{d_{t}}{\sqrt{\eta}} \right), ~~ \forall ~ t \in \mathcal{T}' \\
     &amp; E_{0} = E_{N} \\
     &amp; 0 \leq c_{t} \leq c_{max}, ~~\forall ~ t \in \mathcal{T}' \\
     &amp; 0 \leq d_{t} \leq d_{max}, ~~\forall ~ t \in \mathcal{T}' \\
@@ -16194,123 +16194,7 @@ Writing basic solution to &#39;/var/folders/xy/24xvnyss36v3d8mw68tygxdw0000gp/T/
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="1.1.5-Extension:-Receding-Horizon-Stochastic-Control">1.1.5 Extension: Receding Horizon Stochastic Control<a class="anchor-link" href="#1.1.5-Extension:-Receding-Horizon-Stochastic-Control">&#182;</a></h2>
-</div>
-</div>
-</div>
-
-
-
-    
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>In the above notebook, we considered model predictive control (MPC) of a battery energy storage system interacting with the electricity market. In essence, we posed an optimization problem:</p>
-<p><em>Given a forecasting for energy prices, what charging and discharging strategy maximizes net market revenue?</em></p>
-<p>For homework, you will consider two modifications to make the example more realistic:</p>
-<ol>
-<li>Receding horizon control</li>
-<li>Uncertainty</li>
-</ol>
-<p>The goal is to help you develop Python programming skills.</p>
-<h3 id="Background:-Receding-Horizon-Control">Background: Receding Horizon Control<a class="anchor-link" href="#Background:-Receding-Horizon-Control">&#182;</a></h3><p><em>Please ask questions during class.</em></p>
-<p>Nomenclature: Let $u^*_{i}$ represent the optimal control action from time $t=i$ to $t=i+1$. For the battery system, $u_{i} = [c_i, d_i]^{T}$ (charging and discharging).</p>
-<p>Algorithm:</p>
-<ol>
-<li>Consider time $t=m$. </li>
-<li>Compute the optimal control actions $u^*=[u^*_m, u^*_{m+1}, ..., u^*_{m+N-1}]^T$ from time $t=m$ until $t=N+m$ where $N$ is the length of the planning horizon. In our battery example, we considered $N = 24$.</li>
-<li>Simulate the system for one timestep using control action $u^*_{m}$.</li>
-<li>(Optional). Update the system model or forecasts using new observations.</li>
-<li>Step $t=m+1$ and goto Step 2.</li>
-</ol>
-
-</div>
-</div>
-</div>
-
-
-
-    
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="1.1.5.1-Pseudocode">1.1.5.1 Pseudocode<a class="anchor-link" href="#1.1.5.1-Pseudocode">&#182;</a></h3><p>Pseudocode is an important planning tool for complex computer programs. The idea is to write out the code on paper or a whiteboard using generic programming syntax. As an example, consider calculating the 3rd through 10th elements of the Fibonacci sequence:</p>
-
-<pre><code># Governing equation where f[i] is the ith element of the sequence
-# f[i] = f[i-1] + f[i-2]
-
-# Algorithm:
-
-# Previous previous number in the sequence, f[i-2]
-n_2prev = 1
-
-# Previous number in the sequence, f[i-1]
-n_1prev = 1
-
-# Set counter
-j = 3
-
-while j &lt;= 10 do:
-    # Apply Fib. formula
-    n = n1_prev + n2_prev
-
-    # Print to screen
-    print(n)
-
-    # Shift history.
-    # Previous number becomes previous previous number
-    n2prev = n1prev
-
-    # Current number becomes previous number
-    n1prev = n
-
-    # Increment counter
-    j = j + 1</code></pre>
-<p>Here we sketched out the main algorithm (with comments!) in generic syntax. We did not worry about the correct way to write a while loop in Python. Once we figure out the algorithm we can worry about those details.</p>
-<p>Write pseudocode for the receding horizon control example on paper or a whiteboard. Your algorithm should include the following main steps:</p>
-<ol>
-<li>Load price data from a text file</li>
-<li>Loop over timesteps. Keep track of implemented control actions (charge and discharge), battery SOC, and net revenue.</li>
-<li>Make a plot of battery SOC and control actions that were actually implemented.</li>
-</ol>
-<p>Scan your pseudocode as a PDF and turn in via Gradescope.</p>
-
-</div>
-</div>
-</div>
-
-
-
-    
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="1.1.5.2-Receding-Horizon-Control">1.1.5.2 Receding Horizon Control<a class="anchor-link" href="#1.1.5.2-Receding-Horizon-Control">&#182;</a></h3><p>Implement your pseudocode in Python. Hint: reuse code from the in class example. How can you exploit that price is a mutable paramter in the model?</p>
-<p>Perform receding horizon control for the first 5 days in January 2015. Make a plot to show the implemented control action.</p>
-
-</div>
-</div>
-</div>
-
-
-
-    
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="1.1.5.3-Uncertainty">1.1.5.3 Uncertainty<a class="anchor-link" href="#1.1.5.3-Uncertainty">&#182;</a></h3><p>Generate white noise with mean zero and standard deviation 5 $/MWh using <code>np.random.normal()</code> and add this to the price forecast. Calculate how much less revenue you make with price uncertainty compared to the perfect information case (Part B). <em>Hint:</em> Each time you run the simulation, you will get a different answer.</p>
-
-</div>
-</div>
-</div>
-
-
-
-    
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="1.1.6-References">1.1.6 References<a class="anchor-link" href="#1.1.6-References">&#182;</a></h2><p>All tables are from Chapter 4 of Hart, W. E., Laird, C. D., Watson, J. P., Woodruff, D. L., Hackebeil, G. A., Nicholson, B. L., &amp; Siirola, J. D. (2017). <em>Pyomo-Optimization Modeling in Python</em> (Vol. 67). Berlin: Springer. <a href="https://www.springer.com/gp/book/9783319588193">https://www.springer.com/gp/book/9783319588193</a></p>
+<h2 id="1.1.5-References">1.1.5 References<a class="anchor-link" href="#1.1.5-References">&#182;</a></h2><p>All tables are from Chapter 4 of Hart, W. E., Laird, C. D., Watson, J. P., Woodruff, D. L., Hackebeil, G. A., Nicholson, B. L., &amp; Siirola, J. D. (2017). <em>Pyomo-Optimization Modeling in Python</em> (Vol. 67). Berlin: Springer. <a href="https://www.springer.com/gp/book/9783319588193">https://www.springer.com/gp/book/9783319588193</a></p>
 
 </div>
 </div>

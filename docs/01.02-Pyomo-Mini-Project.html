@@ -13320,6 +13320,7 @@ content is available <a href="git@github.com:ndcbe/CBE60499.git">on Github</a>.<
 <li>$d_{max}$ Maximum discharge power, units: MW</li>
 <li>$E_{max}$ Maximum storage energy, units: MWh</li>
 <li>$E_{0}$ Energy in storage at time $t=0$, units: MWh</li>
+<li>$\Delta t = 1$ hour, Timestep for grid decisions and prices (fixed)</li>
 </ul>
 
 </div>
@@ -13335,8 +13336,8 @@ content is available <a href="git@github.com:ndcbe/CBE60499.git">on Github</a>.<
 <p><strong>Optimization Problem</strong>
 $$
 \begin{align*}
-    \max_{\mathbf{E},\mathbf{d},\mathbf{c}} \quad &amp; \psi := \sum_{t \in \mathcal{T}'} \pi_{t} (d_{t} - c_{t}) \\
-\mathrm{s.t.} \quad &amp; E_{t} = E_{t-1} + c_{t} \sqrt{\eta} - \frac{d_{t}}{\sqrt{\eta}}, ~~ \forall ~ t \in \mathcal{T}' \\
+    \max_{\mathbf{E},\mathbf{d},\mathbf{c}} \quad &amp; \psi := \sum_{t \in \mathcal{T}'} \pi_{t} \Delta t (d_{t} - c_{t}) \\
+\mathrm{s.t.} \quad &amp; E_{t} = E_{t-1} + \Delta t \left( c_{t} \sqrt{\eta} - \frac{d_{t}}{\sqrt{\eta}} \right), ~~ \forall ~ t \in \mathcal{T}' \\
     &amp; E_{0} = E_{N} \\
     &amp; 0 \leq c_{t} \leq c_{max}, ~~\forall ~ t \in \mathcal{T}' \\
     &amp; 0 \leq d_{t} \leq d_{max}, ~~\forall ~ t \in \mathcal{T}' \\
@@ -13849,7 +13850,89 @@ while j &lt;= 10 do:
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="1.2.3-Forecast-Uncertainty-(required-for-CBE-60499,-optional-for-CBE-40499)">1.2.3 Forecast Uncertainty (required for CBE 60499, optional for CBE 40499)<a class="anchor-link" href="#1.2.3-Forecast-Uncertainty-(required-for-CBE-60499,-optional-for-CBE-40499)">&#182;</a></h2><p>Generate white noise with mean zero and standard deviation 5 $/MWh using <code>np.random.normal()</code> and add this to the price forecast. Calculate how much less revenue you make with price uncertainty compared to the perfect information case (Part B). <em>Hint:</em> Each time you run the simulation, you will get a different answer.</p>
+<h2 id="1.2.3-Forecast-Uncertainty-(required-for-CBE-60499,-optional-for-CBE-40499)">1.2.3 Forecast Uncertainty (required for CBE 60499, optional for CBE 40499)<a class="anchor-link" href="#1.2.3-Forecast-Uncertainty-(required-for-CBE-60499,-optional-for-CBE-40499)">&#182;</a></h2><p>Generate white noise with mean zero and standard deviation 5 $/MWh using <code>np.random.normal()</code> and add this to the price forecast. Calculate how much less revenue you make with price uncertainty compared to the perfect information case (Part B). <em>Hint:</em> Each time you run the simulation, you will get a different answer. Repeat the analysis 10 times and record the average.</p>
+
+</div>
+</div>
+</div>
+
+
+
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+
+
+
+    
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><strong>Discussion</strong> Compare the results with your earlier analysis. How much less revenue do you get with Gaussian noise with standard deviation 5 $/MWh.</p>
+
+</div>
+</div>
+</div>
+
+
+
+    
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Next, make a plot showing the average revenue as a function of the standard deviation of the uncertainty. <em>Hint</em>: Normalize the revenue by dividing by the perfect information revenue (no uncertainty).</p>
+
+</div>
+</div>
+</div>
+
+
+
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+
+
+
+    
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><strong>Discussion</strong> What is the impact with the larger uncertainty?</p>
+
+</div>
+</div>
+</div>
+
+
+
+    
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><strong>Discussion</strong> Why does uncertainty in the price decrease the revenue (on average)?</p>
 
 </div>
 </div>
