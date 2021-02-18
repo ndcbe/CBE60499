@@ -13155,6 +13155,33 @@ content is available <a href="git@github.com:ndcbe/CBE60499.git">on Github</a>.<
 
 
     
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># This code cell installs packages on Colab</span>
+
+<span class="kn">import</span> <span class="nn">sys</span>
+<span class="k">if</span> <span class="s2">&quot;google.colab&quot;</span> <span class="ow">in</span> <span class="n">sys</span><span class="o">.</span><span class="n">modules</span><span class="p">:</span>
+    <span class="o">!</span>wget <span class="s2">&quot;https://raw.githubusercontent.com/ndcbe/CBE60499/main/notebooks/helper.py&quot;</span>
+    <span class="kn">import</span> <span class="nn">helper</span>
+    <span class="n">helper</span><span class="o">.</span><span class="n">install_idaes</span><span class="p">()</span>
+    <span class="n">helper</span><span class="o">.</span><span class="n">install_ipopt</span><span class="p">()</span>
+    <span class="n">helper</span><span class="o">.</span><span class="n">install_glpk</span><span class="p">()</span>
+    <span class="n">helper</span><span class="o">.</span><span class="n">install_cbc</span><span class="p">()</span>
+    <span class="n">helper</span><span class="o">.</span><span class="n">download_figures</span><span class="p">([</span><span class="s1">&#39;feasible.png&#39;</span><span class="p">])</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+
+
+
+    
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
@@ -14796,6 +14823,23 @@ x2 =  9.0
 
 </div>
 </div>
+</div>
+
+
+
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+
+    </div>
+</div>
+</div>
+
 </div>
 
 
