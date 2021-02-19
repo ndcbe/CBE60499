@@ -13385,7 +13385,7 @@ content is available <a href="git@github.com:ndcbe/CBE60499.git">on Github</a>.<
 <p>$I_t=I_t^+-I_t^-, \forall t \in T$</p>
 <p>$X_t \leq Py_t, \forall t \in T$</p>
 <p>$X_t, I_t^+, I_t^- \geq 0, \forall t \in T$</p>
-<p>$y_t \in {0,1}, \forall t \in T$</p>
+<p>$y_t \in \{0,1\}, \forall t \in T$</p>
 <p>Our goal is to finnd the optimal production $X_t$ given known demands $d_t$, fixed cost $c_t$ associated with active production in a particular time period, an inventory holding cost $h_t^+$ and a shortage cost $h_t^-$ (cost of keeping a backlog) of orders. The variable $y_t$ (binary) determines if we produce in time $t$ or not, and $I_t^+$ represents inventory that we are storing across time period $t$, while $I_t^-$ represents the magnitude of the backlog. Note that $X_t \leq Py_t$ is a constraint that only allows production in time period $t$ if the indicator variable $y_t$=1.</p>
 <p>Write a Pyomo model for this problem and solve it using glpk using the data provided below.</p>
 <table>

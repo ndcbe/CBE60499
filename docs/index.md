@@ -14,7 +14,7 @@
 ### [Chapter 2.0 Optimization Modeling with Applications](https://ndcbe.github.io/CBE60499/02.00-Optimization-Modeling.html)
 - [2.1 Continuous Optimization](https://ndcbe.github.io/CBE60499/02.01-LP-NLP.html)
 - [2.2 Integer Programs](https://ndcbe.github.io/CBE60499/02.02-IP.html)
-- [2.3 Generalized Disjunctive Programs](https://ndcbe.github.io/CBE60499/02.03-GDP.html)
+- [2.3 Logical Modeling and Generalized Disjunctive Programs](https://ndcbe.github.io/CBE60499/02.03-GDP.html)
 - [2.4 Dynamic Optimization](https://ndcbe.github.io/CBE60499/02.04-DAE.html)
 - [2.5 Stochastic Programming](https://ndcbe.github.io/CBE60499/02.05-SP.html)
 - [2.6 Pyomo Homework 1](https://ndcbe.github.io/CBE60499/02.06-Pyomo1.html)
