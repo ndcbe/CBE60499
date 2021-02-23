@@ -16,7 +16,7 @@
 - [2.2 Integer Programs](https://ndcbe.github.io/CBE60499/02.02-IP.html)
 - [2.3 Logical Modeling and Generalized Disjunctive Programs](https://ndcbe.github.io/CBE60499/02.03-GDP.html)
 - [2.4 Dynamic Optimization: Differential Algebraic Equations (DAEs)](https://ndcbe.github.io/CBE60499/02.04-DAE-modeling.html)
-- [2.5 Runge Kutta: Single-Step Numeric Integration](https://ndcbe.github.io/CBE60499/02.05-Numeric-Integration.html)
+- [2.5 Numeric Integration for DAEs](https://ndcbe.github.io/CBE60499/02.05-Numeric-Integration.html)
 - [2.5 Quadrature Rules](https://ndcbe.github.io/CBE60499/02.05-Quadrature-Rules.html)
 - [2.6 Car Example](https://ndcbe.github.io/CBE60499/02.06-Pyomo-DAE.html)
 - [2.6 Reaction Kinetics Example / Simulation with Pyomo.DAE](https://ndcbe.github.io/CBE60499/02.06-Reaction-DAE-Simulator-Example.html)
