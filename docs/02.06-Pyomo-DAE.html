@@ -13135,8 +13135,107 @@ content is available <a href="git@github.com:ndcbe/CBE60499.git">on Github</a>.<
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p><!--NAVIGATION-->
-&lt; <a href="https://ndcbe.github.io/CBE60499/02.05-SP.html">2.5 Stochastic Programming</a> | <a href="toc.html">Contents</a> | <a href="https://ndcbe.github.io/CBE60499/02.07-Pyomo2.html">2.7 Pyomo Homework 2</a> &gt;<p><a href="https://colab.research.google.com/github/ndcbe/CBE60499/blob/master/docs/02.06-Pyomo1.ipynb"> <img align="left" src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open in Colab" title="Open in Google Colaboratory"></a><p><a href="https://ndcbe.github.io/CBE60499/02.06-Pyomo1.ipynb"> <img align="left" src="https://img.shields.io/badge/Github-Download-blue.svg" alt="Download" title="Download Notebook"></a></p>
+&lt; <a href="https://ndcbe.github.io/CBE60499/02.05-Quadrature-Rules.html">2.5 Quadrature Rules</a> | <a href="toc.html">Contents</a> | <a href="https://ndcbe.github.io/CBE60499/02.06-Reaction-DAE-Simulator-Example.html">2.6 Reaction Kinetics Example / Simulation with Pyomo.DAE</a> &gt;<p><a href="https://colab.research.google.com/github/ndcbe/CBE60499/blob/master/docs/02.06-Pyomo-DAE.ipynb"> <img align="left" src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open in Colab" title="Open in Google Colaboratory"></a><p><a href="https://ndcbe.github.io/CBE60499/02.06-Pyomo-DAE.ipynb"> <img align="left" src="https://img.shields.io/badge/Github-Download-blue.svg" alt="Download" title="Download Notebook"></a></p>
 
+</div>
+</div>
+</div>
+
+
+
+    
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="2.6-Car-Example">2.6 Car Example<a class="anchor-link" href="#2.6-Car-Example">&#182;</a></h1><p><strong>Lecture 20</strong>. Nonlinear and Stochastic Optimization. CBE 60499. A. Dowling. Fall 2018.</p>
+<p>Adapted from <a href="https://github.com/Pyomo/pyomo/blob/master/examples/dae/car_example.py">https://github.com/Pyomo/pyomo/blob/master/examples/dae/car_example.py</a></p>
+
+</div>
+</div>
+</div>
+
+
+
+    
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="2.6.1-Problem-Formulation">2.6.1 Problem Formulation<a class="anchor-link" href="#2.6.1-Problem-Formulation">&#182;</a></h2><p>You are a race car driver with a simple goal. Drive distance $L$ in the minimal amount of time <strong>but</strong> come to a complete stop at the finish line.</p>
+<h3 id="Optimal-Control">Optimal Control<a class="anchor-link" href="#Optimal-Control">&#182;</a></h3><p>Mathematically, you want to solve the following optimal control problem:</p>
+$$\begin{align*}
+\min_{u} \quad &amp; t_f \\
+\mathrm{s.t.} \quad &amp; \frac{dx}{dt} = v \\
+&amp; \frac{dv}{dt} = u - R v^2 \\
+&amp; x(t=0) = 0, ~~ x(t=t_f) = L \\
+&amp; v(t=0) = 0, ~~ v(t=t_f) = 0 \\
+&amp; -3 \leq u \leq 1
+\end{align*}$$<p>where $a$ is the acceleration/braking (your control variable) and $R$ is the drag coefficient (parameter).</p>
+<h3 id="Scale-Time">Scale Time<a class="anchor-link" href="#Scale-Time">&#182;</a></h3><p>Let $t = \tau \cdot t_f$ where $\tau \in [0,1]$. Thus $dt = t_f d\tau$. The optimal control problem becomes:</p>
+$$\begin{align*}
+\min_{u} \quad &amp; t_f \\
+\mathrm{s.t.} \quad &amp; \frac{dx}{d\tau} = t_f v \\
+&amp; \frac{dv}{d\tau} = t_f (u - R v^2) \\
+&amp; x(\tau = 0) = 0, ~~ x(\tau = 1) = L \\
+&amp; v(\tau = 0) = 0, ~~ v(\tau = 1) = 0 \\
+&amp; -3 \leq u \leq 1
+\end{align*}$$
+</div>
+</div>
+</div>
+
+
+
+    
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="2.6.2-Orthogonal-Collocation-on-Finite-Elements">2.6.2 Orthogonal Collocation on Finite Elements<a class="anchor-link" href="#2.6.2-Orthogonal-Collocation-on-Finite-Elements">&#182;</a></h2><p><strong>Indices and Sets</strong></p>
+<ul>
+<li>Finite elements: $i \in \mathcal{I} = \{1,2,...,N_{FE}\}$</li>
+<li>Finite elements (except first): $\mathcal{I} \setminus 1$</li>
+<li>Internal collocation points: $j,k \in \mathcal{J} = \{1,2,...,N_{C}\}$</li>
+</ul>
+<p><strong>Parameters</strong></p>
+<ul>
+<li>Coefficients in collocation/Runge-Kutta formula: $a_{j,j}$</li>
+<li>Drag coefficient: $R$</li>
+<li>Race length: $L$</li>
+<li>Scaled time for each finite element: $h_i = \frac{1}{N_{FE}}$</li>
+</ul>
+<p><strong>Variables</strong></p>
+<ul>
+<li>Position (internal collocation points): $x_{i,j}$</li>
+<li>Position (beginning of each finite element): $\bar{x}_{i}$</li>
+<li>Position derivative (internal collocation points): $\dot{x}_{i,j}$</li>
+<li>Velocity (internal collocation points): $v_{i,j}$</li>
+<li>Velocity (beginning of each finite element): $\bar{v}_{i}$</li>
+<li>Velocity derivative (internal collocation points): $\dot{v}_{i,j}$</li>
+<li>Time (internal collocation points): $t_{i,j}$</li>
+<li>Time (beginning of each finite element): $\bar{t}_{i}$</li>
+<li>Acceleration (control degrees of freedom): $u_i$</li>
+</ul>
+<p><strong>Objective and Constraints</strong></p>
+$$\begin{align*}
+\min \quad &amp; t_f \\
+\mathrm{s.t.} \quad &amp; \mathrm{Differential~equation~for~x:} \\ 
+&amp; x_{i,j} = \bar{x}_{i} + h_i \sum_{k \in \mathcal{J}} a_{k,j} \dot{x}_{i,k},\quad \forall i \in \mathcal{I},~j \in \mathcal{J} \\
+&amp; \bar{x}_{i} = \bar{x}_{i-1} + h_{i-1} \sum_{k \in \mathcal{J}} a_{k,N_C} \dot{x}_{i-1,k},\quad \forall i \in \mathcal{I} \setminus 1\\
+&amp; \dot{x}_{i,j} = t_f v_{i,j}, \quad \forall i \in \mathcal{I} \setminus 1,~j \in \mathcal{J} \\ \\
+&amp; \mathrm{Differential~equation~for~v:} \\ 
+&amp; v_{i,j} = \bar{v}_{i} + h_i \sum_{k \in \mathcal{J}} a_{k,j} \dot{v}_{i,k},\quad \forall i \in \mathcal{I},~j \in \mathcal{J} \\
+&amp; \bar{v}_{i} = \bar{v}_{i-1} + h_{i-1} \sum_{k \in \mathcal{J}} a_{k,N_C} \dot{v}_{i-1,k},\quad \forall i \in \mathcal{I} \setminus 1\\
+&amp; \dot{v}_{i,j} = t_f (u_{i} - R v_{i,j}^2), \quad \forall i \in \mathcal{I} \setminus 1,~j \in \mathcal{J} \\ \\
+&amp; \mathrm{Differential~equation~for~time:} \\
+&amp; t_{i,j} = \bar{t}_{i} + h_i \sum_{k \in \mathcal{J}} a_{k,j} t_f,\quad \forall i \in \mathcal{I},~j \in \mathcal{J} \\
+&amp; \bar{t}_{i} = \bar{t}_{i-1} + h_{i-1} \sum_{k \in \mathcal{J}} a_{k,N_C} t_f,\quad \forall i \in \mathcal{I} \setminus 1\\ \\
+&amp; \mathrm{Initial~conditions:} \\ 
+&amp; \bar{x}_{1} = 0, \quad \bar{v}_{1} = 0, \quad \bar{t}_1 = 0\\ \\
+&amp; \mathrm{Boundary~conditions:} \\ 
+&amp; L = \bar{x}_{N_{FE}} + h_{N_{FE}} \sum_{k \in \mathcal{J}} a_{k,N_C} \dot{x}_{N_{FE},k}, \\
+&amp; 0 = \bar{v}_{N_{FE}} + h_{N_{FE}} \sum_{k \in \mathcal{J}} a_{k,N_C} \dot{v}_{N_{FE},k}, \\ \\
+&amp; \mathrm{Bounds~on~acceleration:} \\
+&amp; -3 \leq a_i \leq 1, \quad \forall i \in \mathcal{I}
+\end{align*}$$
 </div>
 </div>
 </div>
@@ -13146,375 +13245,124 @@ content is available <a href="git@github.com:ndcbe/CBE60499.git">on Github</a>.<
     
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># IMPORT DATA FILES USED BY THIS NOTEBOOK</span>
-<span class="kn">import</span> <span class="nn">os</span><span class="o">,</span>  <span class="nn">requests</span>
-
-<span class="n">file_links</span> <span class="o">=</span> <span class="p">[(</span><span class="s2">&quot;data/knapsack_data.csv&quot;</span><span class="p">,</span> <span class="s2">&quot;https://ndcbe.github.io/CBE60499/data/knapsack_data.csv&quot;</span><span class="p">)]</span>
-
-<span class="c1"># This cell has been added by nbpages. Run this cell to download data files required for this notebook.</span>
-
-<span class="k">for</span> <span class="n">filepath</span><span class="p">,</span> <span class="n">fileurl</span> <span class="ow">in</span> <span class="n">file_links</span><span class="p">:</span>
-    <span class="n">stem</span><span class="p">,</span> <span class="n">filename</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">filepath</span><span class="p">)</span>
-    <span class="k">if</span> <span class="n">stem</span><span class="p">:</span>
-        <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">stem</span><span class="p">):</span>
-            <span class="n">os</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="n">stem</span><span class="p">)</span>
-    <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="n">filepath</span><span class="p">):</span>
-        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">filepath</span><span class="p">,</span> <span class="s1">&#39;wb&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
-            <span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">fileurl</span><span class="p">)</span>
-            <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">content</span><span class="p">)</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-</div>
-
-
-
-    
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="2.6-Pyomo-Homework-1">2.6 Pyomo Homework 1<a class="anchor-link" href="#2.6-Pyomo-Homework-1">&#182;</a></h1><p><strong>Due Date:</strong> 2/16/2021</p>
-
-</div>
-</div>
-</div>
-
-
-
-    
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># This code cell installs packages on Colab</span>
-
-<span class="kn">import</span> <span class="nn">sys</span>
-<span class="k">if</span> <span class="s2">&quot;google.colab&quot;</span> <span class="ow">in</span> <span class="n">sys</span><span class="o">.</span><span class="n">modules</span><span class="p">:</span>
-    <span class="o">!</span>wget <span class="s2">&quot;https://raw.githubusercontent.com/ndcbe/CBE60499/main/notebooks/helper.py&quot;</span>
-    <span class="kn">import</span> <span class="nn">helper</span>
-    <span class="n">helper</span><span class="o">.</span><span class="n">install_idaes</span><span class="p">()</span>
-    <span class="n">helper</span><span class="o">.</span><span class="n">install_ipopt</span><span class="p">()</span>
-    <span class="n">helper</span><span class="o">.</span><span class="n">install_glpk</span><span class="p">()</span>
-    <span class="n">helper</span><span class="o">.</span><span class="n">download_data</span><span class="p">([</span><span class="s1">&#39;knapsack_data.xlsx&#39;</span><span class="p">,</span><span class="s1">&#39;knapsack_data.csv&#39;</span><span class="p">])</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-</div>
-
-
-
-    
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">## IMPORT LIBRARIES</span>
-<span class="kn">from</span> <span class="nn">pyomo.environ</span> <span class="k">import</span> <span class="o">*</span>
-<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-</div>
-
-
-
-    
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>Special thanks to the Pyomo team for create these excercises as part of their excellent PyomoFest workshop.</p>
-
-</div>
-</div>
-</div>
-
-
-
-    
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="2.6.1-Pyomo-Fundamentals">2.6.1 Pyomo Fundamentals<a class="anchor-link" href="#2.6.1-Pyomo-Fundamentals">&#182;</a></h2>
-</div>
-</div>
-</div>
-
-
-
-    
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="2.6.1.1-Knapsack-example">2.6.1.1 Knapsack example<a class="anchor-link" href="#2.6.1.1-Knapsack-example">&#182;</a></h3><p>Solve the knapsack problem given below using GLPK and answer the following questions:</p>
-<ol>
-<li><p>Which items are acquired in the optimal solution?</p>
-</li>
-<li><p>What is the value of the selected items?</p>
-</li>
-</ol>
-
-</div>
-</div>
-</div>
-
-
-
-    
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">A</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;hammer&#39;</span><span class="p">,</span> <span class="s1">&#39;wrench&#39;</span><span class="p">,</span> <span class="s1">&#39;screwdriver&#39;</span><span class="p">,</span> <span class="s1">&#39;towel&#39;</span><span class="p">]</span>
-<span class="n">b</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;hammer&#39;</span><span class="p">:</span><span class="mi">8</span><span class="p">,</span> <span class="s1">&#39;wrench&#39;</span><span class="p">:</span><span class="mi">3</span><span class="p">,</span> <span class="s1">&#39;screwdriver&#39;</span><span class="p">:</span><span class="mi">6</span><span class="p">,</span> <span class="s1">&#39;towel&#39;</span><span class="p">:</span><span class="mi">11</span><span class="p">}</span>
-<span class="n">w</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;hammer&#39;</span><span class="p">:</span><span class="mi">5</span><span class="p">,</span> <span class="s1">&#39;wrench&#39;</span><span class="p">:</span><span class="mi">7</span><span class="p">,</span> <span class="s1">&#39;screwdriver&#39;</span><span class="p">:</span><span class="mi">4</span><span class="p">,</span> <span class="s1">&#39;towel&#39;</span><span class="p">:</span><span class="mi">3</span><span class="p">}</span>
-<span class="n">W_max</span> <span class="o">=</span> <span class="mi">14</span>
-
-<span class="n">model</span> <span class="o">=</span> <span class="n">ConcreteModel</span><span class="p">()</span>
-<span class="n">model</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="n">Var</span><span class="p">(</span> <span class="n">A</span><span class="p">,</span> <span class="n">within</span><span class="o">=</span><span class="n">Binary</span> <span class="p">)</span>
-
-<span class="n">model</span><span class="o">.</span><span class="n">obj</span> <span class="o">=</span> <span class="n">Objective</span><span class="p">(</span>
-    <span class="n">expr</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span> <span class="n">b</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">*</span><span class="n">model</span><span class="o">.</span><span class="n">x</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">A</span> <span class="p">),</span> 
-    <span class="n">sense</span> <span class="o">=</span> <span class="n">maximize</span> <span class="p">)</span>
-
-<span class="n">model</span><span class="o">.</span><span class="n">weight_con</span> <span class="o">=</span> <span class="n">Constraint</span><span class="p">(</span>
-    <span class="n">expr</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span> <span class="n">w</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">*</span><span class="n">model</span><span class="o">.</span><span class="n">x</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">A</span> <span class="p">)</span> <span class="o">&lt;=</span> <span class="n">W_max</span> <span class="p">)</span>
-
-<span class="c1"># YOUR SOLUTION HERE</span>
-
-<span class="n">model</span><span class="o">.</span><span class="n">display</span><span class="p">()</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-</div>
-
-
-
-    
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p><strong>Question Answers</strong></p>
-<ol>
-<li><p><em>Fill in here</em></p>
-</li>
-<li><p><em>Fill in here</em></p>
-</li>
-</ol>
-
-</div>
-</div>
-</div>
-
-
-
-    
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="2.6.1.2-Knapsack-example-with-improve-printing">2.6.1.2 Knapsack example with improve printing<a class="anchor-link" href="#2.6.1.2-Knapsack-example-with-improve-printing">&#182;</a></h3><p>Complete the missing lines in the code below to produce formatted output: print the total weight, the value of the items selected (the objective), and the items acquired in the optimal solution. Note, the Pyomo value function should be used to get the floating point value of Pyomo modeling components (e.g., print(value(model.x[i])).</p>
-
-</div>
-</div>
-</div>
-
-
-
-    
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">A</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;hammer&#39;</span><span class="p">,</span> <span class="s1">&#39;wrench&#39;</span><span class="p">,</span> <span class="s1">&#39;screwdriver&#39;</span><span class="p">,</span> <span class="s1">&#39;towel&#39;</span><span class="p">]</span>
-<span class="n">b</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;hammer&#39;</span><span class="p">:</span><span class="mi">8</span><span class="p">,</span> <span class="s1">&#39;wrench&#39;</span><span class="p">:</span><span class="mi">3</span><span class="p">,</span> <span class="s1">&#39;screwdriver&#39;</span><span class="p">:</span><span class="mi">6</span><span class="p">,</span> <span class="s1">&#39;towel&#39;</span><span class="p">:</span><span class="mi">11</span><span class="p">}</span>
-<span class="n">w</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;hammer&#39;</span><span class="p">:</span><span class="mi">5</span><span class="p">,</span> <span class="s1">&#39;wrench&#39;</span><span class="p">:</span><span class="mi">7</span><span class="p">,</span> <span class="s1">&#39;screwdriver&#39;</span><span class="p">:</span><span class="mi">4</span><span class="p">,</span> <span class="s1">&#39;towel&#39;</span><span class="p">:</span><span class="mi">3</span><span class="p">}</span>
-<span class="n">W_max</span> <span class="o">=</span> <span class="mi">14</span>
-
-<span class="n">model</span> <span class="o">=</span> <span class="n">ConcreteModel</span><span class="p">()</span>
-<span class="n">model</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="n">Var</span><span class="p">(</span> <span class="n">A</span><span class="p">,</span> <span class="n">within</span><span class="o">=</span><span class="n">Binary</span> <span class="p">)</span>
-
-<span class="n">model</span><span class="o">.</span><span class="n">obj</span> <span class="o">=</span> <span class="n">Objective</span><span class="p">(</span>
-    <span class="n">expr</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span> <span class="n">b</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">*</span><span class="n">model</span><span class="o">.</span><span class="n">x</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">A</span> <span class="p">),</span> 
-    <span class="n">sense</span> <span class="o">=</span> <span class="n">maximize</span> <span class="p">)</span>
-
-<span class="n">model</span><span class="o">.</span><span class="n">weight_con</span> <span class="o">=</span> <span class="n">Constraint</span><span class="p">(</span>
-    <span class="n">expr</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span> <span class="n">w</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">*</span><span class="n">model</span><span class="o">.</span><span class="n">x</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">A</span> <span class="p">)</span> <span class="o">&lt;=</span> <span class="n">W_max</span> <span class="p">)</span>
-
-<span class="n">opt</span> <span class="o">=</span> <span class="n">SolverFactory</span><span class="p">(</span><span class="s1">&#39;glpk&#39;</span><span class="p">)</span>
-<span class="n">opt_success</span> <span class="o">=</span> <span class="n">opt</span><span class="o">.</span><span class="n">solve</span><span class="p">(</span><span class="n">model</span><span class="p">)</span>
-
-<span class="n">total_weight</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span> <span class="n">w</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">*</span><span class="n">value</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">x</span><span class="p">[</span><span class="n">i</span><span class="p">])</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">A</span> <span class="p">)</span>
-<span class="c1"># YOUR SOLUTION HERE</span>
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;-------------------------&#39;</span><span class="p">)</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-</div>
-
-
-
-    
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="2.6.1.3-Changing-data">2.6.1.3 Changing data<a class="anchor-link" href="#2.6.1.3-Changing-data">&#182;</a></h3><p>Using your code from <strong>Question 1.2</strong>, if we were to increase the value of the wrench, at what point would it become selected as part of the optimal solution?</p>
-
-</div>
-</div>
-</div>
-
-
-
-    
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># YOUR SOLUTION HERE</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-</div>
-
-
-
-    
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p><strong>Question Answer</strong></p>
-<p><em>Fill in here</em></p>
-
-</div>
-</div>
-</div>
-
-
-
-    
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="2.6.1.4-Loading-data-from-Excel">2.6.1.4 Loading data from Excel<a class="anchor-link" href="#2.6.1.4-Loading-data-from-Excel">&#182;</a></h3><p>In the code above, the data is hardcoded at the top of the file. Instead of hardcoding the data, use Python to load the data from a difference source. You may use Pandas to load data from 'knapsack_data.xlsx' into a dataframe. You will then need to write code to obtain a dictionary from the dataframe.</p>
-
-</div>
-</div>
-</div>
-
-
-
-    
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">df_items</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_excel</span><span class="p">(</span><span class="s1">&#39;./data/knapsack_data.xlsx&#39;</span><span class="p">,</span> <span class="n">sheet_name</span><span class="o">=</span><span class="s1">&#39;data&#39;</span><span class="p">,</span> <span class="n">header</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">index_col</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
-<span class="n">W_max</span> <span class="o">=</span> <span class="mi">14</span>
-
-<span class="n">A</span> <span class="o">=</span> <span class="n">df_items</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
-<span class="c1"># YOUR SOLUTION HERE</span>
-
-<span class="n">model</span> <span class="o">=</span> <span class="n">ConcreteModel</span><span class="p">()</span>
-<span class="n">model</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="n">Var</span><span class="p">(</span> <span class="n">A</span><span class="p">,</span> <span class="n">within</span><span class="o">=</span><span class="n">Binary</span> <span class="p">)</span>
-
-<span class="n">model</span><span class="o">.</span><span class="n">obj</span> <span class="o">=</span> <span class="n">Objective</span><span class="p">(</span>
-    <span class="n">expr</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span> <span class="n">b</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">*</span><span class="n">model</span><span class="o">.</span><span class="n">x</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">A</span> <span class="p">),</span> 
-    <span class="n">sense</span> <span class="o">=</span> <span class="n">maximize</span> <span class="p">)</span>
-
-<span class="n">model</span><span class="o">.</span><span class="n">weight_con</span> <span class="o">=</span> <span class="n">Constraint</span><span class="p">(</span>
-    <span class="n">expr</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span> <span class="n">w</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">*</span><span class="n">model</span><span class="o">.</span><span class="n">x</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">A</span> <span class="p">)</span> <span class="o">&lt;=</span> <span class="n">W_max</span> <span class="p">)</span>
-
-<span class="n">opt</span> <span class="o">=</span> <span class="n">SolverFactory</span><span class="p">(</span><span class="s1">&#39;glpk&#39;</span><span class="p">)</span>
-<span class="n">opt_success</span> <span class="o">=</span> <span class="n">opt</span><span class="o">.</span><span class="n">solve</span><span class="p">(</span><span class="n">model</span><span class="p">)</span>
-
-<span class="n">total_weight</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span> <span class="n">w</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">*</span><span class="n">value</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">x</span><span class="p">[</span><span class="n">i</span><span class="p">])</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">A</span> <span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Total Weight:&#39;</span><span class="p">,</span> <span class="n">total_weight</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Total Benefit:&#39;</span><span class="p">,</span> <span class="n">value</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">obj</span><span class="p">))</span>
-
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">%12s</span><span class="s1"> </span><span class="si">%12s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="s1">&#39;Item&#39;</span><span class="p">,</span> <span class="s1">&#39;Selected&#39;</span><span class="p">))</span>
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;=========================&#39;</span><span class="p">)</span>
-<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">A</span><span class="p">:</span>
-    <span class="n">acquired</span> <span class="o">=</span> <span class="s1">&#39;No&#39;</span>
-    <span class="k">if</span> <span class="n">value</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">x</span><span class="p">[</span><span class="n">i</span><span class="p">])</span> <span class="o">&gt;=</span> <span class="mf">0.5</span><span class="p">:</span>
-        <span class="n">acquired</span> <span class="o">=</span> <span class="s1">&#39;Yes&#39;</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">%12s</span><span class="s1"> </span><span class="si">%12s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">acquired</span><span class="p">))</span>
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;-------------------------&#39;</span><span class="p">)</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-</div>
-
-
-
-    
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="2.6.1.5-NLP-vs.-MIP">2.6.1.5 NLP vs. MIP<a class="anchor-link" href="#2.6.1.5-NLP-vs.-MIP">&#182;</a></h3><p>Solve the knapsack problem with IPOPT instead of glpk. Print the solution values for model.x. What happened? Why?</p>
-<p><em>Hint</em>: Switch <code>glpk</code> to <code>ipopt</code> in the call to <code>SolverFactory</code>.</p>
-
-</div>
-</div>
-</div>
-
-
-
-    
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="prompt input_prompt">In&nbsp;[1]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">pyomo.environ</span> <span class="k">import</span> <span class="o">*</span>
 
-<span class="n">A</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;hammer&#39;</span><span class="p">,</span> <span class="s1">&#39;wrench&#39;</span><span class="p">,</span> <span class="s1">&#39;screwdriver&#39;</span><span class="p">,</span> <span class="s1">&#39;towel&#39;</span><span class="p">]</span>
-<span class="n">b</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;hammer&#39;</span><span class="p">:</span><span class="mi">8</span><span class="p">,</span> <span class="s1">&#39;wrench&#39;</span><span class="p">:</span><span class="mi">3</span><span class="p">,</span> <span class="s1">&#39;screwdriver&#39;</span><span class="p">:</span><span class="mi">6</span><span class="p">,</span> <span class="s1">&#39;towel&#39;</span><span class="p">:</span><span class="mi">11</span><span class="p">}</span>
-<span class="n">w</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;hammer&#39;</span><span class="p">:</span><span class="mi">5</span><span class="p">,</span> <span class="s1">&#39;wrench&#39;</span><span class="p">:</span><span class="mi">7</span><span class="p">,</span> <span class="s1">&#39;screwdriver&#39;</span><span class="p">:</span><span class="mi">4</span><span class="p">,</span> <span class="s1">&#39;towel&#39;</span><span class="p">:</span><span class="mi">3</span><span class="p">}</span>
-<span class="n">W_max</span> <span class="o">=</span> <span class="mi">14</span>
+<span class="n">m2</span> <span class="o">=</span> <span class="n">ConcreteModel</span><span class="p">()</span>
 
-<span class="n">model</span> <span class="o">=</span> <span class="n">ConcreteModel</span><span class="p">()</span>
-<span class="n">model</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="n">Var</span><span class="p">(</span> <span class="n">A</span><span class="p">,</span> <span class="n">within</span><span class="o">=</span><span class="n">Binary</span> <span class="p">)</span>
+<span class="c1"># Define model parameters</span>
+<span class="n">m2</span><span class="o">.</span><span class="n">R</span> <span class="o">=</span> <span class="n">Param</span><span class="p">(</span><span class="n">initialize</span><span class="o">=</span><span class="mf">0.001</span><span class="p">)</span> <span class="c1">#  Friction factor</span>
+<span class="n">m2</span><span class="o">.</span><span class="n">L</span> <span class="o">=</span> <span class="n">Param</span><span class="p">(</span><span class="n">initialize</span><span class="o">=</span><span class="mf">100.0</span><span class="p">)</span> <span class="c1">#  Final position</span>
 
-<span class="n">model</span><span class="o">.</span><span class="n">obj</span> <span class="o">=</span> <span class="n">Objective</span><span class="p">(</span>
-    <span class="n">expr</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span> <span class="n">b</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">*</span><span class="n">model</span><span class="o">.</span><span class="n">x</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">A</span> <span class="p">),</span> 
-    <span class="n">sense</span> <span class="o">=</span> <span class="n">maximize</span> <span class="p">)</span>
+<span class="c1"># Define finite elements and collocation points</span>
+<span class="n">NFE</span> <span class="o">=</span> <span class="mi">15</span>
+<span class="n">NC</span> <span class="o">=</span> <span class="mi">3</span>
+<span class="n">m2</span><span class="o">.</span><span class="n">I</span> <span class="o">=</span> <span class="n">Set</span><span class="p">(</span><span class="n">initialize</span><span class="o">=</span><span class="n">RangeSet</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="n">NFE</span><span class="p">))</span> <span class="c1"># Finite elements</span>
+<span class="n">m2</span><span class="o">.</span><span class="n">J</span> <span class="o">=</span> <span class="n">Set</span><span class="p">(</span><span class="n">initialize</span><span class="o">=</span><span class="n">RangeSet</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="n">NC</span><span class="p">))</span> <span class="c1"># Internal collocation points</span>
 
-<span class="n">model</span><span class="o">.</span><span class="n">weight_con</span> <span class="o">=</span> <span class="n">Constraint</span><span class="p">(</span>
-    <span class="n">expr</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span> <span class="n">w</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">*</span><span class="n">model</span><span class="o">.</span><span class="n">x</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">A</span> <span class="p">)</span> <span class="o">&lt;=</span> <span class="n">W_max</span> <span class="p">)</span>
+<span class="c1"># Define first order derivative collocation matrix</span>
+<span class="n">A</span> <span class="o">=</span> <span class="p">{}</span>
+<span class="n">A</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.19681547722366</span>
+<span class="n">A</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.39442431473909</span>
+<span class="n">A</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.37640306270047</span>
+<span class="n">A</span><span class="p">[</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="mf">0.06553542585020</span>
+<span class="n">A</span><span class="p">[</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.29207341166523</span>
+<span class="n">A</span><span class="p">[</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.51248582618842</span>
+<span class="n">A</span><span class="p">[</span><span class="mi">3</span><span class="p">,</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.02377097434822</span>
+<span class="n">A</span><span class="p">[</span><span class="mi">3</span><span class="p">,</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="mf">0.04154875212600</span>
+<span class="n">A</span><span class="p">[</span><span class="mi">3</span><span class="p">,</span><span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.11111111111111</span>
 
-<span class="c1"># YOUR SOLUTION HERE</span>
-<span class="n">opt_success</span> <span class="o">=</span> <span class="n">opt</span><span class="o">.</span><span class="n">solve</span><span class="p">(</span><span class="n">model</span><span class="p">)</span>
+<span class="n">m2</span><span class="o">.</span><span class="n">a</span> <span class="o">=</span> <span class="n">Param</span><span class="p">(</span><span class="n">m2</span><span class="o">.</span><span class="n">J</span><span class="p">,</span> <span class="n">m2</span><span class="o">.</span><span class="n">J</span><span class="p">,</span> <span class="n">initialize</span><span class="o">=</span><span class="n">A</span><span class="p">)</span>
 
-<span class="n">model</span><span class="o">.</span><span class="n">pprint</span><span class="p">()</span>
+<span class="c1"># Define step for each finite element</span>
+<span class="n">m2</span><span class="o">.</span><span class="n">h</span> <span class="o">=</span> <span class="n">Param</span><span class="p">(</span><span class="n">m2</span><span class="o">.</span><span class="n">I</span><span class="p">,</span><span class="n">initialize</span><span class="o">=</span><span class="mi">1</span><span class="o">/</span><span class="n">NFE</span><span class="p">)</span>
+
+<span class="c1"># Define objective (final time)</span>
+<span class="n">m2</span><span class="o">.</span><span class="n">tf</span> <span class="o">=</span> <span class="n">Var</span><span class="p">(</span><span class="n">domain</span><span class="o">=</span><span class="n">NonNegativeReals</span><span class="p">)</span>
+
+<span class="c1"># Variables for x</span>
+<span class="n">m2</span><span class="o">.</span><span class="n">x0</span> <span class="o">=</span> <span class="n">Var</span><span class="p">(</span><span class="n">m2</span><span class="o">.</span><span class="n">I</span><span class="p">)</span>
+<span class="n">m2</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="n">Var</span><span class="p">(</span><span class="n">m2</span><span class="o">.</span><span class="n">I</span><span class="p">,</span><span class="n">m2</span><span class="o">.</span><span class="n">J</span><span class="p">)</span>
+<span class="n">m2</span><span class="o">.</span><span class="n">xdot</span> <span class="o">=</span> <span class="n">Var</span><span class="p">(</span><span class="n">m2</span><span class="o">.</span><span class="n">I</span><span class="p">,</span><span class="n">m2</span><span class="o">.</span><span class="n">J</span><span class="p">)</span>
+
+<span class="c1"># Variables for v</span>
+<span class="n">m2</span><span class="o">.</span><span class="n">v0</span> <span class="o">=</span> <span class="n">Var</span><span class="p">(</span><span class="n">m2</span><span class="o">.</span><span class="n">I</span><span class="p">)</span>
+<span class="n">m2</span><span class="o">.</span><span class="n">v</span> <span class="o">=</span> <span class="n">Var</span><span class="p">(</span><span class="n">m2</span><span class="o">.</span><span class="n">I</span><span class="p">,</span><span class="n">m2</span><span class="o">.</span><span class="n">J</span><span class="p">)</span>
+<span class="n">m2</span><span class="o">.</span><span class="n">vdot</span> <span class="o">=</span> <span class="n">Var</span><span class="p">(</span><span class="n">m2</span><span class="o">.</span><span class="n">I</span><span class="p">,</span><span class="n">m2</span><span class="o">.</span><span class="n">J</span><span class="p">)</span>
+
+<span class="c1"># Variables for t</span>
+<span class="n">m2</span><span class="o">.</span><span class="n">t0</span> <span class="o">=</span> <span class="n">Var</span><span class="p">(</span><span class="n">m2</span><span class="o">.</span><span class="n">I</span><span class="p">)</span>
+<span class="n">m2</span><span class="o">.</span><span class="n">t</span> <span class="o">=</span> <span class="n">Var</span><span class="p">(</span><span class="n">m2</span><span class="o">.</span><span class="n">I</span><span class="p">,</span><span class="n">m2</span><span class="o">.</span><span class="n">J</span><span class="p">)</span>
+
+<span class="c1"># Acceleration</span>
+<span class="n">m2</span><span class="o">.</span><span class="n">u</span> <span class="o">=</span> <span class="n">Var</span><span class="p">(</span><span class="n">m2</span><span class="o">.</span><span class="n">I</span><span class="p">,</span> <span class="n">bounds</span><span class="o">=</span><span class="p">(</span><span class="o">-</span><span class="mi">3</span><span class="p">,</span><span class="mi">1</span><span class="p">))</span>
+
+<span class="c1">### Finite Element Collocation Equations</span>
+<span class="c1"># position</span>
+<span class="k">def</span> <span class="nf">FECOLx_</span><span class="p">(</span><span class="n">m2</span><span class="p">,</span><span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">m2</span><span class="o">.</span><span class="n">x</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="p">]</span> <span class="o">==</span> <span class="n">m2</span><span class="o">.</span><span class="n">x0</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">+</span> <span class="n">m2</span><span class="o">.</span><span class="n">h</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">*</span><span class="nb">sum</span><span class="p">(</span><span class="n">m2</span><span class="o">.</span><span class="n">a</span><span class="p">[</span><span class="n">k</span><span class="p">,</span><span class="n">j</span><span class="p">]</span><span class="o">*</span><span class="n">m2</span><span class="o">.</span><span class="n">xdot</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="n">k</span><span class="p">]</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">m2</span><span class="o">.</span><span class="n">J</span><span class="p">)</span>
+<span class="n">m2</span><span class="o">.</span><span class="n">FECOLx</span> <span class="o">=</span> <span class="n">Constraint</span><span class="p">(</span><span class="n">m2</span><span class="o">.</span><span class="n">I</span><span class="p">,</span><span class="n">m2</span><span class="o">.</span><span class="n">J</span><span class="p">,</span><span class="n">rule</span><span class="o">=</span><span class="n">FECOLx_</span><span class="p">)</span>
+
+<span class="c1"># velocity</span>
+<span class="k">def</span> <span class="nf">FECOLv_</span><span class="p">(</span><span class="n">m2</span><span class="p">,</span><span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">m2</span><span class="o">.</span><span class="n">v</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="p">]</span> <span class="o">==</span> <span class="n">m2</span><span class="o">.</span><span class="n">v0</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">+</span> <span class="n">m2</span><span class="o">.</span><span class="n">h</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">*</span><span class="nb">sum</span><span class="p">(</span><span class="n">m2</span><span class="o">.</span><span class="n">a</span><span class="p">[</span><span class="n">k</span><span class="p">,</span><span class="n">j</span><span class="p">]</span><span class="o">*</span><span class="n">m2</span><span class="o">.</span><span class="n">vdot</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="n">k</span><span class="p">]</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">m2</span><span class="o">.</span><span class="n">J</span><span class="p">)</span>
+<span class="n">m2</span><span class="o">.</span><span class="n">FECOLv</span> <span class="o">=</span> <span class="n">Constraint</span><span class="p">(</span><span class="n">m2</span><span class="o">.</span><span class="n">I</span><span class="p">,</span><span class="n">m2</span><span class="o">.</span><span class="n">J</span><span class="p">,</span><span class="n">rule</span><span class="o">=</span><span class="n">FECOLv_</span><span class="p">)</span>
+
+<span class="c1"># time</span>
+<span class="k">def</span> <span class="nf">FECOLt_</span><span class="p">(</span><span class="n">m2</span><span class="p">,</span><span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">m2</span><span class="o">.</span><span class="n">t</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="p">]</span> <span class="o">==</span> <span class="n">m2</span><span class="o">.</span><span class="n">t0</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">+</span> <span class="n">m2</span><span class="o">.</span><span class="n">h</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">*</span><span class="nb">sum</span><span class="p">(</span><span class="n">m2</span><span class="o">.</span><span class="n">a</span><span class="p">[</span><span class="n">k</span><span class="p">,</span><span class="n">j</span><span class="p">]</span><span class="o">*</span><span class="n">m2</span><span class="o">.</span><span class="n">tf</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">m2</span><span class="o">.</span><span class="n">J</span><span class="p">)</span>
+<span class="n">m2</span><span class="o">.</span><span class="n">FECOLt</span> <span class="o">=</span> <span class="n">Constraint</span><span class="p">(</span><span class="n">m2</span><span class="o">.</span><span class="n">I</span><span class="p">,</span><span class="n">m2</span><span class="o">.</span><span class="n">J</span><span class="p">,</span><span class="n">rule</span><span class="o">=</span><span class="n">FECOLt_</span><span class="p">)</span>
+
+
+<span class="c1">### Continuity Equations</span>
+<span class="c1"># position</span>
+<span class="k">def</span> <span class="nf">CONx_</span><span class="p">(</span><span class="n">m2</span><span class="p">,</span><span class="n">i</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">i</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">Constraint</span><span class="o">.</span><span class="n">Skip</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">m2</span><span class="o">.</span><span class="n">x0</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">==</span> <span class="n">m2</span><span class="o">.</span><span class="n">x0</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">m2</span><span class="o">.</span><span class="n">h</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">*</span><span class="nb">sum</span><span class="p">(</span><span class="n">m2</span><span class="o">.</span><span class="n">a</span><span class="p">[</span><span class="n">k</span><span class="p">,</span><span class="n">NC</span><span class="p">]</span><span class="o">*</span><span class="n">m2</span><span class="o">.</span><span class="n">xdot</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="n">k</span><span class="p">]</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">m2</span><span class="o">.</span><span class="n">J</span><span class="p">)</span>
+<span class="n">m2</span><span class="o">.</span><span class="n">CONx</span> <span class="o">=</span> <span class="n">Constraint</span><span class="p">(</span><span class="n">m2</span><span class="o">.</span><span class="n">I</span><span class="p">,</span> <span class="n">rule</span><span class="o">=</span><span class="n">CONx_</span><span class="p">)</span>
+
+<span class="c1"># velocity</span>
+<span class="k">def</span> <span class="nf">CONv_</span><span class="p">(</span><span class="n">m2</span><span class="p">,</span><span class="n">i</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">i</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">Constraint</span><span class="o">.</span><span class="n">Skip</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">m2</span><span class="o">.</span><span class="n">v0</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">==</span> <span class="n">m2</span><span class="o">.</span><span class="n">v0</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">m2</span><span class="o">.</span><span class="n">h</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">*</span><span class="nb">sum</span><span class="p">(</span><span class="n">m2</span><span class="o">.</span><span class="n">a</span><span class="p">[</span><span class="n">k</span><span class="p">,</span><span class="n">NC</span><span class="p">]</span><span class="o">*</span><span class="n">m2</span><span class="o">.</span><span class="n">vdot</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="n">k</span><span class="p">]</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">m2</span><span class="o">.</span><span class="n">J</span><span class="p">)</span>
+<span class="n">m2</span><span class="o">.</span><span class="n">CONv</span> <span class="o">=</span> <span class="n">Constraint</span><span class="p">(</span><span class="n">m2</span><span class="o">.</span><span class="n">I</span><span class="p">,</span> <span class="n">rule</span><span class="o">=</span><span class="n">CONv_</span><span class="p">)</span>
+
+<span class="c1"># time</span>
+<span class="k">def</span> <span class="nf">CONt_</span><span class="p">(</span><span class="n">m2</span><span class="p">,</span><span class="n">i</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">i</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">Constraint</span><span class="o">.</span><span class="n">Skip</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">m2</span><span class="o">.</span><span class="n">t0</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">==</span> <span class="n">m2</span><span class="o">.</span><span class="n">t0</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">m2</span><span class="o">.</span><span class="n">h</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">*</span><span class="nb">sum</span><span class="p">(</span><span class="n">m2</span><span class="o">.</span><span class="n">a</span><span class="p">[</span><span class="n">k</span><span class="p">,</span><span class="n">NC</span><span class="p">]</span><span class="o">*</span><span class="n">m2</span><span class="o">.</span><span class="n">tf</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">m2</span><span class="o">.</span><span class="n">J</span><span class="p">)</span>
+<span class="n">m2</span><span class="o">.</span><span class="n">CONt</span> <span class="o">=</span> <span class="n">Constraint</span><span class="p">(</span><span class="n">m2</span><span class="o">.</span><span class="n">I</span><span class="p">,</span> <span class="n">rule</span><span class="o">=</span><span class="n">CONt_</span><span class="p">)</span>
+
+<span class="c1">### Differential equations</span>
+<span class="c1"># position</span>
+<span class="k">def</span> <span class="nf">ODEx_</span><span class="p">(</span><span class="n">m2</span><span class="p">,</span><span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">m2</span><span class="o">.</span><span class="n">xdot</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="p">]</span> <span class="o">==</span> <span class="n">m2</span><span class="o">.</span><span class="n">tf</span><span class="o">*</span><span class="n">m2</span><span class="o">.</span><span class="n">v</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="p">]</span>
+<span class="n">m2</span><span class="o">.</span><span class="n">ODEx</span> <span class="o">=</span> <span class="n">Constraint</span><span class="p">(</span><span class="n">m2</span><span class="o">.</span><span class="n">I</span><span class="p">,</span><span class="n">m2</span><span class="o">.</span><span class="n">J</span><span class="p">,</span><span class="n">rule</span><span class="o">=</span><span class="n">ODEx_</span><span class="p">)</span>
+
+<span class="c1"># velocity</span>
+<span class="k">def</span> <span class="nf">ODEv_</span><span class="p">(</span><span class="n">m2</span><span class="p">,</span><span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">m2</span><span class="o">.</span><span class="n">vdot</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="p">]</span> <span class="o">==</span> <span class="n">m2</span><span class="o">.</span><span class="n">tf</span><span class="o">*</span><span class="p">(</span><span class="n">m2</span><span class="o">.</span><span class="n">u</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">-</span> <span class="n">m2</span><span class="o">.</span><span class="n">R</span><span class="o">*</span><span class="n">m2</span><span class="o">.</span><span class="n">v</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="p">]</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">m2</span><span class="o">.</span><span class="n">ODEv</span> <span class="o">=</span> <span class="n">Constraint</span><span class="p">(</span><span class="n">m2</span><span class="o">.</span><span class="n">I</span><span class="p">,</span><span class="n">m2</span><span class="o">.</span><span class="n">J</span><span class="p">,</span><span class="n">rule</span><span class="o">=</span><span class="n">ODEv_</span><span class="p">)</span>
+
+<span class="c1">### Initial conditions</span>
+<span class="n">m2</span><span class="o">.</span><span class="n">xIC</span> <span class="o">=</span> <span class="n">Constraint</span><span class="p">(</span><span class="n">expr</span><span class="o">=</span><span class="n">m2</span><span class="o">.</span><span class="n">x0</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span>
+<span class="n">m2</span><span class="o">.</span><span class="n">vIC</span> <span class="o">=</span> <span class="n">Constraint</span><span class="p">(</span><span class="n">expr</span><span class="o">=</span><span class="n">m2</span><span class="o">.</span><span class="n">v0</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span>
+<span class="n">m2</span><span class="o">.</span><span class="n">tIC</span> <span class="o">=</span> <span class="n">Constraint</span><span class="p">(</span><span class="n">expr</span><span class="o">=</span><span class="n">m2</span><span class="o">.</span><span class="n">t0</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span>
+
+<span class="c1">### Boundary conditions</span>
+<span class="n">m2</span><span class="o">.</span><span class="n">xBC</span> <span class="o">=</span> <span class="n">Constraint</span><span class="p">(</span><span class="n">expr</span><span class="o">=</span><span class="n">m2</span><span class="o">.</span><span class="n">L</span> <span class="o">==</span> <span class="n">m2</span><span class="o">.</span><span class="n">x0</span><span class="p">[</span><span class="n">NFE</span><span class="p">]</span> <span class="o">+</span> <span class="n">m2</span><span class="o">.</span><span class="n">h</span><span class="p">[</span><span class="n">NFE</span><span class="p">]</span><span class="o">*</span><span class="nb">sum</span><span class="p">(</span><span class="n">m2</span><span class="o">.</span><span class="n">a</span><span class="p">[</span><span class="n">k</span><span class="p">,</span><span class="n">NC</span><span class="p">]</span><span class="o">*</span><span class="n">m2</span><span class="o">.</span><span class="n">xdot</span><span class="p">[</span><span class="n">NFE</span><span class="p">,</span><span class="n">k</span><span class="p">]</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">m2</span><span class="o">.</span><span class="n">J</span><span class="p">))</span>
+<span class="n">m2</span><span class="o">.</span><span class="n">vBC</span> <span class="o">=</span> <span class="n">Constraint</span><span class="p">(</span><span class="n">expr</span><span class="o">=</span><span class="mi">0</span> <span class="o">==</span> <span class="n">m2</span><span class="o">.</span><span class="n">v0</span><span class="p">[</span><span class="n">NFE</span><span class="p">]</span> <span class="o">+</span> <span class="n">m2</span><span class="o">.</span><span class="n">h</span><span class="p">[</span><span class="n">NFE</span><span class="p">]</span><span class="o">*</span><span class="nb">sum</span><span class="p">(</span><span class="n">m2</span><span class="o">.</span><span class="n">a</span><span class="p">[</span><span class="n">k</span><span class="p">,</span><span class="n">NC</span><span class="p">]</span><span class="o">*</span><span class="n">m2</span><span class="o">.</span><span class="n">vdot</span><span class="p">[</span><span class="n">NFE</span><span class="p">,</span><span class="n">k</span><span class="p">]</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">m2</span><span class="o">.</span><span class="n">J</span><span class="p">))</span>
+
+<span class="c1">### Set objective</span>
+<span class="n">m2</span><span class="o">.</span><span class="n">obj</span> <span class="o">=</span> <span class="n">Objective</span><span class="p">(</span><span class="n">expr</span><span class="o">=</span><span class="n">m2</span><span class="o">.</span><span class="n">tf</span><span class="p">)</span>
 </pre></div>
 
     </div>
@@ -13526,14 +13374,137 @@ content is available <a href="git@github.com:ndcbe/CBE60499.git">on Github</a>.<
 
 
     
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p><strong>Question Answers</strong></p>
-<p><em>Fill in here</em></p>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[2]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">solver</span> <span class="o">=</span> <span class="n">SolverFactory</span><span class="p">(</span><span class="s1">&#39;ipopt&#39;</span><span class="p">)</span>
+<span class="n">solver</span><span class="o">.</span><span class="n">solve</span><span class="p">(</span><span class="n">m2</span><span class="p">,</span><span class="n">tee</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;final time = </span><span class="si">%6.2f</span><span class="s2">&quot;</span> <span class="o">%</span><span class="p">(</span><span class="n">value</span><span class="p">(</span><span class="n">m2</span><span class="o">.</span><span class="n">tf</span><span class="p">)))</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Ipopt 3.12.10: 
+
+******************************************************************************
+This program contains Ipopt, a library for large-scale nonlinear optimization.
+ Ipopt is released as open source code under the Eclipse Public License (EPL).
+         For more information visit http://projects.coin-or.org/Ipopt
+******************************************************************************
+
+This is Ipopt version 3.12.10, running with linear solver mumps.
+NOTE: Other linear solvers might be more efficient (see Ipopt documentation).
+
+Number of nonzeros in equality constraint Jacobian...:     1093
+Number of nonzeros in inequality constraint Jacobian.:        0
+Number of nonzeros in Lagrangian Hessian.............:      105
+
+Total number of variables............................:      286
+                     variables with only lower bounds:        1
+                variables with lower and upper bounds:       15
+                     variables with only upper bounds:        0
+Total number of equality constraints.................:      272
+Total number of inequality constraints...............:        0
+        inequality constraints with only lower bounds:        0
+   inequality constraints with lower and upper bounds:        0
+        inequality constraints with only upper bounds:        0
+
+iter    objective    inf_pr   inf_du lg(mu)  ||d||  lg(rg) alpha_du alpha_pr  ls
+   0  9.9999900e-03 1.00e+02 0.00e+00  -1.0 0.00e+00    -  0.00e+00 0.00e+00   0
+   1r 9.9999900e-03 1.00e+02 9.99e+02   2.0 0.00e+00    -  0.00e+00 1.05e-07R  2
+   2r 3.0578540e+00 9.99e+01 9.31e+02   2.0 4.49e+01    -  1.35e-01 6.80e-02f  2
+   3r 2.2146807e+00 9.91e+01 5.68e+02   1.3 2.16e+00    -  1.00e+00 3.91e-01f  1
+   4r 2.0626784e+00 9.87e+01 4.21e+02   0.6 2.94e+00    -  6.36e-01 2.59e-01f  1
+   5r 2.7501672e+00 9.77e+01 2.42e+02   0.6 8.74e+00    -  5.56e-01 4.24e-01f  1
+   6r 5.8696920e+00 9.43e+01 1.91e+02  -0.1 8.62e+00    -  4.13e-01 7.57e-01f  1
+   7r 8.6536528e+00 8.80e+01 1.65e+02  -0.1 1.29e+01    -  2.98e-01 7.27e-01f  1
+   8r 9.0137628e+00 8.55e+01 1.09e+02  -0.1 3.77e+00    -  5.42e-01 1.00e+00f  1
+   9  9.4134225e+00 8.42e+01 9.84e-01  -1.0 1.13e+02    -  3.63e-01 1.56e-02h  7
+iter    objective    inf_pr   inf_du lg(mu)  ||d||  lg(rg) alpha_du alpha_pr  ls
+  10  9.7719760e+00 8.29e+01 9.61e-01  -1.0 1.13e+02    -  6.94e-01 1.56e-02h  7
+  11  1.0069154e+01 8.16e+01 1.10e+00  -1.0 1.20e+02    -  6.26e-01 1.52e-02h  7
+  12  1.0350049e+01 8.04e+01 1.27e+00  -1.0 1.24e+02    -  1.00e+00 1.56e-02h  7
+  13  1.0613260e+01 7.91e+01 1.29e+00  -1.0 1.25e+02    -  6.03e-01 1.56e-02h  7
+  14  1.0858870e+01 7.79e+01 1.31e+00  -1.0 1.25e+02    -  1.00e+00 1.56e-02h  7
+  15  1.1089714e+01 7.66e+01 1.31e+00  -1.0 1.23e+02    -  7.24e-01 1.56e-02h  7
+  16  1.1306240e+01 7.55e+01 1.31e+00  -1.0 1.24e+02    -  1.00e+00 1.56e-02h  7
+  17  1.1714847e+01 7.31e+01 1.28e+00  -1.0 1.22e+02    -  8.51e-01 3.12e-02h  6
+  18  1.2077191e+01 7.08e+01 1.24e+00  -1.0 1.23e+02    -  1.00e+00 3.12e-02h  6
+  19  2.2531170e+01 7.10e+01 8.96e-01  -1.0 1.19e+02    -  1.00e+00 1.00e+00w  1
+iter    objective    inf_pr   inf_du lg(mu)  ||d||  lg(rg) alpha_du alpha_pr  ls
+  20  2.1008650e+01 4.72e+01 1.81e+00  -1.0 5.29e+00   0.0 6.28e-01 3.43e-01w  1
+  21  2.0843097e+01 4.36e+01 1.88e+02  -1.0 4.79e+00  -0.5 1.00e+00 7.64e-02w  1
+  22  1.8871577e+01 2.16e+00 1.79e+01  -1.0 4.57e+00  -0.5 9.07e-01 1.00e+00h  1
+  23  1.8647448e+01 1.19e-02 1.86e+00  -1.0 9.81e-01  -1.5 1.00e+00 1.00e+00h  1
+  24  1.7570090e+01 1.29e+00 2.37e+00  -1.0 7.70e+02    -  7.85e-02 3.31e-02f  2
+  25  1.7702557e+01 9.60e-03 3.33e-01  -1.0 4.74e-01  -0.2 1.00e+00 1.00e+00h  1
+  26  1.7674365e+01 4.35e-04 3.56e-02  -1.7 8.13e-02  -0.6 1.00e+00 1.00e+00h  1
+  27  1.6891832e+01 5.98e-01 8.82e-01  -2.5 9.15e+01    -  3.96e-01 1.16e-01f  1
+  28  1.6895477e+01 5.44e-01 4.44e+00  -2.5 2.75e-01  -0.2 8.73e-01 9.03e-02h  1
+  29  1.6958528e+01 1.74e-03 5.33e-02  -2.5 2.56e-01  -0.7 1.00e+00 1.00e+00h  1
+iter    objective    inf_pr   inf_du lg(mu)  ||d||  lg(rg) alpha_du alpha_pr  ls
+  30  1.6958554e+01 3.18e-08 9.79e-03  -2.5 1.76e-02  -0.3 1.00e+00 1.00e+00h  1
+  31  1.6349413e+01 8.96e-01 5.08e-01  -3.8 6.51e+02    -  1.06e-01 3.36e-02f  1
+  32  1.6349530e+01 7.32e-01 1.67e+00  -3.8 3.44e-01  -0.7 4.87e-01 1.83e-01h  1
+  33  1.6352497e+01 5.49e-01 1.83e+00  -3.8 4.12e-01  -1.2 1.00e+00 2.50e-01h  1
+  34  1.6360880e+01 4.35e-01 8.18e-01  -3.8 1.40e-01   0.1 1.45e-01 2.08e-01h  1
+  35  1.6389927e+01 5.91e-04 5.37e-02  -3.8 1.22e-01  -0.4 1.00e+00 1.00e+00h  1
+  36  1.6372895e+01 2.51e-04 6.76e-01  -3.8 1.13e-01  -0.8 1.00e+00 8.10e-01h  1
+  37  1.6337845e+01 2.88e-02 6.82e-01  -3.8 3.76e+03    -  5.81e-03 3.58e-03f  1
+  38  1.6317955e+01 7.23e-02 9.37e-01  -3.8 3.33e+03    -  1.46e-01 1.08e-02h  1
+  39  1.6304756e+01 7.10e-02 2.27e+00  -3.8 2.34e+02    -  9.88e-01 1.68e-02h  1
+iter    objective    inf_pr   inf_du lg(mu)  ||d||  lg(rg) alpha_du alpha_pr  ls
+  40  1.6321169e+01 6.33e-02 1.76e+00  -3.8 1.85e+01    -  7.89e-01 1.10e-01h  3
+  41  1.6292383e+01 5.17e-02 1.53e-02  -3.8 1.89e+01    -  1.00e+00 1.00e+00h  1
+  42  1.6289668e+01 1.92e-02 7.41e-06  -3.8 1.65e+01    -  1.00e+00 1.00e+00h  1
+  43  1.6289753e+01 1.45e-06 1.48e-09  -3.8 1.97e-01    -  1.00e+00 1.00e+00h  1
+  44  1.6287822e+01 9.84e-06 3.34e-08  -5.7 5.95e-02    -  1.00e+00 1.00e+00h  1
+  45  1.6287798e+01 1.59e-09 5.42e-12  -8.6 7.53e-04    -  1.00e+00 1.00e+00h  1
+
+Number of Iterations....: 45
+
+                                   (scaled)                 (unscaled)
+Objective...............:   1.6287797665173553e+01    1.6287797665173553e+01
+Dual infeasibility......:   5.4242871342117269e-12    5.4242871342117269e-12
+Constraint violation....:   1.5949126463965513e-09    1.5949126463965513e-09
+Complementarity.........:   2.5440468738175064e-09    2.5440468738175064e-09
+Overall NLP error.......:   2.5440468738175064e-09    2.5440468738175064e-09
+
+
+Number of objective function evaluations             = 130
+Number of objective gradient evaluations             = 40
+Number of equality constraint evaluations            = 130
+Number of inequality constraint evaluations          = 0
+Number of equality constraint Jacobian evaluations   = 47
+Number of inequality constraint Jacobian evaluations = 0
+Number of Lagrangian Hessian evaluations             = 45
+Total CPU secs in IPOPT (w/o function evaluations)   =      0.186
+Total CPU secs in NLP function evaluations           =      0.008
+
+EXIT: Optimal Solution Found.
+final time =  16.29
+</pre>
+</div>
+</div>
 
 </div>
 </div>
+
 </div>
 
 
@@ -13542,19 +13513,7 @@ content is available <a href="git@github.com:ndcbe/CBE60499.git">on Github</a>.<
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="2.6.2-More-Pyomo-Fundamentals">2.6.2 More Pyomo Fundamentals<a class="anchor-link" href="#2.6.2-More-Pyomo-Fundamentals">&#182;</a></h2>
-</div>
-</div>
-</div>
-
-
-
-    
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="2.6.2.1-Knapsack-problem-with-rules">2.6.2.1 Knapsack problem with rules<a class="anchor-link" href="#2.6.2.1-Knapsack-problem-with-rules">&#182;</a></h3><p>Rules are important for defining in-dexed constraints, however, they can also be used for single (i.e. scalar) constraints. Reimplement the knapsack model from <strong>Question 1.1</strong> using rules for the objective and the constraints.</p>
-
+<h2 id="2.6.3-Pyomo.dae">2.6.3 Pyomo.dae<a class="anchor-link" href="#2.6.3-Pyomo.dae">&#182;</a></h2><h3 id="Declare-Model">Declare Model<a class="anchor-link" href="#Declare-Model">&#182;</a></h3>
 </div>
 </div>
 </div>
@@ -13564,10 +13523,55 @@ content is available <a href="git@github.com:ndcbe/CBE60499.git">on Github</a>.<
     
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="prompt input_prompt">In&nbsp;[3]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># YOUR SOLUTION HERE</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">pyomo.environ</span> <span class="k">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">pyomo.dae</span> <span class="k">import</span> <span class="o">*</span>
+
+<span class="n">m</span> <span class="o">=</span> <span class="n">ConcreteModel</span><span class="p">()</span>
+
+<span class="n">m</span><span class="o">.</span><span class="n">R</span> <span class="o">=</span> <span class="n">Param</span><span class="p">(</span><span class="n">initialize</span><span class="o">=</span><span class="mf">0.001</span><span class="p">)</span> <span class="c1">#  Friction factor</span>
+<span class="n">m</span><span class="o">.</span><span class="n">L</span> <span class="o">=</span> <span class="n">Param</span><span class="p">(</span><span class="n">initialize</span><span class="o">=</span><span class="mf">100.0</span><span class="p">)</span> <span class="c1">#  Final position</span>
+
+<span class="n">m</span><span class="o">.</span><span class="n">tau</span> <span class="o">=</span> <span class="n">ContinuousSet</span><span class="p">(</span><span class="n">bounds</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">))</span> <span class="c1"># Unscaled time</span>
+<span class="n">m</span><span class="o">.</span><span class="n">time</span> <span class="o">=</span> <span class="n">Var</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">tau</span><span class="p">)</span> <span class="c1"># Scaled time</span>
+<span class="n">m</span><span class="o">.</span><span class="n">tf</span> <span class="o">=</span> <span class="n">Var</span><span class="p">()</span>
+<span class="n">m</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="n">Var</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">tau</span><span class="p">,</span><span class="n">bounds</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">m</span><span class="o">.</span><span class="n">L</span><span class="o">+</span><span class="mi">50</span><span class="p">))</span>
+<span class="n">m</span><span class="o">.</span><span class="n">v</span> <span class="o">=</span> <span class="n">Var</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">tau</span><span class="p">,</span><span class="n">bounds</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="kc">None</span><span class="p">))</span>
+<span class="n">m</span><span class="o">.</span><span class="n">u</span> <span class="o">=</span> <span class="n">Var</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">tau</span><span class="p">,</span> <span class="n">bounds</span><span class="o">=</span><span class="p">(</span><span class="o">-</span><span class="mf">3.0</span><span class="p">,</span><span class="mf">1.0</span><span class="p">),</span><span class="n">initialize</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+
+<span class="n">m</span><span class="o">.</span><span class="n">dtime</span> <span class="o">=</span> <span class="n">DerivativeVar</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">time</span><span class="p">)</span>
+<span class="n">m</span><span class="o">.</span><span class="n">dx</span> <span class="o">=</span> <span class="n">DerivativeVar</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">x</span><span class="p">)</span>
+<span class="n">m</span><span class="o">.</span><span class="n">dv</span> <span class="o">=</span> <span class="n">DerivativeVar</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">v</span><span class="p">)</span>
+
+<span class="n">m</span><span class="o">.</span><span class="n">obj</span> <span class="o">=</span> <span class="n">Objective</span><span class="p">(</span><span class="n">expr</span><span class="o">=</span><span class="n">m</span><span class="o">.</span><span class="n">tf</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">_ode1</span><span class="p">(</span><span class="n">m</span><span class="p">,</span><span class="n">i</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">i</span> <span class="o">==</span> <span class="mi">0</span> <span class="p">:</span>
+        <span class="k">return</span> <span class="n">Constraint</span><span class="o">.</span><span class="n">Skip</span>
+    <span class="k">return</span> <span class="n">m</span><span class="o">.</span><span class="n">dx</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">==</span> <span class="n">m</span><span class="o">.</span><span class="n">tf</span> <span class="o">*</span> <span class="n">m</span><span class="o">.</span><span class="n">v</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+<span class="n">m</span><span class="o">.</span><span class="n">ode1</span> <span class="o">=</span> <span class="n">Constraint</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">tau</span><span class="p">,</span> <span class="n">rule</span><span class="o">=</span><span class="n">_ode1</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">_ode2</span><span class="p">(</span><span class="n">m</span><span class="p">,</span><span class="n">i</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">i</span> <span class="o">==</span> <span class="mi">0</span> <span class="p">:</span>
+        <span class="k">return</span> <span class="n">Constraint</span><span class="o">.</span><span class="n">Skip</span>
+    <span class="k">return</span> <span class="n">m</span><span class="o">.</span><span class="n">dv</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">==</span> <span class="n">m</span><span class="o">.</span><span class="n">tf</span><span class="o">*</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">u</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">-</span> <span class="n">m</span><span class="o">.</span><span class="n">R</span><span class="o">*</span><span class="n">m</span><span class="o">.</span><span class="n">v</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">m</span><span class="o">.</span><span class="n">ode2</span> <span class="o">=</span> <span class="n">Constraint</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">tau</span><span class="p">,</span> <span class="n">rule</span><span class="o">=</span><span class="n">_ode2</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">_ode3</span><span class="p">(</span><span class="n">m</span><span class="p">,</span><span class="n">i</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">i</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">Constraint</span><span class="o">.</span><span class="n">Skip</span>
+    <span class="k">return</span> <span class="n">m</span><span class="o">.</span><span class="n">dtime</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">==</span> <span class="n">m</span><span class="o">.</span><span class="n">tf</span>
+<span class="n">m</span><span class="o">.</span><span class="n">ode3</span> <span class="o">=</span> <span class="n">Constraint</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">tau</span><span class="p">,</span> <span class="n">rule</span><span class="o">=</span><span class="n">_ode3</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">_init</span><span class="p">(</span><span class="n">m</span><span class="p">):</span>
+    <span class="k">yield</span> <span class="n">m</span><span class="o">.</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span>
+    <span class="k">yield</span> <span class="n">m</span><span class="o">.</span><span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="n">m</span><span class="o">.</span><span class="n">L</span>
+    <span class="k">yield</span> <span class="n">m</span><span class="o">.</span><span class="n">v</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span>
+    <span class="k">yield</span> <span class="n">m</span><span class="o">.</span><span class="n">v</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span>
+    <span class="k">yield</span> <span class="n">m</span><span class="o">.</span><span class="n">time</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span>
+<span class="n">m</span><span class="o">.</span><span class="n">initcon</span> <span class="o">=</span> <span class="n">ConstraintList</span><span class="p">(</span><span class="n">rule</span><span class="o">=</span><span class="n">_init</span><span class="p">)</span>
 </pre></div>
 
     </div>
@@ -13582,14 +13586,7 @@ content is available <a href="git@github.com:ndcbe/CBE60499.git">on Github</a>.<
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="2.6.2.2-Integer-formulation-of-the-knapsack-problem">2.6.2.2 Integer formulation of the knapsack problem<a class="anchor-link" href="#2.6.2.2-Integer-formulation-of-the-knapsack-problem">&#182;</a></h3><p>Consider again the knapsack problem. Assume now that we can acquire multiple items of the same type. In this new formulation, $x_i$ is now an integer variable instead of a binary variable. One way to formulate this problem is as follows:</p>
-<p>$\max_{q,x} \sum_{i\in{A}}v_ix_i$</p>
-<p>s.t. $\sum_{i\in{A}}w_ix_i\leq W_{max}$</p>
-<p>$x_i=\sum_{j=0}^Njq_{i,j}, \forall i \in{A}$</p>
-<p>$0\leq x\leq N$</p>
-<p>$q_{i,j} \in {0,1}, \forall i \in A, j \in {0...N}$</p>
-<p>Starting with your code from <strong>Question 2.1</strong>, implement this new formulation and solve. Is the solution surprising?</p>
-
+<h3 id="2.6.3.1-Discretize/Transcribe-and-Solve">2.6.3.1 Discretize/Transcribe and Solve<a class="anchor-link" href="#2.6.3.1-Discretize/Transcribe-and-Solve">&#182;</a></h3>
 </div>
 </div>
 </div>
@@ -13599,13 +13596,126 @@ content is available <a href="git@github.com:ndcbe/CBE60499.git">on Github</a>.<
     
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="prompt input_prompt">In&nbsp;[4]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># YOUR SOLUTION HERE</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#discretizer = TransformationFactory(&#39;dae.finite_difference&#39;)</span>
+<span class="c1">#discretizer.apply_to(m,nfe=15,scheme=&#39;BACKWARD&#39;)</span>
+
+<span class="n">discretizer</span> <span class="o">=</span> <span class="n">TransformationFactory</span><span class="p">(</span><span class="s1">&#39;dae.collocation&#39;</span><span class="p">)</span>
+<span class="n">discretizer</span><span class="o">.</span><span class="n">apply_to</span><span class="p">(</span><span class="n">m</span><span class="p">,</span><span class="n">nfe</span><span class="o">=</span><span class="mi">15</span><span class="p">,</span><span class="n">scheme</span><span class="o">=</span><span class="s1">&#39;LAGRANGE-RADAU&#39;</span><span class="p">,</span><span class="n">ncp</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+<span class="c1">#discretizer.apply_to(m,nfe=15,scheme=&#39;LAGRANGE-LEGENDRE&#39;,ncp=3)</span>
+
+<span class="c1"># force piecewise constant controls (acceleration) over each finite element</span>
+<span class="n">m</span> <span class="o">=</span> <span class="n">discretizer</span><span class="o">.</span><span class="n">reduce_collocation_points</span><span class="p">(</span><span class="n">m</span><span class="p">,</span><span class="n">var</span><span class="o">=</span><span class="n">m</span><span class="o">.</span><span class="n">u</span><span class="p">,</span><span class="n">ncp</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span><span class="n">contset</span><span class="o">=</span><span class="n">m</span><span class="o">.</span><span class="n">tau</span><span class="p">)</span>
+
+<span class="n">solver</span> <span class="o">=</span> <span class="n">SolverFactory</span><span class="p">(</span><span class="s1">&#39;ipopt&#39;</span><span class="p">)</span>
+<span class="n">solver</span><span class="o">.</span><span class="n">solve</span><span class="p">(</span><span class="n">m</span><span class="p">,</span><span class="n">tee</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;final time = </span><span class="si">%6.2f</span><span class="s2">&quot;</span> <span class="o">%</span><span class="p">(</span><span class="n">value</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">tf</span><span class="p">)))</span>
 </pre></div>
 
     </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Ipopt 3.12.10: 
+
+******************************************************************************
+This program contains Ipopt, a library for large-scale nonlinear optimization.
+ Ipopt is released as open source code under the Eclipse Public License (EPL).
+         For more information visit http://projects.coin-or.org/Ipopt
+******************************************************************************
+
+This is Ipopt version 3.12.10, running with linear solver mumps.
+NOTE: Other linear solvers might be more efficient (see Ipopt documentation).
+
+Number of nonzeros in equality constraint Jacobian...:     1145
+Number of nonzeros in inequality constraint Jacobian.:        0
+Number of nonzeros in Lagrangian Hessian.............:      135
+
+Total number of variables............................:      319
+                     variables with only lower bounds:       46
+                variables with lower and upper bounds:       91
+                     variables with only upper bounds:        0
+Total number of equality constraints.................:      305
+Total number of inequality constraints...............:        0
+        inequality constraints with only lower bounds:        0
+   inequality constraints with lower and upper bounds:        0
+        inequality constraints with only upper bounds:        0
+
+iter    objective    inf_pr   inf_du lg(mu)  ||d||  lg(rg) alpha_du alpha_pr  ls
+   0  0.0000000e+00 1.00e+02 3.51e-11  -1.0 0.00e+00    -  0.00e+00 0.00e+00   0
+   1  1.7840965e+00 1.00e+02 1.83e+02  -1.0 1.00e+04    -  9.90e-05 1.78e-04f  2
+   2  9.9565757e-02 9.99e+01 3.63e+01  -1.0 7.28e+03    -  7.97e-05 2.31e-04f  1
+   3  1.3054251e-01 9.99e+01 4.05e+02  -1.0 4.05e+04    -  3.62e-05 3.21e-05f  1
+   4  1.9080562e-01 9.99e+01 4.54e+02  -1.0 1.87e+04    -  8.89e-05 7.06e-05h  1
+   5  3.0001315e-01 9.99e+01 3.90e+02  -1.0 8.77e+03  -4.1 2.33e-04 1.73e-04h  1
+   6  4.0424027e-01 9.99e+01 3.79e+02  -1.0 2.92e+03    -  7.02e-04 2.48e-04f  2
+   7  6.0940396e-01 9.98e+01 3.67e+02  -1.0 1.55e+03    -  1.18e-03 6.43e-04f  2
+   8  9.5698546e-01 9.97e+01 3.64e+02  -1.0 6.44e+02    -  2.50e-03 1.62e-03f  2
+   9  1.6116971e+00 9.92e+01 3.63e+02  -1.0 4.14e+02    -  6.42e-03 4.74e-03f  2
+iter    objective    inf_pr   inf_du lg(mu)  ||d||  lg(rg) alpha_du alpha_pr  ls
+  10  2.7518303e+00 9.78e+01 3.61e+02  -1.0 2.46e+02    -  2.29e-02 1.39e-02f  2
+  11  4.7962303e+00 9.36e+01 3.48e+02  -1.0 1.87e+02    -  4.55e-02 4.32e-02f  2
+  12  7.9027263e+00 8.22e+01 3.08e+02  -1.0 1.81e+02    -  1.35e-01 1.21e-01f  2
+  13  1.3940540e+01 5.69e+01 1.65e+02  -1.0 1.59e+02    -  3.68e-01 9.90e-01H  1
+  14  1.6792690e+01 6.23e+00 5.09e+01  -1.0 8.52e+00    -  9.58e-01 1.00e+00h  1
+  15  1.7003368e+01 1.41e-01 4.05e+03  -1.0 9.70e+00    -  4.67e-01 1.00e+00f  1
+  16  1.7466607e+01 2.91e-01 1.65e+01  -1.0 9.60e+00    -  1.00e+00 9.90e-01f  1
+  17  1.9898098e+01 1.21e+01 6.87e+04  -1.0 6.25e+01    -  7.18e-01 1.00e+00f  1
+  18  1.9252403e+01 1.53e+00 7.07e-03  -1.0 3.18e+01    -  1.00e+00 1.00e+00h  1
+  19  1.9213841e+01 4.44e-03 8.21e-05  -1.0 1.34e+00    -  1.00e+00 1.00e+00h  1
+iter    objective    inf_pr   inf_du lg(mu)  ||d||  lg(rg) alpha_du alpha_pr  ls
+  20  1.7323214e+01 3.20e+00 2.52e+06  -3.8 1.68e+01    -  7.48e-01 1.00e+00f  1
+  21  1.6682010e+01 7.37e-01 3.00e+05  -3.8 1.25e+01    -  8.81e-01 1.00e+00h  1
+  22  1.6531808e+01 6.85e-02 2.20e-04  -3.8 7.45e+00    -  1.00e+00 1.00e+00h  1
+  23  1.6526498e+01 2.83e-05 3.17e-07  -3.8 1.26e-01    -  1.00e+00 1.00e+00h  1
+  24  1.6520275e+01 6.33e-05 1.05e-06  -5.7 9.61e-02    -  1.00e+00 1.00e+00h  1
+  25  1.6520269e+01 7.39e-11 1.04e+06  -5.7 1.29e-04  -1.4 1.42e-02 1.00e+00h  1
+  26  1.6520269e+01 1.82e-12 8.62e-04  -5.7 7.94e-06    -  1.00e+00 1.00e+00h  1
+  27  1.6520269e+01 1.31e-12 8.41e-10  -5.7 6.24e-08  -1.9 1.00e+00 1.00e+00h  1
+  28  1.6520192e+01 9.76e-09 1.62e-10  -8.6 1.19e-03    -  1.00e+00 1.00e+00f  1
+  29  1.6520192e+01 1.82e-12 1.35e+02  -8.6 9.85e-08    -  4.36e-01 1.00e+00h  1
+iter    objective    inf_pr   inf_du lg(mu)  ||d||  lg(rg) alpha_du alpha_pr  ls
+  30  1.6520192e+01 2.33e-12 2.53e-14  -8.6 5.32e-14    -  1.00e+00 1.00e+00   0
+
+Number of Iterations....: 30
+
+                                   (scaled)                 (unscaled)
+Objective...............:   1.6520191520100312e+01    1.6520191520100312e+01
+Dual infeasibility......:   2.5345112116363986e-14    2.5345112116363986e-14
+Constraint violation....:   2.0628122950757529e-12    2.3305801732931290e-12
+Complementarity.........:   2.5059035785435136e-09    2.5059035785435136e-09
+Overall NLP error.......:   2.5059035785435136e-09    2.5059035785435136e-09
+
+
+Number of objective function evaluations             = 51
+Number of objective gradient evaluations             = 31
+Number of equality constraint evaluations            = 51
+Number of inequality constraint evaluations          = 0
+Number of equality constraint Jacobian evaluations   = 31
+Number of inequality constraint Jacobian evaluations = 0
+Number of Lagrangian Hessian evaluations             = 30
+Total CPU secs in IPOPT (w/o function evaluations)   =      0.176
+Total CPU secs in NLP function evaluations           =      0.005
+
+EXIT: Optimal Solution Found.
+final time =  16.52
+</pre>
+</div>
+</div>
+
 </div>
 </div>
 
@@ -13617,11 +13727,76 @@ content is available <a href="git@github.com:ndcbe/CBE60499.git">on Github</a>.<
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p><strong>Question Answer</strong></p>
-<p><em>Fill in here</em></p>
+<h3 id="2.6.3.2-Plot-Results">2.6.3.2 Plot Results<a class="anchor-link" href="#2.6.3.2-Plot-Results">&#182;</a></h3>
+</div>
+</div>
+</div>
+
+
+
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[6]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">v</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">u</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">time</span><span class="o">=</span><span class="p">[]</span>
+
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">m</span><span class="o">.</span><span class="n">tau</span><span class="p">:</span>
+    <span class="n">time</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">value</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">time</span><span class="p">[</span><span class="n">i</span><span class="p">]))</span>
+    <span class="n">x</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">value</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">x</span><span class="p">[</span><span class="n">i</span><span class="p">]))</span>
+    <span class="n">v</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">value</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">v</span><span class="p">[</span><span class="n">i</span><span class="p">]))</span>
+    <span class="n">u</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">value</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">u</span><span class="p">[</span><span class="n">i</span><span class="p">]))</span>
+  
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">131</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">time</span><span class="p">,</span><span class="n">x</span><span class="p">,</span><span class="n">label</span><span class="o">=</span><span class="s1">&#39;x&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;location&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;time&#39;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">132</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">time</span><span class="p">,</span><span class="n">v</span><span class="p">,</span><span class="n">label</span><span class="o">=</span><span class="s1">&#39;v&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;time&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;velocity&#39;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">133</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">time</span><span class="p">,</span><span class="n">u</span><span class="p">,</span><span class="n">label</span><span class="o">=</span><span class="s1">&#39;a&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;time&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;acceleration&#39;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+
+
+<div class="output_png output_subarea ">
+<img src="data:image/png;base64,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
+"
+>
+</div>
+
+</div>
 
 </div>
 </div>
+
 </div>
 
 
@@ -13648,7 +13823,7 @@ content is available <a href="git@github.com:ndcbe/CBE60499.git">on Github</a>.<
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p><!--NAVIGATION-->
-&lt; <a href="https://ndcbe.github.io/CBE60499/02.05-SP.html">2.5 Stochastic Programming</a> | <a href="toc.html">Contents</a> | <a href="https://ndcbe.github.io/CBE60499/02.07-Pyomo2.html">2.7 Pyomo Homework 2</a> &gt;<p><a href="https://colab.research.google.com/github/ndcbe/CBE60499/blob/master/docs/02.06-Pyomo1.ipynb"> <img align="left" src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open in Colab" title="Open in Google Colaboratory"></a><p><a href="https://ndcbe.github.io/CBE60499/02.06-Pyomo1.ipynb"> <img align="left" src="https://img.shields.io/badge/Github-Download-blue.svg" alt="Download" title="Download Notebook"></a></p>
+&lt; <a href="https://ndcbe.github.io/CBE60499/02.05-Quadrature-Rules.html">2.5 Quadrature Rules</a> | <a href="toc.html">Contents</a> | <a href="https://ndcbe.github.io/CBE60499/02.06-Reaction-DAE-Simulator-Example.html">2.6 Reaction Kinetics Example / Simulation with Pyomo.DAE</a> &gt;<p><a href="https://colab.research.google.com/github/ndcbe/CBE60499/blob/master/docs/02.06-Pyomo-DAE.ipynb"> <img align="left" src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open in Colab" title="Open in Google Colaboratory"></a><p><a href="https://ndcbe.github.io/CBE60499/02.06-Pyomo-DAE.ipynb"> <img align="left" src="https://img.shields.io/badge/Github-Download-blue.svg" alt="Download" title="Download Notebook"></a></p>
 
 </div>
 </div>
