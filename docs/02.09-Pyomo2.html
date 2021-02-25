@@ -13158,7 +13158,7 @@ content is available <a href="git@github.com:ndcbe/CBE60499.git">on Github</a>.<
     
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="prompt input_prompt">In&nbsp;[1]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># This code cell installs packages on Colab</span>
@@ -13183,7 +13183,7 @@ content is available <a href="git@github.com:ndcbe/CBE60499.git">on Github</a>.<
     
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="prompt input_prompt">In&nbsp;[2]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1">## IMPORT LIBRARIES</span>
@@ -13896,13 +13896,67 @@ Hart, W. E., Laird, C. D., Watson, J. P., Woodruff, D. L., Hackebeil, G. A., Nic
     
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="prompt input_prompt">In&nbsp;[3]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># YOUR SOLUTION HERE</span>
 </pre></div>
 
     </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>5 Var Declarations
+    ca : Size=1, Index=None
+        Key  : Lower : Value              : Upper : Fixed : Stale : Domain
+        None :     0 : 3874.2588672317133 :  None : False : False : PositiveReals
+    cb : Size=1, Index=None
+        Key  : Lower : Value             : Upper : Fixed : Stale : Domain
+        None :     0 : 1072.437200108632 :  None : False : False : PositiveReals
+    cc : Size=1, Index=None
+        Key  : Lower : Value             : Upper : Fixed : Stale : Domain
+        None :     0 : 1330.093533408881 :  None : False : False : PositiveReals
+    cd : Size=1, Index=None
+        Key  : Lower : Value              : Upper : Fixed : Stale : Domain
+        None :     0 : 1861.6051996253875 :  None : False : False : PositiveReals
+    sv : Size=1, Index=None
+        Key  : Lower : Value             : Upper : Fixed : Stale : Domain
+        None :     0 : 1.343811761067278 :  None : False : False : PositiveReals
+
+1 Objective Declarations
+    obj : Size=1, Index=None, Active=True
+        Key  : Active : Sense    : Expression
+        None :   True : maximize :         cb
+
+4 Constraint Declarations
+    ca_bal : Size=1, Index=None, Active=True
+        Key  : Lower : Body                                                                       : Upper : Active
+        None :   0.0 : 10000.0*sv - sv*ca - 0.8333333333333334*ca - 0.0003333333333333333*ca**2.0 :   0.0 :   True
+    cb_bal : Size=1, Index=None, Active=True
+        Key  : Lower : Body                                                    : Upper : Active
+        None :   0.0 : - sv*cb + 0.8333333333333334*ca - 1.6666666666666667*cb :   0.0 :   True
+    cc_bal : Size=1, Index=None, Active=True
+        Key  : Lower : Body                            : Upper : Active
+        None :   0.0 : - sv*cc + 1.6666666666666667*cb :   0.0 :   True
+    cd_bal : Size=1, Index=None, Active=True
+        Key  : Lower : Body                                     : Upper : Active
+        None :   0.0 : - sv*cd + 0.00016666666666666666*ca**2.0 :   0.0 :   True
+
+10 Declarations: sv ca cb cc cd obj ca_bal cb_bal cc_bal cd_bal
+</pre>
+</div>
+</div>
+
 </div>
 </div>
 
