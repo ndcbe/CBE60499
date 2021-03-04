@@ -18,10 +18,10 @@
 - [2.4 Dynamic Optimization: Differential Algebraic Equations (DAEs)](https://ndcbe.github.io/CBE60499/02.04-DAE-modeling.html)
 - [2.5 Numeric Integration for DAEs](https://ndcbe.github.io/CBE60499/02.05-Numeric-Integration.html)
 - [2.6 Car Example](https://ndcbe.github.io/CBE60499/02.06-Pyomo-DAE.html)
-- [2.6 Reaction Kinetics Example / Simulation with Pyomo.DAE](https://ndcbe.github.io/CBE60499/02.06-Reaction-DAE-Simulator-Example.html)
 - [2.7 Stochastic Programming](https://ndcbe.github.io/CBE60499/02.07-SP.html)
 - [2.8 Pyomo Homework 1](https://ndcbe.github.io/CBE60499/02.08-Pyomo1.html)
 - [2.9 Pyomo Homework 2](https://ndcbe.github.io/CBE60499/02.09-Pyomo2.html)
+- [2.10 Pyomo Homework 3](https://ndcbe.github.io/CBE60499/02.10-Pyomo3.html)
 
 ### [Chapter 3.0 Unconstrained Nonlinear Optimization: Theory and Algorithms](https://ndcbe.github.io/CBE60499/03.00-Unconstrained.html)
 - [3.1 Mathematics Primer](https://ndcbe.github.io/CBE60499/03.01-Math-Primer.html)
