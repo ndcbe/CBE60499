@@ -17,7 +17,7 @@
 - [2.3 Logical Modeling and Generalized Disjunctive Programs](https://ndcbe.github.io/CBE60499/02.03-GDP.html)
 - [2.4 Dynamic Optimization: Differential Algebraic Equations (DAEs)](https://ndcbe.github.io/CBE60499/02.04-DAE-modeling.html)
 - [2.5 Numeric Integration for DAEs](https://ndcbe.github.io/CBE60499/02.05-Numeric-Integration.html)
-- [2.6 Car Example](https://ndcbe.github.io/CBE60499/02.06-Pyomo-DAE.html)
+- [2.6 Dynamic Optimization with Pyomo.DAE](https://ndcbe.github.io/CBE60499/02.06-Pyomo-DAE.html)
 - [2.7 Stochastic Programming](https://ndcbe.github.io/CBE60499/02.07-SP.html)
 - [2.8 Pyomo Homework 1](https://ndcbe.github.io/CBE60499/02.08-Pyomo1.html)
 - [2.9 Pyomo Homework 2](https://ndcbe.github.io/CBE60499/02.09-Pyomo2.html)
