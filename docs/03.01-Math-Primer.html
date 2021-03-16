@@ -13244,17 +13244,17 @@ content is available <a href="git@github.com:ndcbe/CBE60499.git">on Github</a>.<
 
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>Ao = 
-[[0.88908941 0.38184239 0.9783752 ]
- [0.66649595 0.9396587  0.10268105]]
+[[0.07925341 0.46088935 0.37629469]
+ [0.86577551 0.19318155 0.25019159]]
 
 Bo = 
-[[0.64202248 0.47248995]
- [0.67171136 0.58362808]
- [0.31054358 0.12728472]]
+[[0.36776414 0.04490344]
+ [0.06392044 0.54291878]
+ [0.92397109 0.68783033]]
 
 Ao*Bo =
-[[1.1311314  0.76747196]
- [1.09097175 0.87639357]]
+[[0.40629223 0.51261113]
+ [0.56191923 0.31584756]]
 </pre>
 </div>
 </div>
@@ -13313,9 +13313,9 @@ Ao*Bo =
 
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>transpose(Ao) = 
- [[0.88908941 0.66649595]
- [0.38184239 0.9396587 ]
- [0.9783752  0.10268105]] 
+ [[0.07925341 0.86577551]
+ [0.46088935 0.19318155]
+ [0.37629469 0.25019159]] 
 
 I = 
  [[1. 0. 0.]
@@ -13382,12 +13382,12 @@ I =
 
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>Ad = 
-[[0.82955795 0.26271753]
- [0.35392182 0.78934232]]
+[[0.95793656 0.56498068]
+ [0.68227517 0.02174942]]
 
 Bd = 
-[[0.76218696 0.47061812]
- [0.49820275 0.91764041]]
+[[0.95886406 0.29800165]
+ [0.25195169 0.67068589]]
 
 Cd = 
 [[ 1  0  0]
@@ -13446,8 +13446,8 @@ Cd =
 
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>det(A*B) =  0.2612201215004127
-det(A)*det(B) =  0.2612201215004126
+<pre>det(A*B) =  -0.20711954028379387
+det(A)*det(B) =  -0.20711954028379395
 </pre>
 </div>
 </div>
@@ -13768,7 +13768,7 @@ bl =
     
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="prompt input_prompt">In&nbsp;[13]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Create test linear systems</span>
@@ -13783,6 +13783,35 @@ bl =
 </div>
 </div>
 
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>A = 
+ [[0.46592705 0.23866994 0.95757722 0.98540772]
+ [0.79810794 0.59732897 0.26445257 0.50828598]
+ [0.62384211 0.37030075 0.810522   0.76900559]
+ [0.19445014 0.36854553 0.49094695 0.06613152]] 
+
+b = 
+ [[0.93103858]
+ [0.35084106]
+ [0.37945959]
+ [0.95197959]] 
+
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
 </div>
 
 
@@ -13790,7 +13819,7 @@ bl =
     
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="prompt input_prompt">In&nbsp;[14]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Perform LU decomposition</span>
@@ -13813,6 +13842,44 @@ bl =
 </div>
 </div>
 
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>P = 
+ [[0. 0. 1. 0.]
+ [1. 0. 0. 0.]
+ [0. 0. 0. 1.]
+ [0. 1. 0. 0.]]
+L = 
+ [[ 1.          0.          0.          0.        ]
+ [ 0.2436389   1.          0.          0.        ]
+ [ 0.58378952 -0.49344424  1.          0.        ]
+ [ 0.7816513  -0.43316868  0.7779433   1.        ]]
+U = 
+ [[ 0.79810794  0.59732897  0.26445257  0.50828598]
+ [ 0.          0.22301295  0.42651601 -0.05770672]
+ [ 0.          0.          1.01365445  0.66020065]
+ [ 0.          0.          0.         -0.16689223]]
+P*L*U = 
+ [[0.46592705 0.23866994 0.95757722 0.98540772]
+ [0.79810794 0.59732897 0.26445257 0.50828598]
+ [0.62384211 0.37030075 0.810522   0.76900559]
+ [0.19445014 0.36854553 0.49094695 0.06613152]] 
+
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
 </div>
 
 
@@ -13831,7 +13898,7 @@ bl =
     
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="prompt input_prompt">In&nbsp;[15]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;inv(P) = </span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span><span class="n">linalg</span><span class="o">.</span><span class="n">inv</span><span class="p">(</span><span class="n">P</span><span class="p">),</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
@@ -13842,6 +13909,41 @@ bl =
 </pre></div>
 
     </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>inv(P) = 
+ [[ 0.  1. -0. -0.]
+ [ 0.  0. -0.  1.]
+ [ 1.  0. -0.  0.]
+ [ 0.  0.  1.  0.]] 
+
+transpose(P) = 
+ [[0. 1. 0. 0.]
+ [0. 0. 0. 1.]
+ [1. 0. 0. 0.]
+ [0. 0. 1. 0.]] 
+
+P.T*P = 
+ [[1. 0. 0. 0.]
+ [0. 1. 0. 0.]
+ [0. 0. 1. 0.]
+ [0. 0. 0. 1.]] 
+
+</pre>
+</div>
+</div>
+
 </div>
 </div>
 
@@ -13882,7 +13984,7 @@ $$P^T \cdot L \cdot U \cdot x = b$$$$ L \cdot U \cdot x = P \cdot b$$<p>Let $y =
     
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[1]:</div>
+<div class="prompt input_prompt">In&nbsp;[16]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">Pb</span> <span class="o">=</span> <span class="n">P</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">b</span><span class="p">)</span>
@@ -13908,18 +14010,23 @@ $$P^T \cdot L \cdot U \cdot x = b$$$$ L \cdot U \cdot x = P \cdot b$$<p>Let $y =
     <div class="prompt"></div>
 
 
-<div class="output_subarea output_text output_error">
-<pre>
-<span class="ansi-red-fg">---------------------------------------------------------------------------</span>
-<span class="ansi-red-fg">NameError</span>                                 Traceback (most recent call last)
-<span class="ansi-green-fg">&lt;ipython-input-1-bcf725d653e2&gt;</span> in <span class="ansi-cyan-fg">&lt;module&gt;</span>
-<span class="ansi-green-fg">----&gt; 1</span><span class="ansi-red-fg"> </span>Pb <span class="ansi-blue-fg">=</span> P<span class="ansi-blue-fg">.</span>dot<span class="ansi-blue-fg">(</span>b<span class="ansi-blue-fg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">      2</span> print<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">&#34;P*b = &#34;</span><span class="ansi-blue-fg">,</span>Pb<span class="ansi-blue-fg">,</span><span class="ansi-blue-fg">&#34;\n&#34;</span><span class="ansi-blue-fg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">      3</span> 
-<span class="ansi-green-intense-fg ansi-bold">      4</span> yLU <span class="ansi-blue-fg">=</span> linalg<span class="ansi-blue-fg">.</span>solve<span class="ansi-blue-fg">(</span>L<span class="ansi-blue-fg">,</span>Pb<span class="ansi-blue-fg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">      5</span> print<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">&#34;yLU = &#34;</span><span class="ansi-blue-fg">,</span>yLU<span class="ansi-blue-fg">,</span><span class="ansi-blue-fg">&#34;\n&#34;</span><span class="ansi-blue-fg">)</span>
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>P*b =  [[0.37945959]
+ [0.93103858]
+ [0.95197959]
+ [0.35084106]] 
 
-<span class="ansi-red-fg">NameError</span>: name &#39;P&#39; is not defined</pre>
+yLU =  [[ 0.37945959]
+ [ 0.83858747]
+ [ 1.14425121]
+ [-0.47267676]] 
+
+xLU =  [[-5.47851442]
+ [ 5.86213406]
+ [-0.71581324]
+ [ 2.83222758]] 
+
+</pre>
 </div>
 </div>
 
@@ -13951,7 +14058,7 @@ $$P \cdot L \cdot U \cdot x = b$$$$P^T \cdot P \cdot L \cdot U \cdot x = P^T \cd
     
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[2]:</div>
+<div class="prompt input_prompt">In&nbsp;[17]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1">## LU decomposition algorithm.</span>
@@ -13978,38 +14085,26 @@ $$P \cdot L \cdot U \cdot x = b$$$$P^T \cdot P \cdot L \cdot U \cdot x = P^T \cd
     <div class="prompt"></div>
 
 
-<div class="output_subarea output_text output_error">
-<pre>
-<span class="ansi-red-fg">---------------------------------------------------------------------------</span>
-<span class="ansi-red-fg">NameError</span>                                 Traceback (most recent call last)
-<span class="ansi-green-fg">&lt;ipython-input-2-0f048fb53fd5&gt;</span> in <span class="ansi-cyan-fg">&lt;module&gt;</span>
-<span class="ansi-green-intense-fg ansi-bold">      1</span> <span class="ansi-red-fg">## LU decomposition algorithm.</span>
-<span class="ansi-green-fg">----&gt; 2</span><span class="ansi-red-fg"> </span>Pb <span class="ansi-blue-fg">=</span> <span class="ansi-blue-fg">(</span>P<span class="ansi-blue-fg">.</span>T<span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">.</span>dot<span class="ansi-blue-fg">(</span>b<span class="ansi-blue-fg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">      3</span> print<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">&#34;P.T*b = &#34;</span><span class="ansi-blue-fg">,</span>Pb<span class="ansi-blue-fg">,</span><span class="ansi-blue-fg">&#34;\n&#34;</span><span class="ansi-blue-fg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">      4</span> 
-<span class="ansi-green-intense-fg ansi-bold">      5</span> yLU <span class="ansi-blue-fg">=</span> linalg<span class="ansi-blue-fg">.</span>solve<span class="ansi-blue-fg">(</span>L<span class="ansi-blue-fg">,</span>Pb<span class="ansi-blue-fg">)</span>
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>P.T*b =  [[0.35084106]
+ [0.95197959]
+ [0.93103858]
+ [0.37945959]] 
 
-<span class="ansi-red-fg">NameError</span>: name &#39;P&#39; is not defined</pre>
+yLU =  [[ 0.35084106]
+ [ 0.86650106]
+ [ 1.15379121]
+ [-0.4170188 ]] 
+
+xLU =  [[-5.08178163]
+ [ 5.46758958]
+ [-0.48919305]
+ [ 2.49873114]] 
+
+</pre>
 </div>
 </div>
 
-</div>
-</div>
-
-</div>
-
-
-
-    
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="o">**</span><span class="n">What</span> <span class="ow">is</span> <span class="n">the</span> <span class="n">difference</span><span class="err">?</span><span class="o">**</span> <span class="n">A</span> <span class="n">transp</span>
-</pre></div>
-
-    </div>
 </div>
 </div>
 
@@ -14021,7 +14116,19 @@ $$P \cdot L \cdot U \cdot x = b$$$$P^T \cdot P \cdot L \cdot U \cdot x = P^T \cd
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h4 id="3.1.5.2.4-linalg.solve">3.1.5.2.4 <code>linalg.solve</code><a class="anchor-link" href="#3.1.5.2.4-linalg.solve">&#182;</a></h4><p>Solve the linear system using linalg.solve</p>
+<p><strong>What is the difference?</strong> A transpose.</p>
+
+</div>
+</div>
+</div>
+
+
+
+    
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="3.1.5.2.4-Verify-our-answer-with-linalg.solve">3.1.5.2.4 Verify our answer with <code>linalg.solve</code><a class="anchor-link" href="#3.1.5.2.4-Verify-our-answer-with-linalg.solve">&#182;</a></h4><p>Solve the linear system using linalg.solve</p>
 
 </div>
 </div>
@@ -14032,7 +14139,7 @@ $$P \cdot L \cdot U \cdot x = b$$$$P^T \cdot P \cdot L \cdot U \cdot x = P^T \cd
     
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[15]:</div>
+<div class="prompt input_prompt">In&nbsp;[18]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="n">linalg</span><span class="o">.</span><span class="n">solve</span><span class="p">(</span><span class="n">Al</span><span class="p">,</span><span class="n">bl</span><span class="p">)</span>
@@ -14097,7 +14204,7 @@ $$P \cdot L \cdot U \cdot x = b$$$$P^T \cdot P \cdot L \cdot U \cdot x = P^T \cd
     
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[16]:</div>
+<div class="prompt input_prompt">In&nbsp;[19]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">Ae</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([(</span><span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">4</span><span class="p">,</span> <span class="o">-</span><span class="mi">6</span><span class="p">),</span> <span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">3</span><span class="p">),</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">5</span><span class="p">)])</span>
@@ -14154,7 +14261,7 @@ $$P \cdot L \cdot U \cdot x = b$$$$P^T \cdot P \cdot L \cdot U \cdot x = P^T \cd
     
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[17]:</div>
+<div class="prompt input_prompt">In&nbsp;[20]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Expect negative eigenavalues?</span>
@@ -14225,7 +14332,7 @@ Eigenvectors =
     
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[18]:</div>
+<div class="prompt input_prompt">In&nbsp;[21]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Matrix Al</span>
@@ -14294,7 +14401,7 @@ Vh =
     
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[19]:</div>
+<div class="prompt input_prompt">In&nbsp;[22]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
@@ -14319,13 +14426,13 @@ Vh =
 
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>x = 
- [[0.11352009]
- [0.25818707]
- [0.41482499]]
+ [[0.73066833]
+ [0.77083449]
+ [0.63761201]]
 y = 
- [[0.20679189]
- [0.49955522]
- [0.57030637]]
+ [[0.47553872]
+ [0.92829165]
+ [0.35913264]]
 </pre>
 </div>
 </div>
