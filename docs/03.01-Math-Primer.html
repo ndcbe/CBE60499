@@ -13147,7 +13147,1222 @@ content is available <a href="git@github.com:ndcbe/CBE60499.git">on Github</a>.<
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="3.1-Mathematics-Primer">3.1 Mathematics Primer<a class="anchor-link" href="#3.1-Mathematics-Primer">&#182;</a></h1>
+<h1 id="3.1-Linear-Algebra-Review-and-SciPy-Basics">3.1 Linear Algebra Review and SciPy Basics<a class="anchor-link" href="#3.1-Linear-Algebra-Review-and-SciPy-Basics">&#182;</a></h1><p>Screenshots from Section <strong>2.2 Vectors and Matrices</strong> in Biegler (2010)</p>
+<p><strong>Recommended Links</strong></p>
+<ul>
+<li><a href="https://docs.scipy.org/doc/numpy-1.15.0/reference/">NumPy Documentation - Main Page</a></li>
+<li><a href="https://docs.scipy.org/doc/scipy-1.1.0/reference/">SciPy Documentation - Main Page</a></li>
+<li><a href="https://docs.scipy.org/doc/scipy-1.1.0/reference/tutorial/linalg.html">SciPy Linear Algebra - Tutorial</a></li>
+<li><a href="https://docs.scipy.org/doc/scipy-1.1.0/reference/linalg.html">SciPy Linear Algebra - API</a></li>
+<li><a href="http://www.scipy-lectures.org/">SciPy Lecture Notes</a> (Especially 1.1 - 1.6 for everyone and 2.1 - 2.2 for advanced users)</li>
+</ul>
+<p>Tip: We will mostly use SciPy for linear algebra. (It has more sophisticated capabilities than NumPy.) We will use NumPy if/when SciPy does not offer a specific command.</p>
+
+</div>
+</div>
+</div>
+
+
+
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[1]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Load required Python libraries.</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">scipy</span> <span class="k">import</span> <span class="n">linalg</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+
+
+
+    
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="3.1.1-Notation-(for-textbook)">3.1.1 Notation (for textbook)<a class="anchor-link" href="#3.1.1-Notation-(for-textbook)">&#182;</a></h2><ul>
+<li>Scalar constants and variables - Greek letters</li>
+<li>Vectors - Lower case Roman letters</li>
+<li>Matrices - Upper case Roman letters</li>
+</ul>
+<p>The notation for lectures will (hopefully) be obvious from context. I sometimes use Greek letters for constants and Roman letters for variables... unless the Greek letters have engineering or scientific meaning.</p>
+<h2 id="Matrix-Operations">Matrix Operations<a class="anchor-link" href="#Matrix-Operations">&#182;</a></h2><p><img src="figures/mat_op1.png" alt="Matrix Operations">
+<img src="figures/mat_op2.png" alt="Matrix Operations"></p>
+
+</div>
+</div>
+</div>
+
+
+
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[2]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Generate random matrices</span>
+<span class="n">n</span> <span class="o">=</span> <span class="mi">2</span>
+<span class="n">m</span> <span class="o">=</span> <span class="mi">3</span>
+
+<span class="n">Ao</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="n">n</span><span class="p">,</span><span class="n">m</span><span class="p">)</span>
+<span class="n">Bo</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="n">m</span><span class="p">,</span><span class="n">n</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Ao = &quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">Ao</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Bo = &quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">Bo</span><span class="p">)</span>
+
+
+<span class="c1"># What is the dimension of A*B? Try to answer this without the computer.</span>
+
+<span class="c1"># Calculate A*B using Python</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Ao*Bo =&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">Ao</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">Bo</span><span class="p">))</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Ao = 
+[[0.88908941 0.38184239 0.9783752 ]
+ [0.66649595 0.9396587  0.10268105]]
+
+Bo = 
+[[0.64202248 0.47248995]
+ [0.67171136 0.58362808]
+ [0.31054358 0.12728472]]
+
+Ao*Bo =
+[[1.1311314  0.76747196]
+ [1.09097175 0.87639357]]
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+
+
+
+    
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><strong>Activity</strong></p>
+<ul>
+<li>Calculate $A_o^{T}$</li>
+<li>Create a square matrix and check if it is symmetric</li>
+<li>Create a 3x3 identity matrix</li>
+</ul>
+
+</div>
+</div>
+</div>
+
+
+
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[3]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Transpose</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;transpose(Ao) = </span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span><span class="n">Ao</span><span class="o">.</span><span class="n">transpose</span><span class="p">(),</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="c1"># Create a square matrix. Is it symmetric?</span>
+
+<span class="c1"># Identify matrix</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;I = </span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span><span class="n">np</span><span class="o">.</span><span class="n">identity</span><span class="p">(</span><span class="mi">3</span><span class="p">),</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>transpose(Ao) = 
+ [[0.88908941 0.66649595]
+ [0.38184239 0.9396587 ]
+ [0.9783752  0.10268105]] 
+
+I = 
+ [[1. 0. 0.]
+ [0. 1. 0.]
+ [0. 0. 1.]] 
+
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+
+
+
+    
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="3.1.2-Determinant">3.1.2 Determinant<a class="anchor-link" href="#3.1.2-Determinant">&#182;</a></h2><p><img src="figures/det.png" alt="Book"></p>
+
+</div>
+</div>
+</div>
+
+
+
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[4]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Generate random matrices</span>
+<span class="n">nd</span> <span class="o">=</span> <span class="mi">2</span>
+
+<span class="n">Ad</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="n">nd</span><span class="p">,</span><span class="n">nd</span><span class="p">)</span>
+<span class="n">Bd</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="n">nd</span><span class="p">,</span><span class="n">nd</span><span class="p">)</span>
+
+<span class="n">Cd</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),(</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)])</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Ad = &quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">Ad</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Bd = &quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">Bd</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Cd = &quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">Cd</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Ad = 
+[[0.82955795 0.26271753]
+ [0.35392182 0.78934232]]
+
+Bd = 
+[[0.76218696 0.47061812]
+ [0.49820275 0.91764041]]
+
+Cd = 
+[[ 1  0  0]
+ [-2  0  0]
+ [ 0  1  1]]
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+
+
+
+    
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><strong>Activity</strong></p>
+<ul>
+<li>Verify the properties listed under <em>Some properties for the determinant include</em></li>
+<li>If $A_d$, $B_d$ or $C_d$ singular?</li>
+</ul>
+
+</div>
+</div>
+</div>
+
+
+
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[5]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Property 1</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;det(A*B) = &quot;</span><span class="p">,</span><span class="n">linalg</span><span class="o">.</span><span class="n">det</span><span class="p">(</span><span class="n">Ad</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">Bd</span><span class="p">)))</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;det(A)*det(B) = &quot;</span><span class="p">,</span><span class="n">linalg</span><span class="o">.</span><span class="n">det</span><span class="p">(</span><span class="n">Ad</span><span class="p">)</span><span class="o">*</span><span class="n">linalg</span><span class="o">.</span><span class="n">det</span><span class="p">(</span><span class="n">Bd</span><span class="p">))</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>det(A*B) =  0.2612201215004127
+det(A)*det(B) =  0.2612201215004126
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+
+
+
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[6]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Property 2</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+
+
+
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[7]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Property 3</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+
+
+
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[8]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Property 4</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+
+
+
+    
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><strong>Another Example</strong> (for at home)</p>
+<p>Below is an example from <em>Linear Algebra and Its Applications</em> by David C. Lay, 3rd edition that shows how to calculate a determinant by hand.</p>
+<p><img src="figures/det_ex1.png" alt="DET">
+<img src="figures/det_ex2.png" alt="DET"></p>
+
+</div>
+</div>
+</div>
+
+
+
+    
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="3.1.3-Rank">3.1.3 Rank<a class="anchor-link" href="#3.1.3-Rank">&#182;</a></h2><p><img src="book/rank.png" alt="Book"></p>
+<p><strong>Activity</strong></p>
+<ul>
+<li>Predict the rank of $A_o^T$, $B_o^T$, $A_d$, $B_d$, $C_d$</li>
+<li>Calculate np.linalg.matrix_rank(). Where you correct?</li>
+</ul>
+
+</div>
+</div>
+</div>
+
+
+
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[9]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;rank(A_o) = &quot;</span><span class="p">,</span><span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">matrix_rank</span><span class="p">(</span><span class="n">Ao</span><span class="p">),</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="c1"># Fill in remainder here.</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>rank(A_o) =  2 
+
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+
+
+
+    
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="3.1.4-Inverse">3.1.4 Inverse<a class="anchor-link" href="#3.1.4-Inverse">&#182;</a></h2><p><img src="book/inv.png" alt="Book"></p>
+<p><strong>Activity</strong></p>
+<ol>
+<li>Calculate the inverse of $A_o$ and verity that $A_o^{-1} A_o = I$</li>
+<li>Verify that det($A^{-1}$) = 1/det($A$)</li>
+<li>Is $Q$ an orthogonal matrix?</li>
+</ol>
+
+</div>
+</div>
+</div>
+
+
+
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[10]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Task 1</span>
+
+<span class="c1"># Task 2</span>
+
+<span class="c1"># Task 3</span>
+<span class="c1"># Is this an orthogonal matrix? Yes, no, or need more information?</span>
+<span class="n">theta</span> <span class="o">=</span> <span class="mf">0.2</span>
+<span class="n">Q</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([(</span><span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">theta</span><span class="p">),</span> <span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">theta</span><span class="p">)),(</span><span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">theta</span><span class="p">),</span><span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">theta</span><span class="p">))])</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Q = &quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">Q</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Q = 
+[[ 0.98006658 -0.19866933]
+ [ 0.19866933  0.98006658]]
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+
+
+
+    
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="3.1.5-Solving-Linear-Systems">3.1.5 Solving Linear Systems<a class="anchor-link" href="#3.1.5-Solving-Linear-Systems">&#182;</a></h2><p>Consider the linear system $A_l x = b_l$</p>
+
+</div>
+</div>
+</div>
+
+
+
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[11]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">Al</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([(</span><span class="mi">4</span><span class="p">,</span><span class="mi">3</span><span class="p">),(</span><span class="mi">6</span><span class="p">,</span><span class="mi">3</span><span class="p">)])</span>
+<span class="n">bl</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Al = </span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span><span class="n">Al</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">bl = </span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span><span class="n">bl</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Al = 
+ [[4 3]
+ [6 3]]
+
+bl = 
+ [1 0]
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+
+
+
+    
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="3.1.5.1-Explicit-Inverse">3.1.5.1 Explicit Inverse<a class="anchor-link" href="#3.1.5.1-Explicit-Inverse">&#182;</a></h3><p>Calculate $x$ by explicitly using $A_l^{-1}$. Hint: Use linalg.inv().</p>
+
+</div>
+</div>
+</div>
+
+
+
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[12]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">Ainv</span> <span class="o">=</span> <span class="n">linalg</span><span class="o">.</span><span class="n">inv</span><span class="p">(</span><span class="n">Al</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Ainv = </span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span><span class="n">Ainv</span><span class="p">,</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="c1"># Now calculate and print x</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Ainv = 
+ [[-0.5         0.5       ]
+ [ 1.         -0.66666667]] 
+
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+
+
+
+    
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="3.1.5.2-LU-Decomposition">3.1.5.2 LU Decomposition<a class="anchor-link" href="#3.1.5.2-LU-Decomposition">&#182;</a></h3><p>Perform LU decomposition on $A_l$. What structures do the $P$, $L$, and $U$ matrices have?</p>
+
+</div>
+</div>
+</div>
+
+
+
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Create test linear systems</span>
+<span class="n">A</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span><span class="mi">4</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;A = </span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span><span class="n">A</span><span class="p">,</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="n">b</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;b = </span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span><span class="n">b</span><span class="p">,</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+
+
+
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Perform LU decomposition</span>
+<span class="p">(</span><span class="n">P</span><span class="p">,</span> <span class="n">L</span><span class="p">,</span> <span class="n">U</span><span class="p">)</span> <span class="o">=</span> <span class="n">linalg</span><span class="o">.</span><span class="n">lu</span><span class="p">(</span><span class="n">A</span><span class="p">)</span>
+
+<span class="c1"># Permutation matrix</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;P = </span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span><span class="n">P</span><span class="p">)</span>
+
+<span class="c1"># Lower diagonal matrix</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;L = </span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span><span class="n">L</span><span class="p">)</span>
+
+<span class="c1"># Upper diagonal matrix</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;U = </span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span><span class="n">U</span><span class="p">)</span>
+
+<span class="c1"># Verify result</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;P*L*U = </span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span><span class="n">P</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">L</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">U</span><span class="p">)),</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+
+
+
+    
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="3.1.5.2.1-Is-P-orthogonal?">3.1.5.2.1 Is P orthogonal?<a class="anchor-link" href="#3.1.5.2.1-Is-P-orthogonal?">&#182;</a></h4>
+</div>
+</div>
+</div>
+
+
+
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;inv(P) = </span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span><span class="n">linalg</span><span class="o">.</span><span class="n">inv</span><span class="p">(</span><span class="n">P</span><span class="p">),</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;transpose(P) = </span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span><span class="n">P</span><span class="o">.</span><span class="n">T</span><span class="p">,</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;P.T*P = </span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span><span class="n">np</span><span class="o">.</span><span class="n">matmul</span><span class="p">(</span><span class="n">P</span><span class="o">.</span><span class="n">T</span><span class="p">,</span><span class="n">P</span><span class="p">),</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+
+
+
+    
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><strong>Yes!</strong> We see that $P^T = P^{-1}$ and $P^T \cdot P = I$.</p>
+
+</div>
+</div>
+</div>
+
+
+
+    
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="3.1.5.2.2-MATLAB">3.1.5.2.2 MATLAB<a class="anchor-link" href="#3.1.5.2.2-MATLAB">&#182;</a></h4><p>Defines LU decomposition as follows:</p>
+$$ P \cdot A = L \cdot U$$<p>Consider $$A \cdot x=b$$</p>
+<p>Using MATLAB LU definition</p>
+$$P\cdot A = L\cdot U$$$$P^T \cdot P \cdot A = P^T \cdot L \cdot U$$$$A = P^T \cdot L \cdot U$$<p>Substitute into linear system:</p>
+$$P^T \cdot L \cdot U \cdot x = b$$$$ L \cdot U \cdot x = P \cdot b$$<p>Let $y = U \cdot x$ and substitute.</p>
+<p>Step 1. Solve $L \cdot y = P \cdot b$ for $y$</p>
+<p>Step 2. Solve $U \cdot x = y$ for $x$</p>
+
+</div>
+</div>
+</div>
+
+
+
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[1]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">Pb</span> <span class="o">=</span> <span class="n">P</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">b</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;P*b = &quot;</span><span class="p">,</span><span class="n">Pb</span><span class="p">,</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="n">yLU</span> <span class="o">=</span> <span class="n">linalg</span><span class="o">.</span><span class="n">solve</span><span class="p">(</span><span class="n">L</span><span class="p">,</span><span class="n">Pb</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;yLU = &quot;</span><span class="p">,</span><span class="n">yLU</span><span class="p">,</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="n">xLU</span> <span class="o">=</span> <span class="n">linalg</span><span class="o">.</span><span class="n">solve</span><span class="p">(</span><span class="n">U</span><span class="p">,</span><span class="n">yLU</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;xLU = &quot;</span><span class="p">,</span><span class="n">xLU</span><span class="p">,</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_text output_error">
+<pre>
+<span class="ansi-red-fg">---------------------------------------------------------------------------</span>
+<span class="ansi-red-fg">NameError</span>                                 Traceback (most recent call last)
+<span class="ansi-green-fg">&lt;ipython-input-1-bcf725d653e2&gt;</span> in <span class="ansi-cyan-fg">&lt;module&gt;</span>
+<span class="ansi-green-fg">----&gt; 1</span><span class="ansi-red-fg"> </span>Pb <span class="ansi-blue-fg">=</span> P<span class="ansi-blue-fg">.</span>dot<span class="ansi-blue-fg">(</span>b<span class="ansi-blue-fg">)</span>
+<span class="ansi-green-intense-fg ansi-bold">      2</span> print<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">&#34;P*b = &#34;</span><span class="ansi-blue-fg">,</span>Pb<span class="ansi-blue-fg">,</span><span class="ansi-blue-fg">&#34;\n&#34;</span><span class="ansi-blue-fg">)</span>
+<span class="ansi-green-intense-fg ansi-bold">      3</span> 
+<span class="ansi-green-intense-fg ansi-bold">      4</span> yLU <span class="ansi-blue-fg">=</span> linalg<span class="ansi-blue-fg">.</span>solve<span class="ansi-blue-fg">(</span>L<span class="ansi-blue-fg">,</span>Pb<span class="ansi-blue-fg">)</span>
+<span class="ansi-green-intense-fg ansi-bold">      5</span> print<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">&#34;yLU = &#34;</span><span class="ansi-blue-fg">,</span>yLU<span class="ansi-blue-fg">,</span><span class="ansi-blue-fg">&#34;\n&#34;</span><span class="ansi-blue-fg">)</span>
+
+<span class="ansi-red-fg">NameError</span>: name &#39;P&#39; is not defined</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+
+
+
+    
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="3.1.5.2.3-SciPy">3.1.5.2.3 SciPy<a class="anchor-link" href="#3.1.5.2.3-SciPy">&#182;</a></h4><p>Defines LU decomposition as:</p>
+$$ A = P \cdot L \cdot U $$<p>Consider $$A \cdot x=b$$</p>
+<p>SciPy LU definition</p>
+$$A = P \cdot L\cdot U$$<p>Substitute into linear system:</p>
+$$P \cdot L \cdot U \cdot x = b$$$$P^T \cdot P \cdot L \cdot U \cdot x = P^T \cdot b$$$$L \cdot U \cdot x = P^T \cdot b$$<p>Let $y = U \cdot x$ and substitute.</p>
+<p>Step 1. Solve $L \cdot y = P^T \cdot b$ for $y$</p>
+<p>Step 2. Solve $U \cdot x = y$ for $x$</p>
+
+</div>
+</div>
+</div>
+
+
+
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[2]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">## LU decomposition algorithm.</span>
+<span class="n">Pb</span> <span class="o">=</span> <span class="p">(</span><span class="n">P</span><span class="o">.</span><span class="n">T</span><span class="p">)</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">b</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;P.T*b = &quot;</span><span class="p">,</span><span class="n">Pb</span><span class="p">,</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="n">yLU</span> <span class="o">=</span> <span class="n">linalg</span><span class="o">.</span><span class="n">solve</span><span class="p">(</span><span class="n">L</span><span class="p">,</span><span class="n">Pb</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;yLU = &quot;</span><span class="p">,</span><span class="n">yLU</span><span class="p">,</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="n">xLU</span> <span class="o">=</span> <span class="n">linalg</span><span class="o">.</span><span class="n">solve</span><span class="p">(</span><span class="n">U</span><span class="p">,</span><span class="n">yLU</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;xLU = &quot;</span><span class="p">,</span><span class="n">xLU</span><span class="p">,</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_text output_error">
+<pre>
+<span class="ansi-red-fg">---------------------------------------------------------------------------</span>
+<span class="ansi-red-fg">NameError</span>                                 Traceback (most recent call last)
+<span class="ansi-green-fg">&lt;ipython-input-2-0f048fb53fd5&gt;</span> in <span class="ansi-cyan-fg">&lt;module&gt;</span>
+<span class="ansi-green-intense-fg ansi-bold">      1</span> <span class="ansi-red-fg">## LU decomposition algorithm.</span>
+<span class="ansi-green-fg">----&gt; 2</span><span class="ansi-red-fg"> </span>Pb <span class="ansi-blue-fg">=</span> <span class="ansi-blue-fg">(</span>P<span class="ansi-blue-fg">.</span>T<span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">.</span>dot<span class="ansi-blue-fg">(</span>b<span class="ansi-blue-fg">)</span>
+<span class="ansi-green-intense-fg ansi-bold">      3</span> print<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">&#34;P.T*b = &#34;</span><span class="ansi-blue-fg">,</span>Pb<span class="ansi-blue-fg">,</span><span class="ansi-blue-fg">&#34;\n&#34;</span><span class="ansi-blue-fg">)</span>
+<span class="ansi-green-intense-fg ansi-bold">      4</span> 
+<span class="ansi-green-intense-fg ansi-bold">      5</span> yLU <span class="ansi-blue-fg">=</span> linalg<span class="ansi-blue-fg">.</span>solve<span class="ansi-blue-fg">(</span>L<span class="ansi-blue-fg">,</span>Pb<span class="ansi-blue-fg">)</span>
+
+<span class="ansi-red-fg">NameError</span>: name &#39;P&#39; is not defined</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+
+
+
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="o">**</span><span class="n">What</span> <span class="ow">is</span> <span class="n">the</span> <span class="n">difference</span><span class="err">?</span><span class="o">**</span> <span class="n">A</span> <span class="n">transp</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+
+
+
+    
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="3.1.5.2.4-linalg.solve">3.1.5.2.4 <code>linalg.solve</code><a class="anchor-link" href="#3.1.5.2.4-linalg.solve">&#182;</a></h4><p>Solve the linear system using linalg.solve</p>
+
+</div>
+</div>
+</div>
+
+
+
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[15]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="n">linalg</span><span class="o">.</span><span class="n">solve</span><span class="p">(</span><span class="n">Al</span><span class="p">,</span><span class="n">bl</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;x = </span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span><span class="n">x</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>x = 
+ [-0.5  1. ]
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+
+
+
+    
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="3.1.6-Invertable-Matrix-Theorem">3.1.6 Invertable Matrix Theorem<a class="anchor-link" href="#3.1.6-Invertable-Matrix-Theorem">&#182;</a></h2><p>Screenshots from <em>Linear Algebra and Its Applications</em> by David C. Lay, 3rd edition</p>
+<p><img src="figures/imt1.png" alt="IMT">
+<img src="figures/imt2.png" alt="IMT">
+<img src="figures/imt3.png" alt="IMT">
+<img src="figures/imt4.png" alt="IMT"></p>
+
+</div>
+</div>
+</div>
+
+
+
+    
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="3.1.7-Eigenvectors-and-Eigenvalues">3.1.7 Eigenvectors and Eigenvalues<a class="anchor-link" href="#3.1.7-Eigenvectors-and-Eigenvalues">&#182;</a></h2><p><img src="figures/eig.png" alt="Book"></p>
+
+</div>
+</div>
+</div>
+
+
+
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[16]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">Ae</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([(</span><span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">4</span><span class="p">,</span> <span class="o">-</span><span class="mi">6</span><span class="p">),</span> <span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">3</span><span class="p">),</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">5</span><span class="p">)])</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Ae = </span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span><span class="n">Ae</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Ae = 
+ [[ 0 -4 -6]
+ [-1  0 -3]
+ [ 1  2  5]]
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+
+
+
+    
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><strong>Activity</strong></p>
+<ul>
+<li>Do you expect this matrix to have negative eigenvalues? Choose: Yes / No / Cannot tell from inspection.</li>
+<li>Calculate the eigenvalues.</li>
+<li>Based on your calculations above, is this matrix i) positive definite, ii) positive semi definite, iii) negative definite, iv) negative semi definite, v) indefinite, or vi) cannot say without additional calculations? Write a sentence to justify your answer.</li>
+<li>Calculate the determinate using only the eigenvalues.</li>
+</ul>
+
+</div>
+</div>
+</div>
+
+
+
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[17]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Expect negative eigenavalues?</span>
+<span class="c1"># Yes / No / Cannot tell from inspect?</span>
+<span class="c1"># Write a sentence to justify your answer.</span>
+
+<span class="c1">### Calculate eigenvalues</span>
+
+<span class="c1"># Matrix Al</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Matrix = </span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span><span class="n">Al</span><span class="p">,</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="n">l</span><span class="p">,</span> <span class="n">v</span> <span class="o">=</span> <span class="n">linalg</span><span class="o">.</span><span class="n">eig</span><span class="p">(</span><span class="n">Al</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Eigenvalues = &quot;</span><span class="p">,</span><span class="n">l</span><span class="p">,</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Eigenvectors = </span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span><span class="n">v</span><span class="p">,</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Matrix = 
+ [[4 3]
+ [6 3]] 
+
+Eigenvalues =  [ 7.77200187+0.j -0.77200187+0.j] 
+
+Eigenvectors = 
+ [[ 0.62246561 -0.53222953]
+ [ 0.78264715  0.8466001 ]] 
+
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+
+
+
+    
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="3.1.8-Singular-Value-Decomposition">3.1.8 Singular Value Decomposition<a class="anchor-link" href="#3.1.8-Singular-Value-Decomposition">&#182;</a></h2><p>Notes will be given in class.</p>
+<p><strong>Activity</strong></p>
+<ul>
+<li>Calculate singular value decomposition of $A_l$ and $C_d$</li>
+<li>What is the rank of each matrix?</li>
+</ul>
+
+</div>
+</div>
+</div>
+
+
+
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[18]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Matrix Al</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Matrix = </span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span><span class="n">Al</span><span class="p">,</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="n">U</span><span class="p">,</span><span class="n">s</span><span class="p">,</span><span class="n">Vh</span> <span class="o">=</span> <span class="n">linalg</span><span class="o">.</span><span class="n">svd</span><span class="p">(</span><span class="n">Al</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;U = </span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span><span class="n">U</span><span class="p">,</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;S = </span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span><span class="n">s</span><span class="p">,</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Vh = </span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span><span class="n">Vh</span><span class="p">,</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="c1">## Rank (from inspecting singular values)?</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Matrix = 
+ [[4 3]
+ [6 3]] 
+
+U = 
+ [[-0.59581566 -0.80312122]
+ [-0.80312122  0.59581566]] 
+
+S = 
+ [8.33557912 0.71980602] 
+
+Vh = 
+ [[-0.86400595 -0.50348159]
+ [ 0.50348159 -0.86400595]] 
+
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+
+
+
+    
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="3.1.9-Vector-and-Matrix-Norms">3.1.9 Vector and Matrix Norms<a class="anchor-link" href="#3.1.9-Vector-and-Matrix-Norms">&#182;</a></h2><p><img src="figures/norm1.png" alt="Book">
+<img src="figures/norm2.png" alt="Book"></p>
+
+</div>
+</div>
+</div>
+
+
+
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[19]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;x = </span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span><span class="n">x</span><span class="p">)</span>
+
+<span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;y = </span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span><span class="n">y</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>x = 
+ [[0.11352009]
+ [0.25818707]
+ [0.41482499]]
+y = 
+ [[0.20679189]
+ [0.49955522]
+ [0.57030637]]
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+
+
+
+    
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><strong>Activity</strong></p>
+<ul>
+<li>Verify the vector norm properties hold for the p-2 norm using $x$ and $y$. Hint: linalg.norm()</li>
+<li>Calculate $||A_l||_1$, $||A_l||_{\infty}$ and $||A_l||_2$ using both the rules given above and SciPy</li>
+</ul>
+
+</div>
+</div>
+</div>
+
+
+
+    
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="3.1.10-Condition-Number">3.1.10 Condition Number<a class="anchor-link" href="#3.1.10-Condition-Number">&#182;</a></h2><p><strong>Activity</strong></p>
+<ul>
+<li>Estimate the condition number of $A_l$ by inspecting the SVD results.</li>
+<li>Calculate the condition number of $A_l$ using np.linalg.cond()</li>
+</ul>
+
 </div>
 </div>
 </div>

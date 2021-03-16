@@ -24,7 +24,7 @@
 - [2.10 Pyomo Homework 3](https://ndcbe.github.io/CBE60499/02.10-Pyomo3.html)
 
 ### [Chapter 3.0 Unconstrained Nonlinear Optimization: Theory and Algorithms](https://ndcbe.github.io/CBE60499/03.00-Unconstrained.html)
-- [3.1 Mathematics Primer](https://ndcbe.github.io/CBE60499/03.01-Math-Primer.html)
+- [3.1 Linear Algebra Review and SciPy Basics](https://ndcbe.github.io/CBE60499/03.01-Math-Primer.html)
 - [3.2 Unconstrained Optimality Conditions](https://ndcbe.github.io/CBE60499/03.02-Optimality.html)
 - [3.3 Newton Methods](https://ndcbe.github.io/CBE60499/03.03-Netwon-Methods.html)
 - [3.4 Quasi-Newton Methods](https://ndcbe.github.io/CBE60499/03.04-Quasi-Newton-Method.html)
