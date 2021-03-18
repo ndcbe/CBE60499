@@ -13135,7 +13135,7 @@ content is available <a href="git@github.com:ndcbe/CBE60499.git">on Github</a>.<
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p><!--NAVIGATION-->
-&lt; <a href="https://ndcbe.github.io/CBE60499/03.00-Unconstrained.html">3.0 Unconstrained Nonlinear Optimization: Theory and Algorithms</a> | <a href="toc.html">Contents</a> | <a href="https://ndcbe.github.io/CBE60499/03.02-Optimality.html">3.2 Unconstrained Optimality Conditions</a> &gt;<p><a href="https://colab.research.google.com/github/ndcbe/CBE60499/blob/master/docs/03.01-Math-Primer.ipynb"> <img align="left" src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open in Colab" title="Open in Google Colaboratory"></a><p><a href="https://ndcbe.github.io/CBE60499/03.01-Math-Primer.ipynb"> <img align="left" src="https://img.shields.io/badge/Github-Download-blue.svg" alt="Download" title="Download Notebook"></a></p>
+&lt; <a href="https://ndcbe.github.io/CBE60499/03.00-Unconstrained.html">3.0 Unconstrained Nonlinear Optimization: Theory and Algorithms</a> | <a href="toc.html">Contents</a> | <a href="https://ndcbe.github.io/CBE60499/03.02-Math-Primer-2.html">3.2 Mathematics Primer</a> &gt;<p><a href="https://colab.research.google.com/github/ndcbe/CBE60499/blob/master/docs/03.01-Math-Primer.ipynb"> <img align="left" src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open in Colab" title="Open in Google Colaboratory"></a><p><a href="https://ndcbe.github.io/CBE60499/03.01-Math-Primer.ipynb"> <img align="left" src="https://img.shields.io/badge/Github-Download-blue.svg" alt="Download" title="Download Notebook"></a></p>
 
 </div>
 </div>
@@ -13244,17 +13244,17 @@ content is available <a href="git@github.com:ndcbe/CBE60499.git">on Github</a>.<
 
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>Ao = 
-[[0.07925341 0.46088935 0.37629469]
- [0.86577551 0.19318155 0.25019159]]
+[[0.90471685 0.17317304 0.40300532]
+ [0.63393766 0.90146479 0.61500922]]
 
 Bo = 
-[[0.36776414 0.04490344]
- [0.06392044 0.54291878]
- [0.92397109 0.68783033]]
+[[0.34621818 0.9393221 ]
+ [0.67416793 0.95718324]
+ [0.61310823 0.40727659]]
 
 Ao*Bo =
-[[0.40629223 0.51261113]
- [0.56191923 0.31584756]]
+[[0.67706301 1.17971349]
+ [1.20428661 1.7088175 ]]
 </pre>
 </div>
 </div>
@@ -13313,9 +13313,9 @@ Ao*Bo =
 
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>transpose(Ao) = 
- [[0.07925341 0.86577551]
- [0.46088935 0.19318155]
- [0.37629469 0.25019159]] 
+ [[0.90471685 0.63393766]
+ [0.17317304 0.90146479]
+ [0.40300532 0.61500922]] 
 
 I = 
  [[1. 0. 0.]
@@ -13382,12 +13382,12 @@ I =
 
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>Ad = 
-[[0.95793656 0.56498068]
- [0.68227517 0.02174942]]
+[[0.35144304 0.40331999]
+ [0.98819481 0.83989719]]
 
 Bd = 
-[[0.95886406 0.29800165]
- [0.25195169 0.67068589]]
+[[0.24359748 0.02035267]
+ [0.32634249 0.99856976]]
 
 Cd = 
 [[ 1  0  0]
@@ -13446,8 +13446,8 @@ Cd =
 
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>det(A*B) =  -0.20711954028379387
-det(A)*det(B) =  -0.20711954028379395
+<pre>det(A*B) =  -0.024461085784763897
+det(A)*det(B) =  -0.02446108578476388
 </pre>
 </div>
 </div>
@@ -13529,7 +13529,7 @@ det(A)*det(B) =  -0.20711954028379395
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="3.1.3-Rank">3.1.3 Rank<a class="anchor-link" href="#3.1.3-Rank">&#182;</a></h2><p><img src="book/rank.png" alt="Book"></p>
+<h2 id="3.1.3-Rank">3.1.3 Rank<a class="anchor-link" href="#3.1.3-Rank">&#182;</a></h2><p><img src="figures/rank.png" alt="Book"></p>
 <p><strong>Activity</strong></p>
 <ul>
 <li>Predict the rank of $A_o^T$, $B_o^T$, $A_d$, $B_d$, $C_d$</li>
@@ -13584,7 +13584,7 @@ det(A)*det(B) =  -0.20711954028379395
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="3.1.4-Inverse">3.1.4 Inverse<a class="anchor-link" href="#3.1.4-Inverse">&#182;</a></h2><p><img src="book/inv.png" alt="Book"></p>
+<h2 id="3.1.4-Inverse">3.1.4 Inverse<a class="anchor-link" href="#3.1.4-Inverse">&#182;</a></h2><p><img src="figures/inv.png" alt="Book"></p>
 <p><strong>Activity</strong></p>
 <ol>
 <li>Calculate the inverse of $A_o$ and verity that $A_o^{-1} A_o = I$</li>
@@ -13794,16 +13794,16 @@ bl =
 
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>A = 
- [[0.46592705 0.23866994 0.95757722 0.98540772]
- [0.79810794 0.59732897 0.26445257 0.50828598]
- [0.62384211 0.37030075 0.810522   0.76900559]
- [0.19445014 0.36854553 0.49094695 0.06613152]] 
+ [[0.68331246 0.29422836 0.22419151 0.41620186]
+ [0.05988483 0.58705665 0.07246852 0.45441375]
+ [0.6024749  0.36997327 0.13872522 0.45388322]
+ [0.34311843 0.47101812 0.51826738 0.25525007]] 
 
 b = 
- [[0.93103858]
- [0.35084106]
- [0.37945959]
- [0.95197959]] 
+ [[0.00949348]
+ [0.82027783]
+ [0.90273651]
+ [0.37915841]] 
 
 </pre>
 </div>
@@ -13853,25 +13853,25 @@ b =
 
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>P = 
- [[0. 0. 1. 0.]
- [1. 0. 0. 0.]
+ [[1. 0. 0. 0.]
+ [0. 1. 0. 0.]
  [0. 0. 0. 1.]
- [0. 1. 0. 0.]]
+ [0. 0. 1. 0.]]
 L = 
  [[ 1.          0.          0.          0.        ]
- [ 0.2436389   1.          0.          0.        ]
- [ 0.58378952 -0.49344424  1.          0.        ]
- [ 0.7816513  -0.43316868  0.7779433   1.        ]]
+ [ 0.08763901  1.          0.          0.        ]
+ [ 0.50213986  0.5759686   1.          0.        ]
+ [ 0.88169751  0.19696885 -0.18479522  1.        ]]
 U = 
- [[ 0.79810794  0.59732897  0.26445257  0.50828598]
- [ 0.          0.22301295  0.42651601 -0.05770672]
- [ 0.          0.          1.01365445  0.66020065]
- [ 0.          0.          0.         -0.16689223]]
+ [[ 0.68331246  0.29422836  0.22419151  0.41620186]
+ [ 0.          0.56127076  0.05282059  0.41793823]
+ [ 0.          0.          0.37526888 -0.19446077]
+ [ 0.          0.          0.         -0.03133716]]
 P*L*U = 
- [[0.46592705 0.23866994 0.95757722 0.98540772]
- [0.79810794 0.59732897 0.26445257 0.50828598]
- [0.62384211 0.37030075 0.810522   0.76900559]
- [0.19445014 0.36854553 0.49094695 0.06613152]] 
+ [[0.68331246 0.29422836 0.22419151 0.41620186]
+ [0.05988483 0.58705665 0.07246852 0.45441375]
+ [0.6024749  0.36997327 0.13872522 0.45388322]
+ [0.34311843 0.47101812 0.51826738 0.25525007]] 
 
 </pre>
 </div>
@@ -13923,15 +13923,15 @@ P*L*U =
 
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>inv(P) = 
- [[ 0.  1. -0. -0.]
+ [[ 1. -0. -0.  0.]
+ [ 0.  1. -0.  0.]
  [ 0.  0. -0.  1.]
- [ 1.  0. -0.  0.]
  [ 0.  0.  1.  0.]] 
 
 transpose(P) = 
- [[0. 1. 0. 0.]
+ [[1. 0. 0. 0.]
+ [0. 1. 0. 0.]
  [0. 0. 0. 1.]
- [1. 0. 0. 0.]
  [0. 0. 1. 0.]] 
 
 P.T*P = 
@@ -14011,20 +14011,20 @@ $$P^T \cdot L \cdot U \cdot x = b$$$$ L \cdot U \cdot x = P \cdot b$$<p>Let $y =
 
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>P*b =  [[0.37945959]
- [0.93103858]
- [0.95197959]
- [0.35084106]] 
+<pre>P*b =  [[0.00949348]
+ [0.82027783]
+ [0.37915841]
+ [0.90273651]] 
 
-yLU =  [[ 0.37945959]
- [ 0.83858747]
- [ 1.14425121]
- [-0.47267676]] 
+yLU =  [[ 0.00949348]
+ [ 0.81944583]
+ [-0.09758371]
+ [ 0.71492782]] 
 
-xLU =  [[-5.47851442]
- [ 5.86213406]
- [-0.71581324]
- [ 2.83222758]] 
+xLU =  [[  9.4407442 ]
+ [ 19.58501477]
+ [-12.08206663]
+ [-22.81406129]] 
 
 </pre>
 </div>
@@ -14086,20 +14086,20 @@ $$P \cdot L \cdot U \cdot x = b$$$$P^T \cdot P \cdot L \cdot U \cdot x = P^T \cd
 
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>P.T*b =  [[0.35084106]
- [0.95197959]
- [0.93103858]
- [0.37945959]] 
+<pre>P.T*b =  [[0.00949348]
+ [0.82027783]
+ [0.37915841]
+ [0.90273651]] 
 
-yLU =  [[ 0.35084106]
- [ 0.86650106]
- [ 1.15379121]
- [-0.4170188 ]] 
+yLU =  [[ 0.00949348]
+ [ 0.81944583]
+ [-0.09758371]
+ [ 0.71492782]] 
 
-xLU =  [[-5.08178163]
- [ 5.46758958]
- [-0.48919305]
- [ 2.49873114]] 
+xLU =  [[  9.4407442 ]
+ [ 19.58501477]
+ [-12.08206663]
+ [-22.81406129]] 
 
 </pre>
 </div>
@@ -14426,13 +14426,13 @@ Vh =
 
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>x = 
- [[0.73066833]
- [0.77083449]
- [0.63761201]]
+ [[0.02808233]
+ [0.20488865]
+ [0.77425602]]
 y = 
- [[0.47553872]
- [0.92829165]
- [0.35913264]]
+ [[0.73113614]
+ [0.20737529]
+ [0.97754014]]
 </pre>
 </div>
 </div>
@@ -14498,7 +14498,7 @@ y =
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p><!--NAVIGATION-->
-&lt; <a href="https://ndcbe.github.io/CBE60499/03.00-Unconstrained.html">3.0 Unconstrained Nonlinear Optimization: Theory and Algorithms</a> | <a href="toc.html">Contents</a> | <a href="https://ndcbe.github.io/CBE60499/03.02-Optimality.html">3.2 Unconstrained Optimality Conditions</a> &gt;<p><a href="https://colab.research.google.com/github/ndcbe/CBE60499/blob/master/docs/03.01-Math-Primer.ipynb"> <img align="left" src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open in Colab" title="Open in Google Colaboratory"></a><p><a href="https://ndcbe.github.io/CBE60499/03.01-Math-Primer.ipynb"> <img align="left" src="https://img.shields.io/badge/Github-Download-blue.svg" alt="Download" title="Download Notebook"></a></p>
+&lt; <a href="https://ndcbe.github.io/CBE60499/03.00-Unconstrained.html">3.0 Unconstrained Nonlinear Optimization: Theory and Algorithms</a> | <a href="toc.html">Contents</a> | <a href="https://ndcbe.github.io/CBE60499/03.02-Math-Primer-2.html">3.2 Mathematics Primer</a> &gt;<p><a href="https://colab.research.google.com/github/ndcbe/CBE60499/blob/master/docs/03.01-Math-Primer.ipynb"> <img align="left" src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open in Colab" title="Open in Google Colaboratory"></a><p><a href="https://ndcbe.github.io/CBE60499/03.01-Math-Primer.ipynb"> <img align="left" src="https://img.shields.io/badge/Github-Download-blue.svg" alt="Download" title="Download Notebook"></a></p>
 
 </div>
 </div>
