@@ -13135,7 +13135,7 @@ content is available <a href="git@github.com:ndcbe/CBE60499.git">on Github</a>.<
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p><!--NAVIGATION-->
-&lt; <a href="https://ndcbe.github.io/CBE60499/03.04-Netwon-Methods.html">3.4 Newton Methods</a> | <a href="toc.html">Contents</a> | <a href="https://ndcbe.github.io/CBE60499/03.06-Line-Search.html">3.6 Globalization with Line Search</a> &gt;<p><a href="https://colab.research.google.com/github/ndcbe/CBE60499/blob/master/docs/03.05-Quasi-Newton-Method.ipynb"> <img align="left" src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open in Colab" title="Open in Google Colaboratory"></a><p><a href="https://ndcbe.github.io/CBE60499/03.05-Quasi-Newton-Method.ipynb"> <img align="left" src="https://img.shields.io/badge/Github-Download-blue.svg" alt="Download" title="Download Notebook"></a></p>
+&lt; <a href="https://ndcbe.github.io/CBE60499/03.04-Netwon-Methods.html">3.4 Newton-type Methods for Unconstrained Optimization</a> | <a href="toc.html">Contents</a> | <a href="https://ndcbe.github.io/CBE60499/03.06-Line-Search.html">3.6 Globalization with Line Search</a> &gt;<p><a href="https://colab.research.google.com/github/ndcbe/CBE60499/blob/master/docs/03.05-Quasi-Newton-Method.ipynb"> <img align="left" src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open in Colab" title="Open in Google Colaboratory"></a><p><a href="https://ndcbe.github.io/CBE60499/03.05-Quasi-Newton-Method.ipynb"> <img align="left" src="https://img.shields.io/badge/Github-Download-blue.svg" alt="Download" title="Download Notebook"></a></p>
 
 </div>
 </div>
@@ -13147,9 +13147,906 @@ content is available <a href="git@github.com:ndcbe/CBE60499.git">on Github</a>.<
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="3.5-Quasi-Newton-Methods">3.5 Quasi-Newton Methods<a class="anchor-link" href="#3.5-Quasi-Newton-Methods">&#182;</a></h1>
+<h1 id="3.5-Quasi-Newton-Methods-for-Unconstrained-Optimization">3.5 Quasi-Newton Methods for Unconstrained Optimization<a class="anchor-link" href="#3.5-Quasi-Newton-Methods-for-Unconstrained-Optimization">&#182;</a></h1><p><strong>Reference</strong>: Sections 3.1 - 3.3 in Biegler (2010)</p>
+
 </div>
 </div>
+</div>
+
+
+
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[1]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Load required Python libraries.</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">scipy</span> <span class="k">import</span> <span class="n">linalg</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+
+
+
+    
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="3.5.1-Unconstrained-Optimization-with-Approximate-Hessian">3.5.1 Unconstrained Optimization with Approximate Hessian<a class="anchor-link" href="#3.5.1-Unconstrained-Optimization-with-Approximate-Hessian">&#182;</a></h2>
+</div>
+</div>
+</div>
+
+
+
+    
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><img src="figures/alg3-1.png" alt="alg3-1"></p>
+
+</div>
+</div>
+</div>
+
+
+
+    
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>SR1 update is one way to approximate $B^k$.</p>
+
+</div>
+</div>
+</div>
+
+
+
+    
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="3.5.1.1-Library-of-helper-functions">3.5.1.1 Library of helper functions<a class="anchor-link" href="#3.5.1.1-Library-of-helper-functions">&#182;</a></h3>
+</div>
+</div>
+</div>
+
+
+
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[2]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">## Check is element of array is NaN</span>
+<span class="k">def</span> <span class="nf">check_nan</span><span class="p">(</span><span class="n">A</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">isnan</span><span class="p">(</span><span class="n">A</span><span class="p">))</span>
+
+<span class="c1">## Calculate gradient with central finite difference</span>
+<span class="k">def</span> <span class="nf">my_grad_approx</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">f</span><span class="p">,</span><span class="n">eps1</span><span class="p">,</span><span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Calculate gradient of function my_f using central difference formula</span>
+<span class="sd">    </span>
+<span class="sd">    Inputs:</span>
+<span class="sd">        x - point for which to evaluate gradient</span>
+<span class="sd">        f - function to consider</span>
+<span class="sd">        eps1 - perturbation size</span>
+<span class="sd">        </span>
+<span class="sd">    Outputs:</span>
+<span class="sd">        grad - gradient (vector)</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    
+    <span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+    <span class="n">grad</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
+    
+    <span class="k">if</span><span class="p">(</span><span class="n">verbose</span><span class="p">):</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;***** my_grad_approx at x = &quot;</span><span class="p">,</span><span class="n">x</span><span class="p">,</span><span class="s2">&quot;*****&quot;</span><span class="p">)</span>
+        
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">n</span><span class="p">):</span>
+        
+        <span class="c1"># Create vector of zeros except eps in position i</span>
+        <span class="n">e</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
+        <span class="n">e</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">eps1</span>
+        
+        <span class="c1"># Finite difference formula</span>
+        <span class="n">my_f_plus</span> <span class="o">=</span> <span class="n">f</span><span class="p">(</span><span class="n">x</span> <span class="o">+</span> <span class="n">e</span><span class="p">)</span>
+        <span class="n">my_f_minus</span> <span class="o">=</span> <span class="n">f</span><span class="p">(</span><span class="n">x</span> <span class="o">-</span> <span class="n">e</span><span class="p">)</span>
+        
+        <span class="c1"># Diagnostics</span>
+        <span class="k">if</span><span class="p">(</span><span class="n">verbose</span><span class="p">):</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;e[&quot;</span><span class="p">,</span><span class="n">i</span><span class="p">,</span><span class="s2">&quot;] = &quot;</span><span class="p">,</span><span class="n">e</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;f(x + e[&quot;</span><span class="p">,</span><span class="n">i</span><span class="p">,</span><span class="s2">&quot;]) = &quot;</span><span class="p">,</span><span class="n">my_f_plus</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;f(x - e[&quot;</span><span class="p">,</span><span class="n">i</span><span class="p">,</span><span class="s2">&quot;]) = &quot;</span><span class="p">,</span><span class="n">my_f_minus</span><span class="p">)</span>
+        
+        
+        <span class="n">grad</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">my_f_plus</span> <span class="o">-</span> <span class="n">my_f_minus</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">eps1</span><span class="p">)</span>
+    
+    <span class="k">if</span><span class="p">(</span><span class="n">verbose</span><span class="p">):</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;***** Done. ***** </span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+    
+    <span class="k">return</span> <span class="n">grad</span>
+
+<span class="c1">## Calculate Hessian using cental finite difference</span>
+<span class="k">def</span> <span class="nf">my_hes_approx</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">grad</span><span class="p">,</span><span class="n">eps2</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Calculate gradient of function my_f using central difference formula and my_grad</span>
+<span class="sd">    </span>
+<span class="sd">    Inputs:</span>
+<span class="sd">        x - point for which to evaluate gradient</span>
+<span class="sd">        grad - function to calculate the gradient</span>
+<span class="sd">        eps2 - perturbation size (for Hessian NOT gradient approximation)</span>
+<span class="sd">        </span>
+<span class="sd">    Outputs:</span>
+<span class="sd">        H - Hessian (matrix)</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    
+    <span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+    <span class="n">H</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">([</span><span class="n">n</span><span class="p">,</span><span class="n">n</span><span class="p">])</span>
+    
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">n</span><span class="p">):</span>
+        <span class="c1"># Create vector of zeros except eps in position i</span>
+        <span class="n">e</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
+        <span class="n">e</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">eps2</span>
+        
+        <span class="c1"># Evaluate gradient twice</span>
+        <span class="n">grad_plus</span> <span class="o">=</span> <span class="n">grad</span><span class="p">(</span><span class="n">x</span> <span class="o">+</span> <span class="n">e</span><span class="p">)</span>
+        <span class="n">grad_minus</span> <span class="o">=</span> <span class="n">grad</span><span class="p">(</span><span class="n">x</span> <span class="o">-</span> <span class="n">e</span><span class="p">)</span>
+        
+        <span class="c1"># Notice we are building the Hessian by column (or row)</span>
+        <span class="n">H</span><span class="p">[:,</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">grad_plus</span> <span class="o">-</span> <span class="n">grad_minus</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">eps2</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">H</span>
+
+<span class="c1">## Linear algebra calculation</span>
+<span class="k">def</span> <span class="nf">xxT</span><span class="p">(</span><span class="n">u</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Calculates u*u.T to circumvent limitation with SciPy</span>
+<span class="sd">    </span>
+<span class="sd">    Arguments:</span>
+<span class="sd">    u - numpy 1D array</span>
+<span class="sd">    </span>
+<span class="sd">    Returns:</span>
+<span class="sd">    u*u.T</span>
+<span class="sd">    </span>
+<span class="sd">    Assume u is a nx1 vector.</span>
+<span class="sd">    Recall: NumPy does not distinguish between row or column vectors</span>
+<span class="sd">    </span>
+<span class="sd">    u.dot(u) returns a scalar. This functon returns an nxn matrix.</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    
+    <span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">u</span><span class="p">)</span>
+    <span class="n">A</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">([</span><span class="n">n</span><span class="p">,</span><span class="n">n</span><span class="p">])</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">n</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">n</span><span class="p">):</span>
+            <span class="n">A</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">u</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">*</span><span class="n">u</span><span class="p">[</span><span class="n">j</span><span class="p">]</span>
+    
+    <span class="k">return</span> <span class="n">A</span>
+
+<span class="c1">## Analyze Hessian</span>
+<span class="k">def</span> <span class="nf">analyze_hes</span><span class="p">(</span><span class="n">B</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">B</span><span class="p">,</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+    
+    <span class="n">l</span> <span class="o">=</span> <span class="n">linalg</span><span class="o">.</span><span class="n">eigvals</span><span class="p">(</span><span class="n">B</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Eigenvalues: &quot;</span><span class="p">,</span><span class="n">l</span><span class="p">,</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+
+
+
+    
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="3.5.1.2-Symmetric-Rank-1-(SR1)-Update">3.5.1.2 Symmetric Rank 1 (SR1) Update<a class="anchor-link" href="#3.5.1.2-Symmetric-Rank-1-(SR1)-Update">&#182;</a></h3>
+</div>
+</div>
+</div>
+
+
+
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[3]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">alg1_sr1</span><span class="p">(</span><span class="n">x0</span><span class="p">,</span><span class="n">calc_f</span><span class="p">,</span><span class="n">calc_grad</span><span class="p">,</span><span class="n">eps1</span><span class="p">,</span><span class="n">eps2</span><span class="p">,</span><span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span><span class="n">max_iter</span><span class="o">=</span><span class="mi">1000</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Arguments:</span>
+<span class="sd">        x0 - starting point</span>
+<span class="sd">        calc_f - funcation that calculates f(x)</span>
+<span class="sd">        calc_grad - function that calculates gradient(x)</span>
+<span class="sd">    </span>
+<span class="sd">    Outputs:</span>
+<span class="sd">        x - iteration history of x (decision variables)</span>
+<span class="sd">        f - iteration history of f(x) (objective value)</span>
+<span class="sd">        p - iteration history of p (steps)</span>
+<span class="sd">        B - Hessian approximation</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    
+    <span class="c1"># Allocate outputs as empty lists</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">f</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">p</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">grad</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">B</span> <span class="o">=</span> <span class="p">[]</span>
+    
+    <span class="c1"># Store starting point</span>
+    <span class="n">x</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">x0</span><span class="p">)</span>
+    <span class="n">k</span> <span class="o">=</span> <span class="mi">0</span>
+    
+    <span class="n">flag</span> <span class="o">=</span> <span class="kc">True</span>
+    
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Iter. </span><span class="se">\t</span><span class="s2">f(x) </span><span class="se">\t\t</span><span class="s2">||grad(x)|| </span><span class="se">\t</span><span class="s2">||p|| </span><span class="se">\t\t</span><span class="s2">min(lambda)&quot;</span><span class="p">)</span>
+    
+    <span class="k">while</span> <span class="n">flag</span> <span class="ow">and</span> <span class="n">k</span> <span class="o">&lt;</span> <span class="n">max_iter</span><span class="p">:</span>
+        <span class="c1"># Evaluate f(x) at current iteration</span>
+        <span class="n">f</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">calc_f</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="n">k</span><span class="p">]))</span>
+        
+        <span class="c1"># Evaluate gradient</span>
+        <span class="n">grad</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">calc_grad</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="n">k</span><span class="p">]))</span>
+        
+        <span class="k">if</span><span class="p">(</span><span class="n">check_nan</span><span class="p">(</span><span class="n">grad</span><span class="p">[</span><span class="n">k</span><span class="p">])):</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;WARNING: gradiant calculation returned NaN&quot;</span><span class="p">)</span>
+            <span class="k">break</span>
+        
+        <span class="k">if</span> <span class="n">verbose</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;k = &quot;</span><span class="p">,</span><span class="n">k</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;x = &quot;</span><span class="p">,</span><span class="n">x</span><span class="p">[</span><span class="n">k</span><span class="p">])</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;grad = &quot;</span><span class="p">,</span><span class="n">grad</span><span class="p">[</span><span class="n">k</span><span class="p">])</span>
+
+        
+        <span class="c1"># Update Hessian approximation</span>
+        <span class="k">if</span> <span class="n">k</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="c1"># Initialize with identity</span>
+            <span class="n">B</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">x0</span><span class="p">)))</span>
+
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c1"># Change in x</span>
+            <span class="n">s</span> <span class="o">=</span> <span class="n">x</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">-</span> <span class="n">x</span><span class="p">[</span><span class="n">k</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+
+            <span class="c1"># Change in gradient</span>
+            <span class="n">y</span> <span class="o">=</span> <span class="n">grad</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">-</span> <span class="n">grad</span><span class="p">[</span><span class="n">k</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+
+            <span class="c1"># SR1 formulation</span>
+            <span class="n">u</span> <span class="o">=</span> <span class="n">y</span> <span class="o">-</span> <span class="n">B</span><span class="p">[</span><span class="n">k</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
+            <span class="n">denom</span> <span class="o">=</span> <span class="p">(</span><span class="n">u</span><span class="p">)</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
+            
+            <span class="c1"># Formula: dB = u * u.T / (u.T * s) if u is a column vector.</span>
+            <span class="n">dB</span> <span class="o">=</span> <span class="n">xxT</span><span class="p">(</span><span class="n">u</span><span class="p">)</span><span class="o">/</span><span class="n">denom</span>
+            
+            <span class="k">if</span><span class="p">(</span><span class="n">verbose</span><span class="p">):</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;s = &quot;</span><span class="p">,</span><span class="n">s</span><span class="p">)</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;y = &quot;</span><span class="p">,</span><span class="n">y</span><span class="p">)</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;SR1 update denominator, (y-B[k-1]*s).T*s = &quot;</span><span class="p">,</span><span class="n">denom</span><span class="p">)</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;SR1 update u = &quot;</span><span class="p">,</span><span class="n">u</span><span class="p">)</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;SR1 update u.T*u/(u.T*s) = </span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span><span class="n">dB</span><span class="p">)</span>
+            
+            <span class="n">B</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">B</span><span class="p">[</span><span class="n">k</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">dB</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">verbose</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;B = </span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span><span class="n">B</span><span class="p">[</span><span class="n">k</span><span class="p">])</span>
+            
+        <span class="k">if</span><span class="p">(</span><span class="n">check_nan</span><span class="p">(</span><span class="n">B</span><span class="p">[</span><span class="n">k</span><span class="p">])):</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;WARNING: Hessian update returned NaN&quot;</span><span class="p">)</span>
+            <span class="k">break</span>
+            
+        <span class="n">c</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">cond</span><span class="p">(</span><span class="n">B</span><span class="p">[</span><span class="n">k</span><span class="p">])</span>
+        <span class="k">if</span> <span class="n">c</span> <span class="o">&gt;</span> <span class="mf">1E12</span><span class="p">:</span>
+            <span class="n">flag</span> <span class="o">=</span> <span class="kc">False</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Warning: Hessian approximation is near singular.&quot;</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;B[k] = </span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span><span class="n">B</span><span class="p">[</span><span class="n">k</span><span class="p">])</span>
+        
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c1"># Calculate step</span>
+            <span class="n">p</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">linalg</span><span class="o">.</span><span class="n">solve</span><span class="p">(</span><span class="n">B</span><span class="p">[</span><span class="n">k</span><span class="p">],</span><span class="o">-</span><span class="n">grad</span><span class="p">[</span><span class="n">k</span><span class="p">]))</span>
+
+            <span class="k">if</span> <span class="n">verbose</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;p = &quot;</span><span class="p">,</span><span class="n">p</span><span class="p">[</span><span class="n">k</span><span class="p">])</span>
+
+            <span class="c1"># Take step</span>
+            <span class="n">x</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">+</span> <span class="n">p</span><span class="p">[</span><span class="n">k</span><span class="p">])</span>
+
+            <span class="c1"># Calculate norms</span>
+            <span class="n">norm_p</span> <span class="o">=</span> <span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">p</span><span class="p">[</span><span class="n">k</span><span class="p">])</span>
+            <span class="n">norm_g</span> <span class="o">=</span> <span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">grad</span><span class="p">[</span><span class="n">k</span><span class="p">])</span>
+
+            <span class="c1"># Calculate eigenvalues of Hessian (for display only)</span>
+            <span class="n">ev</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">real</span><span class="p">(</span><span class="n">linalg</span><span class="o">.</span><span class="n">eigvals</span><span class="p">(</span><span class="n">B</span><span class="p">[</span><span class="n">k</span><span class="p">]))</span>
+
+            <span class="c1"># print(&quot;k = &quot;,k,&quot;\t&quot;f[k],&quot;\t&quot;,norm_g,&quot;\t&quot;,norm_p)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="n">k</span><span class="p">,</span><span class="s1">&#39;  </span><span class="se">\t</span><span class="si">{0: 1.4e}</span><span class="s1"> </span><span class="se">\t</span><span class="si">{1:1.4e}</span><span class="s1"> </span><span class="se">\t</span><span class="si">{2:1.4e}</span><span class="s1"> </span><span class="se">\t</span><span class="si">{3: 1.4e}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">f</span><span class="p">[</span><span class="n">k</span><span class="p">],</span><span class="n">norm_g</span><span class="p">,</span><span class="n">norm_p</span><span class="p">,</span><span class="n">np</span><span class="o">.</span><span class="n">min</span><span class="p">(</span><span class="n">ev</span><span class="p">)))</span>
+
+            <span class="c1"># Check convergence criteria</span>
+            <span class="n">flag</span> <span class="o">=</span> <span class="p">(</span><span class="n">norm_p</span> <span class="o">&gt;</span> <span class="n">eps1</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="n">norm_g</span> <span class="o">&gt;</span> <span class="n">eps2</span><span class="p">)</span>
+
+            <span class="c1"># Update iteration counter</span>
+            <span class="n">k</span> <span class="o">=</span> <span class="n">k</span> <span class="o">+</span> <span class="mi">1</span>
+            
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Done.&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;x* = &quot;</span><span class="p">,</span><span class="n">x</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+    
+    <span class="k">return</span> <span class="n">x</span><span class="p">,</span><span class="n">f</span><span class="p">,</span><span class="n">p</span><span class="p">,</span><span class="n">B</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Done.&quot;</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Done.
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+
+
+
+    
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="3.5.2-Test-Case:-Simple-quadratic-program">3.5.2 Test Case: Simple quadratic program<a class="anchor-link" href="#3.5.2-Test-Case:-Simple-quadratic-program">&#182;</a></h2>$$\min_x ~~ x_1^2 + (x_2 -1)^2$$
+</div>
+</div>
+</div>
+
+
+
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[4]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">my_f_simple</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span>
+
+<span class="k">def</span> <span class="nf">my_grad_exact</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">2</span><span class="o">*</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="mi">2</span><span class="o">*</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="p">])</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+
+
+
+    
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="3.5.2.1-Near-solution">3.5.2.1 Near solution<a class="anchor-link" href="#3.5.2.1-Near-solution">&#182;</a></h3><p>Consider $x_0 = [-0.1, 0.5]^T$</p>
+
+</div>
+</div>
+</div>
+
+
+
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[5]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Specify convergence criteria</span>
+<span class="n">eps1</span> <span class="o">=</span> <span class="mf">1E-8</span>
+<span class="n">eps2</span> <span class="o">=</span> <span class="mf">1E-4</span>
+
+<span class="c1"># Create a Lambda (anonymous) function for gradient calculation</span>
+<span class="c1"># calc_grad = lambda x : my_grad_approx(x,my_f_simple,1E-6,verbose=False)</span>
+<span class="n">calc_grad</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span> <span class="p">:</span> <span class="n">my_grad_exact</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+
+<span class="c1"># Specify starting point</span>
+<span class="n">x0</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="o">-</span><span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">])</span>
+
+<span class="c1"># Call optimization routine</span>
+<span class="n">x</span><span class="p">,</span><span class="n">f</span><span class="p">,</span><span class="n">p</span><span class="p">,</span><span class="n">B</span> <span class="o">=</span> <span class="n">alg1_sr1</span><span class="p">(</span><span class="n">x0</span><span class="p">,</span><span class="n">my_f_simple</span><span class="p">,</span><span class="n">calc_grad</span><span class="p">,</span><span class="n">eps1</span><span class="p">,</span><span class="n">eps2</span><span class="p">,</span><span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span><span class="n">max_iter</span><span class="o">=</span><span class="mi">50</span><span class="p">);</span>
+
+<span class="c1"># SR1 Hessian approximation</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">SR1 Hessian approximation. B[k] =&quot;</span><span class="p">)</span>
+<span class="n">analyze_hes</span><span class="p">(</span><span class="n">B</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+
+<span class="c1"># Actual Hessian</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;True Hessian at x*. B =&quot;</span><span class="p">)</span>
+<span class="n">analyze_hes</span><span class="p">(</span><span class="n">my_hes_approx</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span><span class="n">calc_grad</span><span class="p">,</span><span class="mf">1E-6</span><span class="p">))</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Iter. 	f(x) 		||grad(x)|| 	||p|| 		min(lambda)
+0   	 6.5000e-01 	1.6125e+00 	1.6125e+00 	 1.0000e+00
+1   	 6.5000e-01 	1.6125e+00 	8.0623e-01 	 1.0000e+00
+2   	 1.9259e-34 	2.7756e-17 	2.7595e-17 	 1.0000e+00
+Done.
+x* =  [1.36642834e-17 1.00000000e+00]
+
+SR1 Hessian approximation. B[k] =
+[[1.01538462 0.12307692]
+ [0.12307692 1.98461538]] 
+
+Eigenvalues:  [1.+0.j 2.+0.j] 
+
+True Hessian at x*. B =
+[[2. 0.]
+ [0. 2.]] 
+
+Eigenvalues:  [2.+0.j 2.+0.j] 
+
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+
+
+
+    
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="3.5.2.2-Far-from-solution">3.5.2.2 Far from solution<a class="anchor-link" href="#3.5.2.2-Far-from-solution">&#182;</a></h3><p>Consider $x_0 = [-100, 500]^T$</p>
+
+</div>
+</div>
+</div>
+
+
+
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[6]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Specify starting point</span>
+<span class="n">x0</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="o">-</span><span class="mi">100</span><span class="p">,</span> <span class="mi">500</span><span class="p">])</span>
+
+<span class="c1"># Call optimization routine</span>
+<span class="n">x</span><span class="p">,</span><span class="n">f</span><span class="p">,</span><span class="n">p</span><span class="p">,</span><span class="n">B</span> <span class="o">=</span> <span class="n">alg1_sr1</span><span class="p">(</span><span class="n">x0</span><span class="p">,</span><span class="n">my_f_simple</span><span class="p">,</span><span class="n">calc_grad</span><span class="p">,</span><span class="n">eps1</span><span class="p">,</span><span class="n">eps2</span><span class="p">,</span><span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span><span class="n">max_iter</span><span class="o">=</span><span class="mi">50</span><span class="p">);</span>
+
+<span class="c1"># SR1 Hessian approximation</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">SR1 Hessian approximation. B[k] =&quot;</span><span class="p">)</span>
+<span class="n">analyze_hes</span><span class="p">(</span><span class="n">B</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+
+<span class="c1"># Actual Hessian</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;True Hessian at x*. B =&quot;</span><span class="p">)</span>
+<span class="n">analyze_hes</span><span class="p">(</span><span class="n">my_hes_approx</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span><span class="n">calc_grad</span><span class="p">,</span><span class="mf">1E-6</span><span class="p">))</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Iter. 	f(x) 		||grad(x)|| 	||p|| 		min(lambda)
+0   	 2.5900e+05 	1.0178e+03 	1.0178e+03 	 1.0000e+00
+1   	 2.5900e+05 	1.0178e+03 	5.0892e+02 	 1.0000e+00
+2   	 3.4331e-27 	1.1719e-13 	7.2963e-14 	 1.0000e+00
+Done.
+x* =  [2.46138186e-14 1.00000000e+00]
+
+SR1 Hessian approximation. B[k] =
+[[ 1.03860989 -0.19266335]
+ [-0.19266335  1.96139011]] 
+
+Eigenvalues:  [1.+0.j 2.+0.j] 
+
+True Hessian at x*. B =
+[[2. 0.]
+ [0. 2.]] 
+
+Eigenvalues:  [2.+0.j 2.+0.j] 
+
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+
+
+
+    
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="3.5.2.3-Activity/Discussion">3.5.2.3 Activity/Discussion<a class="anchor-link" href="#3.5.2.3-Activity/Discussion">&#182;</a></h3><ul>
+<li>Does the number of iterations depend on the starting point for this problem?</li>
+<li>How many iterations are needed for Newton's method to converge for a positive definite quadratic program using exact second derivative information?</li>
+<li>Why does the SR1 update not converge to the true Hessian?</li>
+</ul>
+
+</div>
+</div>
+</div>
+
+
+
+    
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="3.5.3-Test-Case:-Example-2.19">3.5.3 Test Case: Example 2.19<a class="anchor-link" href="#3.5.3-Test-Case:-Example-2.19">&#182;</a></h2><p><img src="figures/ex2-19.png" alt="alg3-1"></p>
+
+</div>
+</div>
+</div>
+
+
+
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[7]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">## Define Python function to calculate objective</span>
+<span class="k">def</span> <span class="nf">my_f_ex_2_19</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39; Evaluate function given above at point x</span>
+
+<span class="sd">    Inputs:</span>
+<span class="sd">        x - vector with 2 elements</span>
+<span class="sd">        </span>
+<span class="sd">    Outputs:</span>
+<span class="sd">        f - function value (scalar)</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="c1"># Constants</span>
+    <span class="n">a</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">0.3</span><span class="p">,</span> <span class="mf">0.6</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">])</span>
+    <span class="n">b</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">5</span><span class="p">,</span> <span class="mi">26</span><span class="p">,</span> <span class="mi">3</span><span class="p">])</span>
+    <span class="n">c</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">40</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">10</span><span class="p">])</span>
+    
+    <span class="c1"># Intermediates. Recall Python indicies start at 0</span>
+    <span class="n">u</span> <span class="o">=</span> <span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="mf">0.8</span>
+    <span class="n">s</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">u</span><span class="p">)</span>
+    <span class="n">s2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">1</span><span class="o">+</span><span class="n">u</span><span class="p">)</span>
+    <span class="n">v</span> <span class="o">=</span> <span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span><span class="p">(</span><span class="n">a</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">a</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">*</span><span class="n">u</span><span class="o">**</span><span class="mi">2</span><span class="o">*</span><span class="n">s</span><span class="o">-</span><span class="n">a</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">*</span><span class="n">u</span><span class="p">)</span>
+    <span class="n">alpha</span> <span class="o">=</span> <span class="o">-</span><span class="n">b</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">b</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">*</span><span class="n">u</span><span class="o">**</span><span class="mi">2</span><span class="o">*</span><span class="n">s2</span><span class="o">+</span> <span class="n">b</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">*</span><span class="n">u</span> <span class="c1"># September 5, 2018: changed &#39;s&#39; to &#39;s2&#39;</span>
+    <span class="n">beta</span> <span class="o">=</span> <span class="n">c</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">*</span><span class="n">v</span><span class="o">**</span><span class="mi">2</span><span class="o">*</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">c</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">*</span><span class="n">v</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="mi">1</span><span class="o">+</span><span class="n">c</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">*</span><span class="n">u</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
+    <span class="n">f</span> <span class="o">=</span> <span class="n">alpha</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">beta</span><span class="p">)</span>
+    
+    <span class="k">if</span> <span class="n">verbose</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;##### my_f at x = &quot;</span><span class="p">,</span><span class="n">x</span><span class="p">,</span> <span class="s2">&quot;#####&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;u = &quot;</span><span class="p">,</span><span class="n">u</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;sqrt(1-u) = &quot;</span><span class="p">,</span><span class="n">s</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;sqrt(1+u) = &quot;</span><span class="p">,</span><span class="n">s2</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;v = &quot;</span><span class="p">,</span><span class="n">v</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;alpha = &quot;</span><span class="p">,</span><span class="n">alpha</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;beta = &quot;</span><span class="p">,</span><span class="n">beta</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;f(x) = &quot;</span><span class="p">,</span><span class="n">f</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;##### Done. #####</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+    
+    <span class="k">return</span> <span class="n">f</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+
+
+
+    
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="3.5.3.1-$x_0$-somewhat-near-solution">3.5.3.1 $x_0$ somewhat near solution<a class="anchor-link" href="#3.5.3.1-$x_0$-somewhat-near-solution">&#182;</a></h3><p>Consider:
+$$x_0 = [0.3, 0.1]^T$$</p>
+
+</div>
+</div>
+</div>
+
+
+
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[8]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Create a Lambda (anonymous) function for gradient calculation</span>
+<span class="n">calc_grad</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span> <span class="p">:</span> <span class="n">my_grad_approx</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">my_f_ex_2_19</span><span class="p">,</span><span class="mf">1E-6</span><span class="p">,</span><span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+<span class="c1"># Specify starting point</span>
+<span class="n">x0</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">0.3</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">])</span>
+
+<span class="c1"># Call optimization routine</span>
+<span class="n">x</span><span class="p">,</span><span class="n">f</span><span class="p">,</span><span class="n">p</span><span class="p">,</span><span class="n">B</span> <span class="o">=</span> <span class="n">alg1_sr1</span><span class="p">(</span><span class="n">x0</span><span class="p">,</span><span class="n">my_f_ex_2_19</span><span class="p">,</span><span class="n">calc_grad</span><span class="p">,</span><span class="n">eps1</span><span class="p">,</span><span class="n">eps2</span><span class="p">,</span><span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span><span class="n">max_iter</span><span class="o">=</span><span class="mi">250</span><span class="p">);</span>
+
+<span class="c1"># SR1 Hessian approximation</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">SR1 Hessian approximation. B[k] =&quot;</span><span class="p">)</span>
+<span class="n">analyze_hes</span><span class="p">(</span><span class="n">B</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+
+<span class="c1"># Actual Hessian</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;True Hessian at x*. B =&quot;</span><span class="p">)</span>
+<span class="n">analyze_hes</span><span class="p">(</span><span class="n">my_hes_approx</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span><span class="n">calc_grad</span><span class="p">,</span><span class="mf">1E-6</span><span class="p">))</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Iter. 	f(x) 		||grad(x)|| 	||p|| 		min(lambda)
+0   	-3.6022e-02 	8.3847e-01 	8.3847e-01 	 1.0000e+00
+1   	-4.1276e-02 	4.7785e-01 	3.0223e-01 	 1.0000e+00
+2   	-2.2301e+00 	2.1236e+01 	3.0865e-01 	-6.8856e+01
+3   	-4.1260e-02 	4.4645e-01 	1.3053e-01 	-6.7478e+01
+4   	-1.0354e-01 	1.1855e+00 	1.5062e-01 	-7.1805e+01
+5   	-3.7115e-02 	3.9982e-01 	1.3096e-02 	-5.8783e+01
+6   	-3.4039e-02 	3.6164e-01 	5.9865e-02 	-1.4365e+01
+7   	-2.2398e-02 	2.0377e-01 	4.2988e-02 	-9.5209e+00
+8   	-1.7133e-02 	1.1914e-01 	4.2522e-02 	-6.4394e+00
+9   	-1.4292e-02 	5.7282e-02 	2.4810e-02 	-4.8015e+00
+10   	-1.3542e-02 	2.5813e-02 	1.0353e-02 	-2.8612e+00
+11   	-1.3373e-02 	1.0933e-02 	8.4091e-03 	-1.6117e+00
+12   	-1.3325e-02 	7.7765e-04 	7.5906e-04 	-1.6030e+00
+13   	-1.3324e-02 	1.7106e-05 	1.4129e-05 	-1.5761e+00
+Done.
+x* =  [0.80557705 0.96556999]
+
+SR1 Hessian approximation. B[k] =
+[[-1.48333926 -0.21589307]
+ [-0.21589307 -1.07333656]] 
+
+Eigenvalues:  [-1.57605484+0.j -0.98062097+0.j] 
+
+True Hessian at x*. B =
+[[-1.47002939 -0.20602227]
+ [-0.20602227 -1.06561938]] 
+
+Eigenvalues:  [-1.55649728+0.j -0.9791515 +0.j] 
+
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+
+
+
+    
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="3.5.3.2-$x_0$-far-from-solution">3.5.3.2 $x_0$ far from solution<a class="anchor-link" href="#3.5.3.2-$x_0$-far-from-solution">&#182;</a></h3><p>Consider:
+$$x_0 = [-0.1, 0.2]^T$$</p>
+
+</div>
+</div>
+</div>
+
+
+
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[9]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Specify starting point</span>
+<span class="n">x0</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="o">-</span><span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">])</span>
+
+<span class="c1"># Call optimization routine</span>
+<span class="n">x</span><span class="p">,</span><span class="n">f</span><span class="p">,</span><span class="n">p</span><span class="p">,</span><span class="n">B</span> <span class="o">=</span> <span class="n">alg1_sr1</span><span class="p">(</span><span class="n">x0</span><span class="p">,</span><span class="n">my_f_ex_2_19</span><span class="p">,</span><span class="n">calc_grad</span><span class="p">,</span><span class="n">eps1</span><span class="p">,</span><span class="n">eps2</span><span class="p">,</span><span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span><span class="n">max_iter</span><span class="o">=</span><span class="mi">250</span><span class="p">);</span>
+
+<span class="c1"># SR1 Hessian approximation</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">SR1 Hessian approximation. B[k] =&quot;</span><span class="p">)</span>
+<span class="n">analyze_hes</span><span class="p">(</span><span class="n">B</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+
+<span class="c1"># Actual Hessian</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;True Hessian at x*. B =&quot;</span><span class="p">)</span>
+<span class="n">analyze_hes</span><span class="p">(</span><span class="n">my_hes_approx</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span><span class="n">calc_grad</span><span class="p">,</span><span class="mf">1E-6</span><span class="p">))</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Iter. 	f(x) 		||grad(x)|| 	||p|| 		min(lambda)
+0   	-4.5540e-04 	9.2580e-03 	9.2580e-03 	 1.0000e+00
+1   	-5.4879e-04 	1.0959e-02 	5.9578e-02 	-1.8395e-01
+2   	-1.5604e-04 	3.4877e-03 	2.7627e-02 	-1.2568e-01
+3   	-8.3235e-05 	1.9563e-03 	3.5000e-02 	-5.5390e-02
+4   	-3.6006e-05 	9.0023e-04 	2.9559e-02 	-3.0011e-02
+5   	-1.7097e-05 	4.4964e-04 	2.9246e-02 	-1.5078e-02
+6   	-7.9092e-06 	2.1835e-04 	2.7389e-02 	-7.7836e-03
+7   	-3.7242e-06 	1.0745e-04 	2.6349e-02 	-3.9664e-03
+8   	-1.7531e-06 	5.2702e-05 	2.5208e-02 	-2.0268e-03
+Done.
+x* =  [-0.11328951 -0.05033867]
+
+SR1 Hessian approximation. B[k] =
+[[ 1.00141633e+00 -4.82365647e-02]
+ [-4.82365647e-02  2.91945446e-04]] 
+
+Eigenvalues:  [ 1.00373512+0.j -0.00202684+0.j] 
+
+True Hessian at x*. B =
+[[ 6.99115848e-05 -2.18301460e-04]
+ [-2.18301460e-04 -7.02712139e-04]] 
+
+Eigenvalues:  [ 0.00012733+0.j -0.00076013+0.j] 
+
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+
+
+
+    
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="3.5.3.3-Activity/Discussion">3.5.3.3 Activity/Discussion<a class="anchor-link" href="#3.5.3.3-Activity/Discussion">&#182;</a></h3><ul>
+<li>Classify each candidate solution.</li>
+<li>Is the SR1 approximation always positive definite?</li>
+</ul>
+
+</div>
+</div>
+</div>
+
+
+
+    
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="3.5.4-Broyden-update-with-Cholesky-factorization">3.5.4 Broyden update with Cholesky factorization<a class="anchor-link" href="#3.5.4-Broyden-update-with-Cholesky-factorization">&#182;</a></h2><p>As part of Algorithms Homework 3, you will adapt this example and implement the BFGS (Broyden-Fletcher-Goldfarb-Shanno) update formula.</p>
+<p>You may decide to use the Cholesky factorization of $B^{k}$,</p>
+$$B^{k} = L^{k} (L^{k})^T,$$<p>to make your BFGS update more efficient. (This is not required). Let's see how to do Cholseky factorization with SciPy.</p>
+
+</div>
+</div>
+</div>
+
+
+
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[10]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">## Create random P.D. and symmetric matrix</span>
+<span class="n">B_</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span> <span class="o">+</span> <span class="n">xxT</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">3</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;B = </span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span><span class="n">B_</span><span class="p">,</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="c1">## Perform Cholesky factorization. </span>
+<span class="c1"># By default, lower=False and L is upper triangular. Either works here,</span>
+<span class="c1"># but we prefer L to be lower triangular for convention.</span>
+<span class="n">L</span> <span class="o">=</span> <span class="n">linalg</span><span class="o">.</span><span class="n">cholesky</span><span class="p">(</span><span class="n">B_</span><span class="p">,</span><span class="n">lower</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;L = </span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span><span class="n">L</span><span class="p">,</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="c1">## Reconstruct B</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;L*L.T = </span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span><span class="n">L</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">L</span><span class="o">.</span><span class="n">T</span><span class="p">),</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>B = 
+ [[ 1.00098448  0.00242031 -0.01329946]
+ [ 0.00242031  1.00595022 -0.03269612]
+ [-0.01329946 -0.03269612  1.17966326]] 
+
+L = 
+ [[ 1.00049212  0.          0.        ]
+ [ 0.00241912  1.00296778  0.        ]
+ [-0.01329292 -0.03256731  1.08555328]] 
+
+L*L.T = 
+ [[ 1.00098448  0.00242031 -0.01329946]
+ [ 0.00242031  1.00595022 -0.03269612]
+ [-0.01329946 -0.03269612  1.17966326]] 
+
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
 </div>
 
 
@@ -13176,7 +14073,7 @@ content is available <a href="git@github.com:ndcbe/CBE60499.git">on Github</a>.<
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p><!--NAVIGATION-->
-&lt; <a href="https://ndcbe.github.io/CBE60499/03.04-Netwon-Methods.html">3.4 Newton Methods</a> | <a href="toc.html">Contents</a> | <a href="https://ndcbe.github.io/CBE60499/03.06-Line-Search.html">3.6 Globalization with Line Search</a> &gt;<p><a href="https://colab.research.google.com/github/ndcbe/CBE60499/blob/master/docs/03.05-Quasi-Newton-Method.ipynb"> <img align="left" src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open in Colab" title="Open in Google Colaboratory"></a><p><a href="https://ndcbe.github.io/CBE60499/03.05-Quasi-Newton-Method.ipynb"> <img align="left" src="https://img.shields.io/badge/Github-Download-blue.svg" alt="Download" title="Download Notebook"></a></p>
+&lt; <a href="https://ndcbe.github.io/CBE60499/03.04-Netwon-Methods.html">3.4 Newton-type Methods for Unconstrained Optimization</a> | <a href="toc.html">Contents</a> | <a href="https://ndcbe.github.io/CBE60499/03.06-Line-Search.html">3.6 Globalization with Line Search</a> &gt;<p><a href="https://colab.research.google.com/github/ndcbe/CBE60499/blob/master/docs/03.05-Quasi-Newton-Method.ipynb"> <img align="left" src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open in Colab" title="Open in Google Colaboratory"></a><p><a href="https://ndcbe.github.io/CBE60499/03.05-Quasi-Newton-Method.ipynb"> <img align="left" src="https://img.shields.io/badge/Github-Download-blue.svg" alt="Download" title="Download Notebook"></a></p>
 
 </div>
 </div>
