@@ -13327,18 +13327,18 @@ $$3 x_1 + 2 x_2 + x_3 = 6$$$$-x_1 + 4 x_2 + 5x_3 = 8$$$$2x_1 -8 x_2 + 10 x_3 = 4
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Write function here.</span>
-<span class="k">def</span> <span class="nf">my_lu_solve</span><span class="p">(</span><span class="n">P</span><span class="p">,</span> <span class="n">L</span><span class="p">,</span> <span class="n">U</span><span class="p">,</span> <span class="n">b</span><span class="p">):</span>
+<span class="k">def</span> <span class="nf">my_lu_solve</span><span class="p">(</span><span class="n">P</span><span class="p">,</span> <span class="n">L</span><span class="p">,</span> <span class="n">U</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">LOUD</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
     <span class="sd">&#39;&#39;&#39; </span>
 <span class="sd">    Solves linear system Ax = b given PLU decomposition of A</span>
 <span class="sd">    </span>
 <span class="sd">    Arguments:</span>
-<span class="sd">        P - permutation matrix</span>
-<span class="sd">        L - lower triangular matrix</span>
-<span class="sd">        U - upper triangular matrix</span>
-<span class="sd">        b - right hand side vector in linear system</span>
+<span class="sd">        P - N by N permutation matrix</span>
+<span class="sd">        L - N by N lower triangular matrix with 1 on diagonal</span>
+<span class="sd">        U - N by N upper triangular matrix</span>
+<span class="sd">        b - N by 1 vector</span>
 <span class="sd">    </span>
 <span class="sd">    Returns:</span>
-<span class="sd">        x - solution of linear system</span>
+<span class="sd">        x - N by 1 solution to linear system</span>
 <span class="sd">    &#39;&#39;&#39;</span>
     
     <span class="c1"># Define x so this does not give an error. You can delete the line below.</span>
@@ -13347,6 +13347,23 @@ $$3 x_1 + 2 x_2 + x_3 = 6$$$$-x_1 + 4 x_2 + 5x_3 = 8$$$$2x_1 -8 x_2 + 10 x_3 = 4
     <span class="c1"># YOUR SOLUTION HERE</span>
     
     <span class="k">return</span> <span class="n">x</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+
+
+
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="n">my_lu_solve</span><span class="p">(</span><span class="n">P</span><span class="p">,</span> <span class="n">L</span><span class="p">,</span> <span class="n">U</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">LOUD</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 </pre></div>
 
     </div>
