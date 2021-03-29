@@ -6,6 +6,7 @@
 ### [Data Index](https://ndcbe.github.io/CBE60499/data_index.html)
 ### [Figure Index](https://ndcbe.github.io/CBE60499/figure_index.html)
 ### [Python Module Index](https://ndcbe.github.io/CBE60499/python_index.html)
+### [Tag Index](https://ndcbe.github.io/CBE60499/tag_index.html)
 
 ### [Chapter 1.0 Getting Started with Pyomo](https://ndcbe.github.io/CBE60499/01.00-Pyomo-Introduction.html)
 - [1.1 60 Minutes to Pyomo: An Energy Storage Model Predictive Control Example](https://ndcbe.github.io/CBE60499/01.01-Pyomo-Nuts-and-Bolts.html)
