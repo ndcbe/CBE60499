@@ -13554,7 +13554,8 @@ $$<p>You may need to do this for a small system on an exam to characterize stati
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="3.8.2.4-Singular-Value-Decomposition">3.8.2.4 Singular Value Decomposition<a class="anchor-link" href="#3.8.2.4-Singular-Value-Decomposition">&#182;</a></h3>
+<h3 id="3.8.2.4-Singular-Value-Decomposition">3.8.2.4 Singular Value Decomposition<a class="anchor-link" href="#3.8.2.4-Singular-Value-Decomposition">&#182;</a></h3><p><strong>TODO:</strong> Make this a separate problem (after the assignment is turned in this year).</p>
+
 </div>
 </div>
 </div>
@@ -13659,13 +13660,7 @@ $$
 
 
 
-    <div style="background-color:white; border:thin solid grey; margin-left:95px; margin-right:6px">
     
-        &nbsp; <a href="https://ndcbe.github.io/CBE60499/tag_index.html#gradescope">gradescope</a>
-    
-    </div>
-    
-        
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
@@ -13673,7 +13668,6 @@ $$
 </div>
 </div>
 </div>
-    
 
 
 
@@ -13681,7 +13675,10 @@ $$
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Consider the linear system $Ax = b$ for $b = [1, 0, 3]^T$. Approximately how much uncertainty $||\Delta b||_2$ can you tolerate if you want the uncertainty $||\Delta x||_2$ to be less than $10^{-2}$?</p>
+<p>Consider the linear system $A_4 \cdot x = b$ with $b = [1, 0, 3]^T$ and</p>
+$$
+A_4 = \begin{bmatrix} 1 &amp; 2 &amp; 0 \\ 2 &amp; 4 &amp; 10^{-1} \\ 0 &amp; 2 &amp; -1 \end{bmatrix} ~.
+$$<p>Approximately how much uncertainty $||\Delta b||_2$ can you tolerate if you want the uncertainty $||\Delta x||_2$ to be less than $10^{-2}$?</p>
 
 </div>
 </div>
@@ -13689,13 +13686,36 @@ $$
 
 
 
-    <div style="background-color:white; border:thin solid grey; margin-left:95px; margin-right:6px">
     
-        &nbsp; <a href="https://ndcbe.github.io/CBE60499/tag_index.html#gradescope">gradescope</a>
-    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># YOUR SOLUTION HERE</span>
+</pre></div>
+
     </div>
+</div>
+</div>
+
+</div>
+
+
+
     
-        
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><strong>Answer</strong>:</p>
+
+</div>
+</div>
+</div>
+
+
+
+    
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
@@ -13703,7 +13723,6 @@ $$
 </div>
 </div>
 </div>
-    
 
 
 
@@ -13713,10 +13732,22 @@ $$
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>Do/answer the following:</p>
 <ol>
-<li>Propose a change to a single entry in A to make it singular.</li>
+<li>Propose a change to a single entry in $A_4$ to make it singular.</li>
 <li>What are the singular values and condition number after this change?</li>
-<li>What can you say about the solution to $Ax=b$ after the change?</li>
+<li>What can you say about the solution to $A_4 \cdot x=b$ after the change?</li>
 </ol>
+
+</div>
+</div>
+</div>
+
+
+
+    
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><strong>Answer:</strong></p>
 
 </div>
 </div>
@@ -13734,7 +13765,8 @@ $$
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="3.8.3-Convexity">3.8.3 Convexity<a class="anchor-link" href="#3.8.3-Convexity">&#182;</a></h2>
+<h2 id="3.8.3-Convexity">3.8.3 Convexity<a class="anchor-link" href="#3.8.3-Convexity">&#182;</a></h2><p>Please turn in via Gradescope.</p>
+
 </div>
 </div>
 </div>
