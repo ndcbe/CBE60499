@@ -34,6 +34,7 @@
 - [3.7 Globalization with Trust Region](https://ndcbe.github.io/CBE60499/03.07-Trust-Region.html)
 - [3.8 Algorithms Homework 1](https://ndcbe.github.io/CBE60499/03.08-Algorithms1.html)
 - [3.9 Algorithms Homework 2](https://ndcbe.github.io/CBE60499/03.09-Algorithms2.html)
+- [3.10 Algorithms Homework 3](https://ndcbe.github.io/CBE60499/03.10-Algorithms3.html)
 
 ### [Chapter 4.0 Constrained Nonlinear Optimization: Theory and Applications](https://ndcbe.github.io/CBE60499/04.00-Constrained.html)
 - [4.1 Convexity Revisited](https://ndcbe.github.io/CBE60499/04.01-Convexity.html)
