@@ -13636,102 +13636,160 @@ div#notebook {
 </ul>
 </li>
 </ul>
-<h3 id="3.6-Globalization-with-Line-Search"><a href="https://ndcbe.github.io/CBE60499/03.06-Line-Search.html">3.6 Globalization with Line Search</a><a class="anchor-link" href="#3.6-Globalization-with-Line-Search">&#182;</a></h3><h3 id="3.7-Globalization-with-Trust-Region"><a href="https://ndcbe.github.io/CBE60499/03.07-Trust-Region.html">3.7 Globalization with Trust Region</a><a class="anchor-link" href="#3.7-Globalization-with-Trust-Region">&#182;</a></h3><h3 id="3.8-Algorithms-Homework-1"><a href="https://ndcbe.github.io/CBE60499/03.08-Algorithms1.html">3.8 Algorithms Homework 1</a><a class="anchor-link" href="#3.8-Algorithms-Homework-1">&#182;</a></h3><ul>
-<li><a href="https://ndcbe.github.io/CBE60499/03.08-Algorithms1.html#3.8.1-Linear-Algebra-Review">3.8.1 Linear Algebra Review</a><ul>
-<li><a href="https://ndcbe.github.io/CBE60499/03.08-Algorithms1.html#3.8.1.1-Exact-solution">3.8.1.1 Exact solution</a></li>
-<li><a href="https://ndcbe.github.io/CBE60499/03.08-Algorithms1.html#3.8.1.2-Solve-using-the-inverse">3.8.1.2 Solve using the inverse</a></li>
-<li><a href="https://ndcbe.github.io/CBE60499/03.08-Algorithms1.html#3.8.1.3-Solve-using-LU-decomposition">3.8.1.3 Solve using LU decomposition</a></li>
-<li><a href="https://ndcbe.github.io/CBE60499/03.08-Algorithms1.html#3.8.1.4-Solve-using-`linalg.solve`">3.8.1.4 Solve using <code>linalg.solve</code></a></li>
+<h3 id="3.6-Descent-and-Globalization"><a href="https://ndcbe.github.io/CBE60499/03.06-Globalization.html">3.6 Descent and Globalization</a><a class="anchor-link" href="#3.6-Descent-and-Globalization">&#182;</a></h3><ul>
+<li><a href="https://ndcbe.github.io/CBE60499/03.06-Globalization.html#3.6.1-Define-Test-Function-and-Derivatives">3.6.1 Define Test Function and Derivatives</a></li>
+<li><a href="https://ndcbe.github.io/CBE60499/03.06-Globalization.html#3.6.2-Geometric-Insights-into-Newton-Steps">3.6.2 Geometric Insights into Newton Steps</a><ul>
+<li><a href="https://ndcbe.github.io/CBE60499/03.06-Globalization.html#3.6.2.1-Motivation">3.6.2.1 Motivation</a></li>
+<li><a href="https://ndcbe.github.io/CBE60499/03.06-Globalization.html#3.6.2.2-Compute-and-Plot-Steps">3.6.2.2 Compute and Plot Steps</a></li>
+<li><a href="https://ndcbe.github.io/CBE60499/03.06-Globalization.html#3.6.2.3-Consider-$x_0-=--3$">3.6.2.3 Consider $x_0 = -3$</a></li>
+<li><a href="https://ndcbe.github.io/CBE60499/03.06-Globalization.html#3.6.2.4-Consider-$x_0-=-0$">3.6.2.4 Consider $x_0 = 0$</a></li>
+<li><a href="https://ndcbe.github.io/CBE60499/03.06-Globalization.html#3.6.2.5-Descent-Properties">3.6.2.5 Descent Properties</a></li>
 </ul>
 </li>
-<li><a href="https://ndcbe.github.io/CBE60499/03.08-Algorithms1.html#3.8.2-Eigenvalues">3.8.2 Eigenvalues</a><ul>
-<li><a href="https://ndcbe.github.io/CBE60499/03.08-Algorithms1.html#3.8.2.1-Calculate-eigenvalues-by-hand-(on-paper">3.8.2.1 Calculate eigenvalues by hand (on paper)</a>)</li>
-<li><a href="https://ndcbe.github.io/CBE60499/03.08-Algorithms1.html#3.8.2.2-Calculate-eigenvalues-using-`linalg.eig`">3.8.2.2 Calculate eigenvalues using <code>linalg.eig</code></a></li>
-<li><a href="https://ndcbe.github.io/CBE60499/03.08-Algorithms1.html#3.8.2.3-Definiteness">3.8.2.3 Definiteness</a></li>
-<li><a href="https://ndcbe.github.io/CBE60499/03.08-Algorithms1.html#3.8.2.4-Singular-Value-Decomposition">3.8.2.4 Singular Value Decomposition</a></li>
-<li><a href="https://ndcbe.github.io/CBE60499/03.08-Algorithms1.html#3.8.2.5-SVD-calculation-using-`linalg.svd`">3.8.2.5 SVD calculation using <code>linalg.svd</code></a></li>
-<li><a href="https://ndcbe.github.io/CBE60499/03.08-Algorithms1.html#3.8.2.6-Condition-number">3.8.2.6 Condition number</a></li>
-<li><a href="https://ndcbe.github.io/CBE60499/03.08-Algorithms1.html#3.8.2.7-Linear-system">3.8.2.7 Linear system</a></li>
-<li><a href="https://ndcbe.github.io/CBE60499/03.08-Algorithms1.html#3.8.2.8-Make-it-singular">3.8.2.8 Make it singular</a></li>
+<li><a href="https://ndcbe.github.io/CBE60499/03.06-Globalization.html#3.6.3-Line-Search">3.6.3 Line Search</a><ul>
+<li><a href="https://ndcbe.github.io/CBE60499/03.06-Globalization.html#3.6.3.1-Visualization-Code">3.6.3.1 Visualization Code</a></li>
+<li><a href="https://ndcbe.github.io/CBE60499/03.06-Globalization.html#3.6.3.2-Newton-Step,-$x^k-=--3$">3.6.3.2 Newton Step, $x^k = -3$</a></li>
+<li><a href="https://ndcbe.github.io/CBE60499/03.06-Globalization.html#3.6.3.3-Steepest-Descent-Step,-$x^k-=--3$">3.6.3.3 Steepest Descent Step, $x^k = -3$</a></li>
 </ul>
 </li>
-<li><a href="https://ndcbe.github.io/CBE60499/03.08-Algorithms1.html#3.8.3-Convexity">3.8.3 Convexity</a><ul>
-<li><a href="https://ndcbe.github.io/CBE60499/03.08-Algorithms1.html#3.8.3.1-Determine-if-the-following-functions-are-convex">3.8.3.1 Determine if the following functions are convex</a></li>
-<li><a href="https://ndcbe.github.io/CBE60499/03.08-Algorithms1.html#3.8.3.2-Prove-the-following-properties">3.8.3.2 Prove the following properties</a><ul>
-<li><a href="https://ndcbe.github.io/CBE60499/03.08-Algorithms1.html#3.8.3.2.1-PSD-implies-Convexity">3.8.3.2.1 PSD implies Convexity</a></li>
-<li><a href="https://ndcbe.github.io/CBE60499/03.08-Algorithms1.html#3.8.3.2.2-Convexity-implies-PSD">3.8.3.2.2 Convexity implies PSD</a></li>
-<li><a href="https://ndcbe.github.io/CBE60499/03.08-Algorithms1.html#3.8.3.2.3-PD-implies-Strictly-Convex">3.8.3.2.3 PD implies Strictly Convex</a></li>
+<li><a href="https://ndcbe.github.io/CBE60499/03.06-Globalization.html#3.6.4-Newton-Step,-$x^k-=-0$">3.6.4 Newton Step, $x^k = 0$</a><ul>
+<li><a href="https://ndcbe.github.io/CBE60499/03.06-Globalization.html#3.6.4.1-Steepest-Descent-Step,-$x^k-=-0$">3.6.4.1 Steepest Descent Step, $x^k = 0$</a></li>
+</ul>
+</li>
+<li><a href="https://ndcbe.github.io/CBE60499/03.06-Globalization.html#3.6.5-Trust-Regions">3.6.5 Trust Regions</a><ul>
+<li><a href="https://ndcbe.github.io/CBE60499/03.06-Globalization.html#3.6.5.1-Main-Idea-and-General-Algorithm">3.6.5.1 Main Idea and General Algorithm</a></li>
+<li><a href="https://ndcbe.github.io/CBE60499/03.06-Globalization.html#3.6.5.2-Trust-Region-Variations">3.6.5.2 Trust Region Variations</a><ul>
+<li><a href="https://ndcbe.github.io/CBE60499/03.06-Globalization.html#3.6.5.2.1-Levenburg-Marquardt">3.6.5.2.1 Levenburg-Marquardt</a></li>
+<li><a href="https://ndcbe.github.io/CBE60499/03.06-Globalization.html#3.6.5.2.2-Powell-Dogleg">3.6.5.2.2 Powell Dogleg</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Markdown Figures<ul>
+<li><a href="figures/descent_direction.png">book</a></li>
+<li><a href="figures/linesearch_conditions.png">book</a></li>
+<li><a href="figures/Thm3-3.png">book</a></li>
+<li><a href="figures/Alg3-2.png">book</a></li>
+<li><a href="figures/Thm3-4.png">book</a></li>
+<li><a href="figures/trust-region-intro.png">book</a></li>
+<li><a href="figures/Alg3-3.png">book</a></li>
+<li><a href="figures/TR-visual.png">book</a></li>
+<li><a href="figures/LM-TR.png">book</a></li>
+<li><a href="figures/PD-TR.png">book</a></li>
+<li><a href="figures/PD-TR2.png">book</a></li>
+</ul>
+</li>
+<li>Figure files used<ul>
+<li><a href="https://ndcbe.github.io/CBE60499/figures/linesearch_conditions.png">figures/linesearch_conditions.png</a></li>
+<li><a href="https://ndcbe.github.io/CBE60499/figures/trust-region-intro.png">figures/trust-region-intro.png</a></li>
+<li><a href="https://ndcbe.github.io/CBE60499/figures/Thm3-3.png">figures/Thm3-3.png</a></li>
+<li><a href="https://ndcbe.github.io/CBE60499/figures/PD-TR.png">figures/PD-TR.png</a></li>
+<li><a href="https://ndcbe.github.io/CBE60499/figures/Thm3-4.png">figures/Thm3-4.png</a></li>
+<li><a href="https://ndcbe.github.io/CBE60499/figures/LM-TR.png">figures/LM-TR.png</a></li>
+<li><a href="https://ndcbe.github.io/CBE60499/figures/TR-visual.png">figures/TR-visual.png</a></li>
+<li><a href="https://ndcbe.github.io/CBE60499/figures/descent_direction.png">figures/descent_direction.png</a></li>
+<li><a href="https://ndcbe.github.io/CBE60499/figures/Alg3-3.png">figures/Alg3-3.png</a></li>
+<li><a href="https://ndcbe.github.io/CBE60499/figures/Alg3-2.png">figures/Alg3-2.png</a></li>
+<li><a href="https://ndcbe.github.io/CBE60499/figures/PD-TR2.png">figures/PD-TR2.png</a></li>
+</ul>
+</li>
+</ul>
+<h3 id="3.7-Algorithms-Homework-1"><a href="https://ndcbe.github.io/CBE60499/03.07-Algorithms1.html">3.7 Algorithms Homework 1</a><a class="anchor-link" href="#3.7-Algorithms-Homework-1">&#182;</a></h3><ul>
+<li><a href="https://ndcbe.github.io/CBE60499/03.07-Algorithms1.html#3.7.1-Linear-Algebra-Review">3.7.1 Linear Algebra Review</a><ul>
+<li><a href="https://ndcbe.github.io/CBE60499/03.07-Algorithms1.html#3.7.1.1-Exact-solution">3.7.1.1 Exact solution</a></li>
+<li><a href="https://ndcbe.github.io/CBE60499/03.07-Algorithms1.html#3.7.1.2-Solve-using-the-inverse">3.7.1.2 Solve using the inverse</a></li>
+<li><a href="https://ndcbe.github.io/CBE60499/03.07-Algorithms1.html#3.7.1.3-Solve-using-LU-decomposition">3.7.1.3 Solve using LU decomposition</a></li>
+<li><a href="https://ndcbe.github.io/CBE60499/03.07-Algorithms1.html#3.7.1.4-Solve-using-`linalg.solve`">3.7.1.4 Solve using <code>linalg.solve</code></a></li>
+</ul>
+</li>
+<li><a href="https://ndcbe.github.io/CBE60499/03.07-Algorithms1.html#3.7.2-Eigenvalues">3.7.2 Eigenvalues</a><ul>
+<li><a href="https://ndcbe.github.io/CBE60499/03.07-Algorithms1.html#3.7.2.1-Calculate-eigenvalues-by-hand-(on-paper">3.7.2.1 Calculate eigenvalues by hand (on paper)</a>)</li>
+<li><a href="https://ndcbe.github.io/CBE60499/03.07-Algorithms1.html#3.7.2.2-Calculate-eigenvalues-using-`linalg.eig`">3.7.2.2 Calculate eigenvalues using <code>linalg.eig</code></a></li>
+<li><a href="https://ndcbe.github.io/CBE60499/03.07-Algorithms1.html#3.7.2.3-Definiteness">3.7.2.3 Definiteness</a></li>
+<li><a href="https://ndcbe.github.io/CBE60499/03.07-Algorithms1.html#3.7.2.4-Singular-Value-Decomposition">3.7.2.4 Singular Value Decomposition</a></li>
+<li><a href="https://ndcbe.github.io/CBE60499/03.07-Algorithms1.html#3.7.2.5-SVD-calculation-using-`linalg.svd`">3.7.2.5 SVD calculation using <code>linalg.svd</code></a></li>
+<li><a href="https://ndcbe.github.io/CBE60499/03.07-Algorithms1.html#3.7.2.6-Condition-number">3.7.2.6 Condition number</a></li>
+<li><a href="https://ndcbe.github.io/CBE60499/03.07-Algorithms1.html#3.7.2.7-Linear-system">3.7.2.7 Linear system</a></li>
+<li><a href="https://ndcbe.github.io/CBE60499/03.07-Algorithms1.html#3.7.2.8-Make-it-singular">3.7.2.8 Make it singular</a></li>
+</ul>
+</li>
+<li><a href="https://ndcbe.github.io/CBE60499/03.07-Algorithms1.html#3.7.3-Convexity">3.7.3 Convexity</a><ul>
+<li><a href="https://ndcbe.github.io/CBE60499/03.07-Algorithms1.html#3.7.3.1-Determine-if-the-following-functions-are-convex">3.7.3.1 Determine if the following functions are convex</a></li>
+<li><a href="https://ndcbe.github.io/CBE60499/03.07-Algorithms1.html#3.7.3.2-Prove-the-following-properties">3.7.3.2 Prove the following properties</a><ul>
+<li><a href="https://ndcbe.github.io/CBE60499/03.07-Algorithms1.html#3.7.3.2.1-PSD-implies-Convexity">3.7.3.2.1 PSD implies Convexity</a></li>
+<li><a href="https://ndcbe.github.io/CBE60499/03.07-Algorithms1.html#3.7.3.2.2-Convexity-implies-PSD">3.7.3.2.2 Convexity implies PSD</a></li>
+<li><a href="https://ndcbe.github.io/CBE60499/03.07-Algorithms1.html#3.7.3.2.3-PD-implies-Strictly-Convex">3.7.3.2.3 PD implies Strictly Convex</a></li>
 </ul>
 </li>
 </ul>
 </li>
 <li>Tags: gradescope</li>
 </ul>
-<h3 id="3.9-Algorithms-Homework-2"><a href="https://ndcbe.github.io/CBE60499/03.09-Algorithms2.html">3.9 Algorithms Homework 2</a><a class="anchor-link" href="#3.9-Algorithms-Homework-2">&#182;</a></h3><ul>
-<li><a href="https://ndcbe.github.io/CBE60499/03.09-Algorithms2.html#3.9.1-Finite-Difference-Approximations">3.9.1 Finite Difference Approximations</a><ul>
-<li><a href="https://ndcbe.github.io/CBE60499/03.09-Algorithms2.html#3.9.1.1-Finite-difference-order">3.9.1.1 Finite difference order</a></li>
-<li><a href="https://ndcbe.github.io/CBE60499/03.09-Algorithms2.html#3.9.1.2-Provided-Codes">3.9.1.2 Provided Codes</a><ul>
-<li><a href="https://ndcbe.github.io/CBE60499/03.09-Algorithms2.html#3.9.1.2.1-Finite-Difference-Code">3.9.1.2.1 Finite Difference Code</a></li>
-<li><a href="https://ndcbe.github.io/CBE60499/03.09-Algorithms2.html#3.9.1.2.2-Analytic-Gradient">3.9.1.2.2 Analytic Gradient</a></li>
-<li><a href="https://ndcbe.github.io/CBE60499/03.09-Algorithms2.html#3.9.1.2.3-Analytic-Hessian">3.9.1.2.3 Analytic Hessian</a></li>
+<h3 id="3.8-Algorithms-Homework-2"><a href="https://ndcbe.github.io/CBE60499/03.08-Algorithms2.html">3.8 Algorithms Homework 2</a><a class="anchor-link" href="#3.8-Algorithms-Homework-2">&#182;</a></h3><ul>
+<li><a href="https://ndcbe.github.io/CBE60499/03.08-Algorithms2.html#3.8.1-Finite-Difference-Approximations">3.8.1 Finite Difference Approximations</a><ul>
+<li><a href="https://ndcbe.github.io/CBE60499/03.08-Algorithms2.html#3.8.1.1-Finite-difference-order">3.8.1.1 Finite difference order</a></li>
+<li><a href="https://ndcbe.github.io/CBE60499/03.08-Algorithms2.html#3.8.1.2-Provided-Codes">3.8.1.2 Provided Codes</a><ul>
+<li><a href="https://ndcbe.github.io/CBE60499/03.08-Algorithms2.html#3.8.1.2.1-Finite-Difference-Code">3.8.1.2.1 Finite Difference Code</a></li>
+<li><a href="https://ndcbe.github.io/CBE60499/03.08-Algorithms2.html#3.8.1.2.2-Analytic-Gradient">3.8.1.2.2 Analytic Gradient</a></li>
+<li><a href="https://ndcbe.github.io/CBE60499/03.08-Algorithms2.html#3.8.1.2.3-Analytic-Hessian">3.8.1.2.3 Analytic Hessian</a></li>
 </ul>
 </li>
-<li><a href="https://ndcbe.github.io/CBE60499/03.09-Algorithms2.html#3.9.1.3-Gradient-Finite-Difference-Comparison">3.9.1.3 Gradient Finite Difference Comparison</a></li>
-<li><a href="https://ndcbe.github.io/CBE60499/03.09-Algorithms2.html#3.9.1.4-Hessian-Finite-Difference-using-Approximate-Gradient">3.9.1.4 Hessian Finite Difference using Approximate Gradient</a></li>
-<li><a href="https://ndcbe.github.io/CBE60499/03.09-Algorithms2.html#3.9.1.5-Hessian-Finite-Difference-using-Exact-Gradient">3.9.1.5 Hessian Finite Difference using Exact Gradient</a></li>
-<li><a href="https://ndcbe.github.io/CBE60499/03.09-Algorithms2.html#3.9.1.6-Final-Answers">3.9.1.6 Final Answers</a></li>
-<li><a href="https://ndcbe.github.io/CBE60499/03.09-Algorithms2.html#3.9.1.7-Discussion">3.9.1.7 Discussion</a></li>
+<li><a href="https://ndcbe.github.io/CBE60499/03.08-Algorithms2.html#3.8.1.3-Gradient-Finite-Difference-Comparison">3.8.1.3 Gradient Finite Difference Comparison</a></li>
+<li><a href="https://ndcbe.github.io/CBE60499/03.08-Algorithms2.html#3.8.1.4-Hessian-Finite-Difference-using-Approximate-Gradient">3.8.1.4 Hessian Finite Difference using Approximate Gradient</a></li>
+<li><a href="https://ndcbe.github.io/CBE60499/03.08-Algorithms2.html#3.8.1.5-Hessian-Finite-Difference-using-Exact-Gradient">3.8.1.5 Hessian Finite Difference using Exact Gradient</a></li>
+<li><a href="https://ndcbe.github.io/CBE60499/03.08-Algorithms2.html#3.8.1.6-Final-Answers">3.8.1.6 Final Answers</a></li>
+<li><a href="https://ndcbe.github.io/CBE60499/03.08-Algorithms2.html#3.8.1.7-Discussion">3.8.1.7 Discussion</a></li>
 </ul>
 </li>
-<li><a href="https://ndcbe.github.io/CBE60499/03.09-Algorithms2.html#3.9.2-Analysis-of-possible-optimization-solutions">3.9.2 Analysis of possible optimization solutions</a><ul>
-<li><a href="https://ndcbe.github.io/CBE60499/03.09-Algorithms2.html#3.9.2.1-Point-1">3.9.2.1 Point 1</a></li>
-<li><a href="https://ndcbe.github.io/CBE60499/03.09-Algorithms2.html#3.9.2.2-Point-2">3.9.2.2 Point 2</a></li>
-<li><a href="https://ndcbe.github.io/CBE60499/03.09-Algorithms2.html#3.9.2.3-Point-3">3.9.2.3 Point 3</a></li>
-<li><a href="https://ndcbe.github.io/CBE60499/03.09-Algorithms2.html#3.9.2.4-Point-4">3.9.2.4 Point 4</a></li>
-<li><a href="https://ndcbe.github.io/CBE60499/03.09-Algorithms2.html#3.9.2.5-Visualize-in-3D">3.9.2.5 Visualize in 3D</a></li>
-<li><a href="https://ndcbe.github.io/CBE60499/03.09-Algorithms2.html#3.9.2.6-Convexity">3.9.2.6 Convexity</a></li>
+<li><a href="https://ndcbe.github.io/CBE60499/03.08-Algorithms2.html#3.8.2-Analysis-of-possible-optimization-solutions">3.8.2 Analysis of possible optimization solutions</a><ul>
+<li><a href="https://ndcbe.github.io/CBE60499/03.08-Algorithms2.html#3.8.2.1-Point-1">3.8.2.1 Point 1</a></li>
+<li><a href="https://ndcbe.github.io/CBE60499/03.08-Algorithms2.html#3.8.2.2-Point-2">3.8.2.2 Point 2</a></li>
+<li><a href="https://ndcbe.github.io/CBE60499/03.08-Algorithms2.html#3.8.2.3-Point-3">3.8.2.3 Point 3</a></li>
+<li><a href="https://ndcbe.github.io/CBE60499/03.08-Algorithms2.html#3.8.2.4-Point-4">3.8.2.4 Point 4</a></li>
+<li><a href="https://ndcbe.github.io/CBE60499/03.08-Algorithms2.html#3.8.2.5-Visualize-in-3D">3.8.2.5 Visualize in 3D</a></li>
+<li><a href="https://ndcbe.github.io/CBE60499/03.08-Algorithms2.html#3.8.2.6-Convexity">3.8.2.6 Convexity</a></li>
 </ul>
 </li>
-<li><a href="https://ndcbe.github.io/CBE60499/03.09-Algorithms2.html#3.9.3-Multivariable-Taylor-Series">3.9.3 Multivariable Taylor Series</a><ul>
-<li><a href="https://ndcbe.github.io/CBE60499/03.09-Algorithms2.html#3.9.3.1-Create-a-function-to-plot-the-first-order-Taylor-series-using-$\nabla-f$">3.9.3.1 Create a function to plot the first order Taylor series using $\nabla f$</a></li>
-<li><a href="https://ndcbe.github.io/CBE60499/03.09-Algorithms2.html#3.9.3.2-Taylor-Series-using-`my_grad_approx`">3.9.3.2 Taylor Series using <code>my_grad_approx</code></a></li>
-<li><a href="https://ndcbe.github.io/CBE60499/03.09-Algorithms2.html#3.9.3.3-Taylor-Series-using-`my_grad_exact`">3.9.3.3 Taylor Series using <code>my_grad_exact</code></a></li>
-<li><a href="https://ndcbe.github.io/CBE60499/03.09-Algorithms2.html#3.9.3.4-Create-a-function-to-plot-the-second-order-Taylor-series-using-$\nabla-f$-and-$\nabla^2-f$">3.9.3.4 Create a function to plot the second order Taylor series using $\nabla f$ and $\nabla^2 f$</a></li>
-<li><a href="https://ndcbe.github.io/CBE60499/03.09-Algorithms2.html#3.9.3.5-Taylor-series-using-`my_grad_approx`-and-`my_hes_approx`">3.9.3.5 Taylor series using <code>my_grad_approx</code> and <code>my_hes_approx</code></a></li>
-<li><a href="https://ndcbe.github.io/CBE60499/03.09-Algorithms2.html#3.9.3.6-Taylor-series-using-`my_grad_exact`-and-`my_hes_exact`">3.9.3.6 Taylor series using <code>my_grad_exact</code> and <code>my_hes_exact</code></a></li>
-<li><a href="https://ndcbe.github.io/CBE60499/03.09-Algorithms2.html#3.9.3.7-Discussion">3.9.3.7 Discussion</a></li>
+<li><a href="https://ndcbe.github.io/CBE60499/03.08-Algorithms2.html#3.8.3-Multivariable-Taylor-Series">3.8.3 Multivariable Taylor Series</a><ul>
+<li><a href="https://ndcbe.github.io/CBE60499/03.08-Algorithms2.html#3.8.3.1-Create-a-function-to-plot-the-first-order-Taylor-series-using-$\nabla-f$">3.8.3.1 Create a function to plot the first order Taylor series using $\nabla f$</a></li>
+<li><a href="https://ndcbe.github.io/CBE60499/03.08-Algorithms2.html#3.8.3.2-Taylor-Series-using-`my_grad_approx`">3.8.3.2 Taylor Series using <code>my_grad_approx</code></a></li>
+<li><a href="https://ndcbe.github.io/CBE60499/03.08-Algorithms2.html#3.8.3.3-Taylor-Series-using-`my_grad_exact`">3.8.3.3 Taylor Series using <code>my_grad_exact</code></a></li>
+<li><a href="https://ndcbe.github.io/CBE60499/03.08-Algorithms2.html#3.8.3.4-Create-a-function-to-plot-the-second-order-Taylor-series-using-$\nabla-f$-and-$\nabla^2-f$">3.8.3.4 Create a function to plot the second order Taylor series using $\nabla f$ and $\nabla^2 f$</a></li>
+<li><a href="https://ndcbe.github.io/CBE60499/03.08-Algorithms2.html#3.8.3.5-Taylor-series-using-`my_grad_approx`-and-`my_hes_approx`">3.8.3.5 Taylor series using <code>my_grad_approx</code> and <code>my_hes_approx</code></a></li>
+<li><a href="https://ndcbe.github.io/CBE60499/03.08-Algorithms2.html#3.8.3.6-Taylor-series-using-`my_grad_exact`-and-`my_hes_exact`">3.8.3.6 Taylor series using <code>my_grad_exact</code> and <code>my_hes_exact</code></a></li>
+<li><a href="https://ndcbe.github.io/CBE60499/03.08-Algorithms2.html#3.8.3.7-Discussion">3.8.3.7 Discussion</a></li>
 </ul>
 </li>
 <li>Tags: gradescope</li>
 </ul>
-<h3 id="3.10-Algorithms-Homework-3"><a href="https://ndcbe.github.io/CBE60499/03.10-Algorithms3.html">3.10 Algorithms Homework 3</a><a class="anchor-link" href="#3.10-Algorithms-Homework-3">&#182;</a></h3><ul>
-<li><a href="https://ndcbe.github.io/CBE60499/03.10-Algorithms3.html#3.10.1-Pseudocode">3.10.1 Pseudocode</a></li>
-<li><a href="https://ndcbe.github.io/CBE60499/03.10-Algorithms3.html#3.10.2-Unconstrained-NLP-Algorithm-in-Python">3.10.2 Unconstrained NLP Algorithm in Python</a><ul>
-<li><a href="https://ndcbe.github.io/CBE60499/03.10-Algorithms3.html#3.10.2.1-Library-of-Helper-Functions">3.10.2.1 Library of Helper Functions</a></li>
-<li><a href="https://ndcbe.github.io/CBE60499/03.10-Algorithms3.html#3.10.2.2-Main-Function">3.10.2.2 Main Function</a></li>
-<li><a href="https://ndcbe.github.io/CBE60499/03.10-Algorithms3.html#3.10.2.3-Feature-Status">3.10.2.3 Feature Status</a></li>
+<h3 id="3.9-Algorithms-Homework-3"><a href="https://ndcbe.github.io/CBE60499/03.09-Algorithms3.html">3.9 Algorithms Homework 3</a><a class="anchor-link" href="#3.9-Algorithms-Homework-3">&#182;</a></h3><ul>
+<li><a href="https://ndcbe.github.io/CBE60499/03.09-Algorithms3.html#3.9.1-Pseudocode">3.9.1 Pseudocode</a></li>
+<li><a href="https://ndcbe.github.io/CBE60499/03.09-Algorithms3.html#3.9.2-Unconstrained-NLP-Algorithm-in-Python">3.9.2 Unconstrained NLP Algorithm in Python</a><ul>
+<li><a href="https://ndcbe.github.io/CBE60499/03.09-Algorithms3.html#3.9.2.1-Library-of-Helper-Functions">3.9.2.1 Library of Helper Functions</a></li>
+<li><a href="https://ndcbe.github.io/CBE60499/03.09-Algorithms3.html#3.9.2.2-Main-Function">3.9.2.2 Main Function</a></li>
+<li><a href="https://ndcbe.github.io/CBE60499/03.09-Algorithms3.html#3.9.2.3-Feature-Status">3.9.2.3 Feature Status</a></li>
 </ul>
 </li>
-<li><a href="https://ndcbe.github.io/CBE60499/03.10-Algorithms3.html#3.10.3-Benchmark-Tests">3.10.3 Benchmark Tests</a><ul>
-<li><a href="https://ndcbe.github.io/CBE60499/03.10-Algorithms3.html#3.10.3.1-Quadratic-Test-Problem">3.10.3.1 Quadratic Test Problem</a><ul>
-<li><a href="https://ndcbe.github.io/CBE60499/03.10-Algorithms3.html#3.10.3.1.1-Benchmark-Cases">3.10.3.1.1 Benchmark Cases</a></li>
-<li><a href="https://ndcbe.github.io/CBE60499/03.10-Algorithms3.html#3.10.3.1.2-Discussion-and-Analysis">3.10.3.1.2 Discussion and Analysis</a></li>
+<li><a href="https://ndcbe.github.io/CBE60499/03.09-Algorithms3.html#3.9.3-Benchmark-Tests">3.9.3 Benchmark Tests</a><ul>
+<li><a href="https://ndcbe.github.io/CBE60499/03.09-Algorithms3.html#3.9.3.1-Quadratic-Test-Problem">3.9.3.1 Quadratic Test Problem</a><ul>
+<li><a href="https://ndcbe.github.io/CBE60499/03.09-Algorithms3.html#3.9.3.1.1-Benchmark-Cases">3.9.3.1.1 Benchmark Cases</a></li>
+<li><a href="https://ndcbe.github.io/CBE60499/03.09-Algorithms3.html#3.9.3.1.2-Discussion-and-Analysis">3.9.3.1.2 Discussion and Analysis</a></li>
 </ul>
 </li>
-<li><a href="https://ndcbe.github.io/CBE60499/03.10-Algorithms3.html#3.10.3.2-One-Dimensional-Example">3.10.3.2 One-Dimensional Example</a><ul>
-<li><a href="https://ndcbe.github.io/CBE60499/03.10-Algorithms3.html#3.10.3.2.1-Benchmark-Cases-with-$x_0-=--3$">3.10.3.2.1 Benchmark Cases with $x_0 = -3$</a></li>
-<li><a href="https://ndcbe.github.io/CBE60499/03.10-Algorithms3.html#3.10.3.2.2-Discussion">3.10.3.2.2 Discussion</a></li>
+<li><a href="https://ndcbe.github.io/CBE60499/03.09-Algorithms3.html#3.9.3.2-One-Dimensional-Example">3.9.3.2 One-Dimensional Example</a><ul>
+<li><a href="https://ndcbe.github.io/CBE60499/03.09-Algorithms3.html#3.9.3.2.1-Benchmark-Cases-with-$x_0-=--3$">3.9.3.2.1 Benchmark Cases with $x_0 = -3$</a></li>
+<li><a href="https://ndcbe.github.io/CBE60499/03.09-Algorithms3.html#3.9.3.2.2-Discussion">3.9.3.2.2 Discussion</a></li>
 </ul>
 </li>
-<li><a href="https://ndcbe.github.io/CBE60499/03.10-Algorithms3.html#3.10.3.3-Benchmark-Case-with-$x_0-=-0$">3.10.3.3 Benchmark Case with $x_0 = 0$</a><ul>
-<li><a href="https://ndcbe.github.io/CBE60499/03.10-Algorithms3.html#3.10.3.3.1-Discussion">3.10.3.3.1 Discussion</a></li>
+<li><a href="https://ndcbe.github.io/CBE60499/03.09-Algorithms3.html#3.9.3.3-Benchmark-Case-with-$x_0-=-0$">3.9.3.3 Benchmark Case with $x_0 = 0$</a><ul>
+<li><a href="https://ndcbe.github.io/CBE60499/03.09-Algorithms3.html#3.9.3.3.1-Discussion">3.9.3.3.1 Discussion</a></li>
 </ul>
 </li>
-<li><a href="https://ndcbe.github.io/CBE60499/03.10-Algorithms3.html#3.10.3.4-Return-of-Example-2.19">3.10.3.4 Return of Example 2.19</a><ul>
-<li><a href="https://ndcbe.github.io/CBE60499/03.10-Algorithms3.html#3.10.3.4.1-Benchmark-with-$x_0$-Near-Solution">3.10.3.4.1 Benchmark with $x_0$ Near Solution</a></li>
-<li><a href="https://ndcbe.github.io/CBE60499/03.10-Algorithms3.html#3.10.3.4.2-Discussion">3.10.3.4.2 Discussion</a></li>
-<li><a href="https://ndcbe.github.io/CBE60499/03.10-Algorithms3.html#3.10.3.4.3-Benchmark-with-$x_0$-Far-From-the-Solution">3.10.3.4.3 Benchmark with $x_0$ Far From the Solution</a></li>
-<li><a href="https://ndcbe.github.io/CBE60499/03.10-Algorithms3.html#3.10.3.4.4-Discussion">3.10.3.4.4 Discussion</a></li>
+<li><a href="https://ndcbe.github.io/CBE60499/03.09-Algorithms3.html#3.9.3.4-Return-of-Example-2.19">3.9.3.4 Return of Example 2.19</a><ul>
+<li><a href="https://ndcbe.github.io/CBE60499/03.09-Algorithms3.html#3.9.3.4.1-Benchmark-with-$x_0$-Near-Solution">3.9.3.4.1 Benchmark with $x_0$ Near Solution</a></li>
+<li><a href="https://ndcbe.github.io/CBE60499/03.09-Algorithms3.html#3.9.3.4.2-Discussion">3.9.3.4.2 Discussion</a></li>
+<li><a href="https://ndcbe.github.io/CBE60499/03.09-Algorithms3.html#3.9.3.4.3-Benchmark-with-$x_0$-Far-From-the-Solution">3.9.3.4.3 Benchmark with $x_0$ Far From the Solution</a></li>
+<li><a href="https://ndcbe.github.io/CBE60499/03.09-Algorithms3.html#3.9.3.4.4-Discussion">3.9.3.4.4 Discussion</a></li>
 </ul>
 </li>
 </ul>

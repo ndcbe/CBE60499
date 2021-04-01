@@ -13135,7 +13135,7 @@ content is available <a href="git@github.com:ndcbe/CBE60499.git">on Github</a>.<
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p><!--NAVIGATION-->
-&lt; <a href="https://ndcbe.github.io/CBE60499/03.06-Line-Search.html">3.6 Globalization with Line Search</a> | <a href="toc.html">Contents</a> | <a href="tag_index.html">Tag Index</a> | <a href="https://ndcbe.github.io/CBE60499/03.08-Algorithms1.html">3.8 Algorithms Homework 1</a> &gt;<p><a href="https://colab.research.google.com/github/ndcbe/CBE60499/blob/master/docs/03.07-Trust-Region.ipynb"> <img align="left" src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open in Colab" title="Open in Google Colaboratory"></a><p><a href="https://ndcbe.github.io/CBE60499/03.07-Trust-Region.ipynb"> <img align="left" src="https://img.shields.io/badge/Github-Download-blue.svg" alt="Download" title="Download Notebook"></a></p>
+&lt; <a href="https://ndcbe.github.io/CBE60499/03.06-Globalization.html">3.6 Descent and Globalization</a> | <a href="toc.html">Contents</a> | <a href="tag_index.html">Tag Index</a> | <a href="https://ndcbe.github.io/CBE60499/03.08-Algorithms2.html">3.8 Algorithms Homework 2</a> &gt;<p><a href="https://colab.research.google.com/github/ndcbe/CBE60499/blob/master/docs/03.07-Algorithms1.ipynb"> <img align="left" src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open in Colab" title="Open in Google Colaboratory"></a><p><a href="https://ndcbe.github.io/CBE60499/03.07-Algorithms1.ipynb"> <img align="left" src="https://img.shields.io/badge/Github-Download-blue.svg" alt="Download" title="Download Notebook"></a></p>
 
 </div>
 </div>
@@ -13147,7 +13147,7 @@ content is available <a href="git@github.com:ndcbe/CBE60499.git">on Github</a>.<
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="3.7-Globalization-with-Trust-Region">3.7 Globalization with Trust Region<a class="anchor-link" href="#3.7-Globalization-with-Trust-Region">&#182;</a></h1>
+<h1 id="3.7-Algorithms-Homework-1">3.7 Algorithms Homework 1<a class="anchor-link" href="#3.7-Algorithms-Homework-1">&#182;</a></h1>
 </div>
 </div>
 </div>
@@ -13160,7 +13160,10 @@ content is available <a href="git@github.com:ndcbe/CBE60499.git">on Github</a>.<
 <div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span> 
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Load required Python libraries.</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">scipy</span> <span class="k">import</span> <span class="n">linalg</span>
 </pre></div>
 
     </div>
@@ -13175,8 +13178,721 @@ content is available <a href="git@github.com:ndcbe/CBE60499.git">on Github</a>.<
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="3.7.1-Linear-Algebra-Review">3.7.1 Linear Algebra Review<a class="anchor-link" href="#3.7.1-Linear-Algebra-Review">&#182;</a></h2>
+</div>
+</div>
+</div>
+
+
+
+    <div style="background-color:white; border:thin solid grey; margin-left:95px; margin-right:6px">
+    
+        &nbsp; <a href="https://ndcbe.github.io/CBE60499/tag_index.html#gradescope">gradescope</a>
+    
+    </div>
+    
+        
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="3.7.1.1-Exact-solution">3.7.1.1 Exact solution<a class="anchor-link" href="#3.7.1.1-Exact-solution">&#182;</a></h3>
+</div>
+</div>
+</div>
+    
+
+
+
+    
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Solve the following system of linear equations BY HAND with exact arithmetic:</p>
+$$3 x_1 + 2 x_2 + x_3 = 6$$$$-x_1 + 4 x_2 + 5x_3 = 8$$$$2x_1 -8 x_2 + 10 x_3 = 4$$<p>Turn in your work via Gradescope.</p>
+
+</div>
+</div>
+</div>
+
+
+
+    
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="3.7.1.2-Solve-using-the-inverse">3.7.1.2 Solve using the inverse<a class="anchor-link" href="#3.7.1.2-Solve-using-the-inverse">&#182;</a></h3><p>Solve the same linear system by first inverting the matrix A and performing matrix multiplication. You should use Python and SciPy.</p>
+<ul>
+<li>Tutorials and documentation: <a href="https://docs.scipy.org/doc/scipy-1.1.0/reference/tutorial/linalg.html">https://docs.scipy.org/doc/scipy-1.1.0/reference/tutorial/linalg.html</a></li>
+</ul>
+
+</div>
+</div>
+</div>
+
+
+
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># YOUR SOLUTION HERE</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+
+
+
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># YOUR SOLUTION HERE</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+
+
+
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># YOUR SOLUTION HERE</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+
+
+
+    
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="3.7.1.3-Solve-using-LU-decomposition">3.7.1.3 Solve using LU decomposition<a class="anchor-link" href="#3.7.1.3-Solve-using-LU-decomposition">&#182;</a></h3><p>Do the following:</p>
+<ol>
+<li>Use <code>linalg.lu(A)</code> to calculate $P$, $L$, and $U$.</li>
+<li>Write a function to solve any linear system given the factorization and $b$. You may not use <code>linalg.solve</code> in your function. Instead, you should write loops to implement back substitution.</li>
+<li>Use your function to solve the linear system.</li>
+</ol>
+
+</div>
+</div>
+</div>
+
+
+
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># You need to define the matrix A1 somewhere (or change the variable name)</span>
+<span class="n">P</span><span class="p">,</span> <span class="n">L</span><span class="p">,</span> <span class="n">U</span> <span class="o">=</span> <span class="n">linalg</span><span class="o">.</span><span class="n">lu</span><span class="p">(</span><span class="n">A1</span><span class="p">)</span>
+
+<span class="c1"># Permutation matrix</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">P</span><span class="p">)</span>
+
+<span class="c1"># Lower diagonal matrix</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">L</span><span class="p">)</span>
+
+<span class="c1"># Upper diagonal matrix</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">U</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+
+
+
+    
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Tip: We discussed this algorithm in class. First write pseudocode on paper (how to translate our notes into loops, logical statements, etc.?). Once you are happy with the logic, code it up.</p>
+
+</div>
+</div>
+</div>
+
+
+
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Write function here.</span>
+<span class="k">def</span> <span class="nf">my_lu_solve</span><span class="p">(</span><span class="n">P</span><span class="p">,</span> <span class="n">L</span><span class="p">,</span> <span class="n">U</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">LOUD</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39; </span>
+<span class="sd">    Solves linear system Ax = b given PLU decomposition of A</span>
+<span class="sd">    </span>
+<span class="sd">    Arguments:</span>
+<span class="sd">        P - N by N permutation matrix</span>
+<span class="sd">        L - N by N lower triangular matrix with 1 on diagonal</span>
+<span class="sd">        U - N by N upper triangular matrix</span>
+<span class="sd">        b - N by 1 vector</span>
+<span class="sd">    </span>
+<span class="sd">    Returns:</span>
+<span class="sd">        x - N by 1 solution to linear system</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    
+    <span class="c1"># Define x so this does not give an error. You can delete the line below.</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="p">[]</span>
+    
+    <span class="c1"># YOUR SOLUTION HERE</span>
+    
+    <span class="k">return</span> <span class="n">x</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+
+
+
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="n">my_lu_solve</span><span class="p">(</span><span class="n">P</span><span class="p">,</span> <span class="n">L</span><span class="p">,</span> <span class="n">U</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">LOUD</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+
+
+
+    
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="3.7.1.4-Solve-using-linalg.solve">3.7.1.4 Solve using <code>linalg.solve</code><a class="anchor-link" href="#3.7.1.4-Solve-using-linalg.solve">&#182;</a></h3>
+</div>
+</div>
+</div>
+
+
+
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># YOUR SOLUTION HERE</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+
+
+
+    
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="3.7.2-Eigenvalues">3.7.2 Eigenvalues<a class="anchor-link" href="#3.7.2-Eigenvalues">&#182;</a></h2>
+</div>
+</div>
+</div>
+
+
+
+    <div style="background-color:white; border:thin solid grey; margin-left:95px; margin-right:6px">
+    
+        &nbsp; <a href="https://ndcbe.github.io/CBE60499/tag_index.html#gradescope">gradescope</a>
+    
+    </div>
+    
+        
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="3.7.2.1-Calculate-eigenvalues-by-hand-(on-paper)">3.7.2.1 Calculate eigenvalues by hand (on paper)<a class="anchor-link" href="#3.7.2.1-Calculate-eigenvalues-by-hand-(on-paper)">&#182;</a></h3>
+</div>
+</div>
+</div>
+    
+
+
+
+    
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Calculate the eigenvalues for the following matrix:</p>
+$$
+A = \begin{bmatrix} 0 &amp; -4 &amp; -6 \\ -1 &amp; 0 &amp; -3 \\ 1 &amp; 2 &amp; 5 \end{bmatrix}
+$$<p>You may need to do this for a small system on an exam to characterize stationary points of an optimization problem. Hence I would like you to practice at least once on the homework.</p>
+
+</div>
+</div>
+</div>
+
+
+
+    
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="3.7.2.2-Calculate-eigenvalues-using-linalg.eig">3.7.2.2 Calculate eigenvalues using <code>linalg.eig</code><a class="anchor-link" href="#3.7.2.2-Calculate-eigenvalues-using-linalg.eig">&#182;</a></h3><p>Calculate the eigenvalues and corresponding (right) eigenvectors.</p>
+
+</div>
+</div>
+</div>
+
+
+
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># YOUR SOLUTION HERE</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+
+
+
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># YOUR SOLUTION HERE</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+
+
+
+    <div style="background-color:white; border:thin solid grey; margin-left:95px; margin-right:6px">
+    
+        &nbsp; <a href="https://ndcbe.github.io/CBE60499/tag_index.html#gradescope">gradescope</a>
+    
+    </div>
+    
+        
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="3.7.2.3-Definiteness">3.7.2.3 Definiteness<a class="anchor-link" href="#3.7.2.3-Definiteness">&#182;</a></h3>
+</div>
+</div>
+</div>
+    
+
+
+
+    
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Based on your calculations above, is this matrix</p>
+<ol>
+<li>positive definite</li>
+<li>positive semi definite</li>
+<li>negative definite</li>
+<li>negative semi definite</li>
+<li>indefinite or</li>
+<li>cannot say without additional calculations?</li>
+</ol>
+<p>Briefly comment to justify your answer.</p>
+<p><em>Note</em>: In this class, "briefly comment" means write a few sentences, sketch a picture, write an equation or some combination... whichever you feel is necessary to succinctly provide justification.</p>
+
+</div>
+</div>
+</div>
+
+
+
+    
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="3.7.2.4-Singular-Value-Decomposition">3.7.2.4 Singular Value Decomposition<a class="anchor-link" href="#3.7.2.4-Singular-Value-Decomposition">&#182;</a></h3><p><strong>TODO:</strong> Make this a separate problem (after the assignment is turned in this year).</p>
+
+</div>
+</div>
+</div>
+
+
+
+    
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="3.7.2.5-SVD-calculation-using-linalg.svd">3.7.2.5 SVD calculation using <code>linalg.svd</code><a class="anchor-link" href="#3.7.2.5-SVD-calculation-using-linalg.svd">&#182;</a></h3><p>Calculate the singular value decomposition of the following matrix using <code>linalg.svd</code>:</p>
+$$
+A_3 = \begin{bmatrix} 1 &amp; 2 &amp; 0 &amp; -1 \\ 2 &amp; 4 &amp; 10^{-6} &amp; -2 \\ 0 &amp; 2 &amp; -1 &amp; 10^{-3} \end{bmatrix}
+$$
+</div>
+</div>
+</div>
+
+
+
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># YOUR SOLUTION HERE</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+
+
+
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># YOUR SOLUTION HERE</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+
+
+
+    
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="3.7.2.6-Condition-number">3.7.2.6 Condition number<a class="anchor-link" href="#3.7.2.6-Condition-number">&#182;</a></h3><p>What is the condition number of the matrix? Calculate it two ways:</p>
+<ol>
+<li>Using SVD results</li>
+<li>Using <code>np.linalg.cond()</code></li>
+</ol>
+
+</div>
+</div>
+</div>
+
+
+
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># YOUR SOLUTION HERE</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+
+
+
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># YOUR SOLUTION HERE</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+
+
+
+    
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="3.7.2.7-Linear-system">3.7.2.7 Linear system<a class="anchor-link" href="#3.7.2.7-Linear-system">&#182;</a></h3>
+</div>
+</div>
+</div>
+
+
+
+    
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Consider the linear system $A_4 \cdot x = b$ with $b = [1, 0, 3]^T$ and</p>
+$$
+A_4 = \begin{bmatrix} 1 &amp; 2 &amp; 0 \\ 2 &amp; 4 &amp; 10^{-1} \\ 0 &amp; 2 &amp; -1 \end{bmatrix} ~.
+$$<p>Approximately how much uncertainty $||\Delta b||_2$ can you tolerate if you want the uncertainty $||\Delta x||_2$ to be less than $10^{-2}$?</p>
+
+</div>
+</div>
+</div>
+
+
+
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># YOUR SOLUTION HERE</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+
+
+
+    
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><strong>Answer</strong>:</p>
+
+</div>
+</div>
+</div>
+
+
+
+    
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="3.7.2.8-Make-it-singular">3.7.2.8 Make it singular<a class="anchor-link" href="#3.7.2.8-Make-it-singular">&#182;</a></h3>
+</div>
+</div>
+</div>
+
+
+
+    
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Do/answer the following:</p>
+<ol>
+<li>Propose a change to a single entry in $A_4$ to make it singular.</li>
+<li>What are the singular values and condition number after this change?</li>
+<li>What can you say about the solution to $A_4 \cdot x=b$ after the change?</li>
+</ol>
+
+</div>
+</div>
+</div>
+
+
+
+    
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><strong>Answer:</strong></p>
+
+</div>
+</div>
+</div>
+
+
+
+    <div style="background-color:white; border:thin solid grey; margin-left:95px; margin-right:6px">
+    
+        &nbsp; <a href="https://ndcbe.github.io/CBE60499/tag_index.html#gradescope">gradescope</a>
+    
+    </div>
+    
+        
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="3.7.3-Convexity">3.7.3 Convexity<a class="anchor-link" href="#3.7.3-Convexity">&#182;</a></h2><p>Please turn in via Gradescope.</p>
+
+</div>
+</div>
+</div>
+    
+
+
+
+    
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="3.7.3.1-Determine-if-the-following-functions-are-convex">3.7.3.1 Determine if the following functions are convex<a class="anchor-link" href="#3.7.3.1-Determine-if-the-following-functions-are-convex">&#182;</a></h3>
+</div>
+</div>
+</div>
+
+
+
+    
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ol>
+<li>$x^2 + ax + b, ~x \in \mathbb{R}$</li>
+<li>$x^3, ~x \in \mathbb{R}$</li>
+<li>$| x |, ~ x \in [ -5, 5]$</li>
+<li>$x + y, ~ x \in \mathbb{R}, ~ y \in \mathbb{R}$</li>
+<li>$x \cdot y, ~ x \in \mathbb{R}, ~ y \in \mathbb{R}$</li>
+<li>$\log(x), ~ x \in (0,1]$</li>
+</ol>
+
+</div>
+</div>
+</div>
+
+
+
+    
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="3.7.3.2-Prove-the-following-properties">3.7.3.2 Prove the following properties<a class="anchor-link" href="#3.7.3.2-Prove-the-following-properties">&#182;</a></h3>
+</div>
+</div>
+</div>
+
+
+
+    
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Consider twice differentiable function $f(x): \mathbb{R}^n \rightarrow \mathbb{R}$.</p>
+<p>Recall that $f(x)$ is convex on $x \in \mathbb{R}^n$ if and only if</p>
+<p>$f(x+p) \geq f(x) + \nabla f(x)^T p$ for all $x, p \in \mathbb{R}^n$</p>
+
+</div>
+</div>
+</div>
+
+
+
+    
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="3.7.3.2.1-PSD-implies-Convexity">3.7.3.2.1 PSD implies Convexity<a class="anchor-link" href="#3.7.3.2.1-PSD-implies-Convexity">&#182;</a></h4><p>Prove that if $\nabla^2 f(x)$ is positive semidefinite for all $x \in \mathbb{R}^n$, then $f(x)$ must be convex.</p>
+
+</div>
+</div>
+</div>
+
+
+
+    
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="3.7.3.2.2-Convexity-implies-PSD">3.7.3.2.2 Convexity implies PSD<a class="anchor-link" href="#3.7.3.2.2-Convexity-implies-PSD">&#182;</a></h4>
+</div>
+</div>
+</div>
+
+
+
+    
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Prove that if $f(x)$ is convex then $\nabla^2 f(x)$ must be positive semidefinite.</p>
+
+</div>
+</div>
+</div>
+
+
+
+    
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="3.7.3.2.3-PD-implies-Strictly-Convex">3.7.3.2.3 PD implies Strictly Convex<a class="anchor-link" href="#3.7.3.2.3-PD-implies-Strictly-Convex">&#182;</a></h4>
+</div>
+</div>
+</div>
+
+
+
+    
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Prove that if $\nabla^2 f(x)$ is positive definite for all $x \in \mathbb{R}^n$, then $f(x)$ must be strictly convex.</p>
+
+</div>
+</div>
+</div>
+
+
+
+    
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
 <p><!--NAVIGATION-->
-&lt; <a href="https://ndcbe.github.io/CBE60499/03.06-Line-Search.html">3.6 Globalization with Line Search</a> | <a href="toc.html">Contents</a> | <a href="tag_index.html">Tag Index</a> | <a href="https://ndcbe.github.io/CBE60499/03.08-Algorithms1.html">3.8 Algorithms Homework 1</a> &gt;<p><a href="https://colab.research.google.com/github/ndcbe/CBE60499/blob/master/docs/03.07-Trust-Region.ipynb"> <img align="left" src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open in Colab" title="Open in Google Colaboratory"></a><p><a href="https://ndcbe.github.io/CBE60499/03.07-Trust-Region.ipynb"> <img align="left" src="https://img.shields.io/badge/Github-Download-blue.svg" alt="Download" title="Download Notebook"></a></p>
+&lt; <a href="https://ndcbe.github.io/CBE60499/03.06-Globalization.html">3.6 Descent and Globalization</a> | <a href="toc.html">Contents</a> | <a href="tag_index.html">Tag Index</a> | <a href="https://ndcbe.github.io/CBE60499/03.08-Algorithms2.html">3.8 Algorithms Homework 2</a> &gt;<p><a href="https://colab.research.google.com/github/ndcbe/CBE60499/blob/master/docs/03.07-Algorithms1.ipynb"> <img align="left" src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open in Colab" title="Open in Google Colaboratory"></a><p><a href="https://ndcbe.github.io/CBE60499/03.07-Algorithms1.ipynb"> <img align="left" src="https://img.shields.io/badge/Github-Download-blue.svg" alt="Download" title="Download Notebook"></a></p>
 
 </div>
 </div>
