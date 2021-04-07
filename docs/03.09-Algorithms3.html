@@ -13714,6 +13714,10 @@ content is available <a href="git@github.com:ndcbe/CBE60499.git">on Github</a>.<
 <span class="sd">    dB : Update to Hessian approximation</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     
+    <span class="c1"># Define constant used to check norm of the update</span>
+    <span class="c1"># See Eq. (3.19) in Biegler (2010)</span>
+    <span class="n">C2</span> <span class="o">=</span> <span class="mf">1E-4</span>
+    
     <span class="c1"># YOUR SOLUTION HERE</span>
         
     <span class="k">return</span> <span class="n">dB</span> <span class="c1">#return the update to the Hessian approximation</span>

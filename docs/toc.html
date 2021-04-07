@@ -13801,7 +13801,126 @@ div#notebook {
 </ul>
 </li>
 </ul>
-<h2 id="Chapter-4.0-Constrained-Nonlinear-Optimization:-Theory-and-Applications"><a href="https://ndcbe.github.io/CBE60499/04.00-Constrained.html">Chapter 4.0 Constrained Nonlinear Optimization: Theory and Applications</a><a class="anchor-link" href="#Chapter-4.0-Constrained-Nonlinear-Optimization:-Theory-and-Applications">&#182;</a></h2><h3 id="4.1-Convexity-Revisited"><a href="https://ndcbe.github.io/CBE60499/04.01-Convexity.html">4.1 Convexity Revisited</a><a class="anchor-link" href="#4.1-Convexity-Revisited">&#182;</a></h3><h3 id="4.2-First-Order-Optimality-Conditions"><a href="https://ndcbe.github.io/CBE60499/04.02-First-Order-Optimality.html">4.2 First Order Optimality Conditions</a><a class="anchor-link" href="#4.2-First-Order-Optimality-Conditions">&#182;</a></h3><h3 id="4.3-Active-Sets"><a href="https://ndcbe.github.io/CBE60499/04.03-Active-Sets.html">4.3 Active Sets</a><a class="anchor-link" href="#4.3-Active-Sets">&#182;</a></h3><h3 id="4.4-Constraint-Qualifications"><a href="https://ndcbe.github.io/CBE60499/04.04-Constraint-Qualifications.html">4.4 Constraint Qualifications</a><a class="anchor-link" href="#4.4-Constraint-Qualifications">&#182;</a></h3><h3 id="4.5-Second-Order-Optimality-Conditions"><a href="https://ndcbe.github.io/CBE60499/04.05-Second-Order-Optimality.html">4.5 Second Order Optimality Conditions</a><a class="anchor-link" href="#4.5-Second-Order-Optimality-Conditions">&#182;</a></h3><h3 id="4.6-Interior-Point-Methods"><a href="https://ndcbe.github.io/CBE60499/04.06-Interior-Point-Methods.html">4.6 Interior Point Methods</a><a class="anchor-link" href="#4.6-Interior-Point-Methods">&#182;</a></h3><h2 id="Chapter-5.0-Special-Topics"><a href="https://ndcbe.github.io/CBE60499/05.00-Special-Topics.html">Chapter 5.0 Special Topics</a><a class="anchor-link" href="#Chapter-5.0-Special-Topics">&#182;</a></h2><h3 id="5.1-MILP-Algorithms"><a href="https://ndcbe.github.io/CBE60499/05.01-MILP-Algorithms.html">5.1 MILP Algorithms</a><a class="anchor-link" href="#5.1-MILP-Algorithms">&#182;</a></h3><h3 id="5.2-MINLP-Algorithms"><a href="https://ndcbe.github.io/CBE60499/05.02-MINLP-Algorithms.html">5.2 MINLP Algorithms</a><a class="anchor-link" href="#5.2-MINLP-Algorithms">&#182;</a></h3><h3 id="5.3-Deterministic-Global-Optimization"><a href="https://ndcbe.github.io/CBE60499/05.03-Global-Opt.html">5.3 Deterministic Global Optimization</a><a class="anchor-link" href="#5.3-Deterministic-Global-Optimization">&#182;</a></h3><h3 id="5.4-Bayesian-Optimization"><a href="https://ndcbe.github.io/CBE60499/05.04-Bayesian-Opt.html">5.4 Bayesian Optimization</a><a class="anchor-link" href="#5.4-Bayesian-Optimization">&#182;</a></h3>
+<h2 id="Chapter-4.0-Constrained-Nonlinear-Optimization:-Theory-and-Applications"><a href="https://ndcbe.github.io/CBE60499/04.00-Constrained.html">Chapter 4.0 Constrained Nonlinear Optimization: Theory and Applications</a><a class="anchor-link" href="#Chapter-4.0-Constrained-Nonlinear-Optimization:-Theory-and-Applications">&#182;</a></h2><h3 id="4.1-Convexity-Revisited"><a href="https://ndcbe.github.io/CBE60499/04.01-Convexity.html">4.1 Convexity Revisited</a><a class="anchor-link" href="#4.1-Convexity-Revisited">&#182;</a></h3><h3 id="4.2-Local-Optimality-Conditions"><a href="https://ndcbe.github.io/CBE60499/04.02-Local-Optimality.html">4.2 Local Optimality Conditions</a><a class="anchor-link" href="#4.2-Local-Optimality-Conditions">&#182;</a></h3><ul>
+<li><a href="https://ndcbe.github.io/CBE60499/04.02-Local-Optimality.html#4.2.1-Introduction">4.2.1 Introduction</a></li>
+<li><a href="https://ndcbe.github.io/CBE60499/04.02-Local-Optimality.html#4.2.2-Kinematic-Interpretation">4.2.2 Kinematic Interpretation</a><ul>
+<li><a href="https://ndcbe.github.io/CBE60499/04.02-Local-Optimality.html#4.2.2.1-Define-Function-for-Visualization">4.2.2.1 Define Function for Visualization</a></li>
+<li><a href="https://ndcbe.github.io/CBE60499/04.02-Local-Optimality.html#4.2.2.2-Define-function-to-solve-optimization-problem-with-Pyomo">4.2.2.2 Define function to solve optimization problem with Pyomo</a></li>
+<li><a href="https://ndcbe.github.io/CBE60499/04.02-Local-Optimality.html#4.2.2.3-Take-1:-Unconstrained">4.2.2.3 Take 1: Unconstrained</a></li>
+<li><a href="https://ndcbe.github.io/CBE60499/04.02-Local-Optimality.html#4.2.2.4-Take-2.-With-$g(x">4.2.2.4 Take 2. With $g(x) \leq 0$</a>-\leq-0$)</li>
+<li><a href="https://ndcbe.github.io/CBE60499/04.02-Local-Optimality.html#4.2.2.5-Take-3.-With-$g(x">4.2.2.5 Take 3. With $g(x) \leq 0$ and $h(x) = 0$</a>-\leq-0$-and-$h(x)-=-0$)</li>
+<li><a href="https://ndcbe.github.io/CBE60499/04.02-Local-Optimality.html#4.2.2.6-Discussion">4.2.2.6 Discussion</a></li>
+</ul>
+</li>
+</ul>
+<h3 id="4.3-KKT-Multipliers"><a href="https://ndcbe.github.io/CBE60499/04.03-KKT-Multipliers.html">4.3 KKT Multipliers</a><a class="anchor-link" href="#4.3-KKT-Multipliers">&#182;</a></h3><ul>
+<li><a href="https://ndcbe.github.io/CBE60499/04.03-KKT-Multipliers.html#4.3.1-Active-Sets">4.3.1 Active Sets</a></li>
+<li><a href="https://ndcbe.github.io/CBE60499/04.03-KKT-Multipliers.html#4.3.2-Sensitivity-Analysis">4.3.2 Sensitivity Analysis</a></li>
+<li><a href="https://ndcbe.github.io/CBE60499/04.03-KKT-Multipliers.html#4.3.3-Multipliers-in-Pyomo">4.3.3 Multipliers in Pyomo</a></li>
+</ul>
+<h3 id="4.4-Constraint-Qualifications"><a href="https://ndcbe.github.io/CBE60499/04.04-Constraint-Qualifications.html">4.4 Constraint Qualifications</a><a class="anchor-link" href="#4.4-Constraint-Qualifications">&#182;</a></h3><ul>
+<li><a href="https://ndcbe.github.io/CBE60499/04.04-Constraint-Qualifications.html#4.4.1-Feasible-Sequence">4.4.1 Feasible Sequence</a></li>
+<li><a href="https://ndcbe.github.io/CBE60499/04.04-Constraint-Qualifications.html#4.4.2-Limiting-Direction">4.4.2 Limiting Direction</a></li>
+<li><a href="https://ndcbe.github.io/CBE60499/04.04-Constraint-Qualifications.html#4.4.3-Constraint-Qualifications">4.4.3 Constraint Qualifications</a></li>
+<li><a href="https://ndcbe.github.io/CBE60499/04.04-Constraint-Qualifications.html#4.4.4-Example">4.4.4 Example</a><ul>
+<li><a href="https://ndcbe.github.io/CBE60499/04.04-Constraint-Qualifications.html#4.4.4.1-Visualize-Feasible-Set">4.4.4.1 Visualize Feasible Set</a></li>
+<li><a href="https://ndcbe.github.io/CBE60499/04.04-Constraint-Qualifications.html#4.4.4.2-Solve-with-Pyomo">4.4.4.2 Solve with Pyomo</a></li>
+</ul>
+</li>
+</ul>
+<h3 id="4.5-Second-Order-Optimality-Conditions"><a href="https://ndcbe.github.io/CBE60499/04.05-Second-Order.html">4.5 Second Order Optimality Conditions</a><a class="anchor-link" href="#4.5-Second-Order-Optimality-Conditions">&#182;</a></h3><ul>
+<li><a href="https://ndcbe.github.io/CBE60499/04.05-Second-Order.html#4.5.1-Helpful-Cones">4.5.1 Helpful Cones</a></li>
+<li><a href="https://ndcbe.github.io/CBE60499/04.05-Second-Order.html#4.5.2-Second-Order-Necessary-Conditions">4.5.2 Second Order Necessary Conditions</a></li>
+<li><a href="https://ndcbe.github.io/CBE60499/04.05-Second-Order.html#4.5.3-Second-Order-Sufficient-Conditions">4.5.3 Second Order Sufficient Conditions</a></li>
+<li><a href="https://ndcbe.github.io/CBE60499/04.05-Second-Order.html#4.5.4-Reduced-Hessian">4.5.4 Reduced Hessian</a></li>
+</ul>
+<h3 id="4.6-NLP-Diagnostics-with-Degeneracy-Hunter"><a href="https://ndcbe.github.io/CBE60499/04.06-NLP-Diagnostics.html">4.6 NLP Diagnostics with Degeneracy Hunter</a><a class="anchor-link" href="#4.6-NLP-Diagnostics-with-Degeneracy-Hunter">&#182;</a></h3><ul>
+<li><a href="https://ndcbe.github.io/CBE60499/04.06-NLP-Diagnostics.html#4.6.1-Setup">4.6.1 Setup</a></li>
+<li><a href="https://ndcbe.github.io/CBE60499/04.06-NLP-Diagnostics.html#4.6.2-Example-1:-Well-Behaved-Nonlinear-Program">4.6.2 Example 1: Well-Behaved Nonlinear Program</a><ul>
+<li><a href="https://ndcbe.github.io/CBE60499/04.06-NLP-Diagnostics.html#4.6.2.1-Define-the-model-in-Pyomo">4.6.2.1 Define the model in Pyomo</a></li>
+<li><a href="https://ndcbe.github.io/CBE60499/04.06-NLP-Diagnostics.html#4.6.2.2-Evaluate-the-initial-point">4.6.2.2 Evaluate the initial point</a></li>
+<li><a href="https://ndcbe.github.io/CBE60499/04.06-NLP-Diagnostics.html#4.6.2.3-Identify-the-constraint-residuals-larger-than-0.1">4.6.2.3 Identify the constraint residuals larger than 0.1</a></li>
+<li><a href="https://ndcbe.github.io/CBE60499/04.06-NLP-Diagnostics.html#4.6.2.4-Identify-all-variables-within-1-of-their-bounds">4.6.2.4 Identify all variables within 1 of their bounds</a></li>
+<li><a href="https://ndcbe.github.io/CBE60499/04.06-NLP-Diagnostics.html#4.6.2.5-Solve-the-optimization-problem">4.6.2.5 Solve the optimization problem</a></li>
+<li><a href="https://ndcbe.github.io/CBE60499/04.06-NLP-Diagnostics.html#4.6.2.6-Check-if-any-constraint-residuals-are-large-than-10$^{-14}$">4.6.2.6 Check if any constraint residuals are large than 10$^{-14}$</a></li>
+<li><a href="https://ndcbe.github.io/CBE60499/04.06-NLP-Diagnostics.html#4.6.2.7-Identify-all-variables-within-10$^{-5}$-of-their-bounds">4.6.2.7 Identify all variables within 10$^{-5}$ of their bounds</a></li>
+<li><a href="https://ndcbe.github.io/CBE60499/04.06-NLP-Diagnostics.html#4.6.2.8-Check-the-rank-of-the-constraint-Jacobian-at-the-solution">4.6.2.8 Check the rank of the constraint Jacobian at the solution</a></li>
+<li><a href="https://ndcbe.github.io/CBE60499/04.06-NLP-Diagnostics.html#4.6.2.9-Try-Degeneracy-Hunter">4.6.2.9 Try Degeneracy Hunter</a></li>
+</ul>
+</li>
+<li><a href="https://ndcbe.github.io/CBE60499/04.06-NLP-Diagnostics.html#4.6.3-Example-2:-Linear-Program-with-Redundant-Equality-Constraints">4.6.3 Example 2: Linear Program with Redundant Equality Constraints</a><ul>
+<li><a href="https://ndcbe.github.io/CBE60499/04.06-NLP-Diagnostics.html#4.6.3.1-Define-the-model-in-Pyomo">4.6.3.1 Define the model in Pyomo</a></li>
+<li><a href="https://ndcbe.github.io/CBE60499/04.06-NLP-Diagnostics.html#4.6.3.2-Evaluate-the-initial-point">4.6.3.2 Evaluate the initial point</a></li>
+<li><a href="https://ndcbe.github.io/CBE60499/04.06-NLP-Diagnostics.html#4.6.3.3-Identify-constraints-with-residuals-greater-than-0.1-at-the-initial-point">4.6.3.3 Identify constraints with residuals greater than 0.1 at the initial point</a></li>
+<li><a href="https://ndcbe.github.io/CBE60499/04.06-NLP-Diagnostics.html#4.6.3.4-Solve-the-optimization-problem-and-extract-the-solution">4.6.3.4 Solve the optimization problem and extract the solution</a></li>
+<li><a href="https://ndcbe.github.io/CBE60499/04.06-NLP-Diagnostics.html#4.6.3.5-Check-the-rank-of-the-Jacobian-of-the-equality-constraints">4.6.3.5 Check the rank of the Jacobian of the equality constraints</a></li>
+<li><a href="https://ndcbe.github.io/CBE60499/04.06-NLP-Diagnostics.html#4.6.3.6-Identify-candidate-degenerate-constraints">4.6.3.6 Identify candidate degenerate constraints</a></li>
+<li><a href="https://ndcbe.github.io/CBE60499/04.06-NLP-Diagnostics.html#4.6.3.7-Find-irreducible-degenerate-sets-(IDS">4.6.3.7 Find irreducible degenerate sets (IDS)</a>)</li>
+<li><a href="https://ndcbe.github.io/CBE60499/04.06-NLP-Diagnostics.html#4.6.3.8-Reformulate-Example-2">4.6.3.8 Reformulate Example 2</a></li>
+<li><a href="https://ndcbe.github.io/CBE60499/04.06-NLP-Diagnostics.html#4.6.3.9-Solve-the-reformulated-model">4.6.3.9 Solve the reformulated model</a></li>
+</ul>
+</li>
+<li>Markdown Links<ul>
+<li><a href="https://idaes.org">Institute for the Design of Advanced Energy Systems</a></li>
+</ul>
+</li>
+</ul>
+<h3 id="4.7-Simple-Netwon-Method-for-Equality-Constrained-NLPs"><a href="https://ndcbe.github.io/CBE60499/04.07-Interior-Point1.html">4.7 Simple Netwon Method for Equality Constrained NLPs</a><a class="anchor-link" href="#4.7-Simple-Netwon-Method-for-Equality-Constrained-NLPs">&#182;</a></h3><ul>
+<li><a href="https://ndcbe.github.io/CBE60499/04.07-Interior-Point1.html#4.7.1-Helper-Functions">4.7.1 Helper Functions</a></li>
+<li><a href="https://ndcbe.github.io/CBE60499/04.07-Interior-Point1.html#4.7.2-Algorithm-5.1">4.7.2 Algorithm 5.1</a></li>
+<li><a href="https://ndcbe.github.io/CBE60499/04.07-Interior-Point1.html#4.7.3-Example-Problem-1">4.7.3 Example Problem 1</a><ul>
+<li><a href="https://ndcbe.github.io/CBE60499/04.07-Interior-Point1.html#4.7.3.1-Test-Finite-Difference-Approximations">4.7.3.1 Test Finite Difference Approximations</a></li>
+<li><a href="https://ndcbe.github.io/CBE60499/04.07-Interior-Point1.html#4.7.3.2-Test-Algorithm-5.1">4.7.3.2 Test Algorithm 5.1</a></li>
+</ul>
+</li>
+<li><a href="https://ndcbe.github.io/CBE60499/04.07-Interior-Point1.html#4.7.4-Example-Problem-2">4.7.4 Example Problem 2</a><ul>
+<li><a href="https://ndcbe.github.io/CBE60499/04.07-Interior-Point1.html#4.7.4.1-Trying-Algorithm-5.1-again-without-the-redundant-constraint">4.7.4.1 Trying Algorithm 5.1 again without the redundant constraint</a></li>
+</ul>
+</li>
+<li><a href="https://ndcbe.github.io/CBE60499/04.07-Interior-Point1.html#4.7.5-Example-Problem-3">4.7.5 Example Problem 3</a><ul>
+<li><a href="https://ndcbe.github.io/CBE60499/04.07-Interior-Point1.html#4.7.5.1-Visualize">4.7.5.1 Visualize</a></li>
+<li><a href="https://ndcbe.github.io/CBE60499/04.07-Interior-Point1.html#4.7.5.2-Starting-Point-Near-Global-Min-($\theta_0-=-1.0$">4.7.5.2 Starting Point Near Global Min ($\theta_0 = 1.0$)</a>)</li>
+<li><a href="https://ndcbe.github.io/CBE60499/04.07-Interior-Point1.html#4.7.5.3-Starting-Point-Near-Local-Min-($\theta_0-=-\pi$">4.7.5.3 Starting Point Near Local Min ($\theta_0 = \pi$)</a>)</li>
+<li><a href="https://ndcbe.github.io/CBE60499/04.07-Interior-Point1.html#4.7.5.4-Starting-Point-Near-Global-Max-($\theta_0-=-5.5$">4.7.5.4 Starting Point Near Global Max ($\theta_0 = 5.5$)</a>)</li>
+</ul>
+</li>
+<li>Markdown Figures<ul>
+<li><a href="figures/alg5-1.png">Alg51</a></li>
+</ul>
+</li>
+<li>Figure files used<ul>
+<li><a href="https://ndcbe.github.io/CBE60499/figures/alg5-1.png">figures/alg5-1.png</a></li>
+</ul>
+</li>
+</ul>
+<h3 id="4.8-Inertia-Corrected-Netwon-Method-for-Equality-Constrained-NLPs"><a href="https://ndcbe.github.io/CBE60499/04.08-Interior-Point2.html">4.8 Inertia-Corrected Netwon Method for Equality Constrained NLPs</a><a class="anchor-link" href="#4.8-Inertia-Corrected-Netwon-Method-for-Equality-Constrained-NLPs">&#182;</a></h3><ul>
+<li><a href="https://ndcbe.github.io/CBE60499/04.08-Interior-Point2.html#4.8.1-Helper-Functions">4.8.1 Helper Functions</a></li>
+<li><a href="https://ndcbe.github.io/CBE60499/04.08-Interior-Point2.html#4.8.2-Algorithm-5.2">4.8.2 Algorithm 5.2</a></li>
+<li><a href="https://ndcbe.github.io/CBE60499/04.08-Interior-Point2.html#4.8.3-Example-Problem-2">4.8.3 Example Problem 2</a><ul>
+<li><a href="https://ndcbe.github.io/CBE60499/04.08-Interior-Point2.html#4.8.3.1-Test-Algorithm-5.2-without-redundant-constraints.">4.8.3.1 Test Algorithm 5.2 without redundant constraints.</a></li>
+<li><a href="https://ndcbe.github.io/CBE60499/04.08-Interior-Point2.html#4.8.3.2-Discussion">4.8.3.2 Discussion</a></li>
+</ul>
+</li>
+<li><a href="https://ndcbe.github.io/CBE60499/04.08-Interior-Point2.html#4.8.4-Example-Problem-3">4.8.4 Example Problem 3</a><ul>
+<li><a href="https://ndcbe.github.io/CBE60499/04.08-Interior-Point2.html#4.8.4.1-Starting-Point-Near-Global-Min-($\theta_0-=-1.0$">4.8.4.1 Starting Point Near Global Min ($\theta_0 = 1.0$)</a>)</li>
+<li><a href="https://ndcbe.github.io/CBE60499/04.08-Interior-Point2.html#4.8.4.2-Starting-Point-Near-Local-Min-($\theta_0-=-\pi$">4.8.4.2 Starting Point Near Local Min ($\theta_0 = \pi$)</a>)</li>
+<li><a href="https://ndcbe.github.io/CBE60499/04.08-Interior-Point2.html#4.8.4.3-Starting-Point-Near-Global-Max-($\theta_0-=-5.5$">4.8.4.3 Starting Point Near Global Max ($\theta_0 = 5.5$)</a>)</li>
+</ul>
+</li>
+<li>Markdown Figures<ul>
+<li><a href="figures/eqn5-12.png">Eqn5-12</a></li>
+<li><a href="figures/alg5-2a.png">Alg5-2a</a></li>
+<li><a href="figures/alg5-2b.png">Alg5-2b</a></li>
+</ul>
+</li>
+<li>Figure files used<ul>
+<li><a href="https://ndcbe.github.io/CBE60499/figures/alg5-2b.png">figures/alg5-2b.png</a></li>
+<li><a href="https://ndcbe.github.io/CBE60499/figures/alg5-2a.png">figures/alg5-2a.png</a></li>
+<li><a href="https://ndcbe.github.io/CBE60499/figures/eqn5-12.png">figures/eqn5-12.png</a></li>
+</ul>
+</li>
+</ul>
+<h2 id="Chapter-5.0-Special-Topics"><a href="https://ndcbe.github.io/CBE60499/05.00-Special-Topics.html">Chapter 5.0 Special Topics</a><a class="anchor-link" href="#Chapter-5.0-Special-Topics">&#182;</a></h2><h3 id="5.1-MILP-Algorithms"><a href="https://ndcbe.github.io/CBE60499/05.01-MILP-Algorithms.html">5.1 MILP Algorithms</a><a class="anchor-link" href="#5.1-MILP-Algorithms">&#182;</a></h3><h3 id="5.2-MINLP-Algorithms"><a href="https://ndcbe.github.io/CBE60499/05.02-MINLP-Algorithms.html">5.2 MINLP Algorithms</a><a class="anchor-link" href="#5.2-MINLP-Algorithms">&#182;</a></h3><h3 id="5.3-Deterministic-Global-Optimization"><a href="https://ndcbe.github.io/CBE60499/05.03-Global-Opt.html">5.3 Deterministic Global Optimization</a><a class="anchor-link" href="#5.3-Deterministic-Global-Optimization">&#182;</a></h3><h3 id="5.4-Bayesian-Optimization"><a href="https://ndcbe.github.io/CBE60499/05.04-Bayesian-Opt.html">5.4 Bayesian Optimization</a><a class="anchor-link" href="#5.4-Bayesian-Optimization">&#182;</a></h3>
 </div>
 </div>
 </div>

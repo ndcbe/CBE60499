@@ -13135,7 +13135,7 @@ content is available <a href="git@github.com:ndcbe/CBE60499.git">on Github</a>.<
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p><!--NAVIGATION-->
-&lt; <a href="https://ndcbe.github.io/CBE60499/04.03-KKT-Multipliers.html">4.3 KKT Multipliers</a> | <a href="toc.html">Contents</a> | <a href="tag_index.html">Tag Index</a> | <a href="https://ndcbe.github.io/CBE60499/04.05-Second-Order.html">4.5 Second Order Optimality Conditions</a> &gt;<p><a href="https://colab.research.google.com/github/ndcbe/CBE60499/blob/master/docs/04.04-Constraint-Qualifications.ipynb"> <img align="left" src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open in Colab" title="Open in Google Colaboratory"></a><p><a href="https://ndcbe.github.io/CBE60499/04.04-Constraint-Qualifications.ipynb"> <img align="left" src="https://img.shields.io/badge/Github-Download-blue.svg" alt="Download" title="Download Notebook"></a></p>
+&lt; <a href="https://ndcbe.github.io/CBE60499/04.02-Local-Optimality.html">4.2 Local Optimality Conditions</a> | <a href="toc.html">Contents</a> | <a href="tag_index.html">Tag Index</a> | <a href="https://ndcbe.github.io/CBE60499/04.04-Constraint-Qualifications.html">4.4 Constraint Qualifications</a> &gt;<p><a href="https://colab.research.google.com/github/ndcbe/CBE60499/blob/master/docs/04.03-KKT-Multipliers.ipynb"> <img align="left" src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open in Colab" title="Open in Google Colaboratory"></a><p><a href="https://ndcbe.github.io/CBE60499/04.03-KKT-Multipliers.ipynb"> <img align="left" src="https://img.shields.io/badge/Github-Download-blue.svg" alt="Download" title="Download Notebook"></a></p>
 
 </div>
 </div>
@@ -13147,7 +13147,7 @@ content is available <a href="git@github.com:ndcbe/CBE60499.git">on Github</a>.<
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="4.4-Constraint-Qualifications">4.4 Constraint Qualifications<a class="anchor-link" href="#4.4-Constraint-Qualifications">&#182;</a></h1>
+<h1 id="4.3-KKT-Multipliers">4.3 KKT Multipliers<a class="anchor-link" href="#4.3-KKT-Multipliers">&#182;</a></h1>
 </div>
 </div>
 </div>
@@ -13158,7 +13158,7 @@ content is available <a href="git@github.com:ndcbe/CBE60499.git">on Github</a>.<
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="4.4.1-Feasible-Sequence">4.4.1 Feasible Sequence<a class="anchor-link" href="#4.4.1-Feasible-Sequence">&#182;</a></h2>
+<h2 id="4.3.1-Active-Sets">4.3.1 Active Sets<a class="anchor-link" href="#4.3.1-Active-Sets">&#182;</a></h2>
 </div>
 </div>
 </div>
@@ -13169,7 +13169,7 @@ content is available <a href="git@github.com:ndcbe/CBE60499.git">on Github</a>.<
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="4.4.2-Limiting-Direction">4.4.2 Limiting Direction<a class="anchor-link" href="#4.4.2-Limiting-Direction">&#182;</a></h2>
+<h2 id="4.3.2-Sensitivity-Analysis">4.3.2 Sensitivity Analysis<a class="anchor-link" href="#4.3.2-Sensitivity-Analysis">&#182;</a></h2>
 </div>
 </div>
 </div>
@@ -13180,341 +13180,9 @@ content is available <a href="git@github.com:ndcbe/CBE60499.git">on Github</a>.<
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="4.4.3-Constraint-Qualifications">4.4.3 Constraint Qualifications<a class="anchor-link" href="#4.4.3-Constraint-Qualifications">&#182;</a></h2><h3 id="LICQ">LICQ<a class="anchor-link" href="#LICQ">&#182;</a></h3><h3 id="MFCQ">MFCQ<a class="anchor-link" href="#MFCQ">&#182;</a></h3>
+<h2 id="4.3.3-Multipliers-in-Pyomo">4.3.3 Multipliers in Pyomo<a class="anchor-link" href="#4.3.3-Multipliers-in-Pyomo">&#182;</a></h2>
 </div>
 </div>
-</div>
-
-
-
-    
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="4.4.4-Example">4.4.4 Example<a class="anchor-link" href="#4.4.4-Example">&#182;</a></h2><p>Consider the following two dimensional optimization problem:</p>
-$$
-\begin{align} \min_{x_1,x_2} \quad &amp; f(x) := x_1 \\
-\mathrm{s.t.} \quad &amp; g_1(x) := x_2 \leq x_1^3 \\
- &amp; g_2(x) := -x_1^3 \leq x_2
-\end{align}
-$$<p>This is an example from Section 4.3 in Nonlinear Programming by Biegler.</p>
-
-</div>
-</div>
-</div>
-
-
-
-    
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[2]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">import</span> <span class="nn">matplotlib.cm</span> <span class="k">as</span> <span class="nn">cm</span>
-<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
-<span class="kn">from</span> <span class="nn">pyomo.environ</span> <span class="k">import</span> <span class="o">*</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-</div>
-
-
-
-    
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="4.4.4.1-Visualize-Feasible-Set">4.4.4.1 Visualize Feasible Set<a class="anchor-link" href="#4.4.4.1-Visualize-Feasible-Set">&#182;</a></h3>
-</div>
-</div>
-</div>
-
-
-
-    
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[5]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">n</span> <span class="o">=</span> <span class="mi">101</span>
-<span class="n">x1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">3</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="n">n</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
-
-<span class="n">g1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">power</span><span class="p">(</span><span class="n">x1</span><span class="p">,</span><span class="mi">3</span><span class="p">)</span>
-<span class="n">g2</span> <span class="o">=</span> <span class="o">-</span><span class="n">g1</span>
-
-<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x1</span><span class="p">,</span><span class="n">g1</span><span class="p">,</span><span class="n">color</span><span class="o">=</span><span class="s2">&quot;blue&quot;</span><span class="p">,</span><span class="n">linestyle</span><span class="o">=</span><span class="s2">&quot;-&quot;</span><span class="p">,</span><span class="n">label</span><span class="o">=</span><span class="s2">&quot;$x_2 \leq x_1^3$&quot;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">fill_between</span><span class="p">(</span><span class="n">x1</span><span class="p">,</span><span class="n">g1</span><span class="p">,</span><span class="n">np</span><span class="o">.</span><span class="n">min</span><span class="p">(</span><span class="n">g1</span><span class="p">)</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">n</span><span class="p">),</span><span class="n">color</span><span class="o">=</span><span class="s2">&quot;blue&quot;</span><span class="p">,</span><span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
-
-
-<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x1</span><span class="p">,</span><span class="n">g2</span><span class="p">,</span><span class="n">color</span><span class="o">=</span><span class="s2">&quot;red&quot;</span><span class="p">,</span><span class="n">linestyle</span><span class="o">=</span><span class="s2">&quot;-&quot;</span><span class="p">,</span><span class="n">label</span><span class="o">=</span><span class="s2">&quot;$-x_1^3 \leq x_2$&quot;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">fill_between</span><span class="p">(</span><span class="n">x1</span><span class="p">,</span><span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">g2</span><span class="p">)</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">n</span><span class="p">),</span><span class="n">g2</span><span class="p">,</span><span class="n">color</span><span class="o">=</span><span class="s2">&quot;red&quot;</span><span class="p">,</span><span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
-
-<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;$x_1$&quot;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;$x_2$&quot;</span><span class="p">)</span>
-
-<span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">()</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s2">&quot;center left&quot;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-
-    <div class="prompt"></div>
-
-
-
-
-<div class="output_png output_subarea ">
-<img src="data:image/png;base64,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
-"
->
-</div>
-
-</div>
-
-</div>
-</div>
-
-</div>
-
-
-
-    
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p><strong>Discussion</strong></p>
-<p>Where on the graph are both constraints satisfied? Choices:</p>
-<ol>
-<li>White region</li>
-<li>Blue region</li>
-<li>Red region</li>
-<li>Purple region</li>
-</ol>
-
-</div>
-</div>
-</div>
-
-
-
-    
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="4.4.4.2-Solve-with-Pyomo">4.4.4.2 Solve with Pyomo<a class="anchor-link" href="#4.4.4.2-Solve-with-Pyomo">&#182;</a></h3>
-</div>
-</div>
-</div>
-
-
-
-    
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[4]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">## Create concrete Pyomo model</span>
-<span class="n">m</span> <span class="o">=</span> <span class="n">ConcreteModel</span><span class="p">()</span>
-
-<span class="c1">## Set up to extract dual variables after model solve.</span>
-<span class="n">m</span><span class="o">.</span><span class="n">dual</span> <span class="o">=</span> <span class="n">Suffix</span><span class="p">(</span><span class="n">direction</span><span class="o">=</span><span class="n">Suffix</span><span class="o">.</span><span class="n">IMPORT</span><span class="p">)</span>
-
-<span class="c1">## Declare variables with initial values</span>
-<span class="n">m</span><span class="o">.</span><span class="n">x1</span> <span class="o">=</span> <span class="n">Var</span><span class="p">(</span><span class="n">initialize</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
-<span class="n">m</span><span class="o">.</span><span class="n">x2</span> <span class="o">=</span> <span class="n">Var</span><span class="p">(</span><span class="n">initialize</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
-
-<span class="c1">## Declare objective</span>
-<span class="n">m</span><span class="o">.</span><span class="n">OBJ</span> <span class="o">=</span> <span class="n">Objective</span><span class="p">(</span><span class="n">expr</span><span class="o">=</span><span class="n">m</span><span class="o">.</span><span class="n">x1</span><span class="p">,</span> <span class="n">sense</span> <span class="o">=</span> <span class="n">minimize</span><span class="p">)</span>
-
-<span class="n">m</span><span class="o">.</span><span class="n">g1</span> <span class="o">=</span> <span class="n">Constraint</span><span class="p">(</span><span class="n">expr</span><span class="o">=</span><span class="n">m</span><span class="o">.</span><span class="n">x2</span> <span class="o">&lt;=</span> <span class="n">m</span><span class="o">.</span><span class="n">x1</span><span class="o">**</span><span class="mi">3</span><span class="p">)</span>
-
-<span class="n">m</span><span class="o">.</span><span class="n">g2</span> <span class="o">=</span> <span class="n">Constraint</span><span class="p">(</span><span class="n">expr</span><span class="o">=-</span><span class="n">m</span><span class="o">.</span><span class="n">x1</span><span class="o">**</span><span class="mi">3</span> <span class="o">&lt;=</span> <span class="n">m</span><span class="o">.</span><span class="n">x2</span><span class="p">)</span>
-
-<span class="c1">## Specify IPOPT as solver</span>
-<span class="n">solver</span> <span class="o">=</span> <span class="n">SolverFactory</span><span class="p">(</span><span class="s1">&#39;ipopt&#39;</span><span class="p">)</span>
-
-<span class="c1">## Solve the model</span>
-<span class="n">results</span> <span class="o">=</span> <span class="n">solver</span><span class="o">.</span><span class="n">solve</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">tee</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
-
-<span class="c1">## Return the solution</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;x1 = &quot;</span><span class="p">,</span><span class="n">value</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">x1</span><span class="p">))</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;x2 = &quot;</span><span class="p">,</span><span class="n">value</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">x2</span><span class="p">))</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
-
-<span class="c1">## Inspect dual variables</span>
-<span class="n">m</span><span class="o">.</span><span class="n">dual</span><span class="o">.</span><span class="n">display</span><span class="p">()</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-
-    <div class="prompt"></div>
-
-
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>Ipopt 3.13.2: 
-
-******************************************************************************
-This program contains Ipopt, a library for large-scale nonlinear optimization.
- Ipopt is released as open source code under the Eclipse Public License (EPL).
-         For more information visit http://projects.coin-or.org/Ipopt
-******************************************************************************
-
-This is Ipopt version 3.13.2, running with linear solver ma27.
-
-Number of nonzeros in equality constraint Jacobian...:        0
-Number of nonzeros in inequality constraint Jacobian.:        4
-Number of nonzeros in Lagrangian Hessian.............:        1
-
-Total number of variables............................:        2
-                     variables with only lower bounds:        0
-                variables with lower and upper bounds:        0
-                     variables with only upper bounds:        0
-Total number of equality constraints.................:        0
-Total number of inequality constraints...............:        2
-        inequality constraints with only lower bounds:        0
-   inequality constraints with lower and upper bounds:        0
-        inequality constraints with only upper bounds:        2
-
-iter    objective    inf_pr   inf_du lg(mu)  ||d||  lg(rg) alpha_du alpha_pr  ls
-   0  1.0000000e+00 0.00e+00 7.89e-01  -1.0 0.00e+00    -  0.00e+00 0.00e+00   0
-   1  9.7574511e-01 0.00e+00 1.04e-02  -1.0 2.54e-01    -  1.00e+00 1.00e+00f  1
-   2  6.6105230e-01 0.00e+00 2.39e-01  -1.7 4.64e+00    -  1.00e+00 3.73e-01f  1
-   3  4.6924687e-01 0.00e+00 2.74e-01  -1.7 1.92e-01    -  1.00e+00 1.00e+00h  1
-   4  3.2820073e-01 0.00e+00 3.14e-01  -1.7 1.62e-01    -  1.00e+00 8.72e-01h  1
-   5  2.6957767e-01 0.00e+00 1.60e-01  -1.7 5.86e-02    -  1.00e+00 1.00e+00f  1
-   6  1.8935274e-01 0.00e+00 2.24e+00  -2.5 2.21e-01    -  1.00e+00 3.63e-01f  1
-   7  1.3091124e-01 0.00e+00 3.19e-01  -2.5 5.84e-02    -  1.00e+00 1.00e+00h  1
-   8  9.6126564e-02 0.00e+00 2.03e+00  -2.5 4.69e-02    -  1.00e+00 7.41e-01h  1
-   9  7.1009142e-02 0.00e+00 2.58e-01  -2.5 2.51e-02    -  1.00e+00 1.00e+00f  1
-iter    objective    inf_pr   inf_du lg(mu)  ||d||  lg(rg) alpha_du alpha_pr  ls
-  10  5.1777995e-02 0.00e+00 1.21e+01  -2.5 3.18e-02    -  1.00e+00 6.04e-01h  1
-  11  4.0824512e-02 0.00e+00 1.97e-01  -2.5 1.10e-02    -  1.00e+00 1.00e+00f  1
-  12  3.4583313e-02 0.00e+00 5.91e+01  -2.5 1.80e-02    -  1.00e+00 3.47e-01h  2
-  13  2.6914569e-02 0.00e+00 1.79e-01  -2.5 7.67e-03    -  1.00e+00 1.00e+00h  1
-  14  2.0308733e-02 0.00e+00 2.01e-01  -2.5 6.61e-03    -  1.00e+00 1.00e+00h  1
-  15  1.9046691e-02 0.00e+00 3.31e-02  -2.5 1.26e-03    -  1.00e+00 1.00e+00h  1
-  16  1.2746908e-02 0.00e+00 5.71e+02  -3.8 1.83e-02    -  1.00e+00 3.44e-01f  1
-  17  8.7118644e-03 0.00e+00 3.19e-01  -3.8 4.04e-03    -  1.00e+00 1.00e+00f  1
-  18  7.5197334e-03 0.00e+00 1.09e+03  -3.8 3.10e-03    -  1.00e+00 3.85e-01f  2
-  19  5.1147446e-03 0.00e+00 3.19e-01  -3.8 2.40e-03    -  1.00e+00 1.00e+00f  1
-iter    objective    inf_pr   inf_du lg(mu)  ||d||  lg(rg) alpha_du alpha_pr  ls
-  20  3.3178215e-03 0.00e+00 3.78e-01  -3.8 1.80e-03    -  1.00e+00 1.00e+00f  1
-  21  2.2893616e-03 0.00e+00 3.40e-01  -3.8 1.03e-03    -  1.00e+00 1.00e+00f  1
-  22  1.8283227e-03 0.00e+00 8.34e+04  -3.8 4.48e-03    -  1.00e+00 1.03e-01f  2
-  23  4.5313818e-04 0.00e+00 8.82e-01  -3.8 1.38e-03    -  1.00e+00 1.00e+00f  1
-  24  3.0653152e-04 0.00e+00 3.16e+05  -5.7 1.47e-04   4.0 2.32e-01 1.00e+00h  1
-  25 -5.5285928e-04 0.00e+00 1.00e+00  -5.7 8.59e-04    -  1.00e+00 1.00e+00f  1
-  26 -1.1223885e-02 1.40e-06 1.36e+04  -5.7 7.96e-01    -  1.00e+00 1.34e-02f  1
-  27 -1.1107786e-02 1.36e-06 1.16e+03  -5.7 3.72e-03    -  1.00e+00 3.12e-02h  6
-  28 -7.4290268e-03 4.00e-07 4.64e-01  -5.7 3.68e-03    -  1.00e+00 1.00e+00h  1
-  29 -5.8687786e-03 1.92e-07 8.66e+02  -5.7 2.41e-03    -  1.00e+00 6.47e-01h  1
-iter    objective    inf_pr   inf_du lg(mu)  ||d||  lg(rg) alpha_du alpha_pr  ls
-  30 -5.8542172e-03 1.91e-07 3.64e+03  -5.7 1.86e-03    -  1.00e+00 7.81e-03f  8
-  31 -3.9974633e-03 5.39e-08 3.37e-01  -5.7 1.86e-03    -  1.00e+00 1.00e+00h  1
-  32 -2.9534118e-03 1.58e-08 5.23e+02  -5.7 1.12e-03    -  1.00e+00 9.29e-01h  1
-  33 -2.9344353e-03 1.53e-08 1.06e+04  -5.7 6.07e-04    -  1.00e+00 3.12e-02f  6
-  34 -2.3405157e-03 2.82e-09 1.76e-01  -5.7 5.94e-04    -  1.00e+00 1.00e+00h  1
-  35 -2.1660008e-03 1.62e-10 3.83e-02  -5.7 1.75e-04    -  1.00e+00 1.00e+00h  1
-  36 -2.1508378e-03 0.00e+00 6.75e-04  -5.7 1.52e-05    -  1.00e+00 1.00e+00h  1
-  37 -2.1544258e-03 0.00e+00 6.10e-06  -8.6 3.59e-06    -  1.00e+00 1.00e+00f  1
-  38 -2.1544329e-03 0.00e+00 7.78e-12  -9.0 7.05e-09    -  1.00e+00 1.00e+00h  1
-
-Number of Iterations....: 38
-
-                                   (scaled)                 (unscaled)
-Objective...............:  -2.1544328718688505e-03   -2.1544328718688505e-03
-Dual infeasibility......:   7.7819972688075723e-12    7.7819972688075723e-12
-Constraint violation....:   0.0000000000000000e+00    0.0000000000000000e+00
-Complementarity.........:   9.0909382315597638e-10    9.0909382315597638e-10
-Overall NLP error.......:   2.5317795697139416e-12    9.0909382315597638e-10
-
-
-Number of objective function evaluations             = 64
-Number of objective gradient evaluations             = 39
-Number of equality constraint evaluations            = 0
-Number of inequality constraint evaluations          = 64
-Number of equality constraint Jacobian evaluations   = 0
-Number of inequality constraint Jacobian evaluations = 39
-Number of Lagrangian Hessian evaluations             = 38
-Total CPU secs in IPOPT (w/o function evaluations)   =      0.009
-Total CPU secs in NLP function evaluations           =      0.000
-
-EXIT: Optimal Solution Found.
-x1 =  -0.0021544328718688505
-x2 =  3.510966032529045e-27
-
-
-dual : Direction=Suffix.IMPORT, Datatype=Suffix.FLOAT
-    Key : Value
-     g1 : -35907.30543965533
-     g2 : -35907.30543965533
-</pre>
-</div>
-</div>
-
-</div>
-</div>
-
-</div>
-
-
-
-    
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p><strong>Discussion</strong></p>
-<ol>
-<li>Why so many iterations for such a simple problem?</li>
-<li>Why are the multipliers so negative?</li>
-<li>Are the constraints satisfied?</li>
-<li>Why is the solution not exactly $x_1 = x_2 = 0$?</li>
-</ol>
-
-</div>
-</div>
-</div>
-
-
-
-    
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span> 
-</pre></div>
-
-    </div>
-</div>
-</div>
-
 </div>
 
 
@@ -13524,7 +13192,7 @@ dual : Direction=Suffix.IMPORT, Datatype=Suffix.FLOAT
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p><!--NAVIGATION-->
-&lt; <a href="https://ndcbe.github.io/CBE60499/04.03-KKT-Multipliers.html">4.3 KKT Multipliers</a> | <a href="toc.html">Contents</a> | <a href="tag_index.html">Tag Index</a> | <a href="https://ndcbe.github.io/CBE60499/04.05-Second-Order.html">4.5 Second Order Optimality Conditions</a> &gt;<p><a href="https://colab.research.google.com/github/ndcbe/CBE60499/blob/master/docs/04.04-Constraint-Qualifications.ipynb"> <img align="left" src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open in Colab" title="Open in Google Colaboratory"></a><p><a href="https://ndcbe.github.io/CBE60499/04.04-Constraint-Qualifications.ipynb"> <img align="left" src="https://img.shields.io/badge/Github-Download-blue.svg" alt="Download" title="Download Notebook"></a></p>
+&lt; <a href="https://ndcbe.github.io/CBE60499/04.02-Local-Optimality.html">4.2 Local Optimality Conditions</a> | <a href="toc.html">Contents</a> | <a href="tag_index.html">Tag Index</a> | <a href="https://ndcbe.github.io/CBE60499/04.04-Constraint-Qualifications.html">4.4 Constraint Qualifications</a> &gt;<p><a href="https://colab.research.google.com/github/ndcbe/CBE60499/blob/master/docs/04.03-KKT-Multipliers.ipynb"> <img align="left" src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open in Colab" title="Open in Google Colaboratory"></a><p><a href="https://ndcbe.github.io/CBE60499/04.03-KKT-Multipliers.ipynb"> <img align="left" src="https://img.shields.io/badge/Github-Download-blue.svg" alt="Download" title="Download Notebook"></a></p>
 
 </div>
 </div>

@@ -37,11 +37,13 @@
 
 ### [Chapter 4.0 Constrained Nonlinear Optimization: Theory and Applications](https://ndcbe.github.io/CBE60499/04.00-Constrained.html)
 - [4.1 Convexity Revisited](https://ndcbe.github.io/CBE60499/04.01-Convexity.html)
-- [4.2 First Order Optimality Conditions](https://ndcbe.github.io/CBE60499/04.02-First-Order-Optimality.html)
-- [4.3 Active Sets](https://ndcbe.github.io/CBE60499/04.03-Active-Sets.html)
+- [4.2 Local Optimality Conditions](https://ndcbe.github.io/CBE60499/04.02-Local-Optimality.html)
+- [4.3 KKT Multipliers](https://ndcbe.github.io/CBE60499/04.03-KKT-Multipliers.html)
 - [4.4 Constraint Qualifications](https://ndcbe.github.io/CBE60499/04.04-Constraint-Qualifications.html)
-- [4.5 Second Order Optimality Conditions](https://ndcbe.github.io/CBE60499/04.05-Second-Order-Optimality.html)
-- [4.6 Interior Point Methods](https://ndcbe.github.io/CBE60499/04.06-Interior-Point-Methods.html)
+- [4.5 Second Order Optimality Conditions](https://ndcbe.github.io/CBE60499/04.05-Second-Order.html)
+- [4.6 NLP Diagnostics with Degeneracy Hunter](https://ndcbe.github.io/CBE60499/04.06-NLP-Diagnostics.html)
+- [4.7 Simple Netwon Method for Equality Constrained NLPs](https://ndcbe.github.io/CBE60499/04.07-Interior-Point1.html)
+- [4.8 Inertia-Corrected Netwon Method for Equality Constrained NLPs](https://ndcbe.github.io/CBE60499/04.08-Interior-Point2.html)
 
 ### [Chapter 5.0 Special Topics](https://ndcbe.github.io/CBE60499/05.00-Special-Topics.html)
 - [5.1 MILP Algorithms](https://ndcbe.github.io/CBE60499/05.01-MILP-Algorithms.html)
