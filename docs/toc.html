@@ -13801,19 +13801,79 @@ div#notebook {
 </ul>
 </li>
 </ul>
-<h2 id="Chapter-4.0-Constrained-Nonlinear-Optimization:-Theory-and-Applications"><a href="https://ndcbe.github.io/CBE60499/04.00-Constrained.html">Chapter 4.0 Constrained Nonlinear Optimization: Theory and Applications</a><a class="anchor-link" href="#Chapter-4.0-Constrained-Nonlinear-Optimization:-Theory-and-Applications">&#182;</a></h2><h3 id="4.1-Convexity-Revisited"><a href="https://ndcbe.github.io/CBE60499/04.01-Convexity.html">4.1 Convexity Revisited</a><a class="anchor-link" href="#4.1-Convexity-Revisited">&#182;</a></h3><h3 id="4.2-Local-Optimality-Conditions"><a href="https://ndcbe.github.io/CBE60499/04.02-Local-Optimality.html">4.2 Local Optimality Conditions</a><a class="anchor-link" href="#4.2-Local-Optimality-Conditions">&#182;</a></h3><ul>
-<li><a href="https://ndcbe.github.io/CBE60499/04.02-Local-Optimality.html#4.2.1-Introduction">4.2.1 Introduction</a></li>
-<li><a href="https://ndcbe.github.io/CBE60499/04.02-Local-Optimality.html#4.2.2-Kinematic-Interpretation">4.2.2 Kinematic Interpretation</a><ul>
-<li><a href="https://ndcbe.github.io/CBE60499/04.02-Local-Optimality.html#4.2.2.1-Define-Function-for-Visualization">4.2.2.1 Define Function for Visualization</a></li>
-<li><a href="https://ndcbe.github.io/CBE60499/04.02-Local-Optimality.html#4.2.2.2-Define-function-to-solve-optimization-problem-with-Pyomo">4.2.2.2 Define function to solve optimization problem with Pyomo</a></li>
-<li><a href="https://ndcbe.github.io/CBE60499/04.02-Local-Optimality.html#4.2.2.3-Take-1:-Unconstrained">4.2.2.3 Take 1: Unconstrained</a></li>
-<li><a href="https://ndcbe.github.io/CBE60499/04.02-Local-Optimality.html#4.2.2.4-Take-2.-With-$g(x">4.2.2.4 Take 2. With $g(x) \leq 0$</a>-\leq-0$)</li>
-<li><a href="https://ndcbe.github.io/CBE60499/04.02-Local-Optimality.html#4.2.2.5-Take-3.-With-$g(x">4.2.2.5 Take 3. With $g(x) \leq 0$ and $h(x) = 0$</a>-\leq-0$-and-$h(x)-=-0$)</li>
-<li><a href="https://ndcbe.github.io/CBE60499/04.02-Local-Optimality.html#4.2.2.6-Discussion">4.2.2.6 Discussion</a></li>
+<h2 id="Chapter-4.0-Constrained-Nonlinear-Optimization:-Theory-and-Applications"><a href="https://ndcbe.github.io/CBE60499/04.00-Constrained.html">Chapter 4.0 Constrained Nonlinear Optimization: Theory and Applications</a><a class="anchor-link" href="#Chapter-4.0-Constrained-Nonlinear-Optimization:-Theory-and-Applications">&#182;</a></h2><h3 id="4.1-Convexity-Revisited"><a href="https://ndcbe.github.io/CBE60499/04.01-Convexity.html">4.1 Convexity Revisited</a><a class="anchor-link" href="#4.1-Convexity-Revisited">&#182;</a></h3><ul>
+<li><a href="https://ndcbe.github.io/CBE60499/04.01-Convexity.html#4.1.1-Background">4.1.1 Background</a><ul>
+<li><a href="https://ndcbe.github.io/CBE60499/04.01-Convexity.html#4.1.1.1-Canonical-Nonlinear-Program">4.1.1.1 Canonical Nonlinear Program</a></li>
+<li><a href="https://ndcbe.github.io/CBE60499/04.01-Convexity.html#4.1.1.2-Types-of-Constrained-Optimal-Solutions">4.1.1.2 Types of Constrained Optimal Solutions</a></li>
+<li><a href="https://ndcbe.github.io/CBE60499/04.01-Convexity.html#4.1.1.3-Key-Questions">4.1.1.3 Key Questions</a></li>
+</ul>
+</li>
+<li><a href="https://ndcbe.github.io/CBE60499/04.01-Convexity.html#4.1.2-Convexity-for-Constrained-Optimization">4.1.2 Convexity for Constrained Optimization</a></li>
+<li><a href="https://ndcbe.github.io/CBE60499/04.01-Convexity.html#4.1.3-Circle-Packing-Example">4.1.3 Circle Packing Example</a><ul>
+<li><a href="https://ndcbe.github.io/CBE60499/04.01-Convexity.html#4.1.3.1-Optimization-Model-and-Pyomo-Implementation">4.1.3.1 Optimization Model and Pyomo Implementation</a></li>
+<li><a href="https://ndcbe.github.io/CBE60499/04.01-Convexity.html#4.1.3.2-Visualize-Initial-Point">4.1.3.2 Visualize Initial Point</a></li>
+<li><a href="https://ndcbe.github.io/CBE60499/04.01-Convexity.html#4.1.3.3-Solve-and-Inspect-the-Solution">4.1.3.3 Solve and Inspect the Solution</a></li>
+<li><a href="https://ndcbe.github.io/CBE60499/04.01-Convexity.html#4.1.3.4-Reinitialize-and-Resolve">4.1.3.4 Reinitialize and Resolve</a></li>
+</ul>
+</li>
+<li><a href="https://ndcbe.github.io/CBE60499/04.01-Convexity.html#4.1.4-Take-Away-Messages">4.1.4 Take Away Messages</a></li>
+<li>Markdown Figures<ul>
+<li><a href="./figures/general_nlp.png">picture</a></li>
+<li><a href="./figures/def_4_1_a.png">picture</a></li>
+<li><a href="./figures/def_4_1_b.png">picture</a></li>
+<li><a href="./figures/4_1_questions.png">picture</a></li>
+<li><a href="./figures/thm_4_2.png">picture</a></li>
+<li><a href="./figures/thm_4_3.png">picture</a></li>
+<li><a href="./figures/pack1.png">picture</a></li>
+<li><a href="./figures/pack2.png">picture</a></li>
+<li><a href="./figures/pack3.png">picture</a></li>
+</ul>
+</li>
+<li>Figure files used<ul>
+<li><a href="https://ndcbe.github.io/CBE60499/figures/pack1.png">figures/pack1.png</a></li>
+<li><a href="https://ndcbe.github.io/CBE60499/figures/pack3.png">figures/pack3.png</a></li>
+<li><a href="https://ndcbe.github.io/CBE60499/figures/pack2.png">figures/pack2.png</a></li>
+<li><a href="https://ndcbe.github.io/CBE60499/figures/4_1_questions.png">figures/4_1_questions.png</a></li>
+<li><a href="https://ndcbe.github.io/CBE60499/figures/def_4_1_a.png">figures/def_4_1_a.png</a></li>
+<li><a href="https://ndcbe.github.io/CBE60499/figures/def_4_1_b.png">figures/def_4_1_b.png</a></li>
+<li><a href="https://ndcbe.github.io/CBE60499/figures/general_nlp.png">figures/general_nlp.png</a></li>
+<li><a href="https://ndcbe.github.io/CBE60499/figures/thm_4_2.png">figures/thm_4_2.png</a></li>
+<li><a href="https://ndcbe.github.io/CBE60499/figures/thm_4_3.png">figures/thm_4_3.png</a></li>
 </ul>
 </li>
 </ul>
-<h3 id="4.3-KKT-Multipliers"><a href="https://ndcbe.github.io/CBE60499/04.03-KKT-Multipliers.html">4.3 KKT Multipliers</a><a class="anchor-link" href="#4.3-KKT-Multipliers">&#182;</a></h3><ul>
+<h3 id="4.2-Local-Optimality-Conditions"><a href="https://ndcbe.github.io/CBE60499/04.02-Local-Optimality.html">4.2 Local Optimality Conditions</a><a class="anchor-link" href="#4.2-Local-Optimality-Conditions">&#182;</a></h3><ul>
+<li><a href="https://ndcbe.github.io/CBE60499/04.02-Local-Optimality.html#4.2.1-Unconstrained-Optimality-Conditions">4.2.1 Unconstrained Optimality Conditions</a></li>
+<li><a href="https://ndcbe.github.io/CBE60499/04.02-Local-Optimality.html#4.2.2-Karush-Kuhn-Tucker-(KKT">4.2.2 Karush-Kuhn-Tucker (KKT) Necessary Conditions</a>-Necessary-Conditions)</li>
+<li><a href="https://ndcbe.github.io/CBE60499/04.02-Local-Optimality.html#4.2.3-Kinematic-Interpretation-via-Example">4.2.3 Kinematic Interpretation via Example</a><ul>
+<li><a href="https://ndcbe.github.io/CBE60499/04.02-Local-Optimality.html#4.2.3.1-Define-Function-for-Visualization">4.2.3.1 Define Function for Visualization</a></li>
+<li><a href="https://ndcbe.github.io/CBE60499/04.02-Local-Optimality.html#4.2.3.2-Define-function-to-solve-optimization-problem-with-Pyomo">4.2.3.2 Define function to solve optimization problem with Pyomo</a></li>
+<li><a href="https://ndcbe.github.io/CBE60499/04.02-Local-Optimality.html#4.2.3.3-Take-1:-Unconstrained">4.2.3.3 Take 1: Unconstrained</a></li>
+<li><a href="https://ndcbe.github.io/CBE60499/04.02-Local-Optimality.html#4.2.3.4-Take-2.-With-$g(x">4.2.3.4 Take 2. With $g(x) \leq 0$</a>-\leq-0$)</li>
+<li><a href="https://ndcbe.github.io/CBE60499/04.02-Local-Optimality.html#4.2.3.5-Take-3.-With-$g(x">4.2.3.5 Take 3. With $g(x) \leq 0$ and $h(x) = 0$</a>-\leq-0$-and-$h(x)-=-0$)</li>
+<li><a href="https://ndcbe.github.io/CBE60499/04.02-Local-Optimality.html#4.2.3.6-Discussion">4.2.3.6 Discussion</a></li>
+<li><a href="https://ndcbe.github.io/CBE60499/04.02-Local-Optimality.html#4.2.3.7-Analysis-without-Constraints">4.2.3.7 Analysis without Constraints</a></li>
+<li><a href="https://ndcbe.github.io/CBE60499/04.02-Local-Optimality.html#4.2.3.8-Analysis-with-Constraints">4.2.3.8 Analysis with Constraints</a></li>
+</ul>
+</li>
+<li>Markdown Figures<ul>
+<li><a href="./figures/unconstrained_opt.png">picture</a></li>
+<li><a href="./figures/kkt_1.png">picture</a></li>
+<li><a href="./figures/kkt_2.png">picture</a></li>
+<li><a href="./figures/unconstrained_analysis.png">picture</a></li>
+<li><a href="./figures/constrained_analysis.png">picture</a></li>
+</ul>
+</li>
+<li>Figure files used<ul>
+<li><a href="https://ndcbe.github.io/CBE60499/figures/constrained_analysis.png">figures/constrained_analysis.png</a></li>
+<li><a href="https://ndcbe.github.io/CBE60499/figures/unconstrained_opt.png">figures/unconstrained_opt.png</a></li>
+<li><a href="https://ndcbe.github.io/CBE60499/figures/unconstrained_analysis.png">figures/unconstrained_analysis.png</a></li>
+<li><a href="https://ndcbe.github.io/CBE60499/figures/kkt_2.png">figures/kkt_2.png</a></li>
+<li><a href="https://ndcbe.github.io/CBE60499/figures/kkt_1.png">figures/kkt_1.png</a></li>
+</ul>
+</li>
+</ul>
+<h3 id="4.3-Analysis-of-KKT-Conditions"><a href="https://ndcbe.github.io/CBE60499/04.03-KKT-Multipliers.html">4.3 Analysis of KKT Conditions</a><a class="anchor-link" href="#4.3-Analysis-of-KKT-Conditions">&#182;</a></h3><ul>
 <li><a href="https://ndcbe.github.io/CBE60499/04.03-KKT-Multipliers.html#4.3.1-Active-Sets">4.3.1 Active Sets</a></li>
 <li><a href="https://ndcbe.github.io/CBE60499/04.03-KKT-Multipliers.html#4.3.2-Sensitivity-Analysis">4.3.2 Sensitivity Analysis</a></li>
 <li><a href="https://ndcbe.github.io/CBE60499/04.03-KKT-Multipliers.html#4.3.3-Multipliers-in-Pyomo">4.3.3 Multipliers in Pyomo</a></li>

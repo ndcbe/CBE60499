@@ -13135,7 +13135,7 @@ content is available <a href="git@github.com:ndcbe/CBE60499.git">on Github</a>.<
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p><!--NAVIGATION-->
-&lt; <a href="https://ndcbe.github.io/CBE60499/04.01-Convexity.html">4.1 Convexity Revisited</a> | <a href="toc.html">Contents</a> | <a href="tag_index.html">Tag Index</a> | <a href="https://ndcbe.github.io/CBE60499/04.03-KKT-Multipliers.html">4.3 KKT Multipliers</a> &gt;<p><a href="https://colab.research.google.com/github/ndcbe/CBE60499/blob/master/docs/04.02-Local-Optimality.ipynb"> <img align="left" src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open in Colab" title="Open in Google Colaboratory"></a><p><a href="https://ndcbe.github.io/CBE60499/04.02-Local-Optimality.ipynb"> <img align="left" src="https://img.shields.io/badge/Github-Download-blue.svg" alt="Download" title="Download Notebook"></a></p>
+&lt; <a href="https://ndcbe.github.io/CBE60499/04.01-Convexity.html">4.1 Convexity Revisited</a> | <a href="toc.html">Contents</a> | <a href="tag_index.html">Tag Index</a> | <a href="https://ndcbe.github.io/CBE60499/04.03-KKT-Multipliers.html">4.3 Analysis of KKT Conditions</a> &gt;<p><a href="https://colab.research.google.com/github/ndcbe/CBE60499/blob/master/docs/04.02-Local-Optimality.ipynb"> <img align="left" src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open in Colab" title="Open in Google Colaboratory"></a><p><a href="https://ndcbe.github.io/CBE60499/04.02-Local-Optimality.ipynb"> <img align="left" src="https://img.shields.io/badge/Github-Download-blue.svg" alt="Download" title="Download Notebook"></a></p>
 
 </div>
 </div>
@@ -13158,18 +13158,7 @@ content is available <a href="git@github.com:ndcbe/CBE60499.git">on Github</a>.<
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="4.2.1-Introduction">4.2.1 Introduction<a class="anchor-link" href="#4.2.1-Introduction">&#182;</a></h2>
-</div>
-</div>
-</div>
-
-
-
-    
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>Add screenshots here</p>
+<p><strong>Reference</strong> Section 4.2 in Biegler (2010)</p>
 
 </div>
 </div>
@@ -13181,7 +13170,65 @@ content is available <a href="git@github.com:ndcbe/CBE60499.git">on Github</a>.<
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="4.2.2-Kinematic-Interpretation">4.2.2 Kinematic Interpretation<a class="anchor-link" href="#4.2.2-Kinematic-Interpretation">&#182;</a></h2><p>Consider the following two dimensional optimization problem:</p>
+<h2 id="4.2.1-Unconstrained-Optimality-Conditions">4.2.1 Unconstrained Optimality Conditions<a class="anchor-link" href="#4.2.1-Unconstrained-Optimality-Conditions">&#182;</a></h2>
+</div>
+</div>
+</div>
+
+
+
+    
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><img src="./figures/unconstrained_opt.png" alt="picture"></p>
+
+</div>
+</div>
+</div>
+
+
+
+    
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="4.2.2-Karush-Kuhn-Tucker-(KKT)-Necessary-Conditions">4.2.2 Karush-Kuhn-Tucker (KKT) Necessary Conditions<a class="anchor-link" href="#4.2.2-Karush-Kuhn-Tucker-(KKT)-Necessary-Conditions">&#182;</a></h2>
+</div>
+</div>
+</div>
+
+
+
+    
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><img src="./figures/kkt_1.png" alt="picture"></p>
+
+</div>
+</div>
+</div>
+
+
+
+    
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><img src="./figures/kkt_2.png" alt="picture"></p>
+
+</div>
+</div>
+</div>
+
+
+
+    
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="4.2.3-Kinematic-Interpretation-via-Example">4.2.3 Kinematic Interpretation via Example<a class="anchor-link" href="#4.2.3-Kinematic-Interpretation-via-Example">&#182;</a></h2><p>Consider the following two dimensional optimization problem:</p>
 $$
 \begin{align} \min_{x_1,x_2} \quad &amp; f(x) := x_1^2 - 4 x_1 + \frac{3}{2} x_2^2 -7x_2 + x_1 x_2 + 9 - \mathrm{ln}(x_1) - \mathrm{ln}(x_2) \\
 \mathrm{s.t.} \quad &amp; g(x) := 4 - x_1 x_2 \leq 0 \\
@@ -13218,7 +13265,7 @@ $$
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="4.2.2.1-Define-Function-for-Visualization">4.2.2.1 Define Function for Visualization<a class="anchor-link" href="#4.2.2.1-Define-Function-for-Visualization">&#182;</a></h3>
+<h3 id="4.2.3.1-Define-Function-for-Visualization">4.2.3.1 Define Function for Visualization<a class="anchor-link" href="#4.2.3.1-Define-Function-for-Visualization">&#182;</a></h3>
 </div>
 </div>
 </div>
@@ -13325,7 +13372,7 @@ $$
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="4.2.2.2-Define-function-to-solve-optimization-problem-with-Pyomo">4.2.2.2 Define function to solve optimization problem with Pyomo<a class="anchor-link" href="#4.2.2.2-Define-function-to-solve-optimization-problem-with-Pyomo">&#182;</a></h3>
+<h3 id="4.2.3.2-Define-function-to-solve-optimization-problem-with-Pyomo">4.2.3.2 Define function to solve optimization problem with Pyomo<a class="anchor-link" href="#4.2.3.2-Define-function-to-solve-optimization-problem-with-Pyomo">&#182;</a></h3>
 </div>
 </div>
 </div>
@@ -13381,7 +13428,7 @@ $$
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="4.2.2.3-Take-1:-Unconstrained">4.2.2.3 Take 1: Unconstrained<a class="anchor-link" href="#4.2.2.3-Take-1:-Unconstrained">&#182;</a></h3>
+<h3 id="4.2.3.3-Take-1:-Unconstrained">4.2.3.3 Take 1: Unconstrained<a class="anchor-link" href="#4.2.3.3-Take-1:-Unconstrained">&#182;</a></h3>
 </div>
 </div>
 </div>
@@ -13502,7 +13549,7 @@ EXIT: Optimal Solution Found.
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="4.2.2.4-Take-2.-With-$g(x)-\leq-0$">4.2.2.4 Take 2. With $g(x) \leq 0$<a class="anchor-link" href="#4.2.2.4-Take-2.-With-$g(x)-\leq-0$">&#182;</a></h3>
+<h3 id="4.2.3.4-Take-2.-With-$g(x)-\leq-0$">4.2.3.4 Take 2. With $g(x) \leq 0$<a class="anchor-link" href="#4.2.3.4-Take-2.-With-$g(x)-\leq-0$">&#182;</a></h3>
 </div>
 </div>
 </div>
@@ -13628,7 +13675,7 @@ EXIT: Optimal Solution Found.
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="4.2.2.5-Take-3.-With-$g(x)-\leq-0$-and-$h(x)-=-0$">4.2.2.5 Take 3. With $g(x) \leq 0$ and $h(x) = 0$<a class="anchor-link" href="#4.2.2.5-Take-3.-With-$g(x)-\leq-0$-and-$h(x)-=-0$">&#182;</a></h3>
+<h3 id="4.2.3.5-Take-3.-With-$g(x)-\leq-0$-and-$h(x)-=-0$">4.2.3.5 Take 3. With $g(x) \leq 0$ and $h(x) = 0$<a class="anchor-link" href="#4.2.3.5-Take-3.-With-$g(x)-\leq-0$-and-$h(x)-=-0$">&#182;</a></h3>
 </div>
 </div>
 </div>
@@ -13754,7 +13801,53 @@ EXIT: Optimal Solution Found.
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="4.2.2.6-Discussion">4.2.2.6 Discussion<a class="anchor-link" href="#4.2.2.6-Discussion">&#182;</a></h3><p>Why are the gradient vectors not the same length? I thought the forces were balanced...</p>
+<h3 id="4.2.3.6-Discussion">4.2.3.6 Discussion<a class="anchor-link" href="#4.2.3.6-Discussion">&#182;</a></h3><p>Why are the gradient vectors not the same length? I thought the forces were balanced...</p>
+
+</div>
+</div>
+</div>
+
+
+
+    
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="4.2.3.7-Analysis-without-Constraints">4.2.3.7 Analysis without Constraints<a class="anchor-link" href="#4.2.3.7-Analysis-without-Constraints">&#182;</a></h3>
+</div>
+</div>
+</div>
+
+
+
+    
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><img src="./figures/unconstrained_analysis.png" alt="picture"></p>
+
+</div>
+</div>
+</div>
+
+
+
+    
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="4.2.3.8-Analysis-with-Constraints">4.2.3.8 Analysis with Constraints<a class="anchor-link" href="#4.2.3.8-Analysis-with-Constraints">&#182;</a></h3>
+</div>
+</div>
+</div>
+
+
+
+    
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><img src="./figures/constrained_analysis.png" alt="picture"></p>
 
 </div>
 </div>
@@ -13767,7 +13860,7 @@ EXIT: Optimal Solution Found.
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p><!--NAVIGATION-->
-&lt; <a href="https://ndcbe.github.io/CBE60499/04.01-Convexity.html">4.1 Convexity Revisited</a> | <a href="toc.html">Contents</a> | <a href="tag_index.html">Tag Index</a> | <a href="https://ndcbe.github.io/CBE60499/04.03-KKT-Multipliers.html">4.3 KKT Multipliers</a> &gt;<p><a href="https://colab.research.google.com/github/ndcbe/CBE60499/blob/master/docs/04.02-Local-Optimality.ipynb"> <img align="left" src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open in Colab" title="Open in Google Colaboratory"></a><p><a href="https://ndcbe.github.io/CBE60499/04.02-Local-Optimality.ipynb"> <img align="left" src="https://img.shields.io/badge/Github-Download-blue.svg" alt="Download" title="Download Notebook"></a></p>
+&lt; <a href="https://ndcbe.github.io/CBE60499/04.01-Convexity.html">4.1 Convexity Revisited</a> | <a href="toc.html">Contents</a> | <a href="tag_index.html">Tag Index</a> | <a href="https://ndcbe.github.io/CBE60499/04.03-KKT-Multipliers.html">4.3 Analysis of KKT Conditions</a> &gt;<p><a href="https://colab.research.google.com/github/ndcbe/CBE60499/blob/master/docs/04.02-Local-Optimality.ipynb"> <img align="left" src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open in Colab" title="Open in Google Colaboratory"></a><p><a href="https://ndcbe.github.io/CBE60499/04.02-Local-Optimality.ipynb"> <img align="left" src="https://img.shields.io/badge/Github-Download-blue.svg" alt="Download" title="Download Notebook"></a></p>
 
 </div>
 </div>
