@@ -13876,15 +13876,71 @@ div#notebook {
 <h3 id="4.3-Analysis-of-KKT-Conditions"><a href="https://ndcbe.github.io/CBE60499/04.03-KKT-Multipliers.html">4.3 Analysis of KKT Conditions</a><a class="anchor-link" href="#4.3-Analysis-of-KKT-Conditions">&#182;</a></h3><ul>
 <li><a href="https://ndcbe.github.io/CBE60499/04.03-KKT-Multipliers.html#4.3.1-Active-Sets">4.3.1 Active Sets</a></li>
 <li><a href="https://ndcbe.github.io/CBE60499/04.03-KKT-Multipliers.html#4.3.2-Sensitivity-Analysis">4.3.2 Sensitivity Analysis</a></li>
-<li><a href="https://ndcbe.github.io/CBE60499/04.03-KKT-Multipliers.html#4.3.3-Multipliers-in-Pyomo">4.3.3 Multipliers in Pyomo</a></li>
+<li><a href="https://ndcbe.github.io/CBE60499/04.03-KKT-Multipliers.html#4.3.3-Multipliers-in-Pyomo">4.3.3 Multipliers in Pyomo</a><ul>
+<li><a href="https://ndcbe.github.io/CBE60499/04.03-KKT-Multipliers.html#4.3.3.1-Solve-without-warm-starting">4.3.3.1 Solve without warm starting</a></li>
+<li><a href="https://ndcbe.github.io/CBE60499/04.03-KKT-Multipliers.html#4.3.3.2-Solve-with-warm-starting">4.3.3.2 Solve with warm starting</a></li>
+</ul>
+</li>
+<li>Markdown Figures<ul>
+<li><a href="./figures/active_constraints.png">picture</a></li>
+<li><a href="./figures/active_constraints2.png">picture</a></li>
+<li><a href="./figures/def-4-6.png">picture</a></li>
+<li><a href="./figures/ex-4-7.png">picture</a></li>
+<li><a href="./figures/ex-4-7b.png">picture</a></li>
+</ul>
+</li>
+<li>Figure files used<ul>
+<li><a href="https://ndcbe.github.io/CBE60499/figures/ex-4-7b.png">figures/ex-4-7b.png</a></li>
+<li><a href="https://ndcbe.github.io/CBE60499/figures/active_constraints2.png">figures/active_constraints2.png</a></li>
+<li><a href="https://ndcbe.github.io/CBE60499/figures/def-4-6.png">figures/def-4-6.png</a></li>
+<li><a href="https://ndcbe.github.io/CBE60499/figures/active_constraints.png">figures/active_constraints.png</a></li>
+<li><a href="https://ndcbe.github.io/CBE60499/figures/ex-4-7.png">figures/ex-4-7.png</a></li>
+</ul>
+</li>
 </ul>
 <h3 id="4.4-Constraint-Qualifications"><a href="https://ndcbe.github.io/CBE60499/04.04-Constraint-Qualifications.html">4.4 Constraint Qualifications</a><a class="anchor-link" href="#4.4-Constraint-Qualifications">&#182;</a></h3><ul>
-<li><a href="https://ndcbe.github.io/CBE60499/04.04-Constraint-Qualifications.html#4.4.1-Feasible-Sequence">4.4.1 Feasible Sequence</a></li>
-<li><a href="https://ndcbe.github.io/CBE60499/04.04-Constraint-Qualifications.html#4.4.2-Limiting-Direction">4.4.2 Limiting Direction</a></li>
-<li><a href="https://ndcbe.github.io/CBE60499/04.04-Constraint-Qualifications.html#4.4.3-Constraint-Qualifications">4.4.3 Constraint Qualifications</a></li>
-<li><a href="https://ndcbe.github.io/CBE60499/04.04-Constraint-Qualifications.html#4.4.4-Example">4.4.4 Example</a><ul>
-<li><a href="https://ndcbe.github.io/CBE60499/04.04-Constraint-Qualifications.html#4.4.4.1-Visualize-Feasible-Set">4.4.4.1 Visualize Feasible Set</a></li>
-<li><a href="https://ndcbe.github.io/CBE60499/04.04-Constraint-Qualifications.html#4.4.4.2-Solve-with-Pyomo">4.4.4.2 Solve with Pyomo</a></li>
+<li><a href="https://ndcbe.github.io/CBE60499/04.04-Constraint-Qualifications.html#4.4.1-Feasible-Sequences-and-Limiting-Directions">4.4.1 Feasible Sequences and Limiting Directions</a><ul>
+<li><a href="https://ndcbe.github.io/CBE60499/04.04-Constraint-Qualifications.html#4.4.1.1-Concepts">4.4.1.1 Concepts</a></li>
+<li><a href="https://ndcbe.github.io/CBE60499/04.04-Constraint-Qualifications.html#4.4.1.2-Linear-Constrainted-Optimization-Problems">4.4.1.2 Linear Constrainted Optimization Problems</a></li>
+</ul>
+</li>
+<li><a href="https://ndcbe.github.io/CBE60499/04.04-Constraint-Qualifications.html#4.4.2-Constraint-Qualifications">4.4.2 Constraint Qualifications</a><ul>
+<li><a href="https://ndcbe.github.io/CBE60499/04.04-Constraint-Qualifications.html#4.4.2.1-Nonlinear-Constrained-Optimization-Problems">4.4.2.1 Nonlinear Constrained Optimization Problems</a></li>
+<li><a href="https://ndcbe.github.io/CBE60499/04.04-Constraint-Qualifications.html#4.4.2.2-Linearly-Independent-Constraint-Qualification-(LICQ">4.4.2.2 Linearly Independent Constraint Qualification (LICQ)</a>)</li>
+<li><a href="https://ndcbe.github.io/CBE60499/04.04-Constraint-Qualifications.html#4.4.2.3-Mangasarian-Fromovitz-Constraint-Qualification-(MFCQ">4.4.2.3 Mangasarian-Fromovitz Constraint Qualification (MFCQ)</a>)</li>
+</ul>
+</li>
+<li><a href="https://ndcbe.github.io/CBE60499/04.04-Constraint-Qualifications.html#4.4.3-Example">4.4.3 Example</a><ul>
+<li><a href="https://ndcbe.github.io/CBE60499/04.04-Constraint-Qualifications.html#4.4.3.1-Visualize-Feasible-Set">4.4.3.1 Visualize Feasible Set</a></li>
+<li><a href="https://ndcbe.github.io/CBE60499/04.04-Constraint-Qualifications.html#4.4.3.2-Solve-with-Pyomo">4.4.3.2 Solve with Pyomo</a></li>
+</ul>
+</li>
+<li>Markdown Figures<ul>
+<li><a href="./figures/limiting_directions.png">picture</a></li>
+<li><a href="./figures/thm-4-8.png">picture</a></li>
+<li><a href="./figures/linear-opt-4-3.png">picture</a></li>
+<li><a href="./figures/thm-4-9.png">picture</a></li>
+<li><a href="./figures/thm-4-11.png">picture</a></li>
+<li><a href="./figures/nonlinear-opt-4-3.png">picture</a></li>
+<li><a href="./figures/nonlinear-opt-4-3b.png">picture</a></li>
+<li><a href="./figures/def-4-12.png">picture</a></li>
+<li><a href="./figures/thm-4-14.png">picture</a></li>
+<li><a href="./figures/thm-4-15.png">picture</a></li>
+<li><a href="./figures/thm-4-16.png">picture</a></li>
+</ul>
+</li>
+<li>Figure files used<ul>
+<li><a href="https://ndcbe.github.io/CBE60499/figures/def-4-12.png">figures/def-4-12.png</a></li>
+<li><a href="https://ndcbe.github.io/CBE60499/figures/thm-4-9.png">figures/thm-4-9.png</a></li>
+<li><a href="https://ndcbe.github.io/CBE60499/figures/thm-4-8.png">figures/thm-4-8.png</a></li>
+<li><a href="https://ndcbe.github.io/CBE60499/figures/limiting_directions.png">figures/limiting_directions.png</a></li>
+<li><a href="https://ndcbe.github.io/CBE60499/figures/nonlinear-opt-4-3.png">figures/nonlinear-opt-4-3.png</a></li>
+<li><a href="https://ndcbe.github.io/CBE60499/figures/nonlinear-opt-4-3b.png">figures/nonlinear-opt-4-3b.png</a></li>
+<li><a href="https://ndcbe.github.io/CBE60499/figures/thm-4-15.png">figures/thm-4-15.png</a></li>
+<li><a href="https://ndcbe.github.io/CBE60499/figures/thm-4-14.png">figures/thm-4-14.png</a></li>
+<li><a href="https://ndcbe.github.io/CBE60499/figures/thm-4-16.png">figures/thm-4-16.png</a></li>
+<li><a href="https://ndcbe.github.io/CBE60499/figures/linear-opt-4-3.png">figures/linear-opt-4-3.png</a></li>
+<li><a href="https://ndcbe.github.io/CBE60499/figures/thm-4-11.png">figures/thm-4-11.png</a></li>
 </ul>
 </li>
 </ul>
