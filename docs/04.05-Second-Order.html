@@ -13608,6 +13608,7 @@ $$
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Calculate the reduced Hessian</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Reduced Hessian w.r.t. null space of constraints:&quot;</span><span class="p">)</span>
 <span class="n">Q</span><span class="p">[:,</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">T</span> <span class="o">@</span> <span class="n">hessian_L</span> <span class="o">@</span> <span class="n">Q</span><span class="p">[:,</span><span class="mi">1</span><span class="p">]</span>
 </pre></div>
 
@@ -13618,6 +13619,17 @@ $$
 <div class="output_wrapper">
 <div class="output">
 
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Reduced Hessian w.r.t. null space of constraints:
+</pre>
+</div>
+</div>
 
 <div class="output_area">
 
@@ -13772,7 +13784,7 @@ EXIT: Optimal Solution Found.
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>{&#39;Problem&#39;: [{&#39;Lower bound&#39;: -inf, &#39;Upper bound&#39;: inf, &#39;Number of objectives&#39;: 1, &#39;Number of constraints&#39;: 1, &#39;Number of variables&#39;: 2, &#39;Sense&#39;: &#39;unknown&#39;}], &#39;Solver&#39;: [{&#39;Status&#39;: &#39;ok&#39;, &#39;Message&#39;: &#39;Ipopt 3.13.2\\x3a Optimal Solution Found&#39;, &#39;Termination condition&#39;: &#39;optimal&#39;, &#39;Id&#39;: 0, &#39;Error rc&#39;: 0, &#39;Time&#39;: 0.06899809837341309}], &#39;Solution&#39;: [OrderedDict([(&#39;number of solutions&#39;, 0), (&#39;number of solutions displayed&#39;, 0)])]}</pre>
+<pre>{&#39;Problem&#39;: [{&#39;Lower bound&#39;: -inf, &#39;Upper bound&#39;: inf, &#39;Number of objectives&#39;: 1, &#39;Number of constraints&#39;: 1, &#39;Number of variables&#39;: 2, &#39;Sense&#39;: &#39;unknown&#39;}], &#39;Solver&#39;: [{&#39;Status&#39;: &#39;ok&#39;, &#39;Message&#39;: &#39;Ipopt 3.13.2\\x3a Optimal Solution Found&#39;, &#39;Termination condition&#39;: &#39;optimal&#39;, &#39;Id&#39;: 0, &#39;Error rc&#39;: 0, &#39;Time&#39;: 0.04768204689025879}], &#39;Solution&#39;: [OrderedDict([(&#39;number of solutions&#39;, 0), (&#39;number of solutions displayed&#39;, 0)])]}</pre>
 </div>
 
 </div>
@@ -13861,19 +13873,45 @@ EXIT: Optimal Solution Found.
 <div class="prompt input_prompt">In&nbsp;[12]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># This function does not fully support the reduced Hessian calculation in this context</span>
-<span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">from pyomo.contrib.interior_point.inverse_reduced_hessian import inv_reduced_hessian_barrier</span>
-<span class="sd"># https://github.com/Pyomo/pyomo/blob/main/pyomo/contrib/interior_point/inverse_reduced_hessian.py</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Warning: this Pyomo feature is experimental</span>
 
-<span class="sd">solve_result, inv_red_hes = inv_reduced_hessian_barrier(</span>
-<span class="sd">                        m,</span>
-<span class="sd">                        independent_variables= [m.x2], # Warning: these variables cannot be at their bounds</span>
-<span class="sd">                        tee=True)</span>
-<span class="sd">                        </span>
-<span class="sd">print(1/inv_red_hes)</span>
-<span class="sd">&quot;&quot;&quot;</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot; &quot;</span><span class="p">)</span>
+<span class="kn">from</span> <span class="nn">pyomo.contrib.interior_point.inverse_reduced_hessian</span> <span class="k">import</span> <span class="n">inv_reduced_hessian_barrier</span>
+<span class="c1"># https://github.com/Pyomo/pyomo/blob/main/pyomo/contrib/interior_point/inverse_reduced_hessian.py</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+
+
+
+    
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Compute the reduced Hessian with respect to $x_1$</p>
+
+</div>
+</div>
+</div>
+
+
+
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[13]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">solve_result</span><span class="p">,</span> <span class="n">inv_red_hes</span> <span class="o">=</span> <span class="n">inv_reduced_hessian_barrier</span><span class="p">(</span>
+                        <span class="n">m</span><span class="p">,</span>
+                        <span class="n">independent_variables</span><span class="o">=</span> <span class="p">[</span><span class="n">m</span><span class="o">.</span><span class="n">x1</span><span class="p">],</span> <span class="c1"># Warning: these variables cannot be at their bounds</span>
+                        <span class="n">tee</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Reduced Hessian w.r.t. x1:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">inv</span><span class="p">(</span><span class="n">inv_red_hes</span><span class="p">))</span>
 </pre></div>
 
     </div>
@@ -13890,7 +13928,63 @@ EXIT: Optimal Solution Found.
 
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre> 
+<pre>Ipopt 3.13.2: bound_relax_factor=0
+honor_original_bounds=no
+
+
+******************************************************************************
+This program contains Ipopt, a library for large-scale nonlinear optimization.
+ Ipopt is released as open source code under the Eclipse Public License (EPL).
+         For more information visit http://projects.coin-or.org/Ipopt
+******************************************************************************
+
+This is Ipopt version 3.13.2, running with linear solver ma27.
+
+Number of nonzeros in equality constraint Jacobian...:        0
+Number of nonzeros in inequality constraint Jacobian.:        2
+Number of nonzeros in Lagrangian Hessian.............:        3
+
+Total number of variables............................:        2
+                     variables with only lower bounds:        0
+                variables with lower and upper bounds:        0
+                     variables with only upper bounds:        0
+Total number of equality constraints.................:        0
+Total number of inequality constraints...............:        1
+        inequality constraints with only lower bounds:        0
+   inequality constraints with lower and upper bounds:        0
+        inequality constraints with only upper bounds:        1
+
+iter    objective    inf_pr   inf_du lg(mu)  ||d||  lg(rg) alpha_du alpha_pr  ls
+   0 -4.9445337e-01 3.56e-08 3.85e-01  -1.0 0.00e+00    -  0.00e+00 0.00e+00   0
+   1 -4.7328569e-01 0.00e+00 3.92e-04  -1.7 1.17e-02    -  1.00e+00 1.00e+00h  1
+   2 -4.9381301e-01 0.00e+00 1.46e-04  -3.8 3.57e-02    -  1.00e+00 1.00e+00f  1
+   3 -4.9445098e-01 0.00e+00 1.74e-07  -5.7 1.06e-03    -  1.00e+00 1.00e+00h  1
+   4 -4.9445335e-01 0.00e+00 2.15e-12  -8.6 4.10e-06    -  1.00e+00 1.00e+00h  1
+
+Number of Iterations....: 4
+
+                                   (scaled)                 (unscaled)
+Objective...............:  -4.9445334641782601e-01   -4.9445334641782601e-01
+Dual infeasibility......:   2.1520563109334034e-12    2.1520563109334034e-12
+Constraint violation....:   0.0000000000000000e+00    0.0000000000000000e+00
+Complementarity.........:   2.5123319576325299e-09    2.5123319576325299e-09
+Overall NLP error.......:   2.5123319576325299e-09    2.5123319576325299e-09
+
+
+Number of objective function evaluations             = 5
+Number of objective gradient evaluations             = 5
+Number of equality constraint evaluations            = 0
+Number of inequality constraint evaluations          = 5
+Number of equality constraint Jacobian evaluations   = 0
+Number of inequality constraint Jacobian evaluations = 5
+Number of Lagrangian Hessian evaluations             = 4
+Total CPU secs in IPOPT (w/o function evaluations)   =      0.001
+Total CPU secs in NLP function evaluations           =      0.000
+
+EXIT: Optimal Solution Found.
+
+Reduced Hessian w.r.t. x1:
+[[1.99699045]]
 </pre>
 </div>
 </div>
@@ -13898,6 +13992,127 @@ EXIT: Optimal Solution Found.
 </div>
 </div>
 
+</div>
+
+
+
+    
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Compute the reduced Hessian with respect to $x_2$</p>
+
+</div>
+</div>
+</div>
+
+
+
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[14]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">solve_result</span><span class="p">,</span> <span class="n">inv_red_hes</span> <span class="o">=</span> <span class="n">inv_reduced_hessian_barrier</span><span class="p">(</span>
+                        <span class="n">m</span><span class="p">,</span>
+                        <span class="n">independent_variables</span><span class="o">=</span> <span class="p">[</span><span class="n">m</span><span class="o">.</span><span class="n">x2</span><span class="p">],</span> <span class="c1"># Warning: these variables cannot be at their bounds</span>
+                        <span class="n">tee</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Reduced Hessian w.r.t. x2:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">inv</span><span class="p">(</span><span class="n">inv_red_hes</span><span class="p">))</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Ipopt 3.13.2: bound_relax_factor=0
+honor_original_bounds=no
+
+
+******************************************************************************
+This program contains Ipopt, a library for large-scale nonlinear optimization.
+ Ipopt is released as open source code under the Eclipse Public License (EPL).
+         For more information visit http://projects.coin-or.org/Ipopt
+******************************************************************************
+
+This is Ipopt version 3.13.2, running with linear solver ma27.
+
+Number of nonzeros in equality constraint Jacobian...:        0
+Number of nonzeros in inequality constraint Jacobian.:        2
+Number of nonzeros in Lagrangian Hessian.............:        3
+
+Total number of variables............................:        2
+                     variables with only lower bounds:        0
+                variables with lower and upper bounds:        0
+                     variables with only upper bounds:        0
+Total number of equality constraints.................:        0
+Total number of inequality constraints...............:        1
+        inequality constraints with only lower bounds:        0
+   inequality constraints with lower and upper bounds:        0
+        inequality constraints with only upper bounds:        1
+
+iter    objective    inf_pr   inf_du lg(mu)  ||d||  lg(rg) alpha_du alpha_pr  ls
+   0 -4.9445335e-01 0.00e+00 3.85e-01  -1.0 0.00e+00    -  0.00e+00 0.00e+00   0
+   1 -4.7328569e-01 0.00e+00 3.92e-04  -1.7 1.17e-02    -  1.00e+00 1.00e+00h  1
+   2 -4.9381301e-01 0.00e+00 1.46e-04  -3.8 3.57e-02    -  1.00e+00 1.00e+00f  1
+   3 -4.9445098e-01 0.00e+00 1.74e-07  -5.7 1.06e-03    -  1.00e+00 1.00e+00h  1
+   4 -4.9445335e-01 0.00e+00 2.15e-12  -8.6 4.10e-06    -  1.00e+00 1.00e+00h  1
+
+Number of Iterations....: 4
+
+                                   (scaled)                 (unscaled)
+Objective...............:  -4.9445334641782779e-01   -4.9445334641782779e-01
+Dual infeasibility......:   2.1527224447481785e-12    2.1527224447481785e-12
+Constraint violation....:   0.0000000000000000e+00    0.0000000000000000e+00
+Complementarity.........:   2.5123319576325299e-09    2.5123319576325299e-09
+Overall NLP error.......:   2.5123319576325299e-09    2.5123319576325299e-09
+
+
+Number of objective function evaluations             = 5
+Number of objective gradient evaluations             = 5
+Number of equality constraint evaluations            = 0
+Number of inequality constraint evaluations          = 5
+Number of equality constraint Jacobian evaluations   = 0
+Number of inequality constraint Jacobian evaluations = 5
+Number of Lagrangian Hessian evaluations             = 4
+Total CPU secs in IPOPT (w/o function evaluations)   =      0.001
+Total CPU secs in NLP function evaluations           =      0.000
+
+EXIT: Optimal Solution Found.
+
+Reduced Hessian w.r.t. x2:
+[[2.76904325]]
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+
+
+
+    
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><strong>Take away message</strong>: The reduced Hessian relative to all three bases (null space, $[1, 0]$, and $[0, 1]$) is positive definite.</p>
+
+</div>
+</div>
 </div>
 
 
