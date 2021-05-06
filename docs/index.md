@@ -46,7 +46,7 @@
 - [4.8 Inertia-Corrected Netwon Method for Equality Constrained NLPs](https://ndcbe.github.io/CBE60499/04.08-Interior-Point2.html)
 
 ### [Chapter 5.0 Special Topics](https://ndcbe.github.io/CBE60499/05.00-Special-Topics.html)
-- [5.1 MILP Algorithms](https://ndcbe.github.io/CBE60499/05.01-MILP-Algorithms.html)
+- [5.1 Integer Programming with Simple Branch and Bound](https://ndcbe.github.io/CBE60499/05.01-MILP.html)
 - [5.2 MINLP Algorithms](https://ndcbe.github.io/CBE60499/05.02-MINLP-Algorithms.html)
 - [5.3 Deterministic Global Optimization](https://ndcbe.github.io/CBE60499/05.03-Global-Opt.html)
 - [5.4 Bayesian Optimization](https://ndcbe.github.io/CBE60499/05.04-Bayesian-Opt.html)

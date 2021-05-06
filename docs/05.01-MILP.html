@@ -13135,7 +13135,7 @@ content is available <a href="git@github.com:ndcbe/CBE60499.git">on Github</a>.<
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p><!--NAVIGATION-->
-&lt; <a href="https://ndcbe.github.io/CBE60499/05.00-Special-Topics.html">5.0 Special Topics</a> | <a href="toc.html">Contents</a> | <a href="tag_index.html">Tag Index</a> | <a href="https://ndcbe.github.io/CBE60499/05.02-MINLP-Algorithms.html">5.2 MINLP Algorithms</a> &gt;<p><a href="https://colab.research.google.com/github/ndcbe/CBE60499/blob/master/docs/05.01-MILP-Algorithms.ipynb"> <img align="left" src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open in Colab" title="Open in Google Colaboratory"></a><p><a href="https://ndcbe.github.io/CBE60499/05.01-MILP-Algorithms.ipynb"> <img align="left" src="https://img.shields.io/badge/Github-Download-blue.svg" alt="Download" title="Download Notebook"></a></p>
+&lt; <a href="https://ndcbe.github.io/CBE60499/05.00-Special-Topics.html">5.0 Special Topics</a> | <a href="toc.html">Contents</a> | <a href="tag_index.html">Tag Index</a> | <a href="https://ndcbe.github.io/CBE60499/05.02-MINLP-Algorithms.html">5.2 MINLP Algorithms</a> &gt;<p><a href="https://colab.research.google.com/github/ndcbe/CBE60499/blob/master/docs/05.01-MILP.ipynb"> <img align="left" src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open in Colab" title="Open in Google Colaboratory"></a><p><a href="https://ndcbe.github.io/CBE60499/05.01-MILP.ipynb"> <img align="left" src="https://img.shields.io/badge/Github-Download-blue.svg" alt="Download" title="Download Notebook"></a></p>
 
 </div>
 </div>
@@ -13147,7 +13147,23 @@ content is available <a href="git@github.com:ndcbe/CBE60499.git">on Github</a>.<
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="5.1-MILP-Algorithms">5.1 MILP Algorithms<a class="anchor-link" href="#5.1-MILP-Algorithms">&#182;</a></h1>
+<h1 id="5.1-Integer-Programming-with-Simple-Branch-and-Bound">5.1 Integer Programming with Simple Branch and Bound<a class="anchor-link" href="#5.1-Integer-Programming-with-Simple-Branch-and-Bound">&#182;</a></h1>
+</div>
+</div>
+</div>
+
+
+
+    
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+$$\begin{align*}
+\min \quad &amp; Z = x + y_1 + 3 y_2 + 2 y_3 \\
+\mathrm{s.t.} \quad &amp; -x + 3 y_1 + 2 y_2 + y_3 \leq 0 \\
+ &amp; -5 y_1 - 8 y_2 - 3 y_3 \leq -9 \\
+ &amp; x \geq 0, y \in \{0,1\}^3
+\end{align*}$$
 </div>
 </div>
 </div>
@@ -13157,10 +13173,62 @@ content is available <a href="git@github.com:ndcbe/CBE60499.git">on Github</a>.<
     
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="prompt input_prompt">In&nbsp;[1]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span> 
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">pyomo.environ</span> <span class="k">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">pyomo.opt</span> <span class="k">import</span> <span class="n">SolverStatus</span><span class="p">,</span> <span class="n">TerminationCondition</span>
+
+<span class="k">def</span> <span class="nf">create_relaxation</span><span class="p">():</span>
+    
+    <span class="c1">## Create Pyomo Model</span>
+    <span class="n">m</span> <span class="o">=</span> <span class="n">ConcreteModel</span><span class="p">()</span>
+    
+    <span class="c1">## Declare variables (all continous for now)</span>
+    <span class="n">m</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="n">Var</span><span class="p">(</span><span class="n">domain</span><span class="o">=</span><span class="n">NonNegativeReals</span><span class="p">)</span>
+    <span class="n">m</span><span class="o">.</span><span class="n">y1</span> <span class="o">=</span> <span class="n">Var</span><span class="p">(</span><span class="n">bounds</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">))</span>
+    <span class="n">m</span><span class="o">.</span><span class="n">y2</span> <span class="o">=</span> <span class="n">Var</span><span class="p">(</span><span class="n">bounds</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">))</span>
+    <span class="n">m</span><span class="o">.</span><span class="n">y3</span> <span class="o">=</span> <span class="n">Var</span><span class="p">(</span><span class="n">bounds</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">))</span>
+    
+    <span class="c1">## Declare constraints</span>
+    <span class="k">def</span> <span class="nf">con1_rule</span><span class="p">(</span><span class="n">m</span><span class="p">):</span>
+        <span class="k">return</span> <span class="o">-</span><span class="mf">1.0</span><span class="o">*</span><span class="n">m</span><span class="o">.</span><span class="n">x</span> <span class="o">+</span> <span class="mf">3.0</span><span class="o">*</span><span class="n">m</span><span class="o">.</span><span class="n">y1</span> <span class="o">+</span> <span class="mf">2.0</span><span class="o">*</span><span class="n">m</span><span class="o">.</span><span class="n">y2</span> <span class="o">+</span> <span class="n">m</span><span class="o">.</span><span class="n">y3</span> <span class="o">&lt;=</span> <span class="mi">0</span>
+    <span class="n">m</span><span class="o">.</span><span class="n">con1</span> <span class="o">=</span> <span class="n">Constraint</span><span class="p">(</span><span class="n">rule</span><span class="o">=</span><span class="n">con1_rule</span><span class="p">)</span>
+    
+    <span class="k">def</span> <span class="nf">con2_rule</span><span class="p">(</span><span class="n">m</span><span class="p">):</span>
+        <span class="k">return</span> <span class="o">-</span><span class="mf">5.0</span><span class="o">*</span><span class="n">m</span><span class="o">.</span><span class="n">y1</span> <span class="o">-</span> <span class="mf">8.0</span><span class="o">*</span><span class="n">m</span><span class="o">.</span><span class="n">y2</span> <span class="o">-</span> <span class="mf">3.0</span><span class="o">*</span><span class="n">m</span><span class="o">.</span><span class="n">y3</span> <span class="o">&lt;=</span> <span class="o">-</span><span class="mi">9</span>
+    <span class="n">m</span><span class="o">.</span><span class="n">con2</span> <span class="o">=</span> <span class="n">Constraint</span><span class="p">(</span><span class="n">rule</span><span class="o">=</span><span class="n">con2_rule</span><span class="p">)</span>
+    
+    <span class="c1">## Declare objective</span>
+    <span class="k">def</span> <span class="nf">obj_rule</span><span class="p">(</span><span class="n">m</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">m</span><span class="o">.</span><span class="n">x</span> <span class="o">+</span> <span class="n">m</span><span class="o">.</span><span class="n">y1</span> <span class="o">+</span> <span class="mi">3</span><span class="o">*</span><span class="n">m</span><span class="o">.</span><span class="n">y2</span> <span class="o">+</span> <span class="mi">2</span><span class="o">*</span><span class="n">m</span><span class="o">.</span><span class="n">y3</span>
+    
+    <span class="n">m</span><span class="o">.</span><span class="n">obj</span> <span class="o">=</span> <span class="n">Objective</span><span class="p">(</span><span class="n">rule</span><span class="o">=</span><span class="n">obj_rule</span><span class="p">,</span><span class="n">sense</span><span class="o">=</span><span class="n">minimize</span><span class="p">)</span>
+    
+    <span class="k">return</span> <span class="n">m</span>
+
+<span class="k">def</span> <span class="nf">solve_print</span><span class="p">(</span><span class="n">m</span><span class="p">,</span><span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+    
+    <span class="c1"># Solve the model</span>
+    <span class="n">opt</span> <span class="o">=</span> <span class="n">SolverFactory</span><span class="p">(</span><span class="s1">&#39;cbc&#39;</span><span class="p">)</span>
+    <span class="n">results</span> <span class="o">=</span> <span class="n">opt</span><span class="o">.</span><span class="n">solve</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">tee</span><span class="o">=</span><span class="n">verbose</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="p">(</span><span class="n">results</span><span class="o">.</span><span class="n">solver</span><span class="o">.</span><span class="n">status</span> <span class="o">==</span> <span class="n">SolverStatus</span><span class="o">.</span><span class="n">ok</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="n">results</span><span class="o">.</span><span class="n">solver</span><span class="o">.</span><span class="n">termination_condition</span> <span class="o">==</span> <span class="n">TerminationCondition</span><span class="o">.</span><span class="n">optimal</span><span class="p">):</span>
+        <span class="c1"># Print solution when the solution is optimal</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;x = &quot;</span><span class="p">,</span><span class="n">value</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">x</span><span class="p">))</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;y1 = &quot;</span><span class="p">,</span><span class="n">value</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">y1</span><span class="p">))</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;y2 = &quot;</span><span class="p">,</span><span class="n">value</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">y2</span><span class="p">))</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;y3 = &quot;</span><span class="p">,</span><span class="n">value</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">y3</span><span class="p">))</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Z = &quot;</span><span class="p">,</span><span class="n">value</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">obj</span><span class="p">))</span>
+    
+    <span class="k">elif</span> <span class="p">(</span><span class="n">results</span><span class="o">.</span><span class="n">solver</span><span class="o">.</span><span class="n">termination_condition</span> <span class="o">==</span> <span class="n">TerminationCondition</span><span class="o">.</span><span class="n">infeasible</span><span class="p">):</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Infeasible.&quot;</span><span class="p">)</span>
+        
+    <span class="k">else</span><span class="p">:</span>
+        <span class="c1"># Something else is wrong</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Solver Status:&#39;</span><span class="p">,</span><span class="n">result</span><span class="o">.</span><span class="n">solver</span><span class="o">.</span><span class="n">status</span><span class="p">)</span>
+    
+    <span class="c1"># m.pprint()</span>
 </pre></div>
 
     </div>
@@ -13175,8 +13243,484 @@ content is available <a href="git@github.com:ndcbe/CBE60499.git">on Github</a>.<
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="5.1.1-Node-1-(Root)">5.1.1 Node 1 (Root)<a class="anchor-link" href="#5.1.1-Node-1-(Root)">&#182;</a></h2><p>Full LP relaxation.</p>
+
+</div>
+</div>
+</div>
+
+
+
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[2]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">m</span> <span class="o">=</span> <span class="n">create_relaxation</span><span class="p">()</span>
+<span class="n">solve_print</span><span class="p">(</span><span class="n">m</span><span class="p">,</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>x =  2.6
+y1 =  0.2
+y2 =  1.0
+y3 =  0.0
+Z =  5.800000000000001
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+
+
+
+    
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="5.1.2-Node-2">5.1.2 Node 2<a class="anchor-link" href="#5.1.2-Node-2">&#182;</a></h2>
+</div>
+</div>
+</div>
+
+
+
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[3]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">m</span> <span class="o">=</span> <span class="n">create_relaxation</span><span class="p">()</span>
+<span class="n">m</span><span class="o">.</span><span class="n">y1</span><span class="o">.</span><span class="n">fix</span><span class="p">(</span><span class="mf">0.0</span><span class="p">)</span>
+<span class="n">solve_print</span><span class="p">(</span><span class="n">m</span><span class="p">,</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>x =  2.3333333
+y1 =  0.0
+y2 =  1.0
+y3 =  0.33333333
+Z =  5.999999959999999
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+
+
+
+    
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="5.1.3-Node-3">5.1.3 Node 3<a class="anchor-link" href="#5.1.3-Node-3">&#182;</a></h2>
+</div>
+</div>
+</div>
+
+
+
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[4]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">m</span> <span class="o">=</span> <span class="n">create_relaxation</span><span class="p">()</span>
+<span class="n">m</span><span class="o">.</span><span class="n">y1</span><span class="o">.</span><span class="n">fix</span><span class="p">(</span><span class="mf">1.0</span><span class="p">)</span>
+<span class="n">solve_print</span><span class="p">(</span><span class="n">m</span><span class="p">,</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>x =  4.0
+y1 =  1.0
+y2 =  0.5
+y3 =  0.0
+Z =  6.5
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+
+
+
+    
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="5.1.4-Node-4">5.1.4 Node 4<a class="anchor-link" href="#5.1.4-Node-4">&#182;</a></h2>
+</div>
+</div>
+</div>
+
+
+
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[5]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">m</span> <span class="o">=</span> <span class="n">create_relaxation</span><span class="p">()</span>
+<span class="n">m</span><span class="o">.</span><span class="n">y1</span><span class="o">.</span><span class="n">fix</span><span class="p">(</span><span class="mf">0.0</span><span class="p">)</span>
+<span class="n">m</span><span class="o">.</span><span class="n">y3</span><span class="o">.</span><span class="n">fix</span><span class="p">(</span><span class="mf">0.0</span><span class="p">)</span>
+<span class="n">solve_print</span><span class="p">(</span><span class="n">m</span><span class="p">,</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>WARNING: Loading a SolverResults object with a warning status into
+    model.name=&#34;unknown&#34;;
+      - termination condition: infeasible
+      - message from solver: &lt;undefined&gt;
+Infeasible.
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+
+
+
+    
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="5.1.5-Node-5">5.1.5 Node 5<a class="anchor-link" href="#5.1.5-Node-5">&#182;</a></h2>
+</div>
+</div>
+</div>
+
+
+
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[6]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">m</span> <span class="o">=</span> <span class="n">create_relaxation</span><span class="p">()</span>
+<span class="n">m</span><span class="o">.</span><span class="n">y1</span><span class="o">.</span><span class="n">fix</span><span class="p">(</span><span class="mf">0.0</span><span class="p">)</span>
+<span class="n">m</span><span class="o">.</span><span class="n">y3</span><span class="o">.</span><span class="n">fix</span><span class="p">(</span><span class="mf">1.0</span><span class="p">)</span>
+<span class="n">solve_print</span><span class="p">(</span><span class="n">m</span><span class="p">,</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>x =  2.5
+y1 =  0.0
+y2 =  0.75
+y3 =  1.0
+Z =  6.75
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+
+
+
+    
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="5.1.6-Node-6">5.1.6 Node 6<a class="anchor-link" href="#5.1.6-Node-6">&#182;</a></h2>
+</div>
+</div>
+</div>
+
+
+
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[7]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">m</span> <span class="o">=</span> <span class="n">create_relaxation</span><span class="p">()</span>
+<span class="n">m</span><span class="o">.</span><span class="n">y1</span><span class="o">.</span><span class="n">fix</span><span class="p">(</span><span class="mf">1.0</span><span class="p">)</span>
+<span class="n">m</span><span class="o">.</span><span class="n">y2</span><span class="o">.</span><span class="n">fix</span><span class="p">(</span><span class="mf">0.0</span><span class="p">)</span>
+<span class="n">solve_print</span><span class="p">(</span><span class="n">m</span><span class="p">,</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>WARNING: Loading a SolverResults object with a warning status into
+    model.name=&#34;unknown&#34;;
+      - termination condition: infeasible
+      - message from solver: &lt;undefined&gt;
+Infeasible.
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+
+
+
+    
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="5.1.7-Node-7">5.1.7 Node 7<a class="anchor-link" href="#5.1.7-Node-7">&#182;</a></h2>
+</div>
+</div>
+</div>
+
+
+
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[8]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">m</span> <span class="o">=</span> <span class="n">create_relaxation</span><span class="p">()</span>
+<span class="n">m</span><span class="o">.</span><span class="n">y1</span><span class="o">.</span><span class="n">fix</span><span class="p">(</span><span class="mf">1.0</span><span class="p">)</span>
+<span class="n">m</span><span class="o">.</span><span class="n">y2</span><span class="o">.</span><span class="n">fix</span><span class="p">(</span><span class="mf">1.0</span><span class="p">)</span>
+<span class="n">solve_print</span><span class="p">(</span><span class="n">m</span><span class="p">,</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>x =  5.0
+y1 =  1.0
+y2 =  1.0
+y3 =  0.0
+Z =  9.0
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+
+
+
+    
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="5.1.8-Node-8">5.1.8 Node 8<a class="anchor-link" href="#5.1.8-Node-8">&#182;</a></h2>
+</div>
+</div>
+</div>
+
+
+
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[9]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">m</span> <span class="o">=</span> <span class="n">create_relaxation</span><span class="p">()</span>
+<span class="n">m</span><span class="o">.</span><span class="n">y1</span><span class="o">.</span><span class="n">fix</span><span class="p">(</span><span class="mf">0.0</span><span class="p">)</span>
+<span class="n">m</span><span class="o">.</span><span class="n">y3</span><span class="o">.</span><span class="n">fix</span><span class="p">(</span><span class="mf">1.0</span><span class="p">)</span>
+<span class="n">m</span><span class="o">.</span><span class="n">y2</span><span class="o">.</span><span class="n">fix</span><span class="p">(</span><span class="mf">0.0</span><span class="p">)</span>
+<span class="n">solve_print</span><span class="p">(</span><span class="n">m</span><span class="p">,</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>WARNING: Loading a SolverResults object with a warning status into
+    model.name=&#34;unknown&#34;;
+      - termination condition: infeasible
+      - message from solver: &lt;undefined&gt;
+Infeasible.
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+
+
+
+    
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="5.1.9-Node-9">5.1.9 Node 9<a class="anchor-link" href="#5.1.9-Node-9">&#182;</a></h2>
+</div>
+</div>
+</div>
+
+
+
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[10]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">m</span> <span class="o">=</span> <span class="n">create_relaxation</span><span class="p">()</span>
+<span class="n">m</span><span class="o">.</span><span class="n">y1</span><span class="o">.</span><span class="n">fix</span><span class="p">(</span><span class="mf">0.0</span><span class="p">)</span>
+<span class="n">m</span><span class="o">.</span><span class="n">y3</span><span class="o">.</span><span class="n">fix</span><span class="p">(</span><span class="mf">1.0</span><span class="p">)</span>
+<span class="n">m</span><span class="o">.</span><span class="n">y2</span><span class="o">.</span><span class="n">fix</span><span class="p">(</span><span class="mf">1.0</span><span class="p">)</span>
+<span class="n">solve_print</span><span class="p">(</span><span class="n">m</span><span class="p">,</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>x =  3.0
+y1 =  0.0
+y2 =  1.0
+y3 =  1.0
+Z =  8.0
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+
+
+
+    
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
 <p><!--NAVIGATION-->
-&lt; <a href="https://ndcbe.github.io/CBE60499/05.00-Special-Topics.html">5.0 Special Topics</a> | <a href="toc.html">Contents</a> | <a href="tag_index.html">Tag Index</a> | <a href="https://ndcbe.github.io/CBE60499/05.02-MINLP-Algorithms.html">5.2 MINLP Algorithms</a> &gt;<p><a href="https://colab.research.google.com/github/ndcbe/CBE60499/blob/master/docs/05.01-MILP-Algorithms.ipynb"> <img align="left" src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open in Colab" title="Open in Google Colaboratory"></a><p><a href="https://ndcbe.github.io/CBE60499/05.01-MILP-Algorithms.ipynb"> <img align="left" src="https://img.shields.io/badge/Github-Download-blue.svg" alt="Download" title="Download Notebook"></a></p>
+&lt; <a href="https://ndcbe.github.io/CBE60499/05.00-Special-Topics.html">5.0 Special Topics</a> | <a href="toc.html">Contents</a> | <a href="tag_index.html">Tag Index</a> | <a href="https://ndcbe.github.io/CBE60499/05.02-MINLP-Algorithms.html">5.2 MINLP Algorithms</a> &gt;<p><a href="https://colab.research.google.com/github/ndcbe/CBE60499/blob/master/docs/05.01-MILP.ipynb"> <img align="left" src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open in Colab" title="Open in Google Colaboratory"></a><p><a href="https://ndcbe.github.io/CBE60499/05.01-MILP.ipynb"> <img align="left" src="https://img.shields.io/badge/Github-Download-blue.svg" alt="Download" title="Download Notebook"></a></p>
 
 </div>
 </div>
