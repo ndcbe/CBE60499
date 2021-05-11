@@ -44,6 +44,7 @@
 - [4.6 NLP Diagnostics with Degeneracy Hunter](https://ndcbe.github.io/CBE60499/04.06-NLP-Diagnostics.html)
 - [4.7 Simple Netwon Method for Equality Constrained NLPs](https://ndcbe.github.io/CBE60499/04.07-Interior-Point1.html)
 - [4.8 Inertia-Corrected Netwon Method for Equality Constrained NLPs](https://ndcbe.github.io/CBE60499/04.08-Interior-Point2.html)
+- [4.9 Algorithms Homework 4: Interior Point Methods](https://ndcbe.github.io/CBE60499/04.09-Algorithms4.html)
 
 ### [Chapter 5.0 Special Topics](https://ndcbe.github.io/CBE60499/05.00-Special-Topics.html)
 - [5.1 Integer Programming with Simple Branch and Bound](https://ndcbe.github.io/CBE60499/05.01-MILP.html)
