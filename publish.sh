@@ -1,1 +1,1 @@
-nbpages --remove_code --publish
+nbpages --remove_solution_code --publish
