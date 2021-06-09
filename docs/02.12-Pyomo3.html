@@ -13135,7 +13135,7 @@ content is available <a href="git@github.com:ndcbe/CBE60499.git">on Github</a>.<
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p><!--NAVIGATION-->
-&lt; <a href="https://ndcbe.github.io/CBE60499/02.08-Pyomo1.html">2.8 Pyomo Homework 1</a> | <a href="toc.html">Contents</a> | <a href="tag_index.html">Tag Index</a> | <a href="https://ndcbe.github.io/CBE60499/02.10-Pyomo3.html">2.10 Pyomo Homework 3</a> &gt;<p><a href="https://colab.research.google.com/github/ndcbe/CBE60499/blob/master/docs/02.09-Pyomo2.ipynb"> <img align="left" src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open in Colab" title="Open in Google Colaboratory"></a><p><a href="https://ndcbe.github.io/CBE60499/02.09-Pyomo2.ipynb"> <img align="left" src="https://img.shields.io/badge/Github-Download-blue.svg" alt="Download" title="Download Notebook"></a></p>
+&lt; <a href="https://ndcbe.github.io/CBE60499/02.11-Pyomo2.html">2.11 Pyomo Homework 2</a> | <a href="toc.html">Contents</a> | <a href="tag_index.html">Tag Index</a> | <a href="https://ndcbe.github.io/CBE60499/03.00-Unconstrained.html">3.0 Unconstrained Nonlinear Optimization: Theory and Algorithms</a> &gt;<p><a href="https://colab.research.google.com/github/ndcbe/CBE60499/blob/master/docs/02.12-Pyomo3.ipynb"> <img align="left" src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open in Colab" title="Open in Google Colaboratory"></a><p><a href="https://ndcbe.github.io/CBE60499/02.12-Pyomo3.ipynb"> <img align="left" src="https://img.shields.io/badge/Github-Download-blue.svg" alt="Download" title="Download Notebook"></a></p>
 
 </div>
 </div>
@@ -13147,87 +13147,7 @@ content is available <a href="git@github.com:ndcbe/CBE60499.git">on Github</a>.<
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="2.9-Pyomo-Homework-2">2.9 Pyomo Homework 2<a class="anchor-link" href="#2.9-Pyomo-Homework-2">&#182;</a></h1><p><strong>Due Date:</strong> 2/23/2021</p>
-
-</div>
-</div>
-</div>
-
-
-
-    
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[1]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># This code cell installs packages on Colab</span>
-
-<span class="kn">import</span> <span class="nn">sys</span>
-<span class="k">if</span> <span class="s2">&quot;google.colab&quot;</span> <span class="ow">in</span> <span class="n">sys</span><span class="o">.</span><span class="n">modules</span><span class="p">:</span>
-    <span class="o">!</span>wget <span class="s2">&quot;https://raw.githubusercontent.com/ndcbe/CBE60499/main/notebooks/helper.py&quot;</span>
-    <span class="kn">import</span> <span class="nn">helper</span>
-    <span class="n">helper</span><span class="o">.</span><span class="n">install_idaes</span><span class="p">()</span>
-    <span class="n">helper</span><span class="o">.</span><span class="n">install_ipopt</span><span class="p">()</span>
-    <span class="n">helper</span><span class="o">.</span><span class="n">install_glpk</span><span class="p">()</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-</div>
-
-
-
-    
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[2]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">## IMPORT LIBRARIES</span>
-<span class="kn">from</span> <span class="nn">pyomo.environ</span> <span class="k">import</span> <span class="o">*</span>
-<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-</div>
-
-
-
-    
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>Special thanks to the Pyomo team for create these excercises as part of their excellent PyomoFest workshop.</p>
-
-</div>
-</div>
-</div>
-
-
-
-    
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="2.9.1-Some-Advanced-Pyomo-Tricks">2.9.1 Some Advanced Pyomo Tricks<a class="anchor-link" href="#2.9.1-Some-Advanced-Pyomo-Tricks">&#182;</a></h2>
-</div>
-</div>
-</div>
-
-
-
-    
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="2.9.1.1-Using-the-decorator-notation-for-rules">2.9.1.1 Using the decorator notation for rules<a class="anchor-link" href="#2.9.1.1-Using-the-decorator-notation-for-rules">&#182;</a></h3><p>Alternative notation for declaring and defining Pyomo components using decorators exists. Starting with the warehouse location problem code below, change the model to use the decorator notation.</p>
-
+<h1 id="2.12-Pyomo-Homework-3">2.12 Pyomo Homework 3<a class="anchor-link" href="#2.12-Pyomo-Homework-3">&#182;</a></h1>
 </div>
 </div>
 </div>
@@ -13240,101 +13160,7 @@ content is available <a href="git@github.com:ndcbe/CBE60499.git">on Github</a>.<
 <div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># warehouse_location.py: Warehouse location determination problem</span>
-<span class="n">model</span> <span class="o">=</span> <span class="n">ConcreteModel</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;(WL)&quot;</span><span class="p">)</span>
-
-<span class="n">W</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Harlingen&#39;</span><span class="p">,</span> <span class="s1">&#39;Memphis&#39;</span><span class="p">,</span> <span class="s1">&#39;Ashland&#39;</span><span class="p">]</span>
-<span class="n">C</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;NYC&#39;</span><span class="p">,</span> <span class="s1">&#39;LA&#39;</span><span class="p">,</span> <span class="s1">&#39;Chicago&#39;</span><span class="p">,</span> <span class="s1">&#39;Houston&#39;</span><span class="p">]</span>
-<span class="n">d</span> <span class="o">=</span> <span class="p">{(</span><span class="s1">&#39;Harlingen&#39;</span><span class="p">,</span> <span class="s1">&#39;NYC&#39;</span><span class="p">):</span> <span class="mi">1956</span><span class="p">,</span> \
-     <span class="p">(</span><span class="s1">&#39;Harlingen&#39;</span><span class="p">,</span> <span class="s1">&#39;LA&#39;</span><span class="p">):</span> <span class="mi">1606</span><span class="p">,</span> \
-     <span class="p">(</span><span class="s1">&#39;Harlingen&#39;</span><span class="p">,</span> <span class="s1">&#39;Chicago&#39;</span><span class="p">):</span> <span class="mi">1410</span><span class="p">,</span> \
-     <span class="p">(</span><span class="s1">&#39;Harlingen&#39;</span><span class="p">,</span> <span class="s1">&#39;Houston&#39;</span><span class="p">):</span> <span class="mi">330</span><span class="p">,</span> \
-     <span class="p">(</span><span class="s1">&#39;Memphis&#39;</span><span class="p">,</span> <span class="s1">&#39;NYC&#39;</span><span class="p">):</span> <span class="mi">1096</span><span class="p">,</span> \
-     <span class="p">(</span><span class="s1">&#39;Memphis&#39;</span><span class="p">,</span> <span class="s1">&#39;LA&#39;</span><span class="p">):</span> <span class="mi">1792</span><span class="p">,</span> \
-     <span class="p">(</span><span class="s1">&#39;Memphis&#39;</span><span class="p">,</span> <span class="s1">&#39;Chicago&#39;</span><span class="p">):</span> <span class="mi">531</span><span class="p">,</span> \
-     <span class="p">(</span><span class="s1">&#39;Memphis&#39;</span><span class="p">,</span> <span class="s1">&#39;Houston&#39;</span><span class="p">):</span> <span class="mi">567</span><span class="p">,</span> \
-     <span class="p">(</span><span class="s1">&#39;Ashland&#39;</span><span class="p">,</span> <span class="s1">&#39;NYC&#39;</span><span class="p">):</span> <span class="mi">485</span><span class="p">,</span> \
-     <span class="p">(</span><span class="s1">&#39;Ashland&#39;</span><span class="p">,</span> <span class="s1">&#39;LA&#39;</span><span class="p">):</span> <span class="mi">2322</span><span class="p">,</span> \
-     <span class="p">(</span><span class="s1">&#39;Ashland&#39;</span><span class="p">,</span> <span class="s1">&#39;Chicago&#39;</span><span class="p">):</span> <span class="mi">324</span><span class="p">,</span> \
-     <span class="p">(</span><span class="s1">&#39;Ashland&#39;</span><span class="p">,</span> <span class="s1">&#39;Houston&#39;</span><span class="p">):</span> <span class="mi">1236</span> <span class="p">}</span>
-<span class="n">P</span> <span class="o">=</span> <span class="mi">2</span>
-
-<span class="n">model</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="n">Var</span><span class="p">(</span><span class="n">W</span><span class="p">,</span> <span class="n">C</span><span class="p">,</span> <span class="n">bounds</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">))</span>
-<span class="n">model</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="n">Var</span><span class="p">(</span><span class="n">W</span><span class="p">,</span> <span class="n">within</span><span class="o">=</span><span class="n">Binary</span><span class="p">)</span>
-
-<span class="nd">@model</span><span class="o">.</span><span class="n">Objective</span><span class="p">()</span>
-<span class="k">def</span> <span class="nf">obj</span><span class="p">(</span><span class="n">m</span><span class="p">):</span>
-    <span class="k">return</span> <span class="nb">sum</span><span class="p">(</span><span class="n">d</span><span class="p">[</span><span class="n">w</span><span class="p">,</span><span class="n">c</span><span class="p">]</span><span class="o">*</span><span class="n">m</span><span class="o">.</span><span class="n">x</span><span class="p">[</span><span class="n">w</span><span class="p">,</span><span class="n">c</span><span class="p">]</span> <span class="k">for</span> <span class="n">w</span> <span class="ow">in</span> <span class="n">W</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">C</span><span class="p">)</span>
-
-<span class="nd">@model</span><span class="o">.</span><span class="n">Constraint</span><span class="p">(</span><span class="n">C</span><span class="p">)</span>
-<span class="k">def</span> <span class="nf">one_per_cust</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">c</span><span class="p">):</span>
-    <span class="k">return</span> <span class="nb">sum</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">x</span><span class="p">[</span><span class="n">w</span><span class="p">,</span><span class="n">c</span><span class="p">]</span> <span class="k">for</span> <span class="n">w</span> <span class="ow">in</span> <span class="n">W</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span>
-
-<span class="c1"># YOUR SOLUTION HERE</span>
-<span class="k">def</span> <span class="nf">warehouse_active</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">w</span><span class="p">,</span> <span class="n">c</span><span class="p">):</span>
-    <span class="k">return</span> <span class="n">m</span><span class="o">.</span><span class="n">x</span><span class="p">[</span><span class="n">w</span><span class="p">,</span><span class="n">c</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="n">m</span><span class="o">.</span><span class="n">y</span><span class="p">[</span><span class="n">w</span><span class="p">]</span>
-
-<span class="c1"># Note: This is only split across cells because of a bug in nbpages (notebook/website software).</span>
-<span class="c1"># There is no other reason to split your code across cells.</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-</div>
-
-
-
-    
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># YOUR SOLUTION HERE</span>
-<span class="k">def</span> <span class="nf">num_warehouses</span><span class="p">(</span><span class="n">m</span><span class="p">):</span>
-    <span class="k">return</span> <span class="nb">sum</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">y</span><span class="p">[</span><span class="n">w</span><span class="p">]</span> <span class="k">for</span> <span class="n">w</span> <span class="ow">in</span> <span class="n">W</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="n">P</span>
-
-<span class="n">SolverFactory</span><span class="p">(</span><span class="s1">&#39;glpk&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">solve</span><span class="p">(</span><span class="n">model</span><span class="p">)</span>
-
-<span class="n">model</span><span class="o">.</span><span class="n">y</span><span class="o">.</span><span class="n">pprint</span><span class="p">()</span>
-<span class="n">model</span><span class="o">.</span><span class="n">x</span><span class="o">.</span><span class="n">pprint</span><span class="p">()</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-</div>
-
-
-
-    
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="2.9.1.2-Changing-parameter-values">2.9.1.2 Changing parameter values<a class="anchor-link" href="#2.9.1.2-Changing-parameter-values">&#182;</a></h3><p>A parameter can be specified to be mutable. This tells Pyomo that the value of the parameter may change in the future, and allows the user to change the parameter value and resolve the problem without the need to rebuild the entire model each time. We will use this functionality to find a better solution to the knapsack problem. We would like to find when the wrench becomes valuable enough to be a part of the optimal solution. Create a Pyomo Parameter for the value of the items, make it mutable, and then write a loop that prints the solution for different wrench values.</p>
-
-</div>
-</div>
-</div>
-
-
-
-    
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">A</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;hammer&#39;</span><span class="p">,</span> <span class="s1">&#39;wrench&#39;</span><span class="p">,</span> <span class="s1">&#39;screwdriver&#39;</span><span class="p">,</span> <span class="s1">&#39;towel&#39;</span><span class="p">]</span>
-<span class="n">b</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;hammer&#39;</span><span class="p">:</span><span class="mi">8</span><span class="p">,</span> <span class="s1">&#39;wrench&#39;</span><span class="p">:</span><span class="mi">3</span><span class="p">,</span> <span class="s1">&#39;screwdriver&#39;</span><span class="p">:</span><span class="mi">6</span><span class="p">,</span> <span class="s1">&#39;towel&#39;</span><span class="p">:</span><span class="mi">11</span><span class="p">}</span>
-<span class="n">w</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;hammer&#39;</span><span class="p">:</span><span class="mi">5</span><span class="p">,</span> <span class="s1">&#39;wrench&#39;</span><span class="p">:</span><span class="mi">7</span><span class="p">,</span> <span class="s1">&#39;screwdriver&#39;</span><span class="p">:</span><span class="mi">4</span><span class="p">,</span> <span class="s1">&#39;towel&#39;</span><span class="p">:</span><span class="mi">3</span><span class="p">}</span>
-<span class="n">W_max</span> <span class="o">=</span> <span class="mi">14</span>
-
-<span class="n">model</span> <span class="o">=</span> <span class="n">ConcreteModel</span><span class="p">()</span>
-<span class="n">model</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="n">Var</span><span class="p">(</span> <span class="n">A</span><span class="p">,</span> <span class="n">within</span><span class="o">=</span><span class="n">Binary</span> <span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Import the libraries you need here for the assignment</span>
 <span class="c1"># YOUR SOLUTION HERE</span>
 </pre></div>
 
@@ -13350,10 +13176,106 @@ content is available <a href="git@github.com:ndcbe/CBE60499.git">on Github</a>.<
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="2.9.1.3-Integer-cuts">2.9.1.3 Integer cuts<a class="anchor-link" href="#2.9.1.3-Integer-cuts">&#182;</a></h3><p>Often, it can be important to find not only the "best" solution, but a number of solutions that are equally optimal, or close to optimal. For discrete optimization problems, this can be done using something known as an integer cut. Consider again the knapsack problem where the choice of which items to select is a discrete variable $x_i \forall i \in A$. Let $x_i^*$ be a particular set of $x$ values we want to remove from the feasible solution space. We define an integer cut using two sets. The first set $S_0$ contains the indices for those variables whose current solution is 0, and the second set $S_1$ consists of indices for those variables whose current solution is 1. Given these two sets, an integer cut constraint that would prevent such a solution from appearing again is defined by,</p>
-<p>$\sum_{i \in S_0}x[i] + \sum_{i \in S_1}(1-x_i) \geq 1$</p>
-<p>Write a loop that solves the problem 5 times, adding an integer cut to remove the previous solution, and printing the value of the objective function and the solution at each iteration of the loop.</p>
+<h2 id="2.12.1-Pyomo.DAE:-Reaction-Kinetics">2.12.1 Pyomo.DAE: Reaction Kinetics<a class="anchor-link" href="#2.12.1-Pyomo.DAE:-Reaction-Kinetics">&#182;</a></h2>
+</div>
+</div>
+</div>
 
+
+
+    
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Consider the chemical reaction $$A \Leftrightarrow B \Leftrightarrow C$$</p>
+<p>which is modeling with the following differential algebraic equations:</p>
+$$\begin{align*}
+\frac{dz_A}{dt} &amp;= -p_1 z_A(t) + p_2 z_B(t),\quad z_A(0)=1 \\
+\frac{dz_B}{dt} &amp;= p_1 z_A(t) - (p_2 + p_3) z_B(t) + p_4 z_C(t), \quad z_B(0)=0 \\
+1 &amp;= z_A(t) + z_B(t) + z_C(t)
+\end{align*}$$<p>where $p_1=4$, $p_2=2$, $p_3=40$, and $p_4=20$ are parameters with the appropriate units. $z_A(t)$, $z_B(t)$, and $z_C(t)$ are time varying concentrations of species $A$, $B$, and $C$ respectively.</p>
+
+</div>
+</div>
+</div>
+
+
+
+    
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="2.12.1.1-Index-analysis">2.12.1.1 Index analysis<a class="anchor-link" href="#2.12.1.1-Index-analysis">&#182;</a></h3>
+</div>
+</div>
+</div>
+
+
+
+    
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Determine the index of the above differential algebraic equation (DAE) system above.</p>
+<p>Tip: do this on paper. On Gradescope, there will be a separate assignment for you to turn in your handwritten work.</p>
+
+</div>
+</div>
+</div>
+
+
+
+    
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="2.12.1.2-Model-reformulation">2.12.1.2 Model reformulation<a class="anchor-link" href="#2.12.1.2-Model-reformulation">&#182;</a></h3>
+</div>
+</div>
+</div>
+
+
+
+    
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Apply the index reduction algorithm from class as needed. Ultimately identify two versions of the model: one that is index 1 and another that is index 0. Find a consistent initial condition $z_C(0)$.</p>
+
+</div>
+</div>
+</div>
+
+
+
+    
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="2.12.1.3-Implement-index-1-model-in-Pyomo">2.12.1.3 Implement index 1 model in Pyomo<a class="anchor-link" href="#2.12.1.3-Implement-index-1-model-in-Pyomo">&#182;</a></h3>
+</div>
+</div>
+</div>
+
+
+
+    
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>We will be building a library of functions.</p>
+
+</div>
+</div>
+</div>
+
+
+
+    
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="2.12.1.3.1-Create-model-and-set-initial-conditions">2.12.1.3.1 Create model and set initial conditions<a class="anchor-link" href="#2.12.1.3.1-Create-model-and-set-initial-conditions">&#182;</a></h4>
 </div>
 </div>
 </div>
@@ -13366,27 +13288,18 @@ content is available <a href="git@github.com:ndcbe/CBE60499.git">on Github</a>.<
 <div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">pyomo.environ</span> <span class="k">import</span> <span class="o">*</span>
-
-<span class="n">A</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;hammer&#39;</span><span class="p">,</span> <span class="s1">&#39;wrench&#39;</span><span class="p">,</span> <span class="s1">&#39;screwdriver&#39;</span><span class="p">,</span> <span class="s1">&#39;towel&#39;</span><span class="p">]</span>
-<span class="n">b</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;hammer&#39;</span><span class="p">:</span><span class="mi">8</span><span class="p">,</span> <span class="s1">&#39;wrench&#39;</span><span class="p">:</span><span class="mi">3</span><span class="p">,</span> <span class="s1">&#39;screwdriver&#39;</span><span class="p">:</span><span class="mi">6</span><span class="p">,</span> <span class="s1">&#39;towel&#39;</span><span class="p">:</span><span class="mi">11</span><span class="p">}</span>
-<span class="n">w</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;hammer&#39;</span><span class="p">:</span><span class="mi">5</span><span class="p">,</span> <span class="s1">&#39;wrench&#39;</span><span class="p">:</span><span class="mi">7</span><span class="p">,</span> <span class="s1">&#39;screwdriver&#39;</span><span class="p">:</span><span class="mi">4</span><span class="p">,</span> <span class="s1">&#39;towel&#39;</span><span class="p">:</span><span class="mi">3</span><span class="p">}</span>
-<span class="n">W_max</span> <span class="o">=</span> <span class="mi">14</span>
-
-<span class="n">model</span> <span class="o">=</span> <span class="n">ConcreteModel</span><span class="p">()</span>
-<span class="n">model</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="n">Var</span><span class="p">(</span> <span class="n">A</span><span class="p">,</span> <span class="n">within</span><span class="o">=</span><span class="n">Binary</span> <span class="p">)</span>
-
-<span class="k">def</span> <span class="nf">obj_rule</span><span class="p">(</span><span class="n">m</span><span class="p">):</span>
-    <span class="k">return</span> <span class="nb">sum</span><span class="p">(</span> <span class="n">b</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">*</span><span class="n">m</span><span class="o">.</span><span class="n">x</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">A</span> <span class="p">)</span>
-<span class="n">model</span><span class="o">.</span><span class="n">obj</span> <span class="o">=</span> <span class="n">Objective</span><span class="p">(</span><span class="n">rule</span><span class="o">=</span><span class="n">obj_rule</span><span class="p">,</span> <span class="n">sense</span> <span class="o">=</span> <span class="n">maximize</span> <span class="p">)</span>
-
-<span class="k">def</span> <span class="nf">weight_con_rule</span><span class="p">(</span><span class="n">m</span><span class="p">):</span>
-    <span class="k">return</span> <span class="nb">sum</span><span class="p">(</span> <span class="n">w</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">*</span><span class="n">m</span><span class="o">.</span><span class="n">x</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">A</span> <span class="p">)</span> <span class="o">&lt;=</span> <span class="n">W_max</span>
-<span class="n">model</span><span class="o">.</span><span class="n">weight_con</span> <span class="o">=</span> <span class="n">Constraint</span><span class="p">(</span><span class="n">rule</span><span class="o">=</span><span class="n">weight_con_rule</span><span class="p">)</span>
-
-<span class="n">opt</span> <span class="o">=</span> <span class="n">SolverFactory</span><span class="p">(</span><span class="s1">&#39;glpk&#39;</span><span class="p">)</span>
-
-<span class="c1"># YOUR SOLUTION HERE</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">create_model</span><span class="p">():</span>
+    <span class="sd">&#39;&#39;&#39; Create index 1 model and set initial conditions</span>
+<span class="sd">    </span>
+<span class="sd">    Return:</span>
+<span class="sd">        m: Pyomo model</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    
+    <span class="c1"># Tip: Set time to go from 0 to 1 when creating the model.</span>
+    
+    <span class="c1"># YOUR SOLUTION HERE</span>
+    
+    <span class="k">return</span> <span class="n">m</span>
 </pre></div>
 
     </div>
@@ -13401,62 +13314,7 @@ content is available <a href="git@github.com:ndcbe/CBE60499.git">on Github</a>.<
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="2.9.1.4-Putting-it-all-together:-Lot-sizing-example-(Hart-et-al.,-2017)">2.9.1.4 Putting it all together: Lot sizing example (Hart et al., 2017)<a class="anchor-link" href="#2.9.1.4-Putting-it-all-together:-Lot-sizing-example-(Hart-et-al.,-2017)">&#182;</a></h3><p>We will now write a complete model from scratch using a well-known multi-period optimization problem for optimal lot-sizing adapted from Hagen et al. (2001) shown below.</p>
-<p>$\min \sum_{t \in T}c_ty_t+h_t^+I_t^+ +h_t^-I_t^-$</p>
-<p>s.t. $I_t=I_{t-1}+X_t-d_t, \forall t \in T$</p>
-<p>$I_t=I_t^+-I_t^-, \forall t \in T$</p>
-<p>$X_t \leq Py_t, \forall t \in T$</p>
-<p>$X_t, I_t^+, I_t^- \geq 0, \forall t \in T$</p>
-<p>$y_t \in \{0,1\}, \forall t \in T$</p>
-<p>Our goal is to finnd the optimal production $X_t$ given known demands $d_t$, fixed cost $c_t$ associated with active production in a particular time period, an inventory holding cost $h_t^+$ and a shortage cost $h_t^-$ (cost of keeping a backlog) of orders. The variable $y_t$ (binary) determines if we produce in time $t$ or not, and $I_t^+$ represents inventory that we are storing across time period $t$, while $I_t^-$ represents the magnitude of the backlog. Note that $X_t \leq Py_t$ is a constraint that only allows production in time period $t$ if the indicator variable $y_t$=1.</p>
-<p>Write a Pyomo model for this problem and solve it using glpk using the data provided below.</p>
-<table>
-<thead><tr>
-<th>Parameter</th>
-<th>Description</th>
-<th>Value</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>$c$</td>
-<td>fixed cost of production</td>
-<td>4.6</td>
-</tr>
-<tr>
-<td>$I_0^+$</td>
-<td>initial value of positive inventory</td>
-<td>5.0</td>
-</tr>
-<tr>
-<td>$I_0^-$</td>
-<td>initial value of backlogged orders</td>
-<td>0.0</td>
-</tr>
-<tr>
-<td>$h^+$</td>
-<td>cost (per unit) of holding inventory</td>
-<td>0.7</td>
-</tr>
-<tr>
-<td>$h^-$</td>
-<td>shortage cost (per unit)</td>
-<td>1.2</td>
-</tr>
-<tr>
-<td>$P$</td>
-<td>maximum production amoung (big-M value)</td>
-<td>5</td>
-</tr>
-<tr>
-<td>$d$</td>
-<td>demand</td>
-<td>[5,7,6.2,3.1,1,7]</td>
-</tr>
-</tbody>
-</table>
-<p><strong>Reference</strong>: Hart, W. E., Laird, C. D., Watson, J. P., Woodruff, D. L., Hackebeil, G. A., Nicholson, B. L., and Siirola, J. D. Pyomo: Optimization Modeling in Python (Second Edition), Vol (67), Springer Verlag, 2017.</p>
-
+<h3 id="2.12.1.4-Simulate,-discretize,-and-initialize-collocation-model">2.12.1.4 Simulate, discretize, and initialize collocation model<a class="anchor-link" href="#2.12.1.4-Simulate,-discretize,-and-initialize-collocation-model">&#182;</a></h3>
 </div>
 </div>
 </div>
@@ -13469,27 +13327,31 @@ content is available <a href="git@github.com:ndcbe/CBE60499.git">on Github</a>.<
 <div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">model</span> <span class="o">=</span> <span class="n">ConcreteModel</span><span class="p">()</span>
-<span class="n">model</span><span class="o">.</span><span class="n">T</span> <span class="o">=</span> <span class="n">RangeSet</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>    <span class="c1"># time periods</span>
-
-<span class="n">i0</span> <span class="o">=</span> <span class="mf">5.0</span>           <span class="c1"># initial inventory</span>
-<span class="n">c</span> <span class="o">=</span> <span class="mf">4.6</span>            <span class="c1"># setup cost</span>
-<span class="n">h_pos</span> <span class="o">=</span> <span class="mf">0.7</span>        <span class="c1"># inventory holding cost</span>
-<span class="n">h_neg</span> <span class="o">=</span> <span class="mf">1.2</span>        <span class="c1"># shortage cost</span>
-<span class="n">P</span> <span class="o">=</span> <span class="mf">5.0</span>            <span class="c1"># maximum production amount</span>
-
-<span class="c1"># demand during period t</span>
-<span class="n">d</span> <span class="o">=</span> <span class="p">{</span><span class="mi">1</span><span class="p">:</span> <span class="mf">5.0</span><span class="p">,</span> <span class="mi">2</span><span class="p">:</span><span class="mf">7.0</span><span class="p">,</span> <span class="mi">3</span><span class="p">:</span><span class="mf">6.2</span><span class="p">,</span> <span class="mi">4</span><span class="p">:</span><span class="mf">3.1</span><span class="p">,</span> <span class="mi">5</span><span class="p">:</span><span class="mf">1.7</span><span class="p">}</span>
-
-<span class="c1"># YOUR SOLUTION HERE</span>
-
-<span class="c1"># solve the problem</span>
-<span class="n">solver</span> <span class="o">=</span> <span class="n">SolverFactory</span><span class="p">(</span><span class="s1">&#39;glpk&#39;</span><span class="p">)</span>
-<span class="n">solver</span><span class="o">.</span><span class="n">solve</span><span class="p">(</span><span class="n">model</span><span class="p">)</span>
-
-<span class="c1"># print the results</span>
-<span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">model</span><span class="o">.</span><span class="n">T</span><span class="p">:</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Period: </span><span class="si">{0}</span><span class="s1">, Prod. Amount: </span><span class="si">{1}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">value</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">x</span><span class="p">[</span><span class="n">t</span><span class="p">])))</span> 
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">simulate_discretize_model</span><span class="p">(</span><span class="n">m</span><span class="p">,</span><span class="n">NFE</span><span class="p">,</span><span class="n">initialize</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39; Simulation, discretize, and initialize the Pyomo model</span>
+<span class="sd">    </span>
+<span class="sd">    Arguments:</span>
+<span class="sd">        m: Pyomo model</span>
+<span class="sd">        NFE: number of finite elements to consider (integer)</span>
+<span class="sd">        initialize: if True, initialize the discretized model with the </span>
+<span class="sd">             integrator solution (boolean)</span>
+<span class="sd">    </span>
+<span class="sd">    Returns:</span>
+<span class="sd">        sim: Simulator object from Pyomo.DAE</span>
+<span class="sd">        tsim: Timesteps returned from simulator</span>
+<span class="sd">        profiles: Results returned from simulator</span>
+<span class="sd">    </span>
+<span class="sd">    Overall Steps:</span>
+<span class="sd">    1. Create Pyomo.DAE simulator and integrate with casadi/idas</span>
+<span class="sd">    2. Transform model using &#39;dae.collocation&#39; strategy. Use 3 collocation points</span>
+<span class="sd">        per finite elemebt</span>
+<span class="sd">    3. If initialize is true, call &#39;sim.initialize_model()&#39;. This will use the</span>
+<span class="sd">        Simulator solution to initialize the discretized Pyomo model. Really cool!</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    
+    <span class="c1"># YOUR SOLUTION HERE</span>
+    
+    <span class="k">return</span> <span class="n">sim</span><span class="p">,</span> <span class="n">tsim</span><span class="p">,</span> <span class="n">profiles</span>
 </pre></div>
 
     </div>
@@ -13504,19 +13366,7 @@ content is available <a href="git@github.com:ndcbe/CBE60499.git">on Github</a>.<
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="2.9.2-Nonlinear-programs:-initial-and-problem-formulation-are-very-important!">2.9.2 Nonlinear programs: initial and problem formulation are very important!<a class="anchor-link" href="#2.9.2-Nonlinear-programs:-initial-and-problem-formulation-are-very-important!">&#182;</a></h2>
-</div>
-</div>
-</div>
-
-
-
-    
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="2.9.2.1-Alternative-initialization">2.9.2.1 Alternative initialization<a class="anchor-link" href="#2.9.2.1-Alternative-initialization">&#182;</a></h3><p>Effective initialization can be critical for solving nonlinear problems, since they can have several local solutions and numerical diffculties. Solve the <a href="https://en.wikipedia.org/wiki/Rosenbrock_function">Rosenbrock problem</a> using different initial values for the x variables. Write a loop that varies the initial value from 2.0 to 6.0, solves the problem, and prints the solution for each iteration of the loop.</p>
-
+<h3 id="2.12.1.5-Plot-results">2.12.1.5 Plot results<a class="anchor-link" href="#2.12.1.5-Plot-results">&#182;</a></h3>
 </div>
 </div>
 </div>
@@ -13529,20 +13379,64 @@ content is available <a href="git@github.com:ndcbe/CBE60499.git">on Github</a>.<
 <div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">model</span> <span class="o">=</span> <span class="n">ConcreteModel</span><span class="p">()</span>
-<span class="n">model</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="n">Var</span><span class="p">()</span>
-<span class="n">model</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="n">Var</span><span class="p">()</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">plot_result</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">sim</span><span class="p">,</span> <span class="n">tsim</span><span class="p">,</span> <span class="n">profiles</span><span class="p">,</span> <span class="n">include_model_values</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; Plot the results from the simulator (and optionally Pyomo model)</span>
+<span class="sd">    </span>
+<span class="sd">    Arguments:</span>
+<span class="sd">        m: Pyomo model</span>
+<span class="sd">        sim: Pyomo.DAE simulator</span>
+<span class="sd">        tsim: timesteps from simulator</span>
+<span class="sd">        profiles: results from simulation</span>
+<span class="sd">        include_model_values: if True, also plot the values from the Pyomo model m</span>
+<span class="sd">    </span>
+<span class="sd">    Returns:</span>
+<span class="sd">        nothing</span>
+<span class="sd">        </span>
+<span class="sd">    Actions/Steps/Tips:</span>
+<span class="sd">    1. Plot the results stored in tsim and profiles as solid lines. Recycle code from class.</span>
+<span class="sd">    2. If &#39;include_model_values&#39; is true, plot za, zb, and zc values stored in Pyomo model &#39;m&#39;.</span>
+<span class="sd">        Use a solid symbol.</span>
+<span class="sd">    3. Add a legend and axes labels</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    
+    <span class="c1"># YOUR SOLUTION HERE</span>
+    
+    <span class="c1"># Tip: Do not forget to include `plt.show()` (assuming you imported matplotlib.pyplot as plt)</span>
+</pre></div>
 
-<span class="k">def</span> <span class="nf">rosenbrock</span><span class="p">(</span><span class="n">m</span><span class="p">):</span>
-    <span class="k">return</span> <span class="p">(</span><span class="mf">1.0</span><span class="o">-</span><span class="n">m</span><span class="o">.</span><span class="n">x</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="mf">10000.0</span><span class="o">*</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">y</span> <span class="o">-</span> <span class="n">m</span><span class="o">.</span><span class="n">x</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span>
-<span class="n">model</span><span class="o">.</span><span class="n">obj</span> <span class="o">=</span> <span class="n">Objective</span><span class="p">(</span><span class="n">rule</span><span class="o">=</span><span class="n">rosenbrock</span><span class="p">,</span> <span class="n">sense</span><span class="o">=</span><span class="n">minimize</span><span class="p">)</span>
+    </div>
+</div>
+</div>
+
+</div>
 
 
-<span class="n">solver</span> <span class="o">=</span> <span class="n">SolverFactory</span><span class="p">(</span><span class="s1">&#39;ipopt&#39;</span><span class="p">)</span>
 
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;x_init, y_init, x_soln, y_soln&#39;</span><span class="p">)</span>
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">solve_model</span><span class="p">(</span><span class="n">m</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; Solve discretized model with Ipopt</span>
+<span class="sd">    </span>
+<span class="sd">    Arguments:</span>
+<span class="sd">        m: Pyomo model</span>
+<span class="sd">        </span>
+<span class="sd">    Returns:</span>
+<span class="sd">        nothing</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    
+    <span class="c1"># Specify initial conditions</span>
+    <span class="k">def</span> <span class="nf">_init</span><span class="p">(</span><span class="n">m</span><span class="p">):</span>
+        <span class="k">yield</span> <span class="n">m</span><span class="o">.</span><span class="n">za</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="mi">1</span>
+        <span class="k">yield</span> <span class="n">m</span><span class="o">.</span><span class="n">zb</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span>
+    <span class="n">model</span><span class="o">.</span><span class="n">initcon</span> <span class="o">=</span> <span class="n">ConstraintList</span><span class="p">(</span><span class="n">rule</span><span class="o">=</span><span class="n">_init</span><span class="p">)</span>
 
-<span class="c1"># YOUR SOLUTION HERE    </span>
+    <span class="c1"># Solve collocation formulation (no objective, we are just simulating)</span>
+    <span class="n">solver</span> <span class="o">=</span> <span class="n">SolverFactory</span><span class="p">(</span><span class="s1">&#39;ipopt&#39;</span><span class="p">)</span>
+    <span class="n">solver</span><span class="o">.</span><span class="n">solve</span><span class="p">(</span><span class="n">model</span><span class="p">,</span><span class="n">tee</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 </pre></div>
 
     </div>
@@ -13557,36 +13451,7 @@ content is available <a href="git@github.com:ndcbe/CBE60499.git">on Github</a>.<
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>As elaborated here, the <a href="https://en.wikipedia.org/wiki/Rosenbrock_function">Rosenbrock problem</a> is a classic "hard" test case for optimization algorithms. Your results may surprise you (and show the effectiveness of Pyomo and Ipopt!).</p>
-
-</div>
-</div>
-</div>
-
-
-
-    
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="2.9.2.2-Evaluation-errors">2.9.2.2 Evaluation errors<a class="anchor-link" href="#2.9.2.2-Evaluation-errors">&#182;</a></h3><p>Consider the following problem with <strong>initial values</strong> $x$=5, $y$=5.</p>
-<p>$\min_{x,y} f(x,y)=(x-1.01)^2+y^2$</p>
-<p>s.t. $y=\sqrt{x-1.0}$</p>
-
-</div>
-</div>
-</div>
-
-
-
-    
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<ol>
-<li>Formulate this Pyomo model and solve using IPOPT. You should get a list of errors from the solver. Add the IPOPT solver option solver.options['halt_on_ampl_error']='yes' to find the problem. <em>Hint</em>: the error output might be ordered strangely, look this up in the console output. What did you discover? How might you fix this?</li>
-</ol>
-
+<h3 id="2.12.1.6-Simulate-and-solve-Pyomo-model-with-initialization">2.12.1.6 Simulate and solve Pyomo model with initialization<a class="anchor-link" href="#2.12.1.6-Simulate-and-solve-Pyomo-model-with-initialization">&#182;</a></h3>
 </div>
 </div>
 </div>
@@ -13599,7 +13464,41 @@ content is available <a href="git@github.com:ndcbe/CBE60499.git">on Github</a>.<
 <div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># YOUR SOLUTION HERE</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Create Pyomo model</span>
+<span class="n">model</span> <span class="o">=</span> <span class="n">create_model</span><span class="p">()</span>
+
+<span class="c1"># Initialize discretized model with simulation result?</span>
+<span class="n">init</span> <span class="o">=</span> <span class="kc">True</span>
+
+<span class="c1"># Number of finite elements</span>
+<span class="n">NFE</span> <span class="o">=</span> <span class="mi">6</span>
+
+<span class="c1"># Simulate model</span>
+<span class="n">sim</span><span class="p">,</span> <span class="n">tsim</span><span class="p">,</span> <span class="n">profiles</span> <span class="o">=</span> <span class="n">simulate_discretize_model</span><span class="p">(</span><span class="n">model</span><span class="p">,</span><span class="n">NFE</span><span class="p">,</span><span class="n">init</span><span class="p">)</span>
+
+<span class="c1"># Plot simulation results</span>
+<span class="n">plot_result</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">sim</span><span class="p">,</span> <span class="n">tsim</span><span class="p">,</span> <span class="n">profiles</span><span class="p">,</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+
+
+
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Solve collocation formulation with Ipopt</span>
+<span class="n">solve_model</span><span class="p">(</span><span class="n">model</span><span class="p">)</span>
+
+<span class="c1"># Plot results</span>
+<span class="n">plot_result</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">sim</span><span class="p">,</span> <span class="n">tsim</span><span class="p">,</span> <span class="n">profiles</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
 </pre></div>
 
     </div>
@@ -13614,9 +13513,7 @@ content is available <a href="git@github.com:ndcbe/CBE60499.git">on Github</a>.<
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p><strong>Question Answers</strong></p>
-<p><em>Fill in here</em></p>
-
+<h3 id="2.12.1.7-Simulate-and-solve-Pyomo-model-without-initialization">2.12.1.7 Simulate and solve Pyomo model without initialization<a class="anchor-link" href="#2.12.1.7-Simulate-and-solve-Pyomo-model-without-initialization">&#182;</a></h3>
 </div>
 </div>
 </div>
@@ -13627,226 +13524,7 @@ content is available <a href="git@github.com:ndcbe/CBE60499.git">on Github</a>.<
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<ol>
-<li>Add bounds $x \geq 1$ to fix this problem and resolve. Comment on the number of iterations and the quality of solution. Note, the problem still occurs because $x \geq 1$ is not enforced exactly, and small numerical values still cause the error.</li>
-</ol>
-
-</div>
-</div>
-</div>
-
-
-
-    
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># YOUR SOLUTION HERE</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-</div>
-
-
-
-    
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p><strong>Discussion</strong></p>
-<p><em>Fill in here</em></p>
-
-</div>
-</div>
-</div>
-
-
-
-    
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<ol>
-<li>Think about other solutions for this problem and attempt to implement one of these solutions. <em>Hint</em>: $x \geq 1.001$.</li>
-</ol>
-
-</div>
-</div>
-</div>
-
-
-
-    
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">model</span> <span class="o">=</span> <span class="n">ConcreteModel</span><span class="p">()</span>
-
-<span class="n">model</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="n">Var</span><span class="p">(</span><span class="n">initialize</span><span class="o">=</span><span class="mf">5.0</span><span class="p">,</span> <span class="n">bounds</span><span class="o">=</span><span class="p">(</span><span class="mf">1.001</span><span class="p">,</span><span class="kc">None</span><span class="p">))</span>
-<span class="n">model</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="n">Var</span><span class="p">(</span><span class="n">initialize</span><span class="o">=</span><span class="mf">5.0</span><span class="p">)</span>
-
-<span class="k">def</span> <span class="nf">obj_rule</span><span class="p">(</span><span class="n">m</span><span class="p">):</span>
-    <span class="k">return</span> <span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">x</span><span class="o">-</span><span class="mf">1.01</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">m</span><span class="o">.</span><span class="n">y</span><span class="o">**</span><span class="mi">2</span>
-<span class="n">model</span><span class="o">.</span><span class="n">obj</span> <span class="o">=</span> <span class="n">Objective</span><span class="p">(</span><span class="n">rule</span><span class="o">=</span><span class="n">obj_rule</span><span class="p">)</span>
-
-<span class="k">def</span> <span class="nf">con_rule</span><span class="p">(</span><span class="n">m</span><span class="p">):</span>
-    <span class="k">return</span> <span class="n">m</span><span class="o">.</span><span class="n">y</span> <span class="o">==</span> <span class="n">sqrt</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">x</span> <span class="o">-</span> <span class="mf">1.0</span><span class="p">)</span>
-<span class="n">model</span><span class="o">.</span><span class="n">con</span> <span class="o">=</span> <span class="n">Constraint</span><span class="p">(</span><span class="n">rule</span><span class="o">=</span><span class="n">con_rule</span><span class="p">)</span>
-
-<span class="n">solver</span> <span class="o">=</span> <span class="n">SolverFactory</span><span class="p">(</span><span class="s1">&#39;ipopt&#39;</span><span class="p">)</span>
-<span class="n">solver</span><span class="o">.</span><span class="n">options</span><span class="p">[</span><span class="s1">&#39;halt_on_ampl_error&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;yes&#39;</span>
-<span class="n">solver</span><span class="o">.</span><span class="n">solve</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">tee</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-
-<span class="nb">print</span><span class="p">(</span> <span class="n">value</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">x</span><span class="p">)</span> <span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span> <span class="n">value</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">y</span><span class="p">)</span> <span class="p">)</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-</div>
-
-
-
-    
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="2.9.2.3-Alternative-formulations">2.9.2.3 Alternative formulations<a class="anchor-link" href="#2.9.2.3-Alternative-formulations">&#182;</a></h3><p>Consider the following problem with initial values $x$=5, $y$=5.</p>
-<p>$\min_{x,y} f(x,y)=(x-1.01)^2+y^2$</p>
-<p>s.t. $\frac{x-1}{y}=1$</p>
-<p>Note, the solution to this problem is $x$=1.005 and $y$=0.005. There are several ways that the problem above can be reformulated. Some examples are shown below. Which ones do you expect to be better? Why?</p>
-<ol>
-<li>$\min_{x,y} f(x,y)=(x-1.01)^2+y^2$</li>
-</ol>
-<p>s.t. $\frac{x-1}{y}=1$</p>
-<ol>
-<li>$\min_{x,y} f(x,y)=(x-1.01)^2+y^2$</li>
-</ol>
-<p>s.t. $\frac{x}{y+1}=1$</p>
-<ol>
-<li>$\min_{x,y} f(x,y)=(x-1.01)^2+y^2$</li>
-</ol>
-<p>s.t. $y=x-1$</p>
-<p>Implement Pyomo models for each formulation and solve with IPOPT.</p>
-
-</div>
-</div>
-</div>
-
-
-
-    
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h4 id="2.9.2.3.1-Formulation-1">2.9.2.3.1 Formulation 1<a class="anchor-link" href="#2.9.2.3.1-Formulation-1">&#182;</a></h4>
-</div>
-</div>
-</div>
-
-
-
-    
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># YOUR SOLUTION HERE</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-</div>
-
-
-
-    
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h4 id="2.9.2.3.2-Formulation-2">2.9.2.3.2 Formulation 2<a class="anchor-link" href="#2.9.2.3.2-Formulation-2">&#182;</a></h4>
-</div>
-</div>
-</div>
-
-
-
-    
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># YOUR SOLUTION HERE</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-</div>
-
-
-
-    
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h4 id="2.9.2.3.3-Formulation-3">2.9.2.3.3 Formulation 3<a class="anchor-link" href="#2.9.2.3.3-Formulation-3">&#182;</a></h4>
-</div>
-</div>
-</div>
-
-
-
-    
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># YOUR SOLUTION HERE</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-</div>
-
-
-
-    
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>Note the nuber of iterations and quality of solutions. What can you learn about the problem formulation from these examples?</p>
-<p><strong>Discussion</strong></p>
-<p><em>Fill in here</em></p>
-
-</div>
-</div>
-</div>
-
-
-
-    
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>Bounds and initialization can be very helpful when solving nonlinear optimization problems. Resolve the original problem below, but add bounds, $y \geq 0$. Note the number of iterations and quality of solution, and compare with what you found for Formulation 1.</p>
+<p>Repeat the analysis from above, but do NOT initialize the discretized model with the simulation result. (Tip: you only need to change two small things.)</p>
 
 </div>
 </div>
@@ -13875,8 +13553,9 @@ content is available <a href="git@github.com:ndcbe/CBE60499.git">on Github</a>.<
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p><strong>Discussion</strong></p>
-<p><em>Fill in here</em></p>
+<h3 id="2.12.1.8-Discussion:-Does-initialization-matter?">2.12.1.8 Discussion: Does initialization matter?<a class="anchor-link" href="#2.12.1.8-Discussion:-Does-initialization-matter?">&#182;</a></h3><p>Write 1 to 3 sentences for each of the following questions:</p>
+<p><em>What happens if we disable initialization? Does the number of interactions Ipopt need change?</em></p>
+<p><em>Why is this specific problem robust to poor initialization? What about this specific DAE system makes it easy to solve?</em></p>
 
 </div>
 </div>
@@ -13888,26 +13567,18 @@ content is available <a href="git@github.com:ndcbe/CBE60499.git">on Github</a>.<
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="2.9.2.4-Reactor-design-problem-(Hart-et-al.,-2017;-Bequette,-2003)">2.9.2.4 Reactor design problem (Hart et al., 2017; Bequette, 2003)<a class="anchor-link" href="#2.9.2.4-Reactor-design-problem-(Hart-et-al.,-2017;-Bequette,-2003)">&#182;</a></h3><p>Here we will consider a chemical reactor designed to produce product B from reactant A using a reaction scheme known as the Van de Vusse reaction:</p>
-<p>$A \overset{k_1}{\rightarrow} B \overset{k_2}{\rightarrow} C$</p>
-<p>$2A \overset{k_3}{\rightarrow} D$</p>
-<p>Under appropriate assumptions, $F$ is the volumetric flowrate through the tank. The concentation of component A in the feed is $c_{Af}$, and the concentrations in the reactor are equivalent to the concentrations of each component 
-flowing out of the reactor, given by $c_A$, $c_B$, $c_C$, and $c_D$.</p>
-<p>If the reactor is too small, we will not produce sufficient quantity of B, and if the reactor is too large, much of B will be further reacted to form the undesired product C. Therefore, our goal is to solve for the reactor volume that maximizes the outlet concentration for product B.</p>
-<p>The steady-state mole balances for each of the four components are given by</p>
-<p>$0=\frac{F}{V}c_{Af}-\frac{F}{V}c_A-k_1C_A-2k_3c^2_A$</p>
-<p>$0=-\frac{F}{V}c_{B}+k_1C_A-k_2c_B$</p>
-<p>$0=-\frac{F}{V}c_{C}+k_2c_B$</p>
-<p>$0=-\frac{F}{V}c_{D}+k_3c^2_A$</p>
-<p>The known parameters for the system are:</p>
-<p>$c_{Af}=10\frac{\mathrm{gmol}}{\mathrm{m}^3}$</p>
-<p>$k_1=\frac{5}{6}\mathrm{min}^{-1}$</p>
-<p>$k_2=\frac{5}{3}\mathrm{min}^{-1}$</p>
-<p>$k_3=\frac{1}{6000}\frac{\mathrm{m}^3}{\mathrm{gmol}~\mathrm{min}^{-1}}$</p>
-<p>Formulate and solve this optimization problem using Pyomo. Since the volumetric flowrate $F$ always appears as the numerator over the reactor volume $V$, it is common to consider this ratio as a single variable, called the space-velocity $SV$.</p>
-<p><strong>References</strong>:
-Hart, W. E., Laird, C. D., Watson, J. P., Woodruff, D. L., Hackebeil, G. A., Nicholson, B. L., and Siirola, J. D. Pyomo: Optimization Modeling in Python (Second Edition), Vol (67), Springer Verlag, 2017.</p>
-<p>B.W. Bequette. Process control: modeling, design, and simulation. Prentice Hall, 2003.</p>
+<h3 id="2.12.1.9-Degree-of-Freedom-Analysis">2.12.1.9 Degree of Freedom Analysis<a class="anchor-link" href="#2.12.1.9-Degree-of-Freedom-Analysis">&#182;</a></h3>
+</div>
+</div>
+</div>
+
+
+
+    
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Please answer on paper and turn in via Gradescope.</p>
 
 </div>
 </div>
@@ -13916,89 +13587,37 @@ Hart, W. E., Laird, C. D., Watson, J. P., Woodruff, D. L., Hackebeil, G. A., Nic
 
 
     
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[3]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># YOUR SOLUTION HERE</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-
-    <div class="prompt"></div>
-
-
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>5 Var Declarations
-    ca : Size=1, Index=None
-        Key  : Lower : Value              : Upper : Fixed : Stale : Domain
-        None :     0 : 3874.2588672317133 :  None : False : False : PositiveReals
-    cb : Size=1, Index=None
-        Key  : Lower : Value             : Upper : Fixed : Stale : Domain
-        None :     0 : 1072.437200108632 :  None : False : False : PositiveReals
-    cc : Size=1, Index=None
-        Key  : Lower : Value             : Upper : Fixed : Stale : Domain
-        None :     0 : 1330.093533408881 :  None : False : False : PositiveReals
-    cd : Size=1, Index=None
-        Key  : Lower : Value              : Upper : Fixed : Stale : Domain
-        None :     0 : 1861.6051996253875 :  None : False : False : PositiveReals
-    sv : Size=1, Index=None
-        Key  : Lower : Value             : Upper : Fixed : Stale : Domain
-        None :     0 : 1.343811761067278 :  None : False : False : PositiveReals
-
-1 Objective Declarations
-    obj : Size=1, Index=None, Active=True
-        Key  : Active : Sense    : Expression
-        None :   True : maximize :         cb
-
-4 Constraint Declarations
-    ca_bal : Size=1, Index=None, Active=True
-        Key  : Lower : Body                                                                       : Upper : Active
-        None :   0.0 : 10000.0*sv - sv*ca - 0.8333333333333334*ca - 0.0003333333333333333*ca**2.0 :   0.0 :   True
-    cb_bal : Size=1, Index=None, Active=True
-        Key  : Lower : Body                                                    : Upper : Active
-        None :   0.0 : - sv*cb + 0.8333333333333334*ca - 1.6666666666666667*cb :   0.0 :   True
-    cc_bal : Size=1, Index=None, Active=True
-        Key  : Lower : Body                            : Upper : Active
-        None :   0.0 : - sv*cc + 1.6666666666666667*cb :   0.0 :   True
-    cd_bal : Size=1, Index=None, Active=True
-        Key  : Lower : Body                                     : Upper : Active
-        None :   0.0 : - sv*cd + 0.00016666666666666666*ca**2.0 :   0.0 :   True
-
-10 Declarations: sv ca cb cc cd obj ca_bal cb_bal cc_bal cd_bal
-</pre>
-</div>
-</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Rerun the code above for two different numbers of finite elements. Record the total number of variables and equality constraints.</p>
 
 </div>
 </div>
-
 </div>
 
 
 
     
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span> 
-</pre></div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>How many degrees of freedom are in the simulation problem? (1 sentence is fine.)</p>
 
-    </div>
+</div>
 </div>
 </div>
 
+
+
+    
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Choose $N=3$ or a simular number of finite elements. Using the collocation equations from class, show that the discretized Pyomo model has the correct number of variables and algebriac equations. This will be a little tedious, but good to practice once on a simple model. You might need to do this when debugging a DAE model for research.</p>
+
+</div>
+</div>
 </div>
 
 
@@ -14008,7 +13627,7 @@ Hart, W. E., Laird, C. D., Watson, J. P., Woodruff, D. L., Hackebeil, G. A., Nic
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p><!--NAVIGATION-->
-&lt; <a href="https://ndcbe.github.io/CBE60499/02.08-Pyomo1.html">2.8 Pyomo Homework 1</a> | <a href="toc.html">Contents</a> | <a href="tag_index.html">Tag Index</a> | <a href="https://ndcbe.github.io/CBE60499/02.10-Pyomo3.html">2.10 Pyomo Homework 3</a> &gt;<p><a href="https://colab.research.google.com/github/ndcbe/CBE60499/blob/master/docs/02.09-Pyomo2.ipynb"> <img align="left" src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open in Colab" title="Open in Google Colaboratory"></a><p><a href="https://ndcbe.github.io/CBE60499/02.09-Pyomo2.ipynb"> <img align="left" src="https://img.shields.io/badge/Github-Download-blue.svg" alt="Download" title="Download Notebook"></a></p>
+&lt; <a href="https://ndcbe.github.io/CBE60499/02.11-Pyomo2.html">2.11 Pyomo Homework 2</a> | <a href="toc.html">Contents</a> | <a href="tag_index.html">Tag Index</a> | <a href="https://ndcbe.github.io/CBE60499/03.00-Unconstrained.html">3.0 Unconstrained Nonlinear Optimization: Theory and Algorithms</a> &gt;<p><a href="https://colab.research.google.com/github/ndcbe/CBE60499/blob/master/docs/02.12-Pyomo3.ipynb"> <img align="left" src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open in Colab" title="Open in Google Colaboratory"></a><p><a href="https://ndcbe.github.io/CBE60499/02.12-Pyomo3.ipynb"> <img align="left" src="https://img.shields.io/badge/Github-Download-blue.svg" alt="Download" title="Download Notebook"></a></p>
 
 </div>
 </div>
