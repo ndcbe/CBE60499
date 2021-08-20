@@ -1,9 +1,10 @@
-<!DOCTYPE html>
+<!-- jinja2 template extends `full` to include cell tags in the html rendering of notebooks -->
+None<!DOCTYPE html>
 <html>
 <head><meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>toc</title><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
+<title>Notebook</title><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
 
 
 
@@ -14257,1062 +14258,701 @@ a.anchor-link {
     <!-- End of mathjax configuration --></head>
 <body class="jp-Notebook" data-jp-theme-light="true" data-jp-theme-name="JupyterLab Light">
 
+
+    
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h1 id="CBE60499"><a href="https://ndcbe.github.io/CBE60499">CBE60499</a><a class="anchor-link" href="#CBE60499">&#182;</a></h1><h2 id="Chapter-1.0-Getting-Started-with-Pyomo"><a href="https://ndcbe.github.io/CBE60499/01.00-Pyomo-Introduction.html">Chapter 1.0 Getting Started with Pyomo</a><a class="anchor-link" href="#Chapter-1.0-Getting-Started-with-Pyomo">&#182;</a></h2><ul>
-<li><a href="https://ndcbe.github.io/CBE60499/01.00-Pyomo-Introduction.html#1.0.1-Local-Installation">1.0.1 Local Installation</a><ul>
-<li><a href="https://ndcbe.github.io/CBE60499/01.00-Pyomo-Introduction.html#1.0.1.1-Install-anaconda">1.0.1.1 Install anaconda</a></li>
-<li><a href="https://ndcbe.github.io/CBE60499/01.00-Pyomo-Introduction.html#1.0.1.2-Create-a-new-conda-environment">1.0.1.2 Create a new conda environment</a></li>
-<li><a href="https://ndcbe.github.io/CBE60499/01.00-Pyomo-Introduction.html#1.0.1.3-Install-IDAES-PSE">1.0.1.3 Install IDAES-PSE</a></li>
-<li><a href="https://ndcbe.github.io/CBE60499/01.00-Pyomo-Introduction.html#1.0.1.4-Install-Ipopt">1.0.1.4 Install Ipopt</a></li>
-<li><a href="https://ndcbe.github.io/CBE60499/01.00-Pyomo-Introduction.html#1.0.1.5-Install-Additional-Solvers">1.0.1.5 Install Additional Solvers</a></li>
-<li><a href="https://ndcbe.github.io/CBE60499/01.00-Pyomo-Introduction.html#1.0.1.6-Install-Notebook-Spellcheker">1.0.1.6 Install Notebook Spellcheker</a></li>
-</ul>
-</li>
-<li><a href="https://ndcbe.github.io/CBE60499/01.00-Pyomo-Introduction.html#1.0.2-Cloud-Computing-with-Google-Colab">1.0.2 Cloud Computing with Google Colab</a></li>
-<li><a href="https://ndcbe.github.io/CBE60499/01.00-Pyomo-Introduction.html#1.0.3-Your-First-Optimization-Problem">1.0.3 Your First Optimization Problem</a><ul>
-<li><a href="https://ndcbe.github.io/CBE60499/01.00-Pyomo-Introduction.html#1.0.3.1-Mathematical-Model">1.0.3.1 Mathematical Model</a></li>
-<li><a href="https://ndcbe.github.io/CBE60499/01.00-Pyomo-Introduction.html#1.0.3.2-Define-the-Model-in-Pyomo">1.0.3.2 Define the Model in Pyomo</a></li>
-<li><a href="https://ndcbe.github.io/CBE60499/01.00-Pyomo-Introduction.html#1.0.3.3-Solve-using-Ipopt">1.0.3.3 Solve using Ipopt</a></li>
-<li><a href="https://ndcbe.github.io/CBE60499/01.00-Pyomo-Introduction.html#1.0.3.4-Inspect-the-Solution">1.0.3.4 Inspect the Solution</a></li>
-<li><a href="https://ndcbe.github.io/CBE60499/01.00-Pyomo-Introduction.html#1.0.3.5-Visualize-the-Solution">1.0.3.5 Visualize the Solution</a></li>
-</ul>
-</li>
-<li>Markdown Links<ul>
-<li><a href="https://jupyter-contrib-nbextensions.readthedocs.io/en/latest/nbextensions/spellchecker/README.html">spellchecker</a></li>
-</ul>
-</li>
-</ul>
-<h3 id="1.1-60-Minutes-to-Pyomo:-An-Energy-Storage-Model-Predictive-Control-Example"><a href="https://ndcbe.github.io/CBE60499/01.01-Pyomo-Nuts-and-Bolts.html">1.1 60 Minutes to Pyomo: An Energy Storage Model Predictive Control Example</a><a class="anchor-link" href="#1.1-60-Minutes-to-Pyomo:-An-Energy-Storage-Model-Predictive-Control-Example">&#182;</a></h3><ul>
-<li><a href="https://ndcbe.github.io/CBE60499/01.01-Pyomo-Nuts-and-Bolts.html#1.1.1-Problem-Setup">1.1.1 Problem Setup</a><ul>
-<li><a href="https://ndcbe.github.io/CBE60499/01.01-Pyomo-Nuts-and-Bolts.html#1.1.1.1-Background">1.1.1.1 Background</a></li>
-<li><a href="https://ndcbe.github.io/CBE60499/01.01-Pyomo-Nuts-and-Bolts.html#1.1.1.2-Pandas-and-Energy-Prices">1.1.1.2 Pandas and Energy Prices</a></li>
-<li><a href="https://ndcbe.github.io/CBE60499/01.01-Pyomo-Nuts-and-Bolts.html#1.1.1.3-Optimization-Mathematical-Model">1.1.1.3 Optimization Mathematical Model</a><ul>
-<li><a href="https://ndcbe.github.io/CBE60499/01.01-Pyomo-Nuts-and-Bolts.html#1.1.1.3.1-Sets">1.1.1.3.1 Sets</a></li>
-<li><a href="https://ndcbe.github.io/CBE60499/01.01-Pyomo-Nuts-and-Bolts.html#1.1.1.3.2-Variables">1.1.1.3.2 Variables</a></li>
-<li><a href="https://ndcbe.github.io/CBE60499/01.01-Pyomo-Nuts-and-Bolts.html#1.1.1.3.3-Parameters">1.1.1.3.3 Parameters</a></li>
-<li><a href="https://ndcbe.github.io/CBE60499/01.01-Pyomo-Nuts-and-Bolts.html#1.1.1.3.4-Objective-and-Constraints">1.1.1.3.4 Objective and Constraints</a></li>
-</ul>
-</li>
-<li><a href="https://ndcbe.github.io/CBE60499/01.01-Pyomo-Nuts-and-Bolts.html#1.1.1.4-Degree-of-Freedom-Analysis">1.1.1.4 Degree of Freedom Analysis</a></li>
-</ul>
-</li>
-<li><a href="https://ndcbe.github.io/CBE60499/01.01-Pyomo-Nuts-and-Bolts.html#1.1.2-Pyomo-Modeling-Components">1.1.2 Pyomo Modeling Components</a><ul>
-<li><a href="https://ndcbe.github.io/CBE60499/01.01-Pyomo-Nuts-and-Bolts.html#1.1.2.1-Create-`ConcreteModel`">1.1.2.1 Create <code>ConcreteModel</code></a></li>
-<li><a href="https://ndcbe.github.io/CBE60499/01.01-Pyomo-Nuts-and-Bolts.html#1.1.2.2-Sets">1.1.2.2 Sets</a></li>
-<li><a href="https://ndcbe.github.io/CBE60499/01.01-Pyomo-Nuts-and-Bolts.html#1.1.2.3-Variables">1.1.2.3 Variables</a></li>
-<li><a href="https://ndcbe.github.io/CBE60499/01.01-Pyomo-Nuts-and-Bolts.html#1.1.2.4-Parameters-(Constants-/-Data">1.1.2.4 Parameters (Constants / Data)</a>)</li>
-<li><a href="https://ndcbe.github.io/CBE60499/01.01-Pyomo-Nuts-and-Bolts.html#1.1.2.5-Objectives">1.1.2.5 Objectives</a></li>
-<li><a href="https://ndcbe.github.io/CBE60499/01.01-Pyomo-Nuts-and-Bolts.html#1.1.2.6-Constraints">1.1.2.6 Constraints</a></li>
-<li><a href="https://ndcbe.github.io/CBE60499/01.01-Pyomo-Nuts-and-Bolts.html#1.1.2.7-Printing-the-Model">1.1.2.7 Printing the Model</a></li>
-<li><a href="https://ndcbe.github.io/CBE60499/01.01-Pyomo-Nuts-and-Bolts.html#1.1.2.8-Another-Approach:-Build-the-Model-in-a-Function">1.1.2.8 Another Approach: Build the Model in a Function</a></li>
-</ul>
-</li>
-<li><a href="https://ndcbe.github.io/CBE60499/01.01-Pyomo-Nuts-and-Bolts.html#1.1.3-Calling-Optimization-Solver">1.1.3 Calling Optimization Solver</a><ul>
-<li><a href="https://ndcbe.github.io/CBE60499/01.01-Pyomo-Nuts-and-Bolts.html#1.1.3.1-`SolverFactory`-and-Solver-Options">1.1.3.1 <code>SolverFactory</code> and Solver Options</a></li>
-<li><a href="https://ndcbe.github.io/CBE60499/01.01-Pyomo-Nuts-and-Bolts.html#1.1.3.2-Interpreting-Ipopt-Output---Verifying-Degree-of-Freedom-Analysis">1.1.3.2 Interpreting Ipopt Output - Verifying Degree of Freedom Analysis</a></li>
-<li><a href="https://ndcbe.github.io/CBE60499/01.01-Pyomo-Nuts-and-Bolts.html#1.1.3.3-Try-Another-Solver">1.1.3.3 Try Another Solver</a></li>
-</ul>
-</li>
-<li><a href="https://ndcbe.github.io/CBE60499/01.01-Pyomo-Nuts-and-Bolts.html#1.1.4-Inspecting-the-Solution">1.1.4 Inspecting the Solution</a><ul>
-<li><a href="https://ndcbe.github.io/CBE60499/01.01-Pyomo-Nuts-and-Bolts.html#1.1.4.1-Extracting-Solution-from-Pyomo">1.1.4.1 Extracting Solution from Pyomo</a></li>
-<li><a href="https://ndcbe.github.io/CBE60499/01.01-Pyomo-Nuts-and-Bolts.html#1.1.4.2-Visualizing-the-Solution">1.1.4.2 Visualizing the Solution</a></li>
-<li><a href="https://ndcbe.github.io/CBE60499/01.01-Pyomo-Nuts-and-Bolts.html#1.1.4.3-Accessing-Dual-Variables">1.1.4.3 Accessing Dual Variables</a></li>
-</ul>
-</li>
-<li><a href="https://ndcbe.github.io/CBE60499/01.01-Pyomo-Nuts-and-Bolts.html#1.1.5-References">1.1.5 References</a></li>
-<li>Markdown Figures<ul>
-<li><a href="https://www.ferc.gov/sites/default/files/2020-06/map-overview-electric.jpg">US_markets</a></li>
-<li><a href="./figures/battery.png">battery-optimization</a></li>
-<li><a href="./figures/pyomo-table-4.1.png">pyomo-var-arguments</a></li>
-<li><a href="./figures/pyomo-table-4.2.png">pyomo-var-domain</a></li>
-<li><a href="./figures/pyomo-table-4.6.png">pyomo-param-arguments</a></li>
-<li><a href="./figures/pyomo-table-4.3.png">pyomo-objective-arguments</a></li>
-<li><a href="./figures/pyomo-table-4.4.png">pyomo-constraint-arguments</a></li>
-</ul>
-</li>
-<li>Figure files used<ul>
-<li><a href="https://ndcbe.github.io/CBE60499/figures/battery.png">figures/battery.png</a></li>
-<li><a href="https://ndcbe.github.io/CBE60499/figures/pyomo-table-4.1.png">figures/pyomo-table-4.1.png</a></li>
-<li><a href="https://ndcbe.github.io/CBE60499/figures/pyomo-table-4.3.png">figures/pyomo-table-4.3.png</a></li>
-<li><a href="https://ndcbe.github.io/CBE60499/figures/pyomo-table-4.2.png">figures/pyomo-table-4.2.png</a></li>
-<li><a href="https://ndcbe.github.io/CBE60499/figures/pyomo-table-4.6.png">figures/pyomo-table-4.6.png</a></li>
-<li><a href="https://ndcbe.github.io/CBE60499/figures/pyomo-table-4.4.png">figures/pyomo-table-4.4.png</a></li>
-</ul>
-</li>
-</ul>
-<h3 id="1.2-Pyomo-Mini-Project:-Receding-Horizon-Stochastic-Control"><a href="https://ndcbe.github.io/CBE60499/01.02-Pyomo-Mini-Project.html">1.2 Pyomo Mini-Project: Receding Horizon Stochastic Control</a><a class="anchor-link" href="#1.2-Pyomo-Mini-Project:-Receding-Horizon-Stochastic-Control">&#182;</a></h3><ul>
-<li><a href="https://ndcbe.github.io/CBE60499/01.02-Pyomo-Mini-Project.html#1.2.1-Assignment-Goals">1.2.1 Assignment Goals</a></li>
-<li><a href="https://ndcbe.github.io/CBE60499/01.02-Pyomo-Mini-Project.html#1.2.2-Model-Refinement-and-Code-Reorganization">1.2.2 Model Refinement and Code Reorganization</a><ul>
-<li><a href="https://ndcbe.github.io/CBE60499/01.02-Pyomo-Mini-Project.html#1.2.2.1-Revised-Model">1.2.2.1 Revised Model</a></li>
-<li><a href="https://ndcbe.github.io/CBE60499/01.02-Pyomo-Mini-Project.html#1.2.2.2-Degree-of-Freedom-Analysis">1.2.2.2 Degree of Freedom Analysis</a></li>
-<li><a href="https://ndcbe.github.io/CBE60499/01.02-Pyomo-Mini-Project.html#1.2.2.3-Python-Code">1.2.2.3 Python Code</a></li>
-<li><a href="https://ndcbe.github.io/CBE60499/01.02-Pyomo-Mini-Project.html#1.2.2.4-Optimal-Control-Over-3-Day-Horizon">1.2.2.4 Optimal Control Over 3 Day Horizon</a><ul>
-<li><a href="https://ndcbe.github.io/CBE60499/01.02-Pyomo-Mini-Project.html#1.2.2.4.1-Original-Model">1.2.2.4.1 Original Model</a></li>
-<li><a href="https://ndcbe.github.io/CBE60499/01.02-Pyomo-Mini-Project.html#1.2.2.4.2-With-Constraint-Enforcing-No-Simultaneous-Charging-or-Discharging">1.2.2.4.2 With Constraint Enforcing No Simultaneous Charging or Discharging</a></li>
-<li><a href="https://ndcbe.github.io/CBE60499/01.02-Pyomo-Mini-Project.html#1.2.2.4.3-Comparison">1.2.2.4.3 Comparison</a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li><a href="https://ndcbe.github.io/CBE60499/01.02-Pyomo-Mini-Project.html#1.2.3-Receding-Horizon-Control">1.2.3 Receding Horizon Control</a><ul>
-<li><a href="https://ndcbe.github.io/CBE60499/01.02-Pyomo-Mini-Project.html#1.2.3.1-Write-Pseudocode">1.2.3.1 Write Pseudocode</a></li>
-<li><a href="https://ndcbe.github.io/CBE60499/01.02-Pyomo-Mini-Project.html#1.2.3.2-Python-Code">1.2.3.2 Python Code</a></li>
-<li><a href="https://ndcbe.github.io/CBE60499/01.02-Pyomo-Mini-Project.html#1.2.3.3-Simulate-Performance-Over-3-Days">1.2.3.3 Simulate Performance Over 3 Days</a></li>
-<li><a href="https://ndcbe.github.io/CBE60499/01.02-Pyomo-Mini-Project.html#1.2.3.4-Impact-of-Horizon-Length">1.2.3.4 Impact of Horizon Length</a></li>
-<li><a href="https://ndcbe.github.io/CBE60499/01.02-Pyomo-Mini-Project.html#1.2.3.5-Impact-of-Periodic-Boundary-Condition">1.2.3.5 Impact of Periodic Boundary Condition</a></li>
-</ul>
-</li>
-<li><a href="https://ndcbe.github.io/CBE60499/01.02-Pyomo-Mini-Project.html#1.2.4-Forecast-Uncertainty-(required-for-CBE-60499,-optional-for-CBE-40499">1.2.4 Forecast Uncertainty (required for CBE 60499, optional for CBE 40499)</a>)</li>
-</ul>
-<h2 id="Chapter-2.0-Optimization-Modeling-with-Applications"><a href="https://ndcbe.github.io/CBE60499/02.00-Optimization-Modeling.html">Chapter 2.0 Optimization Modeling with Applications</a><a class="anchor-link" href="#Chapter-2.0-Optimization-Modeling-with-Applications">&#182;</a></h2><ul>
-<li><a href="https://ndcbe.github.io/CBE60499/02.00-Optimization-Modeling.html#2.0.1-Recommended-Reading">2.0.1 Recommended Reading</a></li>
-<li><a href="https://ndcbe.github.io/CBE60499/02.00-Optimization-Modeling.html#2.0.2-Taxonomy-of-Optimization-Problems">2.0.2 Taxonomy of Optimization Problems</a></li>
-<li>Markdown Figures<ul>
-<li><a href="./figures/pyomo_book_cover.jpg">pyomo_book</a></li>
-<li><a href="./figures/nlp_book_cover.jpg">nlp_book</a></li>
-<li><a href="./figures/classification.png">taxonomy</a></li>
-<li><a href="./figures/minlp.png">minlp_formulation</a></li>
-<li><a href="./figures/apps_table.png">optimization_examples</a></li>
-</ul>
-</li>
-<li>Figure files used<ul>
-<li><a href="https://ndcbe.github.io/CBE60499/figures/classification.png">figures/classification.png</a></li>
-<li><a href="https://ndcbe.github.io/CBE60499/figures/pyomo_book_cover.jpg">figures/pyomo_book_cover.jpg</a></li>
-<li><a href="https://ndcbe.github.io/CBE60499/figures/nlp_book_cover.jpg">figures/nlp_book_cover.jpg</a></li>
-<li><a href="https://ndcbe.github.io/CBE60499/figures/minlp.png">figures/minlp.png</a></li>
-<li><a href="https://ndcbe.github.io/CBE60499/figures/apps_table.png">figures/apps_table.png</a></li>
-</ul>
-</li>
-</ul>
-<h3 id="2.1-Continuous-Optimization"><a href="https://ndcbe.github.io/CBE60499/02.01-LP-NLP.html">2.1 Continuous Optimization</a><a class="anchor-link" href="#2.1-Continuous-Optimization">&#182;</a></h3><ul>
-<li><a href="https://ndcbe.github.io/CBE60499/02.01-LP-NLP.html#2.1.1-Linear-Programs:-Student-Diet-Example">2.1.1 Linear Programs: Student Diet Example</a><ul>
-<li><a href="https://ndcbe.github.io/CBE60499/02.01-LP-NLP.html#2.1.1.1-Propose-an-Optimization-Model">2.1.1.1 Propose an Optimization Model</a></li>
-<li><a href="https://ndcbe.github.io/CBE60499/02.01-LP-NLP.html#2.1.1.2-Solve-in-Pyomo">2.1.1.2 Solve in Pyomo</a></li>
-<li><a href="https://ndcbe.github.io/CBE60499/02.01-LP-NLP.html#2.1.1.3-Analyze-Results">2.1.1.3 Analyze Results</a></li>
-</ul>
-</li>
-<li><a href="https://ndcbe.github.io/CBE60499/02.01-LP-NLP.html#2.1.2-Nonlinear-Programs:-Circle-Packing-Example">2.1.2 Nonlinear Programs: Circle Packing Example</a><ul>
-<li><a href="https://ndcbe.github.io/CBE60499/02.01-LP-NLP.html#2.1.2.1-Propose-an-Optimization-Model">2.1.2.1 Propose an Optimization Model</a></li>
-<li><a href="https://ndcbe.github.io/CBE60499/02.01-LP-NLP.html#2.1.2.2-Implement-in-Pyomo">2.1.2.2 Implement in Pyomo</a></li>
-<li><a href="https://ndcbe.github.io/CBE60499/02.01-LP-NLP.html#2.1.2.3-Visualize-Initial-Point">2.1.2.3 Visualize Initial Point</a></li>
-<li><a href="https://ndcbe.github.io/CBE60499/02.01-LP-NLP.html#2.1.2.4-Solve-and-Inspect-the-Solution">2.1.2.4 Solve and Inspect the Solution</a></li>
-<li><a href="https://ndcbe.github.io/CBE60499/02.01-LP-NLP.html#2.1.2.5-Reinitialize-and-Resolve">2.1.2.5 Reinitialize and Resolve</a></li>
-</ul>
-</li>
-<li><a href="https://ndcbe.github.io/CBE60499/02.01-LP-NLP.html#2.1.3-Take-Away-Messages">2.1.3 Take Away Messages</a></li>
-<li>Markdown Figures<ul>
-<li><a href="./figures/pack1.png">picture</a></li>
-<li><a href="./figures/pack2.png">picture</a></li>
-<li><a href="./figures/pack3.png">picture</a></li>
-</ul>
-</li>
-<li>Figure files used<ul>
-<li><a href="https://ndcbe.github.io/CBE60499/figures/pack1.png">figures/pack1.png</a></li>
-<li><a href="https://ndcbe.github.io/CBE60499/figures/pack3.png">figures/pack3.png</a></li>
-<li><a href="https://ndcbe.github.io/CBE60499/figures/pack2.png">figures/pack2.png</a></li>
-</ul>
-</li>
-</ul>
-<h3 id="2.2-Integer-Programs"><a href="https://ndcbe.github.io/CBE60499/02.02-IP.html">2.2 Integer Programs</a><a class="anchor-link" href="#2.2-Integer-Programs">&#182;</a></h3><ul>
-<li><a href="https://ndcbe.github.io/CBE60499/02.02-IP.html#2.2.1-Optimizing-Across-Process-Alternatives">2.2.1 Optimizing Across Process Alternatives</a><ul>
-<li><a href="https://ndcbe.github.io/CBE60499/02.02-IP.html#2.2.1.1-Develop-the-optimization-model">2.2.1.1 Develop the optimization model</a></li>
-<li><a href="https://ndcbe.github.io/CBE60499/02.02-IP.html#2.2.1.2-Solve-with-Continuous-Cost-Model-in-Pyomo">2.2.1.2 Solve with Continuous Cost Model in Pyomo</a></li>
-<li><a href="https://ndcbe.github.io/CBE60499/02.02-IP.html#2.2.1.3-Initialize-to-Favor-Reaction-1-and-Solve">2.2.1.3 Initialize to Favor Reaction 1 and Solve</a></li>
-<li><a href="https://ndcbe.github.io/CBE60499/02.02-IP.html#2.2.1.4-Initialize-to-Favor-Reaction-2-and-Solve">2.2.1.4 Initialize to Favor Reaction 2 and Solve</a></li>
-<li><a href="https://ndcbe.github.io/CBE60499/02.02-IP.html#2.2.1.5-Discrete-Cost-Model">2.2.1.5 Discrete Cost Model</a></li>
-<li><a href="https://ndcbe.github.io/CBE60499/02.02-IP.html#2.2.1.6-Enumerate-the-solutions">2.2.1.6 Enumerate the solutions</a></li>
-<li><a href="https://ndcbe.github.io/CBE60499/02.02-IP.html#2.2.1.7-Solve-with-Pyomo">2.2.1.7 Solve with Pyomo</a></li>
-</ul>
-</li>
-<li><a href="https://ndcbe.github.io/CBE60499/02.02-IP.html#2.2.2-Is-rounding-good-enough?">2.2.2 Is rounding good enough?</a><ul>
-<li><a href="https://ndcbe.github.io/CBE60499/02.02-IP.html#2.2.2.1-Linear-Program-(Relaxation">2.2.2.1 Linear Program (Relaxation)</a>)</li>
-<li><a href="https://ndcbe.github.io/CBE60499/02.02-IP.html#2.2.2.2-Rounding">2.2.2.2 Rounding</a></li>
-<li><a href="https://ndcbe.github.io/CBE60499/02.02-IP.html#2.2.2.3-Integer-Program">2.2.2.3 Integer Program</a></li>
-<li><a href="https://ndcbe.github.io/CBE60499/02.02-IP.html#2.2.2.4-Why-rounding-does-not-always-work">2.2.2.4 Why rounding does not always work</a></li>
-</ul>
-</li>
-<li>Markdown Figures<ul>
-<li><a href="./figures/feasible.png">feasible</a></li>
-</ul>
-</li>
-<li>Figure files used<ul>
-<li><a href="https://ndcbe.github.io/CBE60499/figures/feasible.png">figures/feasible.png</a></li>
-</ul>
-</li>
-</ul>
-<h3 id="2.3-Logical-Modeling-and-Generalized-Disjunctive-Programs"><a href="https://ndcbe.github.io/CBE60499/02.03-GDP.html">2.3 Logical Modeling and Generalized Disjunctive Programs</a><a class="anchor-link" href="#2.3-Logical-Modeling-and-Generalized-Disjunctive-Programs">&#182;</a></h3><ul>
-<li><a href="https://ndcbe.github.io/CBE60499/02.03-GDP.html#2.3.1-Logical-Modeling">2.3.1 Logical Modeling</a></li>
-<li><a href="https://ndcbe.github.io/CBE60499/02.03-GDP.html#2.3.2-Pyomo.GDP:-Strip-Packing-Problem">2.3.2 Pyomo.GDP: Strip Packing Problem</a><ul>
-<li><a href="https://ndcbe.github.io/CBE60499/02.03-GDP.html#2.3.2.1-Define-model-in-Pyomo-with-GDP">2.3.2.1 Define model in Pyomo with GDP</a></li>
-<li><a href="https://ndcbe.github.io/CBE60499/02.03-GDP.html#2.3.2.2-Transform-and-Solve-with-Big-M-Relaxation">2.3.2.2 Transform and Solve with Big M Relaxation</a></li>
-<li><a href="https://ndcbe.github.io/CBE60499/02.03-GDP.html#2.3.2.3-Transform-and-Solve-with-Convex-Hull-Relaxation">2.3.2.3 Transform and Solve with Convex Hull Relaxation</a></li>
-</ul>
-</li>
-<li>Markdown Figures<ul>
-<li><a href="./figures/logical_modeling1.png">logic_rules1</a></li>
-<li><a href="./figures/logical_modeling2.png">logic_rules2</a></li>
-<li><a href="./figures/logical_rules.png">logic_table</a></li>
-<li><a href="./figures/strip_packing.png">packing</a></li>
-</ul>
-</li>
-<li>Figure files used<ul>
-<li><a href="https://ndcbe.github.io/CBE60499/figures/strip_packing.png">figures/strip_packing.png</a></li>
-<li><a href="https://ndcbe.github.io/CBE60499/figures/logical_modeling2.png">figures/logical_modeling2.png</a></li>
-<li><a href="https://ndcbe.github.io/CBE60499/figures/logical_rules.png">figures/logical_rules.png</a></li>
-<li><a href="https://ndcbe.github.io/CBE60499/figures/logical_modeling1.png">figures/logical_modeling1.png</a></li>
-</ul>
-</li>
-</ul>
-<h3 id="2.4-Dynamic-Optimization:-Differential-Algebraic-Equations-(DAEs)"><a href="https://ndcbe.github.io/CBE60499/02.04-DAE-modeling.html">2.4 Dynamic Optimization: Differential Algebraic Equations (DAEs)</a><a class="anchor-link" href="#2.4-Dynamic-Optimization:-Differential-Algebraic-Equations-(DAEs)">&#182;</a></h3><ul>
-<li><a href="https://ndcbe.github.io/CBE60499/02.04-DAE-modeling.html#2.4.1-Dynamic-Optimization-Overview">2.4.1 Dynamic Optimization Overview</a></li>
-<li><a href="https://ndcbe.github.io/CBE60499/02.04-DAE-modeling.html#2.4.2-DAE-Index-Reduction">2.4.2 DAE Index Reduction</a></li>
-<li><a href="https://ndcbe.github.io/CBE60499/02.04-DAE-modeling.html#2.4.3-DAE-Formulations-for-Simple-Pendulum-Example">2.4.3 DAE Formulations for Simple Pendulum Example</a><ul>
-<li><a href="https://ndcbe.github.io/CBE60499/02.04-DAE-modeling.html#2.4.3.1-Formulation-1:-Index-3-DAE">2.4.3.1 Formulation 1: Index-3 DAE</a></li>
-<li><a href="https://ndcbe.github.io/CBE60499/02.04-DAE-modeling.html#2.4.3.2-Formulation-2:-Pure-ODE-Model">2.4.3.2 Formulation 2: Pure ODE Model</a></li>
-<li><a href="https://ndcbe.github.io/CBE60499/02.04-DAE-modeling.html#2.4.3.3-Formulation-3:-Index-1-DAE-Model">2.4.3.3 Formulation 3: Index-1 DAE Model</a></li>
-<li><a href="https://ndcbe.github.io/CBE60499/02.04-DAE-modeling.html#2.4.3.4-Formulation-4:-Index-1-DAE-Model">2.4.3.4 Formulation 4: Index-1 DAE Model</a></li>
-</ul>
-</li>
-<li><a href="https://ndcbe.github.io/CBE60499/02.04-DAE-modeling.html#2.4.4-Take-Away-Messages">2.4.4 Take Away Messages</a></li>
-<li>Markdown Figures<ul>
-<li><a href="./figures/dynamic_optimization_strategies.png">dynamic-optimization-strategies</a></li>
-<li><a href="./figures/sequential_dae_optimization.png">sequential_dae_optimization</a></li>
-<li><a href="./figures/dae_form1.png">dae-form1</a></li>
-<li><a href="./figures/dae_form2.png">dae-form2</a></li>
-<li><a href="./figures/dae_reduction.png">dae-reduction</a></li>
-<li><a href="./figures/casadi-error1.png">casadi-error-1</a></li>
-<li><a href="./figures/casadi-error2.png">casadi-error-2</a></li>
-</ul>
-</li>
-<li>Figure files used<ul>
-<li><a href="https://ndcbe.github.io/CBE60499/figures/dae_reduction.png">figures/dae_reduction.png</a></li>
-<li><a href="https://ndcbe.github.io/CBE60499/figures/dynamic_optimization_strategies.png">figures/dynamic_optimization_strategies.png</a></li>
-<li><a href="https://ndcbe.github.io/CBE60499/figures/casadi-error1.png">figures/casadi-error1.png</a></li>
-<li><a href="https://ndcbe.github.io/CBE60499/figures/sequential_dae_optimization.png">figures/sequential_dae_optimization.png</a></li>
-<li><a href="https://ndcbe.github.io/CBE60499/figures/casadi-error2.png">figures/casadi-error2.png</a></li>
-<li><a href="https://ndcbe.github.io/CBE60499/figures/dae_form2.png">figures/dae_form2.png</a></li>
-<li><a href="https://ndcbe.github.io/CBE60499/figures/dae_form1.png">figures/dae_form1.png</a></li>
-</ul>
-</li>
-</ul>
-<h3 id="2.5-Numeric-Integration-for-DAEs"><a href="https://ndcbe.github.io/CBE60499/02.05-Numeric-Integration.html">2.5 Numeric Integration for DAEs</a><a class="anchor-link" href="#2.5-Numeric-Integration-for-DAEs">&#182;</a></h3><ul>
-<li><a href="https://ndcbe.github.io/CBE60499/02.05-Numeric-Integration.html#2.5.1-Single-Step-Runge-Kutta-Methods">2.5.1 Single-Step Runge-Kutta Methods</a><ul>
-<li><a href="https://ndcbe.github.io/CBE60499/02.05-Numeric-Integration.html#2.5.1.1-General-Form:-Index-0-DAE">2.5.1.1 General Form: Index 0 DAE</a></li>
-<li><a href="https://ndcbe.github.io/CBE60499/02.05-Numeric-Integration.html#2.5.1.2-Explicit-(Forward">2.5.1.2 Explicit (Forward) Euler</a>-Euler)</li>
-<li><a href="https://ndcbe.github.io/CBE60499/02.05-Numeric-Integration.html#2.5.1.3-Implicit-(Backward">2.5.1.3 Implicit (Backward) Euler</a>-Euler)</li>
-<li><a href="https://ndcbe.github.io/CBE60499/02.05-Numeric-Integration.html#2.5.1.4-Comparison">2.5.1.4 Comparison</a></li>
-<li><a href="https://ndcbe.github.io/CBE60499/02.05-Numeric-Integration.html#2.5.1.5-Stability">2.5.1.5 Stability</a></li>
-<li><a href="https://ndcbe.github.io/CBE60499/02.05-Numeric-Integration.html#2.5.1.6-Error-Analysis">2.5.1.6 Error Analysis</a></li>
-<li><a href="https://ndcbe.github.io/CBE60499/02.05-Numeric-Integration.html#2.5.1.7-Extensions-to-DAEs">2.5.1.7 Extensions to DAEs</a></li>
-</ul>
-</li>
-<li><a href="https://ndcbe.github.io/CBE60499/02.05-Numeric-Integration.html#2.5.2-Quadrature-Rules">2.5.2 Quadrature Rules</a><ul>
-<li><a href="https://ndcbe.github.io/CBE60499/02.05-Numeric-Integration.html#2.5.2.1-Main-Idea">2.5.2.1 Main Idea</a></li>
-<li><a href="https://ndcbe.github.io/CBE60499/02.05-Numeric-Integration.html#2.5.2.2-Degree-and-order-of-a-polynomial">2.5.2.2 Degree and order of a polynomial</a></li>
-<li><a href="https://ndcbe.github.io/CBE60499/02.05-Numeric-Integration.html#2.5.2.3-Gauss-Legrenge-Quadrature">2.5.2.3 Gauss-Legrenge Quadrature</a></li>
-<li><a href="https://ndcbe.github.io/CBE60499/02.05-Numeric-Integration.html#2.5.2.4-Code">2.5.2.4 Code</a></li>
-<li><a href="https://ndcbe.github.io/CBE60499/02.05-Numeric-Integration.html#2.5.2.5-Visualize-Weights">2.5.2.5 Visualize Weights</a></li>
-<li><a href="https://ndcbe.github.io/CBE60499/02.05-Numeric-Integration.html#2.5.2.6-Why-$2L-1$?">2.5.2.6 Why $2L-1$?</a></li>
-<li><a href="https://ndcbe.github.io/CBE60499/02.05-Numeric-Integration.html#2.5.2.7-How-to-determine-the-nodes-and-weights?">2.5.2.7 How to determine the nodes and weights?</a></li>
-<li><a href="https://ndcbe.github.io/CBE60499/02.05-Numeric-Integration.html#2.5.2.8-Polynomial-Example">2.5.2.8 Polynomial Example</a></li>
-<li><a href="https://ndcbe.github.io/CBE60499/02.05-Numeric-Integration.html#2.5.2.9-Generalization">2.5.2.9 Generalization</a></li>
-<li><a href="https://ndcbe.github.io/CBE60499/02.05-Numeric-Integration.html#2.5.2.10-Another-Example">2.5.2.10 Another Example</a></li>
-<li><a href="https://ndcbe.github.io/CBE60499/02.05-Numeric-Integration.html#2.5.2.11-A-More-Complicated-Example">2.5.2.11 A More Complicated Example</a></li>
-<li><a href="https://ndcbe.github.io/CBE60499/02.05-Numeric-Integration.html#2.5.2.12-Radau-Quadrature">2.5.2.12 Radau Quadrature</a></li>
-<li><a href="https://ndcbe.github.io/CBE60499/02.05-Numeric-Integration.html#2.5.2.13-Differential-Equations">2.5.2.13 Differential Equations</a></li>
-</ul>
-</li>
-<li>Markdown Links<ul>
-<li><a href="https://epubs.siam.org/doi/book/10.1137/1.9780898719383">Biegler (2010)</a></li>
-<li><a href="https://www.sciencedirect.com/book/9780128122532/computational-nuclear-engineering-and-radiological-science-using-python">McClarren (2018)</a></li>
-<li><a href="https://en.wikipedia.org/wiki/Runge%E2%80%93Kutta_methods#Explicit_Runge">Butcher block</a></li>
-<li><a href="https://en.wikiversity.org/wiki/Numerical_Analysis/stability_of_RK_methods"><strong>consistent</strong></a></li>
-<li><a href="https://www.sciencedirect.com/book/9780128122532/computational-nuclear-engineering-and-radiological-science-using-python">McClarren (2018)</a></li>
-<li><a href="https://epubs.siam.org/doi/book/10.1137/1.9780898719383">Biegler (2010)</a></li>
-</ul>
-</li>
-</ul>
-<h3 id="2.6-Dynamic-Optimization-with-Pyomo.DAE"><a href="https://ndcbe.github.io/CBE60499/02.06-Pyomo-DAE.html">2.6 Dynamic Optimization with Pyomo.DAE</a><a class="anchor-link" href="#2.6-Dynamic-Optimization-with-Pyomo.DAE">&#182;</a></h3><ul>
-<li><a href="https://ndcbe.github.io/CBE60499/02.06-Pyomo-DAE.html#2.6.1-Car-Example">2.6.1 Car Example</a><ul>
-<li><a href="https://ndcbe.github.io/CBE60499/02.06-Pyomo-DAE.html#2.6.1.1-Orthogonal-Collocation-on-Finite-Elements:-Manual-Approach">2.6.1.1 Orthogonal Collocation on Finite Elements: Manual Approach</a></li>
-<li><a href="https://ndcbe.github.io/CBE60499/02.06-Pyomo-DAE.html#2.6.1.2-Orthogonal-Collocation-on-Finite-Elements:-Pyomo.dae">2.6.1.2 Orthogonal Collocation on Finite Elements: Pyomo.dae</a><ul>
-<li><a href="https://ndcbe.github.io/CBE60499/02.06-Pyomo-DAE.html#2.6.1.2.1-Discretize/Transcribe-and-Solve">2.6.1.2.1 Discretize/Transcribe and Solve</a></li>
-<li><a href="https://ndcbe.github.io/CBE60499/02.06-Pyomo-DAE.html#2.6.1.2.2-Plot-Results">2.6.1.2.2 Plot Results</a></li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<h3 id="2.7-Stochastic-Programming"><a href="https://ndcbe.github.io/CBE60499/02.07-SP.html">2.7 Stochastic Programming</a><a class="anchor-link" href="#2.7-Stochastic-Programming">&#182;</a></h3><ul>
-<li><a href="https://ndcbe.github.io/CBE60499/02.07-SP.html#2.7.1-Key-Concepts">2.7.1 Key Concepts</a><ul>
-<li><a href="https://ndcbe.github.io/CBE60499/02.07-SP.html#2.7.1.1-Infinite-Dimensional-Formulation">2.7.1.1 Infinite Dimensional Formulation</a></li>
-<li><a href="https://ndcbe.github.io/CBE60499/02.07-SP.html#2.7.1.2-Discrete-(Finite-Dimensional">2.7.1.2 Discrete (Finite Dimensional) Approximations</a>-Approximations)</li>
-<li><a href="https://ndcbe.github.io/CBE60499/02.07-SP.html#2.7.1.3-Sample-Average-Approximation">2.7.1.3 Sample Average Approximation</a></li>
-<li><a href="https://ndcbe.github.io/CBE60499/02.07-SP.html#2.7.1.4-Sparse-Grids-(Worst-Case">2.7.1.4 Sparse Grids (Worst Case)</a>)</li>
-</ul>
-</li>
-<li><a href="https://ndcbe.github.io/CBE60499/02.07-SP.html#2.7.2-Farmers-Example">2.7.2 Farmers Example</a></li>
-<li><a href="https://ndcbe.github.io/CBE60499/02.07-SP.html#2.7.3-PID-Controller-Tuning-Example">2.7.3 PID Controller Tuning Example</a></li>
-</ul>
-<h3 id="2.8-Parameter-estimation-with-parmest"><a href="https://ndcbe.github.io/CBE60499/02.08-Parmest-tutorial.html">2.8 Parameter estimation with parmest</a><a class="anchor-link" href="#2.8-Parameter-estimation-with-parmest">&#182;</a></h3><ul>
-<li><a href="https://ndcbe.github.io/CBE60499/02.08-Parmest-tutorial.html#2.8.1-What-is-parameter-estimation?">2.8.1 What is parameter estimation?</a></li>
-<li><a href="https://ndcbe.github.io/CBE60499/02.08-Parmest-tutorial.html#2.8.2-What-is-`parmest`?">2.8.2 What is <code>parmest</code>?</a></li>
-<li><a href="https://ndcbe.github.io/CBE60499/02.08-Parmest-tutorial.html#2.8.3-Example:-Reaction-Kinetics">2.8.3 Example: Reaction Kinetics</a><ul>
-<li><a href="https://ndcbe.github.io/CBE60499/02.08-Parmest-tutorial.html#2.8.3.1-Batch-Reactor">2.8.3.1 Batch Reactor</a></li>
-<li><a href="https://ndcbe.github.io/CBE60499/02.08-Parmest-tutorial.html#2.8.3.2-Experimental-Data">2.8.3.2 Experimental Data</a></li>
-<li><a href="https://ndcbe.github.io/CBE60499/02.08-Parmest-tutorial.html#2.8.3.3-Pyomo-model">2.8.3.3 Pyomo model</a></li>
-</ul>
-</li>
-<li><a href="https://ndcbe.github.io/CBE60499/02.08-Parmest-tutorial.html#2.8.4-Parameter-estimation-with-a-single-dataset">2.8.4 Parameter estimation with a single dataset</a></li>
-<li><a href="https://ndcbe.github.io/CBE60499/02.08-Parmest-tutorial.html#2.8.5-Parameter-estimation-with-multiple-datasets">2.8.5 Parameter estimation with multiple datasets</a><ul>
-<li><a href="https://ndcbe.github.io/CBE60499/02.08-Parmest-tutorial.html#2.8.5.1-Generate-list-of-dataset">2.8.5.1 Generate list of dataset</a></li>
-<li><a href="https://ndcbe.github.io/CBE60499/02.08-Parmest-tutorial.html#2.8.5.2-Parameter-estimation-with-parmest">2.8.5.2 Parameter estimation with parmest</a></li>
-<li><a href="https://ndcbe.github.io/CBE60499/02.08-Parmest-tutorial.html#2.8.5.3-Plotting-fitted-model-simulation-with-&#39;experimental&#39;-data">2.8.5.3 Plotting fitted model simulation with 'experimental' data</a></li>
-</ul>
-</li>
-<li><a href="https://ndcbe.github.io/CBE60499/02.08-Parmest-tutorial.html#2.8.6-Using-`parmest`-with-`pyomo.dae`">2.8.6 Using <code>parmest</code> with <code>pyomo.dae</code></a><ul>
-<li><a href="https://ndcbe.github.io/CBE60499/02.08-Parmest-tutorial.html#2.8.6.1-Parameter-estimation-with-parmest">2.8.6.1 Parameter estimation with parmest</a></li>
-<li><a href="https://ndcbe.github.io/CBE60499/02.08-Parmest-tutorial.html#2.8.6.2-Plotting-fitted-model-simulation-with-&#39;experimental&#39;-data">2.8.6.2 Plotting fitted model simulation with 'experimental' data</a></li>
-</ul>
-</li>
-<li><a href="https://ndcbe.github.io/CBE60499/02.08-Parmest-tutorial.html#2.8.7-Local-uncertainty-analysis">2.8.7 Local uncertainty analysis</a><ul>
-<li><a href="https://ndcbe.github.io/CBE60499/02.08-Parmest-tutorial.html#2.8.7.1-Covariance-matrix">2.8.7.1 Covariance matrix</a></li>
-<li><a href="https://ndcbe.github.io/CBE60499/02.08-Parmest-tutorial.html#2.8.7.2-Parameter-identifiability">2.8.7.2 Parameter identifiability</a></li>
-</ul>
-</li>
-<li><a href="https://ndcbe.github.io/CBE60499/02.08-Parmest-tutorial.html#2.8.8-Nonlinear-confidence-regions">2.8.8 Nonlinear confidence regions</a></li>
-<li><a href="https://ndcbe.github.io/CBE60499/02.08-Parmest-tutorial.html#2.8.9-Bootstrap-confidence-regions">2.8.9 Bootstrap confidence regions</a></li>
-<li>Markdown Links<ul>
-<li><a href="https://github.com/kanishka-ghosh">Kanishka Ghosh</a></li>
-<li><a href="https://github.com/jialuw96">Jialu Wang</a></li>
-<li><a href="https://github.com/adowling2/">Prof. Alex Dowling</a></li>
-<li><a href="http://www.pyomo.org/">Pyomo optimization modeling language</a></li>
-<li><a href="https://github.com/Pyomo/pysp">PySP</a></li>
-<li><a href="https://pyomo.readthedocs.io/en/stable/contributed_packages/parmest/index.html">here</a></li>
-</ul>
-</li>
-</ul>
-<h3 id="2.9-Supplementary-material:-data-for-parmest-tutorial"><a href="https://ndcbe.github.io/CBE60499/02.09-Parmest-generate-data.html">2.9 Supplementary material: data for parmest tutorial</a><a class="anchor-link" href="#2.9-Supplementary-material:-data-for-parmest-tutorial">&#182;</a></h3><ul>
-<li><a href="https://ndcbe.github.io/CBE60499/02.09-Parmest-generate-data.html#2.9.1-Reaction-Kinetics-Example">2.9.1 Reaction Kinetics Example</a><ul>
-<li><a href="https://ndcbe.github.io/CBE60499/02.09-Parmest-generate-data.html#2.9.1.1-Simulating-experimental-data">2.9.1.1 Simulating experimental data</a></li>
-<li><a href="https://ndcbe.github.io/CBE60499/02.09-Parmest-generate-data.html#2.9.1.2-Simulate-data-for-multiple-experiments">2.9.1.2 Simulate data for multiple experiments</a></li>
-</ul>
-</li>
-<li>Markdown Links<ul>
-<li><a href="https://github.com/kanishka-ghosh">Kanishka Ghosh</a></li>
-<li><a href="https://github.com/jialuw96">Jialu Wang</a></li>
-<li><a href="https://github.com/adowling2/">Prof. Alex Dowling</a></li>
-</ul>
-</li>
-</ul>
-<h3 id="2.10-Pyomo-Homework-1"><a href="https://ndcbe.github.io/CBE60499/02.10-Pyomo1.html">2.10 Pyomo Homework 1</a><a class="anchor-link" href="#2.10-Pyomo-Homework-1">&#182;</a></h3><ul>
-<li><a href="https://ndcbe.github.io/CBE60499/02.10-Pyomo1.html#2.10.1-Pyomo-Fundamentals">2.10.1 Pyomo Fundamentals</a><ul>
-<li><a href="https://ndcbe.github.io/CBE60499/02.10-Pyomo1.html#2.10.1.1-Knapsack-example">2.10.1.1 Knapsack example</a></li>
-<li><a href="https://ndcbe.github.io/CBE60499/02.10-Pyomo1.html#2.10.1.2-Knapsack-example-with-improve-printing">2.10.1.2 Knapsack example with improve printing</a></li>
-<li><a href="https://ndcbe.github.io/CBE60499/02.10-Pyomo1.html#2.10.1.3-Changing-data">2.10.1.3 Changing data</a></li>
-<li><a href="https://ndcbe.github.io/CBE60499/02.10-Pyomo1.html#2.10.1.4-Loading-data-from-Excel">2.10.1.4 Loading data from Excel</a></li>
-<li><a href="https://ndcbe.github.io/CBE60499/02.10-Pyomo1.html#2.10.1.5-NLP-vs.-MIP">2.10.1.5 NLP vs. MIP</a></li>
-</ul>
-</li>
-<li><a href="https://ndcbe.github.io/CBE60499/02.10-Pyomo1.html#2.10.2-More-Pyomo-Fundamentals">2.10.2 More Pyomo Fundamentals</a><ul>
-<li><a href="https://ndcbe.github.io/CBE60499/02.10-Pyomo1.html#2.10.2.1-Knapsack-problem-with-rules">2.10.2.1 Knapsack problem with rules</a></li>
-<li><a href="https://ndcbe.github.io/CBE60499/02.10-Pyomo1.html#2.10.2.2-Integer-formulation-of-the-knapsack-problem">2.10.2.2 Integer formulation of the knapsack problem</a></li>
-</ul>
-</li>
-</ul>
-<h3 id="2.11-Pyomo-Homework-2"><a href="https://ndcbe.github.io/CBE60499/02.11-Pyomo2.html">2.11 Pyomo Homework 2</a><a class="anchor-link" href="#2.11-Pyomo-Homework-2">&#182;</a></h3><ul>
-<li><a href="https://ndcbe.github.io/CBE60499/02.11-Pyomo2.html#2.11.1-Some-Advanced-Pyomo-Tricks">2.11.1 Some Advanced Pyomo Tricks</a><ul>
-<li><a href="https://ndcbe.github.io/CBE60499/02.11-Pyomo2.html#2.11.1.1-Using-the-decorator-notation-for-rules">2.11.1.1 Using the decorator notation for rules</a></li>
-<li><a href="https://ndcbe.github.io/CBE60499/02.11-Pyomo2.html#2.11.1.2-Changing-parameter-values">2.11.1.2 Changing parameter values</a></li>
-<li><a href="https://ndcbe.github.io/CBE60499/02.11-Pyomo2.html#2.11.1.3-Integer-cuts">2.11.1.3 Integer cuts</a></li>
-<li><a href="https://ndcbe.github.io/CBE60499/02.11-Pyomo2.html#2.11.1.4-Putting-it-all-together:-Lot-sizing-example-(Hart-et-al.,-2017">2.11.1.4 Putting it all together: Lot sizing example (Hart et al., 2017)</a>)</li>
-</ul>
-</li>
-<li><a href="https://ndcbe.github.io/CBE60499/02.11-Pyomo2.html#2.11.2-Nonlinear-programs:-initial-and-problem-formulation-are-very-important!">2.11.2 Nonlinear programs: initial and problem formulation are very important!</a><ul>
-<li><a href="https://ndcbe.github.io/CBE60499/02.11-Pyomo2.html#2.11.2.1-Alternative-initialization">2.11.2.1 Alternative initialization</a></li>
-<li><a href="https://ndcbe.github.io/CBE60499/02.11-Pyomo2.html#2.11.2.2-Evaluation-errors">2.11.2.2 Evaluation errors</a></li>
-<li><a href="https://ndcbe.github.io/CBE60499/02.11-Pyomo2.html#2.11.2.3-Alternative-formulations">2.11.2.3 Alternative formulations</a><ul>
-<li><a href="https://ndcbe.github.io/CBE60499/02.11-Pyomo2.html#2.11.2.3.1-Formulation-1">2.11.2.3.1 Formulation 1</a></li>
-<li><a href="https://ndcbe.github.io/CBE60499/02.11-Pyomo2.html#2.11.2.3.2-Formulation-2">2.11.2.3.2 Formulation 2</a></li>
-<li><a href="https://ndcbe.github.io/CBE60499/02.11-Pyomo2.html#2.11.2.3.3-Formulation-3">2.11.2.3.3 Formulation 3</a></li>
-</ul>
-</li>
-<li><a href="https://ndcbe.github.io/CBE60499/02.11-Pyomo2.html#2.11.2.4-Reactor-design-problem-(Hart-et-al.,-2017;-Bequette,-2003">2.11.2.4 Reactor design problem (Hart et al., 2017; Bequette, 2003)</a>)</li>
-</ul>
-</li>
-<li>Markdown Links<ul>
-<li><a href="https://en.wikipedia.org/wiki/Rosenbrock_function">Rosenbrock problem</a></li>
-<li><a href="https://en.wikipedia.org/wiki/Rosenbrock_function">Rosenbrock problem</a></li>
-</ul>
-</li>
-</ul>
-<h3 id="2.12-Pyomo-Homework-3"><a href="https://ndcbe.github.io/CBE60499/02.12-Pyomo3.html">2.12 Pyomo Homework 3</a><a class="anchor-link" href="#2.12-Pyomo-Homework-3">&#182;</a></h3><ul>
-<li><a href="https://ndcbe.github.io/CBE60499/02.12-Pyomo3.html#2.12.1-Pyomo.DAE:-Reaction-Kinetics">2.12.1 Pyomo.DAE: Reaction Kinetics</a><ul>
-<li><a href="https://ndcbe.github.io/CBE60499/02.12-Pyomo3.html#2.12.1.1-Index-analysis">2.12.1.1 Index analysis</a></li>
-<li><a href="https://ndcbe.github.io/CBE60499/02.12-Pyomo3.html#2.12.1.2-Model-reformulation">2.12.1.2 Model reformulation</a></li>
-<li><a href="https://ndcbe.github.io/CBE60499/02.12-Pyomo3.html#2.12.1.3-Implement-index-1-model-in-Pyomo">2.12.1.3 Implement index 1 model in Pyomo</a><ul>
-<li><a href="https://ndcbe.github.io/CBE60499/02.12-Pyomo3.html#2.12.1.3.1-Create-model-and-set-initial-conditions">2.12.1.3.1 Create model and set initial conditions</a></li>
-</ul>
-</li>
-<li><a href="https://ndcbe.github.io/CBE60499/02.12-Pyomo3.html#2.12.1.4-Simulate,-discretize,-and-initialize-collocation-model">2.12.1.4 Simulate, discretize, and initialize collocation model</a></li>
-<li><a href="https://ndcbe.github.io/CBE60499/02.12-Pyomo3.html#2.12.1.5-Plot-results">2.12.1.5 Plot results</a></li>
-<li><a href="https://ndcbe.github.io/CBE60499/02.12-Pyomo3.html#2.12.1.6-Simulate-and-solve-Pyomo-model-with-initialization">2.12.1.6 Simulate and solve Pyomo model with initialization</a></li>
-<li><a href="https://ndcbe.github.io/CBE60499/02.12-Pyomo3.html#2.12.1.7-Simulate-and-solve-Pyomo-model-without-initialization">2.12.1.7 Simulate and solve Pyomo model without initialization</a></li>
-<li><a href="https://ndcbe.github.io/CBE60499/02.12-Pyomo3.html#2.12.1.8-Discussion:-Does-initialization-matter?">2.12.1.8 Discussion: Does initialization matter?</a></li>
-<li><a href="https://ndcbe.github.io/CBE60499/02.12-Pyomo3.html#2.12.1.9-Degree-of-Freedom-Analysis">2.12.1.9 Degree of Freedom Analysis</a></li>
-</ul>
-</li>
-</ul>
-<h2 id="Chapter-3.0-Unconstrained-Nonlinear-Optimization:-Theory-and-Algorithms"><a href="https://ndcbe.github.io/CBE60499/03.00-Unconstrained.html">Chapter 3.0 Unconstrained Nonlinear Optimization: Theory and Algorithms</a><a class="anchor-link" href="#Chapter-3.0-Unconstrained-Nonlinear-Optimization:-Theory-and-Algorithms">&#182;</a></h2><h3 id="3.1-Linear-Algebra-Review-and-SciPy-Basics"><a href="https://ndcbe.github.io/CBE60499/03.01-Math-Primer.html">3.1 Linear Algebra Review and SciPy Basics</a><a class="anchor-link" href="#3.1-Linear-Algebra-Review-and-SciPy-Basics">&#182;</a></h3><ul>
-<li><a href="https://ndcbe.github.io/CBE60499/03.01-Math-Primer.html#3.1.1-Notation-(for-textbook">3.1.1 Notation (for textbook)</a>)</li>
-<li><a href="https://ndcbe.github.io/CBE60499/03.01-Math-Primer.html#3.1.2-Determinant">3.1.2 Determinant</a></li>
-<li><a href="https://ndcbe.github.io/CBE60499/03.01-Math-Primer.html#3.1.3-Rank">3.1.3 Rank</a></li>
-<li><a href="https://ndcbe.github.io/CBE60499/03.01-Math-Primer.html#3.1.4-Inverse">3.1.4 Inverse</a></li>
-<li><a href="https://ndcbe.github.io/CBE60499/03.01-Math-Primer.html#3.1.5-Solving-Linear-Systems">3.1.5 Solving Linear Systems</a><ul>
-<li><a href="https://ndcbe.github.io/CBE60499/03.01-Math-Primer.html#3.1.5.1-Explicit-Inverse">3.1.5.1 Explicit Inverse</a></li>
-<li><a href="https://ndcbe.github.io/CBE60499/03.01-Math-Primer.html#3.1.5.2-LU-Decomposition">3.1.5.2 LU Decomposition</a><ul>
-<li><a href="https://ndcbe.github.io/CBE60499/03.01-Math-Primer.html#3.1.5.2.1-Is-P-orthogonal?">3.1.5.2.1 Is P orthogonal?</a></li>
-<li><a href="https://ndcbe.github.io/CBE60499/03.01-Math-Primer.html#3.1.5.2.2-MATLAB">3.1.5.2.2 MATLAB</a></li>
-<li><a href="https://ndcbe.github.io/CBE60499/03.01-Math-Primer.html#3.1.5.2.3-SciPy">3.1.5.2.3 SciPy</a></li>
-<li><a href="https://ndcbe.github.io/CBE60499/03.01-Math-Primer.html#3.1.5.2.4-Verify-our-answer-with-`linalg.solve`">3.1.5.2.4 Verify our answer with <code>linalg.solve</code></a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li><a href="https://ndcbe.github.io/CBE60499/03.01-Math-Primer.html#3.1.6-Invertable-Matrix-Theorem">3.1.6 Invertable Matrix Theorem</a></li>
-<li><a href="https://ndcbe.github.io/CBE60499/03.01-Math-Primer.html#3.1.7-Eigenvectors-and-Eigenvalues">3.1.7 Eigenvectors and Eigenvalues</a></li>
-<li><a href="https://ndcbe.github.io/CBE60499/03.01-Math-Primer.html#3.1.8-Singular-Value-Decomposition">3.1.8 Singular Value Decomposition</a></li>
-<li><a href="https://ndcbe.github.io/CBE60499/03.01-Math-Primer.html#3.1.9-Vector-and-Matrix-Norms">3.1.9 Vector and Matrix Norms</a></li>
-<li><a href="https://ndcbe.github.io/CBE60499/03.01-Math-Primer.html#3.1.10-Condition-Number">3.1.10 Condition Number</a></li>
-<li>Markdown Figures<ul>
-<li><a href="figures/mat_op1.png">Matrix Operations</a></li>
-<li><a href="figures/mat_op2.png">Matrix Operations</a></li>
-<li><a href="figures/det.png">Book</a></li>
-<li><a href="figures/det_ex1.png">DET</a></li>
-<li><a href="figures/det_ex2.png">DET</a></li>
-<li><a href="figures/rank.png">Book</a></li>
-<li><a href="figures/inv.png">Book</a></li>
-<li><a href="figures/imt1.png">IMT</a></li>
-<li><a href="figures/imt2.png">IMT</a></li>
-<li><a href="figures/imt3.png">IMT</a></li>
-<li><a href="figures/imt4.png">IMT</a></li>
-<li><a href="figures/eig.png">Book</a></li>
-<li><a href="figures/norm1.png">Book</a></li>
-<li><a href="figures/norm2.png">Book</a></li>
-</ul>
-</li>
-<li>Markdown Links<ul>
-<li><a href="https://docs.scipy.org/doc/numpy-1.15.0/reference/">NumPy Documentation - Main Page</a></li>
-<li><a href="https://docs.scipy.org/doc/scipy-1.1.0/reference/">SciPy Documentation - Main Page</a></li>
-<li><a href="https://docs.scipy.org/doc/scipy-1.1.0/reference/tutorial/linalg.html">SciPy Linear Algebra - Tutorial</a></li>
-<li><a href="https://docs.scipy.org/doc/scipy-1.1.0/reference/linalg.html">SciPy Linear Algebra - API</a></li>
-<li><a href="http://www.scipy-lectures.org/">SciPy Lecture Notes</a></li>
-</ul>
-</li>
-<li>Figure files used<ul>
-<li><a href="https://ndcbe.github.io/CBE60499/figures/eig.png">figures/eig.png</a></li>
-<li><a href="https://ndcbe.github.io/CBE60499/figures/det.png">figures/det.png</a></li>
-<li><a href="https://ndcbe.github.io/CBE60499/figures/rank.png">figures/rank.png</a></li>
-<li><a href="https://ndcbe.github.io/CBE60499/figures/inv.png">figures/inv.png</a></li>
-<li><a href="https://ndcbe.github.io/CBE60499/figures/det_ex2.png">figures/det_ex2.png</a></li>
-<li><a href="https://ndcbe.github.io/CBE60499/figures/norm1.png">figures/norm1.png</a></li>
-<li><a href="https://ndcbe.github.io/CBE60499/figures/det_ex1.png">figures/det_ex1.png</a></li>
-<li><a href="https://ndcbe.github.io/CBE60499/figures/imt4.png">figures/imt4.png</a></li>
-<li><a href="https://ndcbe.github.io/CBE60499/figures/norm2.png">figures/norm2.png</a></li>
-<li><a href="https://ndcbe.github.io/CBE60499/figures/mat_op1.png">figures/mat_op1.png</a></li>
-<li><a href="https://ndcbe.github.io/CBE60499/figures/imt1.png">figures/imt1.png</a></li>
-<li><a href="https://ndcbe.github.io/CBE60499/figures/mat_op2.png">figures/mat_op2.png</a></li>
-<li><a href="https://ndcbe.github.io/CBE60499/figures/imt2.png">figures/imt2.png</a></li>
-<li><a href="https://ndcbe.github.io/CBE60499/figures/imt3.png">figures/imt3.png</a></li>
-</ul>
-</li>
-</ul>
-<h3 id="3.2-Mathematics-Primer"><a href="https://ndcbe.github.io/CBE60499/03.02-Math-Primer-2.html">3.2 Mathematics Primer</a><a class="anchor-link" href="#3.2-Mathematics-Primer">&#182;</a></h3><ul>
-<li><a href="https://ndcbe.github.io/CBE60499/03.02-Math-Primer-2.html#3.2.1-Eigenvalues-and-Quadratic-Programs">3.2.1 Eigenvalues and Quadratic Programs</a><ul>
-<li><a href="https://ndcbe.github.io/CBE60499/03.02-Math-Primer-2.html#3.2.1.1-Analysis-Algorithm">3.2.1.1 Analysis Algorithm</a></li>
-<li><a href="https://ndcbe.github.io/CBE60499/03.02-Math-Primer-2.html#3.2.1.2-Excercise-2.8-in-Biegler-(2010">3.2.1.2 Excercise 2.8 in Biegler (2010)</a>)</li>
-<li><a href="https://ndcbe.github.io/CBE60499/03.02-Math-Primer-2.html#3.2.1.3-Activity-1">3.2.1.3 Activity 1</a></li>
-<li><a href="https://ndcbe.github.io/CBE60499/03.02-Math-Primer-2.html#3.2.1.4-Activity-2">3.2.1.4 Activity 2</a></li>
-</ul>
-</li>
-<li><a href="https://ndcbe.github.io/CBE60499/03.02-Math-Primer-2.html#3.2.2-Classifying-Functions-(Key-Concepts-from-Real-Analysis">3.2.2 Classifying Functions (Key Concepts from Real Analysis)</a>)</li>
-<li><a href="https://ndcbe.github.io/CBE60499/03.02-Math-Primer-2.html#3.2.3-Taylor-Series-Approximation">3.2.3 Taylor Series Approximation</a></li>
-<li><a href="https://ndcbe.github.io/CBE60499/03.02-Math-Primer-2.html#3.2.4-Finite-Difference-Approximation">3.2.4 Finite Difference Approximation</a><ul>
-<li><a href="https://ndcbe.github.io/CBE60499/03.02-Math-Primer-2.html#3.2.4.1-Forward-Finite-Difference">3.2.4.1 Forward Finite Difference</a></li>
-<li><a href="https://ndcbe.github.io/CBE60499/03.02-Math-Primer-2.html#3.2.4.2-Backward-Finite-Difference">3.2.4.2 Backward Finite Difference</a></li>
-<li><a href="https://ndcbe.github.io/CBE60499/03.02-Math-Primer-2.html#3.2.4.3-Central-Finite-Difference">3.2.4.3 Central Finite Difference</a></li>
-<li><a href="https://ndcbe.github.io/CBE60499/03.02-Math-Primer-2.html#3.2.4.4-Activity">3.2.4.4 Activity</a><ul>
-<li><a href="https://ndcbe.github.io/CBE60499/03.02-Math-Primer-2.html#3.2.4.4.1-Original:-$f(x">3.2.4.4.1 Original: $f(x) = e^{x}$ at $x=1$</a>-=-e^{x}$-at-$x=1$)</li>
-<li><a href="https://ndcbe.github.io/CBE60499/03.02-Math-Primer-2.html#3.2.4.4.2-Variant:-$f(x">3.2.4.4.2 Variant: $f(x) = e^{x}$ at $x=10$</a>-=-e^{x}$-at-$x=10$)</li>
-<li><a href="https://ndcbe.github.io/CBE60499/03.02-Math-Primer-2.html#3.2.4.4.3-Your-own-test-function">3.2.4.4.3 Your own test function</a></li>
-<li><a href="https://ndcbe.github.io/CBE60499/03.02-Math-Primer-2.html#3.2.4.4.4-Discussion">3.2.4.4.4 Discussion</a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li>Markdown Figures<ul>
-<li><a href="figures/quad1.png">Book</a></li>
-</ul>
-</li>
-<li>Figure files used<ul>
-<li><a href="https://ndcbe.github.io/CBE60499/figures/quad1.png">figures/quad1.png</a></li>
-</ul>
-</li>
-</ul>
-<h3 id="3.3-Unconstrained-Optimality-Conditions"><a href="https://ndcbe.github.io/CBE60499/03.03-Optimality.html">3.3 Unconstrained Optimality Conditions</a><a class="anchor-link" href="#3.3-Unconstrained-Optimality-Conditions">&#182;</a></h3><ul>
-<li><a href="https://ndcbe.github.io/CBE60499/03.03-Optimality.html#3.3.1-Local-and-Global-Solutions">3.3.1 Local and Global Solutions</a></li>
-<li><a href="https://ndcbe.github.io/CBE60499/03.03-Optimality.html#3.3.2-Necessary-Conditions-for-Optimality">3.3.2 Necessary Conditions for Optimality</a></li>
-<li><a href="https://ndcbe.github.io/CBE60499/03.03-Optimality.html#3.3.3-Sufficient-Conditions-for-Optimality">3.3.3 Sufficient Conditions for Optimality</a></li>
-<li><a href="https://ndcbe.github.io/CBE60499/03.03-Optimality.html#3.3.4-Example-2.19-in-Biegler-(2010">3.3.4 Example 2.19 in Biegler (2010)</a>)<ul>
-<li><a href="https://ndcbe.github.io/CBE60499/03.03-Optimality.html#3.3.4.1-The-Test-Function">3.3.4.1 The Test Function</a></li>
-<li><a href="https://ndcbe.github.io/CBE60499/03.03-Optimality.html#3.3.4.2-Finite-Difference-Gradient-and-Hessian">3.3.4.2 Finite Difference Gradient and Hessian</a></li>
-<li><a href="https://ndcbe.github.io/CBE60499/03.03-Optimality.html#3.3.4.3-Analysis-of-Optimality-Conditions">3.3.4.3 Analysis of Optimality Conditions</a></li>
-</ul>
-</li>
-<li><a href="https://ndcbe.github.io/CBE60499/03.03-Optimality.html#3.3.5-Continuous-Optimization-Algorithms">3.3.5 Continuous Optimization Algorithms</a></li>
-<li>Markdown Figures<ul>
-<li><a href="figures/ex2-19.png">Book</a></li>
-</ul>
-</li>
-<li>Figure files used<ul>
-<li><a href="https://ndcbe.github.io/CBE60499/figures/ex2-19.png">figures/ex2-19.png</a></li>
-</ul>
-</li>
-</ul>
-<h3 id="3.4-Newton-type-Methods-for-Unconstrained-Optimization"><a href="https://ndcbe.github.io/CBE60499/03.04-Netwon-Methods.html">3.4 Newton-type Methods for Unconstrained Optimization</a><a class="anchor-link" href="#3.4-Newton-type-Methods-for-Unconstrained-Optimization">&#182;</a></h3><ul>
-<li><a href="https://ndcbe.github.io/CBE60499/03.04-Netwon-Methods.html#3.4.1-Test-Problem:-Example-2.19">3.4.1 Test Problem: Example 2.19</a></li>
-<li><a href="https://ndcbe.github.io/CBE60499/03.04-Netwon-Methods.html#3.4.2-Helper-Functions">3.4.2 Helper Functions</a></li>
-<li><a href="https://ndcbe.github.io/CBE60499/03.04-Netwon-Methods.html#3.4.3-Algorithm-2.1:-Basic-Newton-Method">3.4.3 Algorithm 2.1: Basic Newton Method</a></li>
-<li><a href="https://ndcbe.github.io/CBE60499/03.04-Netwon-Methods.html#3.4.4-Starting-Point-Near-Optimal-Solution">3.4.4 Starting Point Near Optimal Solution</a></li>
-<li><a href="https://ndcbe.github.io/CBE60499/03.04-Netwon-Methods.html#3.4.5-Activity:-A-Different-Starting-Point">3.4.5 Activity: A Different Starting Point</a></li>
-<li><a href="https://ndcbe.github.io/CBE60499/03.04-Netwon-Methods.html#3.4.6-Activity:-Let&#39;s-break-it">3.4.6 Activity: Let's break it</a></li>
-<li><a href="https://ndcbe.github.io/CBE60499/03.04-Netwon-Methods.html#3.4.7-Activity:-Use-$I$-in-place-of-Hessian">3.4.7 Activity: Use $I$ in place of Hessian</a></li>
-<li><a href="https://ndcbe.github.io/CBE60499/03.04-Netwon-Methods.html#3.4.8-Adjust-Hessian-with-Levenberg-Marquardt-Correction">3.4.8 Adjust Hessian with Levenberg-Marquardt Correction</a></li>
-<li>Markdown Figures<ul>
-<li><a href="figures/ex2-19.png">ex2-19</a></li>
-<li><a href="figures/alg2-1.png">alg2-1</a></li>
-</ul>
-</li>
-<li>Figure files used<ul>
-<li><a href="https://ndcbe.github.io/CBE60499/figures/alg2-1.png">figures/alg2-1.png</a></li>
-<li><a href="https://ndcbe.github.io/CBE60499/figures/ex2-19.png">figures/ex2-19.png</a></li>
-</ul>
-</li>
-</ul>
-<h3 id="3.5-Quasi-Newton-Methods-for-Unconstrained-Optimization"><a href="https://ndcbe.github.io/CBE60499/03.05-Quasi-Newton-Method.html">3.5 Quasi-Newton Methods for Unconstrained Optimization</a><a class="anchor-link" href="#3.5-Quasi-Newton-Methods-for-Unconstrained-Optimization">&#182;</a></h3><ul>
-<li><a href="https://ndcbe.github.io/CBE60499/03.05-Quasi-Newton-Method.html#3.5.1-Unconstrained-Optimization-with-Approximate-Hessian">3.5.1 Unconstrained Optimization with Approximate Hessian</a><ul>
-<li><a href="https://ndcbe.github.io/CBE60499/03.05-Quasi-Newton-Method.html#3.5.1.1-Library-of-helper-functions">3.5.1.1 Library of helper functions</a></li>
-<li><a href="https://ndcbe.github.io/CBE60499/03.05-Quasi-Newton-Method.html#3.5.1.2-Symmetric-Rank-1-(SR1">3.5.1.2 Symmetric Rank 1 (SR1) Update</a>-Update)</li>
-</ul>
-</li>
-<li><a href="https://ndcbe.github.io/CBE60499/03.05-Quasi-Newton-Method.html#3.5.2-Test-Case:-Simple-quadratic-program">3.5.2 Test Case: Simple quadratic program</a><ul>
-<li><a href="https://ndcbe.github.io/CBE60499/03.05-Quasi-Newton-Method.html#3.5.2.1-Near-solution">3.5.2.1 Near solution</a></li>
-<li><a href="https://ndcbe.github.io/CBE60499/03.05-Quasi-Newton-Method.html#3.5.2.2-Far-from-solution">3.5.2.2 Far from solution</a></li>
-<li><a href="https://ndcbe.github.io/CBE60499/03.05-Quasi-Newton-Method.html#3.5.2.3-Activity/Discussion">3.5.2.3 Activity/Discussion</a></li>
-</ul>
-</li>
-<li><a href="https://ndcbe.github.io/CBE60499/03.05-Quasi-Newton-Method.html#3.5.3-Test-Case:-Example-2.19">3.5.3 Test Case: Example 2.19</a><ul>
-<li><a href="https://ndcbe.github.io/CBE60499/03.05-Quasi-Newton-Method.html#3.5.3.1-$x_0$-somewhat-near-solution">3.5.3.1 $x_0$ somewhat near solution</a></li>
-<li><a href="https://ndcbe.github.io/CBE60499/03.05-Quasi-Newton-Method.html#3.5.3.2-$x_0$-far-from-solution">3.5.3.2 $x_0$ far from solution</a></li>
-<li><a href="https://ndcbe.github.io/CBE60499/03.05-Quasi-Newton-Method.html#3.5.3.3-Activity/Discussion">3.5.3.3 Activity/Discussion</a></li>
-</ul>
-</li>
-<li><a href="https://ndcbe.github.io/CBE60499/03.05-Quasi-Newton-Method.html#3.5.4-Broyden-update-with-Cholesky-factorization">3.5.4 Broyden update with Cholesky factorization</a></li>
-<li>Markdown Figures<ul>
-<li><a href="figures/alg3-1.png">alg3-1</a></li>
-<li><a href="figures/ex2-19.png">alg3-1</a></li>
-</ul>
-</li>
-<li>Figure files used<ul>
-<li><a href="https://ndcbe.github.io/CBE60499/figures/ex2-19.png">figures/ex2-19.png</a></li>
-<li><a href="https://ndcbe.github.io/CBE60499/figures/alg3-1.png">figures/alg3-1.png</a></li>
-</ul>
-</li>
-</ul>
-<h3 id="3.6-Descent-and-Globalization"><a href="https://ndcbe.github.io/CBE60499/03.06-Globalization.html">3.6 Descent and Globalization</a><a class="anchor-link" href="#3.6-Descent-and-Globalization">&#182;</a></h3><ul>
-<li><a href="https://ndcbe.github.io/CBE60499/03.06-Globalization.html#3.6.1-Define-Test-Function-and-Derivatives">3.6.1 Define Test Function and Derivatives</a></li>
-<li><a href="https://ndcbe.github.io/CBE60499/03.06-Globalization.html#3.6.2-Geometric-Insights-into-Newton-Steps">3.6.2 Geometric Insights into Newton Steps</a><ul>
-<li><a href="https://ndcbe.github.io/CBE60499/03.06-Globalization.html#3.6.2.1-Motivation">3.6.2.1 Motivation</a></li>
-<li><a href="https://ndcbe.github.io/CBE60499/03.06-Globalization.html#3.6.2.2-Compute-and-Plot-Steps">3.6.2.2 Compute and Plot Steps</a></li>
-<li><a href="https://ndcbe.github.io/CBE60499/03.06-Globalization.html#3.6.2.3-Consider-$x_0-=--3$">3.6.2.3 Consider $x_0 = -3$</a></li>
-<li><a href="https://ndcbe.github.io/CBE60499/03.06-Globalization.html#3.6.2.4-Consider-$x_0-=-0$">3.6.2.4 Consider $x_0 = 0$</a></li>
-<li><a href="https://ndcbe.github.io/CBE60499/03.06-Globalization.html#3.6.2.5-Descent-Properties">3.6.2.5 Descent Properties</a></li>
-</ul>
-</li>
-<li><a href="https://ndcbe.github.io/CBE60499/03.06-Globalization.html#3.6.3-Line-Search">3.6.3 Line Search</a><ul>
-<li><a href="https://ndcbe.github.io/CBE60499/03.06-Globalization.html#3.6.3.1-Visualization-Code">3.6.3.1 Visualization Code</a></li>
-<li><a href="https://ndcbe.github.io/CBE60499/03.06-Globalization.html#3.6.3.2-Newton-Step,-$x^k-=--3$">3.6.3.2 Newton Step, $x^k = -3$</a></li>
-<li><a href="https://ndcbe.github.io/CBE60499/03.06-Globalization.html#3.6.3.3-Steepest-Descent-Step,-$x^k-=--3$">3.6.3.3 Steepest Descent Step, $x^k = -3$</a></li>
-<li><a href="https://ndcbe.github.io/CBE60499/03.06-Globalization.html#3.6.3.4-Newton-Step,-$x^k-=-0$">3.6.3.4 Newton Step, $x^k = 0$</a></li>
-<li><a href="https://ndcbe.github.io/CBE60499/03.06-Globalization.html#3.6.3.5-Steepest-Descent-Step,-$x^k-=-0$">3.6.3.5 Steepest Descent Step, $x^k = 0$</a></li>
-</ul>
-</li>
-<li><a href="https://ndcbe.github.io/CBE60499/03.06-Globalization.html#3.6.4-Trust-Regions">3.6.4 Trust Regions</a><ul>
-<li><a href="https://ndcbe.github.io/CBE60499/03.06-Globalization.html#3.6.4.1-Main-Idea-and-General-Algorithm">3.6.4.1 Main Idea and General Algorithm</a></li>
-<li><a href="https://ndcbe.github.io/CBE60499/03.06-Globalization.html#3.6.4.2-Trust-Region-Variations">3.6.4.2 Trust Region Variations</a><ul>
-<li><a href="https://ndcbe.github.io/CBE60499/03.06-Globalization.html#3.6.4.2.1-Levenburg-Marquardt">3.6.4.2.1 Levenburg-Marquardt</a></li>
-<li><a href="https://ndcbe.github.io/CBE60499/03.06-Globalization.html#3.6.4.2.2-Powell-Dogleg">3.6.4.2.2 Powell Dogleg</a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li>Markdown Figures<ul>
-<li><a href="figures/descent_direction.png">book</a></li>
-<li><a href="figures/linesearch_conditions.png">book</a></li>
-<li><a href="figures/Thm3-3.png">book</a></li>
-<li><a href="figures/Alg3-2.png">book</a></li>
-<li><a href="figures/Thm3-4.png">book</a></li>
-<li><a href="figures/trust-region-intro.png">book</a></li>
-<li><a href="figures/Alg3-3.png">book</a></li>
-<li><a href="figures/TR-visual.png">book</a></li>
-<li><a href="figures/LM-TR.png">book</a></li>
-<li><a href="figures/PD-TR.png">book</a></li>
-<li><a href="figures/PD-TR2.png">book</a></li>
-</ul>
-</li>
-<li>Figure files used<ul>
-<li><a href="https://ndcbe.github.io/CBE60499/figures/linesearch_conditions.png">figures/linesearch_conditions.png</a></li>
-<li><a href="https://ndcbe.github.io/CBE60499/figures/trust-region-intro.png">figures/trust-region-intro.png</a></li>
-<li><a href="https://ndcbe.github.io/CBE60499/figures/Thm3-3.png">figures/Thm3-3.png</a></li>
-<li><a href="https://ndcbe.github.io/CBE60499/figures/PD-TR.png">figures/PD-TR.png</a></li>
-<li><a href="https://ndcbe.github.io/CBE60499/figures/Thm3-4.png">figures/Thm3-4.png</a></li>
-<li><a href="https://ndcbe.github.io/CBE60499/figures/LM-TR.png">figures/LM-TR.png</a></li>
-<li><a href="https://ndcbe.github.io/CBE60499/figures/TR-visual.png">figures/TR-visual.png</a></li>
-<li><a href="https://ndcbe.github.io/CBE60499/figures/descent_direction.png">figures/descent_direction.png</a></li>
-<li><a href="https://ndcbe.github.io/CBE60499/figures/Alg3-3.png">figures/Alg3-3.png</a></li>
-<li><a href="https://ndcbe.github.io/CBE60499/figures/PD-TR2.png">figures/PD-TR2.png</a></li>
-</ul>
-</li>
-</ul>
-<h3 id="3.7-Algorithms-Homework-1"><a href="https://ndcbe.github.io/CBE60499/03.07-Algorithms1.html">3.7 Algorithms Homework 1</a><a class="anchor-link" href="#3.7-Algorithms-Homework-1">&#182;</a></h3><ul>
-<li><a href="https://ndcbe.github.io/CBE60499/03.07-Algorithms1.html#3.7.1-Linear-Algebra-Review">3.7.1 Linear Algebra Review</a><ul>
-<li><a href="https://ndcbe.github.io/CBE60499/03.07-Algorithms1.html#3.7.1.1-Exact-solution">3.7.1.1 Exact solution</a></li>
-<li><a href="https://ndcbe.github.io/CBE60499/03.07-Algorithms1.html#3.7.1.2-Solve-using-the-inverse">3.7.1.2 Solve using the inverse</a></li>
-<li><a href="https://ndcbe.github.io/CBE60499/03.07-Algorithms1.html#3.7.1.3-Solve-using-LU-decomposition">3.7.1.3 Solve using LU decomposition</a></li>
-<li><a href="https://ndcbe.github.io/CBE60499/03.07-Algorithms1.html#3.7.1.4-Solve-using-`linalg.solve`">3.7.1.4 Solve using <code>linalg.solve</code></a></li>
-</ul>
-</li>
-<li><a href="https://ndcbe.github.io/CBE60499/03.07-Algorithms1.html#3.7.2-Eigenvalues">3.7.2 Eigenvalues</a><ul>
-<li><a href="https://ndcbe.github.io/CBE60499/03.07-Algorithms1.html#3.7.2.1-Calculate-eigenvalues-by-hand-(on-paper">3.7.2.1 Calculate eigenvalues by hand (on paper)</a>)</li>
-<li><a href="https://ndcbe.github.io/CBE60499/03.07-Algorithms1.html#3.7.2.2-Calculate-eigenvalues-using-`linalg.eig`">3.7.2.2 Calculate eigenvalues using <code>linalg.eig</code></a></li>
-<li><a href="https://ndcbe.github.io/CBE60499/03.07-Algorithms1.html#3.7.2.3-Definiteness">3.7.2.3 Definiteness</a></li>
-<li><a href="https://ndcbe.github.io/CBE60499/03.07-Algorithms1.html#3.7.2.4-Singular-Value-Decomposition">3.7.2.4 Singular Value Decomposition</a></li>
-<li><a href="https://ndcbe.github.io/CBE60499/03.07-Algorithms1.html#3.7.2.5-SVD-calculation-using-`linalg.svd`">3.7.2.5 SVD calculation using <code>linalg.svd</code></a></li>
-<li><a href="https://ndcbe.github.io/CBE60499/03.07-Algorithms1.html#3.7.2.6-Condition-number">3.7.2.6 Condition number</a></li>
-<li><a href="https://ndcbe.github.io/CBE60499/03.07-Algorithms1.html#3.7.2.7-Linear-system">3.7.2.7 Linear system</a></li>
-<li><a href="https://ndcbe.github.io/CBE60499/03.07-Algorithms1.html#3.7.2.8-Make-it-singular">3.7.2.8 Make it singular</a></li>
-</ul>
-</li>
-<li><a href="https://ndcbe.github.io/CBE60499/03.07-Algorithms1.html#3.7.3-Convexity">3.7.3 Convexity</a><ul>
-<li><a href="https://ndcbe.github.io/CBE60499/03.07-Algorithms1.html#3.7.3.1-Determine-if-the-following-functions-are-convex">3.7.3.1 Determine if the following functions are convex</a></li>
-<li><a href="https://ndcbe.github.io/CBE60499/03.07-Algorithms1.html#3.7.3.2-Prove-the-following-properties">3.7.3.2 Prove the following properties</a><ul>
-<li><a href="https://ndcbe.github.io/CBE60499/03.07-Algorithms1.html#3.7.3.2.1-PSD-implies-Convexity">3.7.3.2.1 PSD implies Convexity</a></li>
-<li><a href="https://ndcbe.github.io/CBE60499/03.07-Algorithms1.html#3.7.3.2.2-Convexity-implies-PSD">3.7.3.2.2 Convexity implies PSD</a></li>
-<li><a href="https://ndcbe.github.io/CBE60499/03.07-Algorithms1.html#3.7.3.2.3-PD-implies-Strictly-Convex">3.7.3.2.3 PD implies Strictly Convex</a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li>Tags: gradescope</li>
-</ul>
-<h3 id="3.8-Algorithms-Homework-2"><a href="https://ndcbe.github.io/CBE60499/03.08-Algorithms2.html">3.8 Algorithms Homework 2</a><a class="anchor-link" href="#3.8-Algorithms-Homework-2">&#182;</a></h3><ul>
-<li><a href="https://ndcbe.github.io/CBE60499/03.08-Algorithms2.html#3.8.1-Finite-Difference-Approximations">3.8.1 Finite Difference Approximations</a><ul>
-<li><a href="https://ndcbe.github.io/CBE60499/03.08-Algorithms2.html#3.8.1.1-Finite-difference-order">3.8.1.1 Finite difference order</a></li>
-<li><a href="https://ndcbe.github.io/CBE60499/03.08-Algorithms2.html#3.8.1.2-Provided-Codes">3.8.1.2 Provided Codes</a><ul>
-<li><a href="https://ndcbe.github.io/CBE60499/03.08-Algorithms2.html#3.8.1.2.1-Finite-Difference-Code">3.8.1.2.1 Finite Difference Code</a></li>
-<li><a href="https://ndcbe.github.io/CBE60499/03.08-Algorithms2.html#3.8.1.2.2-Analytic-Gradient">3.8.1.2.2 Analytic Gradient</a></li>
-<li><a href="https://ndcbe.github.io/CBE60499/03.08-Algorithms2.html#3.8.1.2.3-Analytic-Hessian">3.8.1.2.3 Analytic Hessian</a></li>
-</ul>
-</li>
-<li><a href="https://ndcbe.github.io/CBE60499/03.08-Algorithms2.html#3.8.1.3-Gradient-Finite-Difference-Comparison">3.8.1.3 Gradient Finite Difference Comparison</a></li>
-<li><a href="https://ndcbe.github.io/CBE60499/03.08-Algorithms2.html#3.8.1.4-Hessian-Finite-Difference-using-Approximate-Gradient">3.8.1.4 Hessian Finite Difference using Approximate Gradient</a></li>
-<li><a href="https://ndcbe.github.io/CBE60499/03.08-Algorithms2.html#3.8.1.5-Hessian-Finite-Difference-using-Exact-Gradient">3.8.1.5 Hessian Finite Difference using Exact Gradient</a></li>
-<li><a href="https://ndcbe.github.io/CBE60499/03.08-Algorithms2.html#3.8.1.6-Final-Answers">3.8.1.6 Final Answers</a></li>
-<li><a href="https://ndcbe.github.io/CBE60499/03.08-Algorithms2.html#3.8.1.7-Discussion">3.8.1.7 Discussion</a></li>
-</ul>
-</li>
-<li><a href="https://ndcbe.github.io/CBE60499/03.08-Algorithms2.html#3.8.2-Analysis-of-possible-optimization-solutions">3.8.2 Analysis of possible optimization solutions</a><ul>
-<li><a href="https://ndcbe.github.io/CBE60499/03.08-Algorithms2.html#3.8.2.1-Point-1">3.8.2.1 Point 1</a></li>
-<li><a href="https://ndcbe.github.io/CBE60499/03.08-Algorithms2.html#3.8.2.2-Point-2">3.8.2.2 Point 2</a></li>
-<li><a href="https://ndcbe.github.io/CBE60499/03.08-Algorithms2.html#3.8.2.3-Point-3">3.8.2.3 Point 3</a></li>
-<li><a href="https://ndcbe.github.io/CBE60499/03.08-Algorithms2.html#3.8.2.4-Point-4">3.8.2.4 Point 4</a></li>
-<li><a href="https://ndcbe.github.io/CBE60499/03.08-Algorithms2.html#3.8.2.5-Visualize-in-3D">3.8.2.5 Visualize in 3D</a></li>
-<li><a href="https://ndcbe.github.io/CBE60499/03.08-Algorithms2.html#3.8.2.6-Convexity">3.8.2.6 Convexity</a></li>
-</ul>
-</li>
-<li><a href="https://ndcbe.github.io/CBE60499/03.08-Algorithms2.html#3.8.3-Multivariable-Taylor-Series">3.8.3 Multivariable Taylor Series</a><ul>
-<li><a href="https://ndcbe.github.io/CBE60499/03.08-Algorithms2.html#3.8.3.1-Create-a-function-to-plot-the-first-order-Taylor-series-using-$\nabla-f$">3.8.3.1 Create a function to plot the first order Taylor series using $\nabla f$</a></li>
-<li><a href="https://ndcbe.github.io/CBE60499/03.08-Algorithms2.html#3.8.3.2-Taylor-Series-using-`my_grad_approx`">3.8.3.2 Taylor Series using <code>my_grad_approx</code></a></li>
-<li><a href="https://ndcbe.github.io/CBE60499/03.08-Algorithms2.html#3.8.3.3-Taylor-Series-using-`my_grad_exact`">3.8.3.3 Taylor Series using <code>my_grad_exact</code></a></li>
-<li><a href="https://ndcbe.github.io/CBE60499/03.08-Algorithms2.html#3.8.3.4-Create-a-function-to-plot-the-second-order-Taylor-series-using-$\nabla-f$-and-$\nabla^2-f$">3.8.3.4 Create a function to plot the second order Taylor series using $\nabla f$ and $\nabla^2 f$</a></li>
-<li><a href="https://ndcbe.github.io/CBE60499/03.08-Algorithms2.html#3.8.3.5-Taylor-series-using-`my_grad_approx`-and-`my_hes_approx`">3.8.3.5 Taylor series using <code>my_grad_approx</code> and <code>my_hes_approx</code></a></li>
-<li><a href="https://ndcbe.github.io/CBE60499/03.08-Algorithms2.html#3.8.3.6-Taylor-series-using-`my_grad_exact`-and-`my_hes_exact`">3.8.3.6 Taylor series using <code>my_grad_exact</code> and <code>my_hes_exact</code></a></li>
-<li><a href="https://ndcbe.github.io/CBE60499/03.08-Algorithms2.html#3.8.3.7-Discussion">3.8.3.7 Discussion</a></li>
-</ul>
-</li>
-<li>Tags: gradescope</li>
-</ul>
-<h3 id="3.9-Algorithms-Homework-3"><a href="https://ndcbe.github.io/CBE60499/03.09-Algorithms3.html">3.9 Algorithms Homework 3</a><a class="anchor-link" href="#3.9-Algorithms-Homework-3">&#182;</a></h3><ul>
-<li><a href="https://ndcbe.github.io/CBE60499/03.09-Algorithms3.html#3.9.1-Pseudocode">3.9.1 Pseudocode</a></li>
-<li><a href="https://ndcbe.github.io/CBE60499/03.09-Algorithms3.html#3.9.2-Unconstrained-NLP-Algorithm-in-Python">3.9.2 Unconstrained NLP Algorithm in Python</a><ul>
-<li><a href="https://ndcbe.github.io/CBE60499/03.09-Algorithms3.html#3.9.2.1-Library-of-Helper-Functions">3.9.2.1 Library of Helper Functions</a></li>
-<li><a href="https://ndcbe.github.io/CBE60499/03.09-Algorithms3.html#3.9.2.2-Main-Function">3.9.2.2 Main Function</a></li>
-<li><a href="https://ndcbe.github.io/CBE60499/03.09-Algorithms3.html#3.9.2.3-Feature-Status">3.9.2.3 Feature Status</a></li>
-</ul>
-</li>
-<li><a href="https://ndcbe.github.io/CBE60499/03.09-Algorithms3.html#3.9.3-Benchmark-Tests">3.9.3 Benchmark Tests</a><ul>
-<li><a href="https://ndcbe.github.io/CBE60499/03.09-Algorithms3.html#3.9.3.1-Quadratic-Test-Problem">3.9.3.1 Quadratic Test Problem</a><ul>
-<li><a href="https://ndcbe.github.io/CBE60499/03.09-Algorithms3.html#3.9.3.1.1-Benchmark-Cases">3.9.3.1.1 Benchmark Cases</a></li>
-<li><a href="https://ndcbe.github.io/CBE60499/03.09-Algorithms3.html#3.9.3.1.2-Discussion-and-Analysis">3.9.3.1.2 Discussion and Analysis</a></li>
-</ul>
-</li>
-<li><a href="https://ndcbe.github.io/CBE60499/03.09-Algorithms3.html#3.9.3.2-One-Dimensional-Example">3.9.3.2 One-Dimensional Example</a><ul>
-<li><a href="https://ndcbe.github.io/CBE60499/03.09-Algorithms3.html#3.9.3.2.1-Benchmark-Cases-with-$x_0-=--3$">3.9.3.2.1 Benchmark Cases with $x_0 = -3$</a></li>
-<li><a href="https://ndcbe.github.io/CBE60499/03.09-Algorithms3.html#3.9.3.2.2-Discussion">3.9.3.2.2 Discussion</a></li>
-</ul>
-</li>
-<li><a href="https://ndcbe.github.io/CBE60499/03.09-Algorithms3.html#3.9.3.3-Benchmark-Case-with-$x_0-=-0$">3.9.3.3 Benchmark Case with $x_0 = 0$</a><ul>
-<li><a href="https://ndcbe.github.io/CBE60499/03.09-Algorithms3.html#3.9.3.3.1-Discussion">3.9.3.3.1 Discussion</a></li>
-</ul>
-</li>
-<li><a href="https://ndcbe.github.io/CBE60499/03.09-Algorithms3.html#3.9.3.4-Return-of-Example-2.19">3.9.3.4 Return of Example 2.19</a><ul>
-<li><a href="https://ndcbe.github.io/CBE60499/03.09-Algorithms3.html#3.9.3.4.1-Benchmark-with-$x_0$-Near-Solution">3.9.3.4.1 Benchmark with $x_0$ Near Solution</a></li>
-<li><a href="https://ndcbe.github.io/CBE60499/03.09-Algorithms3.html#3.9.3.4.2-Discussion">3.9.3.4.2 Discussion</a></li>
-<li><a href="https://ndcbe.github.io/CBE60499/03.09-Algorithms3.html#3.9.3.4.3-Benchmark-with-$x_0$-Far-From-the-Solution">3.9.3.4.3 Benchmark with $x_0$ Far From the Solution</a></li>
-<li><a href="https://ndcbe.github.io/CBE60499/03.09-Algorithms3.html#3.9.3.4.4-Discussion">3.9.3.4.4 Discussion</a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li>Markdown Figures<ul>
-<li><a href="figures/ex2-19.png">ex2-19</a></li>
-</ul>
-</li>
-<li>Figure files used<ul>
-<li><a href="https://ndcbe.github.io/CBE60499/figures/ex2-19.png">figures/ex2-19.png</a></li>
-</ul>
-</li>
-</ul>
-<h2 id="Chapter-4.0-Constrained-Nonlinear-Optimization:-Theory-and-Applications"><a href="https://ndcbe.github.io/CBE60499/04.00-Constrained.html">Chapter 4.0 Constrained Nonlinear Optimization: Theory and Applications</a><a class="anchor-link" href="#Chapter-4.0-Constrained-Nonlinear-Optimization:-Theory-and-Applications">&#182;</a></h2><h3 id="4.1-Convexity-Revisited"><a href="https://ndcbe.github.io/CBE60499/04.01-Convexity.html">4.1 Convexity Revisited</a><a class="anchor-link" href="#4.1-Convexity-Revisited">&#182;</a></h3><ul>
-<li><a href="https://ndcbe.github.io/CBE60499/04.01-Convexity.html#4.1.1-Background">4.1.1 Background</a><ul>
-<li><a href="https://ndcbe.github.io/CBE60499/04.01-Convexity.html#4.1.1.1-Canonical-Nonlinear-Program">4.1.1.1 Canonical Nonlinear Program</a></li>
-<li><a href="https://ndcbe.github.io/CBE60499/04.01-Convexity.html#4.1.1.2-Types-of-Constrained-Optimal-Solutions">4.1.1.2 Types of Constrained Optimal Solutions</a></li>
-<li><a href="https://ndcbe.github.io/CBE60499/04.01-Convexity.html#4.1.1.3-Key-Questions">4.1.1.3 Key Questions</a></li>
-</ul>
-</li>
-<li><a href="https://ndcbe.github.io/CBE60499/04.01-Convexity.html#4.1.2-Convexity-for-Constrained-Optimization">4.1.2 Convexity for Constrained Optimization</a></li>
-<li><a href="https://ndcbe.github.io/CBE60499/04.01-Convexity.html#4.1.3-Circle-Packing-Example">4.1.3 Circle Packing Example</a><ul>
-<li><a href="https://ndcbe.github.io/CBE60499/04.01-Convexity.html#4.1.3.1-Optimization-Model-and-Pyomo-Implementation">4.1.3.1 Optimization Model and Pyomo Implementation</a></li>
-<li><a href="https://ndcbe.github.io/CBE60499/04.01-Convexity.html#4.1.3.2-Visualize-Initial-Point">4.1.3.2 Visualize Initial Point</a></li>
-<li><a href="https://ndcbe.github.io/CBE60499/04.01-Convexity.html#4.1.3.3-Solve-and-Inspect-the-Solution">4.1.3.3 Solve and Inspect the Solution</a></li>
-<li><a href="https://ndcbe.github.io/CBE60499/04.01-Convexity.html#4.1.3.4-Reinitialize-and-Resolve">4.1.3.4 Reinitialize and Resolve</a></li>
-</ul>
-</li>
-<li><a href="https://ndcbe.github.io/CBE60499/04.01-Convexity.html#4.1.4-Take-Away-Messages">4.1.4 Take Away Messages</a></li>
-<li>Markdown Figures<ul>
-<li><a href="./figures/general_nlp.png">picture</a></li>
-<li><a href="./figures/def_4_1_a.png">picture</a></li>
-<li><a href="./figures/def_4_1_b.png">picture</a></li>
-<li><a href="./figures/4_1_questions.png">picture</a></li>
-<li><a href="./figures/thm_4_2.png">picture</a></li>
-<li><a href="./figures/thm_4_3.png">picture</a></li>
-<li><a href="./figures/pack1.png">picture</a></li>
-<li><a href="./figures/pack2.png">picture</a></li>
-<li><a href="./figures/pack3.png">picture</a></li>
-</ul>
-</li>
-<li>Figure files used<ul>
-<li><a href="https://ndcbe.github.io/CBE60499/figures/pack1.png">figures/pack1.png</a></li>
-<li><a href="https://ndcbe.github.io/CBE60499/figures/pack3.png">figures/pack3.png</a></li>
-<li><a href="https://ndcbe.github.io/CBE60499/figures/pack2.png">figures/pack2.png</a></li>
-<li><a href="https://ndcbe.github.io/CBE60499/figures/4_1_questions.png">figures/4_1_questions.png</a></li>
-<li><a href="https://ndcbe.github.io/CBE60499/figures/def_4_1_a.png">figures/def_4_1_a.png</a></li>
-<li><a href="https://ndcbe.github.io/CBE60499/figures/def_4_1_b.png">figures/def_4_1_b.png</a></li>
-<li><a href="https://ndcbe.github.io/CBE60499/figures/general_nlp.png">figures/general_nlp.png</a></li>
-<li><a href="https://ndcbe.github.io/CBE60499/figures/thm_4_2.png">figures/thm_4_2.png</a></li>
-<li><a href="https://ndcbe.github.io/CBE60499/figures/thm_4_3.png">figures/thm_4_3.png</a></li>
-</ul>
-</li>
-</ul>
-<h3 id="4.2-Local-Optimality-Conditions"><a href="https://ndcbe.github.io/CBE60499/04.02-Local-Optimality.html">4.2 Local Optimality Conditions</a><a class="anchor-link" href="#4.2-Local-Optimality-Conditions">&#182;</a></h3><ul>
-<li><a href="https://ndcbe.github.io/CBE60499/04.02-Local-Optimality.html#4.2.1-Unconstrained-Optimality-Conditions">4.2.1 Unconstrained Optimality Conditions</a></li>
-<li><a href="https://ndcbe.github.io/CBE60499/04.02-Local-Optimality.html#4.2.2-Karush-Kuhn-Tucker-(KKT">4.2.2 Karush-Kuhn-Tucker (KKT) Necessary Conditions</a>-Necessary-Conditions)</li>
-<li><a href="https://ndcbe.github.io/CBE60499/04.02-Local-Optimality.html#4.2.3-Kinematic-Interpretation-via-Example">4.2.3 Kinematic Interpretation via Example</a><ul>
-<li><a href="https://ndcbe.github.io/CBE60499/04.02-Local-Optimality.html#4.2.3.1-Define-Function-for-Visualization">4.2.3.1 Define Function for Visualization</a></li>
-<li><a href="https://ndcbe.github.io/CBE60499/04.02-Local-Optimality.html#4.2.3.2-Define-function-to-solve-optimization-problem-with-Pyomo">4.2.3.2 Define function to solve optimization problem with Pyomo</a></li>
-<li><a href="https://ndcbe.github.io/CBE60499/04.02-Local-Optimality.html#4.2.3.3-Take-1:-Unconstrained">4.2.3.3 Take 1: Unconstrained</a></li>
-<li><a href="https://ndcbe.github.io/CBE60499/04.02-Local-Optimality.html#4.2.3.4-Take-2.-With-$g(x">4.2.3.4 Take 2. With $g(x) \leq 0$</a>-\leq-0$)</li>
-<li><a href="https://ndcbe.github.io/CBE60499/04.02-Local-Optimality.html#4.2.3.5-Take-3.-With-$g(x">4.2.3.5 Take 3. With $g(x) \leq 0$ and $h(x) = 0$</a>-\leq-0$-and-$h(x)-=-0$)</li>
-<li><a href="https://ndcbe.github.io/CBE60499/04.02-Local-Optimality.html#4.2.3.6-Discussion">4.2.3.6 Discussion</a></li>
-<li><a href="https://ndcbe.github.io/CBE60499/04.02-Local-Optimality.html#4.2.3.7-Analysis-without-Constraints">4.2.3.7 Analysis without Constraints</a></li>
-<li><a href="https://ndcbe.github.io/CBE60499/04.02-Local-Optimality.html#4.2.3.8-Analysis-with-Constraints">4.2.3.8 Analysis with Constraints</a></li>
-</ul>
-</li>
-<li>Markdown Figures<ul>
-<li><a href="./figures/unconstrained_opt.png">picture</a></li>
-<li><a href="./figures/kkt_1.png">picture</a></li>
-<li><a href="./figures/kkt_2.png">picture</a></li>
-<li><a href="./figures/unconstrained_analysis.png">picture</a></li>
-<li><a href="./figures/constrained_analysis.png">picture</a></li>
-</ul>
-</li>
-<li>Figure files used<ul>
-<li><a href="https://ndcbe.github.io/CBE60499/figures/constrained_analysis.png">figures/constrained_analysis.png</a></li>
-<li><a href="https://ndcbe.github.io/CBE60499/figures/unconstrained_opt.png">figures/unconstrained_opt.png</a></li>
-<li><a href="https://ndcbe.github.io/CBE60499/figures/unconstrained_analysis.png">figures/unconstrained_analysis.png</a></li>
-<li><a href="https://ndcbe.github.io/CBE60499/figures/kkt_2.png">figures/kkt_2.png</a></li>
-<li><a href="https://ndcbe.github.io/CBE60499/figures/kkt_1.png">figures/kkt_1.png</a></li>
-</ul>
-</li>
-</ul>
-<h3 id="4.3-Analysis-of-KKT-Conditions"><a href="https://ndcbe.github.io/CBE60499/04.03-KKT-Multipliers.html">4.3 Analysis of KKT Conditions</a><a class="anchor-link" href="#4.3-Analysis-of-KKT-Conditions">&#182;</a></h3><ul>
-<li><a href="https://ndcbe.github.io/CBE60499/04.03-KKT-Multipliers.html#4.3.1-Active-Sets">4.3.1 Active Sets</a></li>
-<li><a href="https://ndcbe.github.io/CBE60499/04.03-KKT-Multipliers.html#4.3.2-Sensitivity-Analysis">4.3.2 Sensitivity Analysis</a></li>
-<li><a href="https://ndcbe.github.io/CBE60499/04.03-KKT-Multipliers.html#4.3.3-Multipliers-in-Pyomo">4.3.3 Multipliers in Pyomo</a><ul>
-<li><a href="https://ndcbe.github.io/CBE60499/04.03-KKT-Multipliers.html#4.3.3.1-Solve-without-warm-starting">4.3.3.1 Solve without warm starting</a></li>
-<li><a href="https://ndcbe.github.io/CBE60499/04.03-KKT-Multipliers.html#4.3.3.2-Solve-with-warm-starting">4.3.3.2 Solve with warm starting</a></li>
-</ul>
-</li>
-<li>Markdown Figures<ul>
-<li><a href="./figures/active_constraints.png">picture</a></li>
-<li><a href="./figures/active_constraints2.png">picture</a></li>
-<li><a href="./figures/def-4-6.png">picture</a></li>
-<li><a href="./figures/ex-4-7.png">picture</a></li>
-<li><a href="./figures/ex-4-7b.png">picture</a></li>
-</ul>
-</li>
-<li>Figure files used<ul>
-<li><a href="https://ndcbe.github.io/CBE60499/figures/ex-4-7b.png">figures/ex-4-7b.png</a></li>
-<li><a href="https://ndcbe.github.io/CBE60499/figures/active_constraints2.png">figures/active_constraints2.png</a></li>
-<li><a href="https://ndcbe.github.io/CBE60499/figures/def-4-6.png">figures/def-4-6.png</a></li>
-<li><a href="https://ndcbe.github.io/CBE60499/figures/active_constraints.png">figures/active_constraints.png</a></li>
-<li><a href="https://ndcbe.github.io/CBE60499/figures/ex-4-7.png">figures/ex-4-7.png</a></li>
-</ul>
-</li>
-</ul>
-<h3 id="4.4-Constraint-Qualifications"><a href="https://ndcbe.github.io/CBE60499/04.04-Constraint-Qualifications.html">4.4 Constraint Qualifications</a><a class="anchor-link" href="#4.4-Constraint-Qualifications">&#182;</a></h3><ul>
-<li><a href="https://ndcbe.github.io/CBE60499/04.04-Constraint-Qualifications.html#4.4.1-Feasible-Sequences-and-Limiting-Directions">4.4.1 Feasible Sequences and Limiting Directions</a><ul>
-<li><a href="https://ndcbe.github.io/CBE60499/04.04-Constraint-Qualifications.html#4.4.1.1-Concepts">4.4.1.1 Concepts</a></li>
-<li><a href="https://ndcbe.github.io/CBE60499/04.04-Constraint-Qualifications.html#4.4.1.2-Linear-Constrainted-Optimization-Problems">4.4.1.2 Linear Constrainted Optimization Problems</a></li>
-</ul>
-</li>
-<li><a href="https://ndcbe.github.io/CBE60499/04.04-Constraint-Qualifications.html#4.4.2-Constraint-Qualifications">4.4.2 Constraint Qualifications</a><ul>
-<li><a href="https://ndcbe.github.io/CBE60499/04.04-Constraint-Qualifications.html#4.4.2.1-Nonlinear-Constrained-Optimization-Problems">4.4.2.1 Nonlinear Constrained Optimization Problems</a></li>
-<li><a href="https://ndcbe.github.io/CBE60499/04.04-Constraint-Qualifications.html#4.4.2.2-Linearly-Independent-Constraint-Qualification-(LICQ">4.4.2.2 Linearly Independent Constraint Qualification (LICQ)</a>)</li>
-<li><a href="https://ndcbe.github.io/CBE60499/04.04-Constraint-Qualifications.html#4.4.2.3-Mangasarian-Fromovitz-Constraint-Qualification-(MFCQ">4.4.2.3 Mangasarian-Fromovitz Constraint Qualification (MFCQ)</a>)</li>
-</ul>
-</li>
-<li><a href="https://ndcbe.github.io/CBE60499/04.04-Constraint-Qualifications.html#4.4.3-Example">4.4.3 Example</a><ul>
-<li><a href="https://ndcbe.github.io/CBE60499/04.04-Constraint-Qualifications.html#4.4.3.1-Visualize-Feasible-Set">4.4.3.1 Visualize Feasible Set</a></li>
-<li><a href="https://ndcbe.github.io/CBE60499/04.04-Constraint-Qualifications.html#4.4.3.2-Solve-with-Pyomo">4.4.3.2 Solve with Pyomo</a></li>
-</ul>
-</li>
-<li>Markdown Figures<ul>
-<li><a href="./figures/limiting_directions.png">picture</a></li>
-<li><a href="./figures/thm-4-8.png">picture</a></li>
-<li><a href="./figures/linear-opt-4-3.png">picture</a></li>
-<li><a href="./figures/thm-4-9.png">picture</a></li>
-<li><a href="./figures/thm-4-11.png">picture</a></li>
-<li><a href="./figures/nonlinear-opt-4-3.png">picture</a></li>
-<li><a href="./figures/nonlinear-opt-4-3b.png">picture</a></li>
-<li><a href="./figures/def-4-12.png">picture</a></li>
-<li><a href="./figures/thm-4-14.png">picture</a></li>
-<li><a href="./figures/thm-4-15.png">picture</a></li>
-<li><a href="./figures/thm-4-16.png">picture</a></li>
-</ul>
-</li>
-<li>Figure files used<ul>
-<li><a href="https://ndcbe.github.io/CBE60499/figures/def-4-12.png">figures/def-4-12.png</a></li>
-<li><a href="https://ndcbe.github.io/CBE60499/figures/thm-4-9.png">figures/thm-4-9.png</a></li>
-<li><a href="https://ndcbe.github.io/CBE60499/figures/thm-4-8.png">figures/thm-4-8.png</a></li>
-<li><a href="https://ndcbe.github.io/CBE60499/figures/limiting_directions.png">figures/limiting_directions.png</a></li>
-<li><a href="https://ndcbe.github.io/CBE60499/figures/nonlinear-opt-4-3.png">figures/nonlinear-opt-4-3.png</a></li>
-<li><a href="https://ndcbe.github.io/CBE60499/figures/nonlinear-opt-4-3b.png">figures/nonlinear-opt-4-3b.png</a></li>
-<li><a href="https://ndcbe.github.io/CBE60499/figures/thm-4-15.png">figures/thm-4-15.png</a></li>
-<li><a href="https://ndcbe.github.io/CBE60499/figures/thm-4-14.png">figures/thm-4-14.png</a></li>
-<li><a href="https://ndcbe.github.io/CBE60499/figures/thm-4-16.png">figures/thm-4-16.png</a></li>
-<li><a href="https://ndcbe.github.io/CBE60499/figures/linear-opt-4-3.png">figures/linear-opt-4-3.png</a></li>
-<li><a href="https://ndcbe.github.io/CBE60499/figures/thm-4-11.png">figures/thm-4-11.png</a></li>
-</ul>
-</li>
-</ul>
-<h3 id="4.5-Second-Order-Optimality-Conditions"><a href="https://ndcbe.github.io/CBE60499/04.05-Second-Order.html">4.5 Second Order Optimality Conditions</a><a class="anchor-link" href="#4.5-Second-Order-Optimality-Conditions">&#182;</a></h3><ul>
-<li><a href="https://ndcbe.github.io/CBE60499/04.05-Second-Order.html#4.5.1-Helpful-Cones">4.5.1 Helpful Cones</a></li>
-<li><a href="https://ndcbe.github.io/CBE60499/04.05-Second-Order.html#4.5.2-Second-Order-Necessary-Conditions">4.5.2 Second Order Necessary Conditions</a></li>
-<li><a href="https://ndcbe.github.io/CBE60499/04.05-Second-Order.html#4.5.3-Second-Order-Sufficient-Conditions">4.5.3 Second Order Sufficient Conditions</a></li>
-<li><a href="https://ndcbe.github.io/CBE60499/04.05-Second-Order.html#4.5.4-Reduced-Hessian">4.5.4 Reduced Hessian</a></li>
-<li><a href="https://ndcbe.github.io/CBE60499/04.05-Second-Order.html#4.5.5-Example">4.5.5 Example</a><ul>
-<li><a href="https://ndcbe.github.io/CBE60499/04.05-Second-Order.html#4.5.5.1-Calculation-with-numpy">4.5.5.1 Calculation with numpy</a></li>
-<li><a href="https://ndcbe.github.io/CBE60499/04.05-Second-Order.html#4.5.5.2-Calculate-with-Pyomo">4.5.5.2 Calculate with Pyomo</a><ul>
-<li><a href="https://ndcbe.github.io/CBE60499/04.05-Second-Order.html#4.5.5.2.1-Define-and-solve-the-model">4.5.5.2.1 Define and solve the model</a></li>
-<li><a href="https://ndcbe.github.io/CBE60499/04.05-Second-Order.html#4.5.5.2.2-Extract-the-dual-variable-for-the-constraint">4.5.5.2.2 Extract the dual variable for the constraint</a></li>
-<li><a href="https://ndcbe.github.io/CBE60499/04.05-Second-Order.html#4.5.5.2.3-Extract-the-reduced-Hessian">4.5.5.2.3 Extract the reduced Hessian</a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li>Markdown Figures<ul>
-<li><a href="./figures/cone1.png">picture</a></li>
-<li><a href="./figures/cone2.png">picture</a></li>
-<li><a href="./figures/thm-4-17.png">picture</a></li>
-<li><a href="./figures/thm-4-18.png">picture</a></li>
-<li><a href="./figures/def-4-19.png">picture</a></li>
-<li><a href="./figures/projected-reduced-Hessian1.png">picture</a></li>
-<li><a href="./figures/projected-reduced-Hessian2.png">picture</a></li>
-<li><a href="./figures/ex-4-20.png">picture</a></li>
-<li><a href="./figures/errata_83.png">picture</a></li>
-</ul>
-</li>
-<li>Figure files used<ul>
-<li><a href="https://ndcbe.github.io/CBE60499/figures/projected-reduced-Hessian2.png">figures/projected-reduced-Hessian2.png</a></li>
-<li><a href="https://ndcbe.github.io/CBE60499/figures/thm-4-18.png">figures/thm-4-18.png</a></li>
-<li><a href="https://ndcbe.github.io/CBE60499/figures/projected-reduced-Hessian1.png">figures/projected-reduced-Hessian1.png</a></li>
-<li><a href="https://ndcbe.github.io/CBE60499/figures/ex-4-20.png">figures/ex-4-20.png</a></li>
-<li><a href="https://ndcbe.github.io/CBE60499/figures/def-4-19.png">figures/def-4-19.png</a></li>
-<li><a href="https://ndcbe.github.io/CBE60499/figures/errata_83.png">figures/errata_83.png</a></li>
-<li><a href="https://ndcbe.github.io/CBE60499/figures/thm-4-17.png">figures/thm-4-17.png</a></li>
-<li><a href="https://ndcbe.github.io/CBE60499/figures/cone1.png">figures/cone1.png</a></li>
-<li><a href="https://ndcbe.github.io/CBE60499/figures/cone2.png">figures/cone2.png</a></li>
-</ul>
-</li>
-</ul>
-<h3 id="4.6-NLP-Diagnostics-with-Degeneracy-Hunter"><a href="https://ndcbe.github.io/CBE60499/04.06-NLP-Diagnostics.html">4.6 NLP Diagnostics with Degeneracy Hunter</a><a class="anchor-link" href="#4.6-NLP-Diagnostics-with-Degeneracy-Hunter">&#182;</a></h3><ul>
-<li><a href="https://ndcbe.github.io/CBE60499/04.06-NLP-Diagnostics.html#4.6.1-Setup">4.6.1 Setup</a></li>
-<li><a href="https://ndcbe.github.io/CBE60499/04.06-NLP-Diagnostics.html#4.6.2-Example-1:-Well-Behaved-Nonlinear-Program">4.6.2 Example 1: Well-Behaved Nonlinear Program</a><ul>
-<li><a href="https://ndcbe.github.io/CBE60499/04.06-NLP-Diagnostics.html#4.6.2.1-Define-the-model-in-Pyomo">4.6.2.1 Define the model in Pyomo</a></li>
-<li><a href="https://ndcbe.github.io/CBE60499/04.06-NLP-Diagnostics.html#4.6.2.2-Evaluate-the-initial-point">4.6.2.2 Evaluate the initial point</a></li>
-<li><a href="https://ndcbe.github.io/CBE60499/04.06-NLP-Diagnostics.html#4.6.2.3-Identify-the-constraint-residuals-larger-than-0.1">4.6.2.3 Identify the constraint residuals larger than 0.1</a></li>
-<li><a href="https://ndcbe.github.io/CBE60499/04.06-NLP-Diagnostics.html#4.6.2.4-Identify-all-variables-within-1-of-their-bounds">4.6.2.4 Identify all variables within 1 of their bounds</a></li>
-<li><a href="https://ndcbe.github.io/CBE60499/04.06-NLP-Diagnostics.html#4.6.2.5-Solve-the-optimization-problem">4.6.2.5 Solve the optimization problem</a></li>
-<li><a href="https://ndcbe.github.io/CBE60499/04.06-NLP-Diagnostics.html#4.6.2.6-Check-if-any-constraint-residuals-are-large-than-10$^{-14}$">4.6.2.6 Check if any constraint residuals are large than 10$^{-14}$</a></li>
-<li><a href="https://ndcbe.github.io/CBE60499/04.06-NLP-Diagnostics.html#4.6.2.7-Identify-all-variables-within-10$^{-5}$-of-their-bounds">4.6.2.7 Identify all variables within 10$^{-5}$ of their bounds</a></li>
-<li><a href="https://ndcbe.github.io/CBE60499/04.06-NLP-Diagnostics.html#4.6.2.8-Check-the-rank-of-the-constraint-Jacobian-at-the-solution">4.6.2.8 Check the rank of the constraint Jacobian at the solution</a></li>
-<li><a href="https://ndcbe.github.io/CBE60499/04.06-NLP-Diagnostics.html#4.6.2.9-Try-Degeneracy-Hunter">4.6.2.9 Try Degeneracy Hunter</a></li>
-</ul>
-</li>
-<li><a href="https://ndcbe.github.io/CBE60499/04.06-NLP-Diagnostics.html#4.6.3-Example-2:-Linear-Program-with-Redundant-Equality-Constraints">4.6.3 Example 2: Linear Program with Redundant Equality Constraints</a><ul>
-<li><a href="https://ndcbe.github.io/CBE60499/04.06-NLP-Diagnostics.html#4.6.3.1-Define-the-model-in-Pyomo">4.6.3.1 Define the model in Pyomo</a></li>
-<li><a href="https://ndcbe.github.io/CBE60499/04.06-NLP-Diagnostics.html#4.6.3.2-Evaluate-the-initial-point">4.6.3.2 Evaluate the initial point</a></li>
-<li><a href="https://ndcbe.github.io/CBE60499/04.06-NLP-Diagnostics.html#4.6.3.3-Identify-constraints-with-residuals-greater-than-0.1-at-the-initial-point">4.6.3.3 Identify constraints with residuals greater than 0.1 at the initial point</a></li>
-<li><a href="https://ndcbe.github.io/CBE60499/04.06-NLP-Diagnostics.html#4.6.3.4-Solve-the-optimization-problem-and-extract-the-solution">4.6.3.4 Solve the optimization problem and extract the solution</a></li>
-<li><a href="https://ndcbe.github.io/CBE60499/04.06-NLP-Diagnostics.html#4.6.3.5-Check-the-rank-of-the-Jacobian-of-the-equality-constraints">4.6.3.5 Check the rank of the Jacobian of the equality constraints</a></li>
-<li><a href="https://ndcbe.github.io/CBE60499/04.06-NLP-Diagnostics.html#4.6.3.6-Identify-candidate-degenerate-constraints">4.6.3.6 Identify candidate degenerate constraints</a></li>
-<li><a href="https://ndcbe.github.io/CBE60499/04.06-NLP-Diagnostics.html#4.6.3.7-Find-irreducible-degenerate-sets-(IDS">4.6.3.7 Find irreducible degenerate sets (IDS)</a>)</li>
-<li><a href="https://ndcbe.github.io/CBE60499/04.06-NLP-Diagnostics.html#4.6.3.8-Reformulate-Example-2">4.6.3.8 Reformulate Example 2</a></li>
-<li><a href="https://ndcbe.github.io/CBE60499/04.06-NLP-Diagnostics.html#4.6.3.9-Solve-the-reformulated-model">4.6.3.9 Solve the reformulated model</a></li>
-</ul>
-</li>
-<li>Markdown Links<ul>
-<li><a href="https://idaes.org">Institute for the Design of Advanced Energy Systems</a></li>
-</ul>
-</li>
-</ul>
-<h3 id="4.7-Simple-Netwon-Method-for-Equality-Constrained-NLPs"><a href="https://ndcbe.github.io/CBE60499/04.07-Interior-Point1.html">4.7 Simple Netwon Method for Equality Constrained NLPs</a><a class="anchor-link" href="#4.7-Simple-Netwon-Method-for-Equality-Constrained-NLPs">&#182;</a></h3><ul>
-<li><a href="https://ndcbe.github.io/CBE60499/04.07-Interior-Point1.html#4.7.1-Helper-Functions">4.7.1 Helper Functions</a></li>
-<li><a href="https://ndcbe.github.io/CBE60499/04.07-Interior-Point1.html#4.7.2-Algorithm-5.1">4.7.2 Algorithm 5.1</a></li>
-<li><a href="https://ndcbe.github.io/CBE60499/04.07-Interior-Point1.html#4.7.3-Example-Problem-1">4.7.3 Example Problem 1</a><ul>
-<li><a href="https://ndcbe.github.io/CBE60499/04.07-Interior-Point1.html#4.7.3.1-Test-Finite-Difference-Approximations">4.7.3.1 Test Finite Difference Approximations</a></li>
-<li><a href="https://ndcbe.github.io/CBE60499/04.07-Interior-Point1.html#4.7.3.2-Test-Algorithm-5.1">4.7.3.2 Test Algorithm 5.1</a></li>
-</ul>
-</li>
-<li><a href="https://ndcbe.github.io/CBE60499/04.07-Interior-Point1.html#4.7.4-Example-Problem-2">4.7.4 Example Problem 2</a><ul>
-<li><a href="https://ndcbe.github.io/CBE60499/04.07-Interior-Point1.html#4.7.4.1-Trying-Algorithm-5.1-again-without-the-redundant-constraint">4.7.4.1 Trying Algorithm 5.1 again without the redundant constraint</a></li>
-</ul>
-</li>
-<li><a href="https://ndcbe.github.io/CBE60499/04.07-Interior-Point1.html#4.7.5-Example-Problem-3">4.7.5 Example Problem 3</a><ul>
-<li><a href="https://ndcbe.github.io/CBE60499/04.07-Interior-Point1.html#4.7.5.1-Visualize">4.7.5.1 Visualize</a></li>
-<li><a href="https://ndcbe.github.io/CBE60499/04.07-Interior-Point1.html#4.7.5.2-Starting-Point-Near-Global-Min-($\theta_0-=-1.0$">4.7.5.2 Starting Point Near Global Min ($\theta_0 = 1.0$)</a>)</li>
-<li><a href="https://ndcbe.github.io/CBE60499/04.07-Interior-Point1.html#4.7.5.3-Starting-Point-Near-Local-Min-($\theta_0-=-\pi$">4.7.5.3 Starting Point Near Local Min ($\theta_0 = \pi$)</a>)</li>
-<li><a href="https://ndcbe.github.io/CBE60499/04.07-Interior-Point1.html#4.7.5.4-Starting-Point-Near-Global-Max-($\theta_0-=-5.5$">4.7.5.4 Starting Point Near Global Max ($\theta_0 = 5.5$)</a>)</li>
-</ul>
-</li>
-<li>Markdown Figures<ul>
-<li><a href="figures/alg5-1.png">Alg51</a></li>
-</ul>
-</li>
-<li>Figure files used<ul>
-<li><a href="https://ndcbe.github.io/CBE60499/figures/alg5-1.png">figures/alg5-1.png</a></li>
-</ul>
-</li>
-</ul>
-<h3 id="4.8-Inertia-Corrected-Netwon-Method-for-Equality-Constrained-NLPs"><a href="https://ndcbe.github.io/CBE60499/04.08-Interior-Point2.html">4.8 Inertia-Corrected Netwon Method for Equality Constrained NLPs</a><a class="anchor-link" href="#4.8-Inertia-Corrected-Netwon-Method-for-Equality-Constrained-NLPs">&#182;</a></h3><ul>
-<li><a href="https://ndcbe.github.io/CBE60499/04.08-Interior-Point2.html#4.8.1-Helper-Functions">4.8.1 Helper Functions</a></li>
-<li><a href="https://ndcbe.github.io/CBE60499/04.08-Interior-Point2.html#4.8.2-Algorithm-5.2">4.8.2 Algorithm 5.2</a></li>
-<li><a href="https://ndcbe.github.io/CBE60499/04.08-Interior-Point2.html#4.8.3-Example-Problem-2">4.8.3 Example Problem 2</a><ul>
-<li><a href="https://ndcbe.github.io/CBE60499/04.08-Interior-Point2.html#4.8.3.1-Test-Algorithm-5.2-without-redundant-constraints.">4.8.3.1 Test Algorithm 5.2 without redundant constraints.</a></li>
-<li><a href="https://ndcbe.github.io/CBE60499/04.08-Interior-Point2.html#4.8.3.2-Discussion">4.8.3.2 Discussion</a></li>
-</ul>
-</li>
-<li><a href="https://ndcbe.github.io/CBE60499/04.08-Interior-Point2.html#4.8.4-Example-Problem-3">4.8.4 Example Problem 3</a><ul>
-<li><a href="https://ndcbe.github.io/CBE60499/04.08-Interior-Point2.html#4.8.4.1-Starting-Point-Near-Global-Min-($\theta_0-=-1.0$">4.8.4.1 Starting Point Near Global Min ($\theta_0 = 1.0$)</a>)</li>
-<li><a href="https://ndcbe.github.io/CBE60499/04.08-Interior-Point2.html#4.8.4.2-Starting-Point-Near-Local-Min-($\theta_0-=-\pi$">4.8.4.2 Starting Point Near Local Min ($\theta_0 = \pi$)</a>)</li>
-<li><a href="https://ndcbe.github.io/CBE60499/04.08-Interior-Point2.html#4.8.4.3-Starting-Point-Near-Global-Max-($\theta_0-=-5.5$">4.8.4.3 Starting Point Near Global Max ($\theta_0 = 5.5$)</a>)</li>
-</ul>
-</li>
-<li>Markdown Figures<ul>
-<li><a href="figures/eqn5-12.png">Eqn5-12</a></li>
-<li><a href="figures/alg5-2a.png">Alg5-2a</a></li>
-<li><a href="figures/alg5-2b.png">Alg5-2b</a></li>
-</ul>
-</li>
-<li>Figure files used<ul>
-<li><a href="https://ndcbe.github.io/CBE60499/figures/alg5-2b.png">figures/alg5-2b.png</a></li>
-<li><a href="https://ndcbe.github.io/CBE60499/figures/alg5-2a.png">figures/alg5-2a.png</a></li>
-<li><a href="https://ndcbe.github.io/CBE60499/figures/eqn5-12.png">figures/eqn5-12.png</a></li>
-</ul>
-</li>
-</ul>
-<h3 id="4.9-Algorithms-Homework-4:-Interior-Point-Methods"><a href="https://ndcbe.github.io/CBE60499/04.09-Algorithms4.html">4.9 Algorithms Homework 4: Interior Point Methods</a><a class="anchor-link" href="#4.9-Algorithms-Homework-4:-Interior-Point-Methods">&#182;</a></h3><ul>
-<li><a href="https://ndcbe.github.io/CBE60499/04.09-Algorithms4.html#4.9.1-Tips-and-Tricks">4.9.1 Tips and Tricks</a><ul>
-<li><a href="https://ndcbe.github.io/CBE60499/04.09-Algorithms4.html#4.9.1.1-Background">4.9.1.1 Background</a></li>
-<li><a href="https://ndcbe.github.io/CBE60499/04.09-Algorithms4.html#4.9.1.2-Problem-Formulation">4.9.1.2 Problem Formulation</a></li>
-<li><a href="https://ndcbe.github.io/CBE60499/04.09-Algorithms4.html#4.9.1.3-Reformulation-Example">4.9.1.3 Reformulation Example</a></li>
-<li><a href="https://ndcbe.github.io/CBE60499/04.09-Algorithms4.html#4.9.1.4-Primal-Dual-Optimality-Conditions">4.9.1.4 Primal Dual Optimality Conditions</a></li>
-</ul>
-</li>
-<li><a href="https://ndcbe.github.io/CBE60499/04.09-Algorithms4.html#4.9.2-Basic-Interior-Point-Method-for-Inequality-and-Equality-Constraint-NLPs">4.9.2 Basic Interior Point Method for Inequality and Equality Constraint NLPs</a><ul>
-<li><a href="https://ndcbe.github.io/CBE60499/04.09-Algorithms4.html#4.9.2.1-Pseudocode">4.9.2.1 Pseudocode</a></li>
-<li><a href="https://ndcbe.github.io/CBE60499/04.09-Algorithms4.html#4.9.2.2-Python-Implementation">4.9.2.2 Python Implementation</a></li>
-</ul>
-</li>
-<li><a href="https://ndcbe.github.io/CBE60499/04.09-Algorithms4.html#4.9.3-Test-Problems">4.9.3 Test Problems</a><ul>
-<li><a href="https://ndcbe.github.io/CBE60499/04.09-Algorithms4.html#4.9.3.1-Problem-1:-Convex">4.9.3.1 Problem 1: Convex</a></li>
-<li><a href="https://ndcbe.github.io/CBE60499/04.09-Algorithms4.html#4.9.3.2-Problem-2:-Convex">4.9.3.2 Problem 2: Convex</a></li>
-<li><a href="https://ndcbe.github.io/CBE60499/04.09-Algorithms4.html#4.9.3.3-Problem-3:-Nonconvex">4.9.3.3 Problem 3: Nonconvex</a></li>
-</ul>
-</li>
-<li>Markdown Figures<ul>
-<li><a href="./figures/eq_6_56.png">fig6_56</a></li>
-<li><a href="./figures/eq_6_57.png">fig6_57</a></li>
-<li><a href="./figures/eq_6_58.png">fig6_58</a></li>
-<li><a href="./figures/eq_6_59.png">fig6_59</a></li>
-<li><a href="./figures/ip_bounds_G.png">ip_bounds_G</a></li>
-</ul>
-</li>
-<li>Figure files used<ul>
-<li><a href="https://ndcbe.github.io/CBE60499/figures/ip_bounds_G.png">figures/ip_bounds_G.png</a></li>
-<li><a href="https://ndcbe.github.io/CBE60499/figures/eq_6_57.png">figures/eq_6_57.png</a></li>
-<li><a href="https://ndcbe.github.io/CBE60499/figures/eq_6_56.png">figures/eq_6_56.png</a></li>
-<li><a href="https://ndcbe.github.io/CBE60499/figures/eq_6_58.png">figures/eq_6_58.png</a></li>
-<li><a href="https://ndcbe.github.io/CBE60499/figures/eq_6_59.png">figures/eq_6_59.png</a></li>
-</ul>
-</li>
-</ul>
-<h2 id="Chapter-5.0-Special-Topics"><a href="https://ndcbe.github.io/CBE60499/05.00-Special-Topics.html">Chapter 5.0 Special Topics</a><a class="anchor-link" href="#Chapter-5.0-Special-Topics">&#182;</a></h2><h3 id="5.1-Integer-Programming-with-Simple-Branch-and-Bound"><a href="https://ndcbe.github.io/CBE60499/05.01-MILP.html">5.1 Integer Programming with Simple Branch and Bound</a><a class="anchor-link" href="#5.1-Integer-Programming-with-Simple-Branch-and-Bound">&#182;</a></h3><ul>
-<li><a href="https://ndcbe.github.io/CBE60499/05.01-MILP.html#5.1.1-Node-1-(Root">5.1.1 Node 1 (Root)</a>)</li>
-<li><a href="https://ndcbe.github.io/CBE60499/05.01-MILP.html#5.1.2-Node-2">5.1.2 Node 2</a></li>
-<li><a href="https://ndcbe.github.io/CBE60499/05.01-MILP.html#5.1.3-Node-3">5.1.3 Node 3</a></li>
-<li><a href="https://ndcbe.github.io/CBE60499/05.01-MILP.html#5.1.4-Node-4">5.1.4 Node 4</a></li>
-<li><a href="https://ndcbe.github.io/CBE60499/05.01-MILP.html#5.1.5-Node-5">5.1.5 Node 5</a></li>
-<li><a href="https://ndcbe.github.io/CBE60499/05.01-MILP.html#5.1.6-Node-6">5.1.6 Node 6</a></li>
-<li><a href="https://ndcbe.github.io/CBE60499/05.01-MILP.html#5.1.7-Node-7">5.1.7 Node 7</a></li>
-<li><a href="https://ndcbe.github.io/CBE60499/05.01-MILP.html#5.1.8-Node-8">5.1.8 Node 8</a></li>
-<li><a href="https://ndcbe.github.io/CBE60499/05.01-MILP.html#5.1.9-Node-9">5.1.9 Node 9</a></li>
-</ul>
-<h3 id="5.2-MINLP-Algorithms"><a href="https://ndcbe.github.io/CBE60499/05.02-MINLP-Algorithms.html">5.2 MINLP Algorithms</a><a class="anchor-link" href="#5.2-MINLP-Algorithms">&#182;</a></h3><h3 id="5.3-Deterministic-Global-Optimization"><a href="https://ndcbe.github.io/CBE60499/05.03-Global-Opt.html">5.3 Deterministic Global Optimization</a><a class="anchor-link" href="#5.3-Deterministic-Global-Optimization">&#182;</a></h3><h3 id="5.4-Bayesian-Optimization"><a href="https://ndcbe.github.io/CBE60499/05.04-Bayesian-Opt.html">5.4 Bayesian Optimization</a><a class="anchor-link" href="#5.4-Bayesian-Optimization">&#182;</a></h3>
+<p><!--NOTEBOOK_HEADER-->
+<em>This notebook contains material from <a href="https://ndcbe.github.io/CBE60499">CBE60499</a>;
+content is available <a href="git@github.com:ndcbe/CBE60499.git">on Github</a>.</em></p>
+
 </div>
 </div>
+
+
+
+    
+<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<p><!--NAVIGATION-->
+&lt; <a href="https://ndcbe.github.io/CBE60499/02.05-Numeric-Integration.html">2.5 Numeric Integration for DAEs</a> | <a href="toc.html">Contents</a> | <a href="tag_index.html">Tag Index</a> | <a href="https://ndcbe.github.io/CBE60499/02.07-SP.html">2.7 Stochastic Programming</a> &gt;<p><a href="https://colab.research.google.com/github/ndcbe/CBE60499/blob/master/docs/02.06-Pyomo-DAE.ipynb"> <img align="left" src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open in Colab" title="Open in Google Colaboratory"></a><p><a href="https://ndcbe.github.io/CBE60499/02.06-Pyomo-DAE.ipynb"> <img align="left" src="https://img.shields.io/badge/Github-Download-blue.svg" alt="Download" title="Download Notebook"></a></p>
+
+</div>
+</div>
+
+
+
+    
+<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<h1 id="2.6-Dynamic-Optimization-with-Pyomo.DAE">2.6 Dynamic Optimization with Pyomo.DAE<a class="anchor-link" href="#2.6-Dynamic-Optimization-with-Pyomo.DAE">&#182;</a></h1><p>Adapted from <a href="https://github.com/Pyomo/pyomo/blob/master/examples/dae/car_example.py">https://github.com/Pyomo/pyomo/blob/master/examples/dae/car_example.py</a></p>
+
+</div>
+</div>
+
+
+
+    <div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[1]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">sys</span>
+<span class="k">if</span> <span class="s2">&quot;google.colab&quot;</span> <span class="ow">in</span> <span class="n">sys</span><span class="o">.</span><span class="n">modules</span><span class="p">:</span>
+    <span class="err">!</span><span class="n">wget</span> <span class="s2">&quot;https://raw.githubusercontent.com/ndcbe/CBE60499/main/notebooks/helper.py&quot;</span>
+    <span class="kn">import</span> <span class="nn">helper</span>
+    <span class="c1">#!pip install casadi</span>
+    <span class="n">helper</span><span class="o">.</span><span class="n">install_idaes</span><span class="p">()</span>
+    <span class="n">helper</span><span class="o">.</span><span class="n">install_ipopt</span><span class="p">()</span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+</div>
+
+
+
+    
+<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<h2 id="2.6.1-Car-Example">2.6.1 Car Example<a class="anchor-link" href="#2.6.1-Car-Example">&#182;</a></h2><p>You are a race car driver with a simple goal. Drive distance $L$ in the minimal amount of time <strong>but</strong> come to a complete stop at the finish line.</p>
+<h3 id="Optimal-Control-Problem-Formulation">Optimal Control Problem Formulation<a class="anchor-link" href="#Optimal-Control-Problem-Formulation">&#182;</a></h3><p>Mathematically, you want to solve the following optimal control problem:</p>
+$$\begin{align*}
+\min_{u} \quad &amp; t_f \\
+\mathrm{s.t.} \quad &amp; \frac{dx}{dt} = v \\
+&amp; \frac{dv}{dt} = u - R v^2 \\
+&amp; x(t=0) = 0, ~~ x(t=t_f) = L \\
+&amp; v(t=0) = 0, ~~ v(t=t_f) = 0 \\
+&amp; -3 \leq u \leq 1
+\end{align*}$$<p>where $a$ is the acceleration/braking (your control variable) and $R$ is the drag coefficient (parameter).</p>
+<h3 id="Scale-Time-Scale-Time">Scale Time Scale Time<a class="anchor-link" href="#Scale-Time-Scale-Time">&#182;</a></h3><p>Let $t = \tau \cdot t_f$ where $\tau \in [0,1]$. Thus $dt = t_f d\tau$. The optimal control problem becomes:</p>
+$$\begin{align*}
+\min_{u} \quad &amp; t_f \\
+\mathrm{s.t.} \quad &amp; \frac{dx}{d\tau} = t_f v \\
+&amp; \frac{dv}{d\tau} = t_f (u - R v^2) \\
+&amp; x(\tau = 0) = 0, ~~ x(\tau = 1) = L \\
+&amp; v(\tau = 0) = 0, ~~ v(\tau = 1) = 0 \\
+&amp; -3 \leq u \leq 1
+\end{align*}$$
+</div>
+</div>
+
+
+
+    
+<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<h3 id="2.6.1.1-Orthogonal-Collocation-on-Finite-Elements:-Manual-Approach">2.6.1.1 Orthogonal Collocation on Finite Elements: Manual Approach<a class="anchor-link" href="#2.6.1.1-Orthogonal-Collocation-on-Finite-Elements:-Manual-Approach">&#182;</a></h3><p><strong>Indices and Sets</strong></p>
+<ul>
+<li>Finite elements: $i \in \mathcal{I} = \{1,2,...,N_{FE}\}$</li>
+<li>Finite elements (except first): $\mathcal{I} \setminus 1$</li>
+<li>Internal collocation points: $j,k \in \mathcal{J} = \{1,2,...,N_{C}\}$</li>
+</ul>
+<p><strong>Parameters</strong></p>
+<ul>
+<li>Coefficients in collocation/Runge-Kutta formula: $a_{j,j}$</li>
+<li>Drag coefficient: $R$</li>
+<li>Race length: $L$</li>
+<li>Scaled time for each finite element: $h_i = \frac{1}{N_{FE}}$</li>
+</ul>
+<p><strong>Variables</strong></p>
+<ul>
+<li>Position (internal collocation points): $x_{i,j}$</li>
+<li>Position (beginning of each finite element): $\bar{x}_{i}$</li>
+<li>Position derivative (internal collocation points): $\dot{x}_{i,j}$</li>
+<li>Velocity (internal collocation points): $v_{i,j}$</li>
+<li>Velocity (beginning of each finite element): $\bar{v}_{i}$</li>
+<li>Velocity derivative (internal collocation points): $\dot{v}_{i,j}$</li>
+<li>Time (internal collocation points): $t_{i,j}$</li>
+<li>Time (beginning of each finite element): $\bar{t}_{i}$</li>
+<li>Acceleration (control degrees of freedom): $u_i$</li>
+</ul>
+<p><strong>Objective and Constraints</strong></p>
+$$\begin{align*}
+\min \quad &amp; t_f \\
+\mathrm{s.t.} \quad &amp; \mathrm{Differential~equation~for~x:} \\ 
+&amp; x_{i,j} = \bar{x}_{i} + h_i \sum_{k \in \mathcal{J}} a_{k,j} \dot{x}_{i,k},\quad \forall i \in \mathcal{I},~j \in \mathcal{J} \\
+&amp; \bar{x}_{i} = \bar{x}_{i-1} + h_{i-1} \sum_{k \in \mathcal{J}} a_{k,N_C} \dot{x}_{i-1,k},\quad \forall i \in \mathcal{I} \setminus 1\\
+&amp; \dot{x}_{i,j} = t_f v_{i,j}, \quad \forall i \in \mathcal{I} \setminus 1,~j \in \mathcal{J} \\ \\
+&amp; \mathrm{Differential~equation~for~v:} \\ 
+&amp; v_{i,j} = \bar{v}_{i} + h_i \sum_{k \in \mathcal{J}} a_{k,j} \dot{v}_{i,k},\quad \forall i \in \mathcal{I},~j \in \mathcal{J} \\
+&amp; \bar{v}_{i} = \bar{v}_{i-1} + h_{i-1} \sum_{k \in \mathcal{J}} a_{k,N_C} \dot{v}_{i-1,k},\quad \forall i \in \mathcal{I} \setminus 1\\
+&amp; \dot{v}_{i,j} = t_f (u_{i} - R v_{i,j}^2), \quad \forall i \in \mathcal{I} \setminus 1,~j \in \mathcal{J} \\ \\
+&amp; \mathrm{Differential~equation~for~time:} \\
+&amp; t_{i,j} = \bar{t}_{i} + h_i \sum_{k \in \mathcal{J}} a_{k,j} t_f,\quad \forall i \in \mathcal{I},~j \in \mathcal{J} \\
+&amp; \bar{t}_{i} = \bar{t}_{i-1} + h_{i-1} \sum_{k \in \mathcal{J}} a_{k,N_C} t_f,\quad \forall i \in \mathcal{I} \setminus 1\\ \\
+&amp; \mathrm{Initial~conditions:} \\ 
+&amp; \bar{x}_{1} = 0, \quad \bar{v}_{1} = 0, \quad \bar{t}_1 = 0\\ \\
+&amp; \mathrm{Boundary~conditions:} \\ 
+&amp; L = \bar{x}_{N_{FE}} + h_{N_{FE}} \sum_{k \in \mathcal{J}} a_{k,N_C} \dot{x}_{N_{FE},k}, \\
+&amp; 0 = \bar{v}_{N_{FE}} + h_{N_{FE}} \sum_{k \in \mathcal{J}} a_{k,N_C} \dot{v}_{N_{FE},k}, \\ \\
+&amp; \mathrm{Bounds~on~acceleration:} \\
+&amp; -3 \leq a_i \leq 1, \quad \forall i \in \mathcal{I}
+\end{align*}$$
+</div>
+</div>
+
+
+
+    <div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[2]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">pyomo.environ</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">from</span> <span class="nn">pyomo.dae</span> <span class="kn">import</span> <span class="o">*</span>
+
+<span class="n">m2</span> <span class="o">=</span> <span class="n">ConcreteModel</span><span class="p">()</span>
+
+<span class="c1"># Define model parameters</span>
+<span class="n">m2</span><span class="o">.</span><span class="n">R</span> <span class="o">=</span> <span class="n">Param</span><span class="p">(</span><span class="n">initialize</span><span class="o">=</span><span class="mf">0.001</span><span class="p">)</span> <span class="c1">#  Friction factor</span>
+<span class="n">m2</span><span class="o">.</span><span class="n">L</span> <span class="o">=</span> <span class="n">Param</span><span class="p">(</span><span class="n">initialize</span><span class="o">=</span><span class="mf">100.0</span><span class="p">)</span> <span class="c1">#  Final position</span>
+
+<span class="c1"># Define finite elements and collocation points</span>
+<span class="n">NFE</span> <span class="o">=</span> <span class="mi">15</span>
+<span class="n">NC</span> <span class="o">=</span> <span class="mi">3</span>
+<span class="n">m2</span><span class="o">.</span><span class="n">I</span> <span class="o">=</span> <span class="n">Set</span><span class="p">(</span><span class="n">initialize</span><span class="o">=</span><span class="n">RangeSet</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="n">NFE</span><span class="p">))</span> <span class="c1"># Finite elements</span>
+<span class="n">m2</span><span class="o">.</span><span class="n">J</span> <span class="o">=</span> <span class="n">Set</span><span class="p">(</span><span class="n">initialize</span><span class="o">=</span><span class="n">RangeSet</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="n">NC</span><span class="p">))</span> <span class="c1"># Internal collocation points</span>
+
+<span class="c1"># Define first order derivative collocation matrix</span>
+<span class="n">A</span> <span class="o">=</span> <span class="p">{}</span>
+<span class="n">A</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.19681547722366</span>
+<span class="n">A</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.39442431473909</span>
+<span class="n">A</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.37640306270047</span>
+<span class="n">A</span><span class="p">[</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="mf">0.06553542585020</span>
+<span class="n">A</span><span class="p">[</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.29207341166523</span>
+<span class="n">A</span><span class="p">[</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.51248582618842</span>
+<span class="n">A</span><span class="p">[</span><span class="mi">3</span><span class="p">,</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.02377097434822</span>
+<span class="n">A</span><span class="p">[</span><span class="mi">3</span><span class="p">,</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="mf">0.04154875212600</span>
+<span class="n">A</span><span class="p">[</span><span class="mi">3</span><span class="p">,</span><span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.11111111111111</span>
+
+<span class="n">m2</span><span class="o">.</span><span class="n">a</span> <span class="o">=</span> <span class="n">Param</span><span class="p">(</span><span class="n">m2</span><span class="o">.</span><span class="n">J</span><span class="p">,</span> <span class="n">m2</span><span class="o">.</span><span class="n">J</span><span class="p">,</span> <span class="n">initialize</span><span class="o">=</span><span class="n">A</span><span class="p">)</span>
+
+<span class="c1"># Define step for each finite element</span>
+<span class="n">m2</span><span class="o">.</span><span class="n">h</span> <span class="o">=</span> <span class="n">Param</span><span class="p">(</span><span class="n">m2</span><span class="o">.</span><span class="n">I</span><span class="p">,</span><span class="n">initialize</span><span class="o">=</span><span class="mi">1</span><span class="o">/</span><span class="n">NFE</span><span class="p">)</span>
+
+<span class="c1"># Define objective (final time)</span>
+<span class="n">m2</span><span class="o">.</span><span class="n">tf</span> <span class="o">=</span> <span class="n">Var</span><span class="p">(</span><span class="n">domain</span><span class="o">=</span><span class="n">NonNegativeReals</span><span class="p">)</span>
+
+<span class="c1"># Variables for x</span>
+<span class="n">m2</span><span class="o">.</span><span class="n">x0</span> <span class="o">=</span> <span class="n">Var</span><span class="p">(</span><span class="n">m2</span><span class="o">.</span><span class="n">I</span><span class="p">)</span>
+<span class="n">m2</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="n">Var</span><span class="p">(</span><span class="n">m2</span><span class="o">.</span><span class="n">I</span><span class="p">,</span><span class="n">m2</span><span class="o">.</span><span class="n">J</span><span class="p">)</span>
+<span class="n">m2</span><span class="o">.</span><span class="n">xdot</span> <span class="o">=</span> <span class="n">Var</span><span class="p">(</span><span class="n">m2</span><span class="o">.</span><span class="n">I</span><span class="p">,</span><span class="n">m2</span><span class="o">.</span><span class="n">J</span><span class="p">)</span>
+
+<span class="c1"># Variables for v</span>
+<span class="n">m2</span><span class="o">.</span><span class="n">v0</span> <span class="o">=</span> <span class="n">Var</span><span class="p">(</span><span class="n">m2</span><span class="o">.</span><span class="n">I</span><span class="p">)</span>
+<span class="n">m2</span><span class="o">.</span><span class="n">v</span> <span class="o">=</span> <span class="n">Var</span><span class="p">(</span><span class="n">m2</span><span class="o">.</span><span class="n">I</span><span class="p">,</span><span class="n">m2</span><span class="o">.</span><span class="n">J</span><span class="p">)</span>
+<span class="n">m2</span><span class="o">.</span><span class="n">vdot</span> <span class="o">=</span> <span class="n">Var</span><span class="p">(</span><span class="n">m2</span><span class="o">.</span><span class="n">I</span><span class="p">,</span><span class="n">m2</span><span class="o">.</span><span class="n">J</span><span class="p">)</span>
+
+<span class="c1"># Variables for t</span>
+<span class="n">m2</span><span class="o">.</span><span class="n">t0</span> <span class="o">=</span> <span class="n">Var</span><span class="p">(</span><span class="n">m2</span><span class="o">.</span><span class="n">I</span><span class="p">)</span>
+<span class="n">m2</span><span class="o">.</span><span class="n">t</span> <span class="o">=</span> <span class="n">Var</span><span class="p">(</span><span class="n">m2</span><span class="o">.</span><span class="n">I</span><span class="p">,</span><span class="n">m2</span><span class="o">.</span><span class="n">J</span><span class="p">)</span>
+
+<span class="c1"># Acceleration</span>
+<span class="n">m2</span><span class="o">.</span><span class="n">u</span> <span class="o">=</span> <span class="n">Var</span><span class="p">(</span><span class="n">m2</span><span class="o">.</span><span class="n">I</span><span class="p">,</span> <span class="n">bounds</span><span class="o">=</span><span class="p">(</span><span class="o">-</span><span class="mi">3</span><span class="p">,</span><span class="mi">1</span><span class="p">))</span>
+
+<span class="c1">### Finite Element Collocation Equations</span>
+<span class="c1"># position</span>
+<span class="k">def</span> <span class="nf">FECOLx_</span><span class="p">(</span><span class="n">m2</span><span class="p">,</span><span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">m2</span><span class="o">.</span><span class="n">x</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="p">]</span> <span class="o">==</span> <span class="n">m2</span><span class="o">.</span><span class="n">x0</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">+</span> <span class="n">m2</span><span class="o">.</span><span class="n">h</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">*</span><span class="nb">sum</span><span class="p">(</span><span class="n">m2</span><span class="o">.</span><span class="n">a</span><span class="p">[</span><span class="n">k</span><span class="p">,</span><span class="n">j</span><span class="p">]</span><span class="o">*</span><span class="n">m2</span><span class="o">.</span><span class="n">xdot</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="n">k</span><span class="p">]</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">m2</span><span class="o">.</span><span class="n">J</span><span class="p">)</span>
+<span class="n">m2</span><span class="o">.</span><span class="n">FECOLx</span> <span class="o">=</span> <span class="n">Constraint</span><span class="p">(</span><span class="n">m2</span><span class="o">.</span><span class="n">I</span><span class="p">,</span><span class="n">m2</span><span class="o">.</span><span class="n">J</span><span class="p">,</span><span class="n">rule</span><span class="o">=</span><span class="n">FECOLx_</span><span class="p">)</span>
+
+<span class="c1"># velocity</span>
+<span class="k">def</span> <span class="nf">FECOLv_</span><span class="p">(</span><span class="n">m2</span><span class="p">,</span><span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">m2</span><span class="o">.</span><span class="n">v</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="p">]</span> <span class="o">==</span> <span class="n">m2</span><span class="o">.</span><span class="n">v0</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">+</span> <span class="n">m2</span><span class="o">.</span><span class="n">h</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">*</span><span class="nb">sum</span><span class="p">(</span><span class="n">m2</span><span class="o">.</span><span class="n">a</span><span class="p">[</span><span class="n">k</span><span class="p">,</span><span class="n">j</span><span class="p">]</span><span class="o">*</span><span class="n">m2</span><span class="o">.</span><span class="n">vdot</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="n">k</span><span class="p">]</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">m2</span><span class="o">.</span><span class="n">J</span><span class="p">)</span>
+<span class="n">m2</span><span class="o">.</span><span class="n">FECOLv</span> <span class="o">=</span> <span class="n">Constraint</span><span class="p">(</span><span class="n">m2</span><span class="o">.</span><span class="n">I</span><span class="p">,</span><span class="n">m2</span><span class="o">.</span><span class="n">J</span><span class="p">,</span><span class="n">rule</span><span class="o">=</span><span class="n">FECOLv_</span><span class="p">)</span>
+
+<span class="c1"># time</span>
+<span class="k">def</span> <span class="nf">FECOLt_</span><span class="p">(</span><span class="n">m2</span><span class="p">,</span><span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">m2</span><span class="o">.</span><span class="n">t</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="p">]</span> <span class="o">==</span> <span class="n">m2</span><span class="o">.</span><span class="n">t0</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">+</span> <span class="n">m2</span><span class="o">.</span><span class="n">h</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">*</span><span class="nb">sum</span><span class="p">(</span><span class="n">m2</span><span class="o">.</span><span class="n">a</span><span class="p">[</span><span class="n">k</span><span class="p">,</span><span class="n">j</span><span class="p">]</span><span class="o">*</span><span class="n">m2</span><span class="o">.</span><span class="n">tf</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">m2</span><span class="o">.</span><span class="n">J</span><span class="p">)</span>
+<span class="n">m2</span><span class="o">.</span><span class="n">FECOLt</span> <span class="o">=</span> <span class="n">Constraint</span><span class="p">(</span><span class="n">m2</span><span class="o">.</span><span class="n">I</span><span class="p">,</span><span class="n">m2</span><span class="o">.</span><span class="n">J</span><span class="p">,</span><span class="n">rule</span><span class="o">=</span><span class="n">FECOLt_</span><span class="p">)</span>
+
+
+<span class="c1">### Continuity Equations</span>
+<span class="c1"># position</span>
+<span class="k">def</span> <span class="nf">CONx_</span><span class="p">(</span><span class="n">m2</span><span class="p">,</span><span class="n">i</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">i</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">Constraint</span><span class="o">.</span><span class="n">Skip</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">m2</span><span class="o">.</span><span class="n">x0</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">==</span> <span class="n">m2</span><span class="o">.</span><span class="n">x0</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">m2</span><span class="o">.</span><span class="n">h</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">*</span><span class="nb">sum</span><span class="p">(</span><span class="n">m2</span><span class="o">.</span><span class="n">a</span><span class="p">[</span><span class="n">k</span><span class="p">,</span><span class="n">NC</span><span class="p">]</span><span class="o">*</span><span class="n">m2</span><span class="o">.</span><span class="n">xdot</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="n">k</span><span class="p">]</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">m2</span><span class="o">.</span><span class="n">J</span><span class="p">)</span>
+<span class="n">m2</span><span class="o">.</span><span class="n">CONx</span> <span class="o">=</span> <span class="n">Constraint</span><span class="p">(</span><span class="n">m2</span><span class="o">.</span><span class="n">I</span><span class="p">,</span> <span class="n">rule</span><span class="o">=</span><span class="n">CONx_</span><span class="p">)</span>
+
+<span class="c1"># velocity</span>
+<span class="k">def</span> <span class="nf">CONv_</span><span class="p">(</span><span class="n">m2</span><span class="p">,</span><span class="n">i</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">i</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">Constraint</span><span class="o">.</span><span class="n">Skip</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">m2</span><span class="o">.</span><span class="n">v0</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">==</span> <span class="n">m2</span><span class="o">.</span><span class="n">v0</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">m2</span><span class="o">.</span><span class="n">h</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">*</span><span class="nb">sum</span><span class="p">(</span><span class="n">m2</span><span class="o">.</span><span class="n">a</span><span class="p">[</span><span class="n">k</span><span class="p">,</span><span class="n">NC</span><span class="p">]</span><span class="o">*</span><span class="n">m2</span><span class="o">.</span><span class="n">vdot</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="n">k</span><span class="p">]</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">m2</span><span class="o">.</span><span class="n">J</span><span class="p">)</span>
+<span class="n">m2</span><span class="o">.</span><span class="n">CONv</span> <span class="o">=</span> <span class="n">Constraint</span><span class="p">(</span><span class="n">m2</span><span class="o">.</span><span class="n">I</span><span class="p">,</span> <span class="n">rule</span><span class="o">=</span><span class="n">CONv_</span><span class="p">)</span>
+
+<span class="c1"># time</span>
+<span class="k">def</span> <span class="nf">CONt_</span><span class="p">(</span><span class="n">m2</span><span class="p">,</span><span class="n">i</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">i</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">Constraint</span><span class="o">.</span><span class="n">Skip</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">m2</span><span class="o">.</span><span class="n">t0</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">==</span> <span class="n">m2</span><span class="o">.</span><span class="n">t0</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">m2</span><span class="o">.</span><span class="n">h</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">*</span><span class="nb">sum</span><span class="p">(</span><span class="n">m2</span><span class="o">.</span><span class="n">a</span><span class="p">[</span><span class="n">k</span><span class="p">,</span><span class="n">NC</span><span class="p">]</span><span class="o">*</span><span class="n">m2</span><span class="o">.</span><span class="n">tf</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">m2</span><span class="o">.</span><span class="n">J</span><span class="p">)</span>
+<span class="n">m2</span><span class="o">.</span><span class="n">CONt</span> <span class="o">=</span> <span class="n">Constraint</span><span class="p">(</span><span class="n">m2</span><span class="o">.</span><span class="n">I</span><span class="p">,</span> <span class="n">rule</span><span class="o">=</span><span class="n">CONt_</span><span class="p">)</span>
+
+<span class="c1">### Differential equations</span>
+<span class="c1"># position</span>
+<span class="k">def</span> <span class="nf">ODEx_</span><span class="p">(</span><span class="n">m2</span><span class="p">,</span><span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">m2</span><span class="o">.</span><span class="n">xdot</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="p">]</span> <span class="o">==</span> <span class="n">m2</span><span class="o">.</span><span class="n">tf</span><span class="o">*</span><span class="n">m2</span><span class="o">.</span><span class="n">v</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="p">]</span>
+<span class="n">m2</span><span class="o">.</span><span class="n">ODEx</span> <span class="o">=</span> <span class="n">Constraint</span><span class="p">(</span><span class="n">m2</span><span class="o">.</span><span class="n">I</span><span class="p">,</span><span class="n">m2</span><span class="o">.</span><span class="n">J</span><span class="p">,</span><span class="n">rule</span><span class="o">=</span><span class="n">ODEx_</span><span class="p">)</span>
+
+<span class="c1"># velocity</span>
+<span class="k">def</span> <span class="nf">ODEv_</span><span class="p">(</span><span class="n">m2</span><span class="p">,</span><span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">m2</span><span class="o">.</span><span class="n">vdot</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="p">]</span> <span class="o">==</span> <span class="n">m2</span><span class="o">.</span><span class="n">tf</span><span class="o">*</span><span class="p">(</span><span class="n">m2</span><span class="o">.</span><span class="n">u</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">-</span> <span class="n">m2</span><span class="o">.</span><span class="n">R</span><span class="o">*</span><span class="n">m2</span><span class="o">.</span><span class="n">v</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="p">]</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">m2</span><span class="o">.</span><span class="n">ODEv</span> <span class="o">=</span> <span class="n">Constraint</span><span class="p">(</span><span class="n">m2</span><span class="o">.</span><span class="n">I</span><span class="p">,</span><span class="n">m2</span><span class="o">.</span><span class="n">J</span><span class="p">,</span><span class="n">rule</span><span class="o">=</span><span class="n">ODEv_</span><span class="p">)</span>
+
+<span class="c1">### Initial conditions</span>
+<span class="n">m2</span><span class="o">.</span><span class="n">xIC</span> <span class="o">=</span> <span class="n">Constraint</span><span class="p">(</span><span class="n">expr</span><span class="o">=</span><span class="n">m2</span><span class="o">.</span><span class="n">x0</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span>
+<span class="n">m2</span><span class="o">.</span><span class="n">vIC</span> <span class="o">=</span> <span class="n">Constraint</span><span class="p">(</span><span class="n">expr</span><span class="o">=</span><span class="n">m2</span><span class="o">.</span><span class="n">v0</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span>
+<span class="n">m2</span><span class="o">.</span><span class="n">tIC</span> <span class="o">=</span> <span class="n">Constraint</span><span class="p">(</span><span class="n">expr</span><span class="o">=</span><span class="n">m2</span><span class="o">.</span><span class="n">t0</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span>
+
+<span class="c1">### Boundary conditions</span>
+<span class="n">m2</span><span class="o">.</span><span class="n">xBC</span> <span class="o">=</span> <span class="n">Constraint</span><span class="p">(</span><span class="n">expr</span><span class="o">=</span><span class="n">m2</span><span class="o">.</span><span class="n">L</span> <span class="o">==</span> <span class="n">m2</span><span class="o">.</span><span class="n">x0</span><span class="p">[</span><span class="n">NFE</span><span class="p">]</span> <span class="o">+</span> <span class="n">m2</span><span class="o">.</span><span class="n">h</span><span class="p">[</span><span class="n">NFE</span><span class="p">]</span><span class="o">*</span><span class="nb">sum</span><span class="p">(</span><span class="n">m2</span><span class="o">.</span><span class="n">a</span><span class="p">[</span><span class="n">k</span><span class="p">,</span><span class="n">NC</span><span class="p">]</span><span class="o">*</span><span class="n">m2</span><span class="o">.</span><span class="n">xdot</span><span class="p">[</span><span class="n">NFE</span><span class="p">,</span><span class="n">k</span><span class="p">]</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">m2</span><span class="o">.</span><span class="n">J</span><span class="p">))</span>
+<span class="n">m2</span><span class="o">.</span><span class="n">vBC</span> <span class="o">=</span> <span class="n">Constraint</span><span class="p">(</span><span class="n">expr</span><span class="o">=</span><span class="mi">0</span> <span class="o">==</span> <span class="n">m2</span><span class="o">.</span><span class="n">v0</span><span class="p">[</span><span class="n">NFE</span><span class="p">]</span> <span class="o">+</span> <span class="n">m2</span><span class="o">.</span><span class="n">h</span><span class="p">[</span><span class="n">NFE</span><span class="p">]</span><span class="o">*</span><span class="nb">sum</span><span class="p">(</span><span class="n">m2</span><span class="o">.</span><span class="n">a</span><span class="p">[</span><span class="n">k</span><span class="p">,</span><span class="n">NC</span><span class="p">]</span><span class="o">*</span><span class="n">m2</span><span class="o">.</span><span class="n">vdot</span><span class="p">[</span><span class="n">NFE</span><span class="p">,</span><span class="n">k</span><span class="p">]</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">m2</span><span class="o">.</span><span class="n">J</span><span class="p">))</span>
+
+<span class="c1">### Set objective</span>
+<span class="n">m2</span><span class="o">.</span><span class="n">obj</span> <span class="o">=</span> <span class="n">Objective</span><span class="p">(</span><span class="n">expr</span><span class="o">=</span><span class="n">m2</span><span class="o">.</span><span class="n">tf</span><span class="p">)</span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+</div>
+
+
+
+    <div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[3]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">solver</span> <span class="o">=</span> <span class="n">SolverFactory</span><span class="p">(</span><span class="s1">&#39;ipopt&#39;</span><span class="p">)</span>
+<span class="n">solver</span><span class="o">.</span><span class="n">solve</span><span class="p">(</span><span class="n">m2</span><span class="p">,</span><span class="n">tee</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;final time = </span><span class="si">%6.2f</span><span class="s2">&quot;</span> <span class="o">%</span><span class="p">(</span><span class="n">value</span><span class="p">(</span><span class="n">m2</span><span class="o">.</span><span class="n">tf</span><span class="p">)))</span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+<div class="jp-Cell-outputWrapper">
+
+
+<div class="jp-OutputArea jp-Cell-outputArea">
+
+<div class="jp-OutputArea-child">
+
+    
+    <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
+
+
+<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
+<pre>Ipopt 3.13.2: 
+
+******************************************************************************
+This program contains Ipopt, a library for large-scale nonlinear optimization.
+ Ipopt is released as open source code under the Eclipse Public License (EPL).
+         For more information visit http://projects.coin-or.org/Ipopt
+******************************************************************************
+
+This is Ipopt version 3.13.2, running with linear solver ma27.
+
+Number of nonzeros in equality constraint Jacobian...:     1093
+Number of nonzeros in inequality constraint Jacobian.:        0
+Number of nonzeros in Lagrangian Hessian.............:      105
+
+Total number of variables............................:      286
+                     variables with only lower bounds:        1
+                variables with lower and upper bounds:       15
+                     variables with only upper bounds:        0
+Total number of equality constraints.................:      272
+Total number of inequality constraints...............:        0
+        inequality constraints with only lower bounds:        0
+   inequality constraints with lower and upper bounds:        0
+        inequality constraints with only upper bounds:        0
+
+iter    objective    inf_pr   inf_du lg(mu)  ||d||  lg(rg) alpha_du alpha_pr  ls
+   0  9.9999900e-03 1.00e+02 0.00e+00  -1.0 0.00e+00    -  0.00e+00 0.00e+00   0
+   1r 9.9999900e-03 1.00e+02 9.99e+02   2.0 0.00e+00    -  0.00e+00 1.05e-07R  2
+   2r 3.0578540e+00 9.99e+01 9.31e+02   2.0 4.49e+01    -  1.35e-01 6.80e-02f  2
+   3r 2.2146807e+00 9.91e+01 5.68e+02   1.3 2.16e+00    -  1.00e+00 3.91e-01f  1
+   4r 2.0626784e+00 9.87e+01 4.21e+02   0.6 2.94e+00    -  6.36e-01 2.59e-01f  1
+   5r 2.7501672e+00 9.77e+01 2.42e+02   0.6 8.74e+00    -  5.56e-01 4.24e-01f  1
+   6r 5.8696920e+00 9.43e+01 1.91e+02  -0.1 8.62e+00    -  4.13e-01 7.57e-01f  1
+   7r 8.6536528e+00 8.80e+01 1.65e+02  -0.1 1.29e+01    -  2.98e-01 7.27e-01f  1
+   8r 9.0137628e+00 8.55e+01 1.09e+02  -0.1 3.77e+00    -  5.42e-01 1.00e+00f  1
+   9  9.4134225e+00 8.42e+01 9.84e-01  -1.0 1.13e+02    -  3.63e-01 1.56e-02h  7
+iter    objective    inf_pr   inf_du lg(mu)  ||d||  lg(rg) alpha_du alpha_pr  ls
+  10  9.7719760e+00 8.29e+01 9.61e-01  -1.0 1.13e+02    -  6.94e-01 1.56e-02h  7
+  11  1.0069154e+01 8.16e+01 1.10e+00  -1.0 1.20e+02    -  6.26e-01 1.52e-02h  7
+  12  1.0350049e+01 8.04e+01 1.27e+00  -1.0 1.24e+02    -  1.00e+00 1.56e-02h  7
+  13  1.0613260e+01 7.91e+01 1.29e+00  -1.0 1.25e+02    -  6.03e-01 1.56e-02h  7
+  14  1.0858870e+01 7.79e+01 1.31e+00  -1.0 1.25e+02    -  1.00e+00 1.56e-02h  7
+  15  1.1089714e+01 7.66e+01 1.31e+00  -1.0 1.23e+02    -  7.24e-01 1.56e-02h  7
+  16  1.1306240e+01 7.55e+01 1.31e+00  -1.0 1.24e+02    -  1.00e+00 1.56e-02h  7
+  17  1.1714847e+01 7.31e+01 1.28e+00  -1.0 1.22e+02    -  8.51e-01 3.12e-02h  6
+  18  1.2077191e+01 7.08e+01 1.24e+00  -1.0 1.23e+02    -  1.00e+00 3.12e-02h  6
+  19  2.2531170e+01 7.10e+01 8.96e-01  -1.0 1.19e+02    -  1.00e+00 1.00e+00w  1
+iter    objective    inf_pr   inf_du lg(mu)  ||d||  lg(rg) alpha_du alpha_pr  ls
+  20  1.7706786e+01 4.49e+00 1.75e-01  -1.0 2.28e+01    -  1.00e+00 1.00e+00w  1
+  21  1.7349863e+01 1.01e-01 7.40e-04  -1.0 8.28e+00    -  1.00e+00 1.00e+00h  1
+  22  1.6478946e+01 1.06e+00 3.16e-02  -2.5 1.68e+01    -  8.21e-01 1.00e+00h  1
+  23  1.6333670e+01 1.11e-01 9.02e-04  -2.5 1.27e+01    -  9.80e-01 1.00e+00h  1
+  24  1.6324255e+01 5.10e-04 4.40e-06  -2.5 6.64e-01    -  1.00e+00 1.00e+00h  1
+  25  1.6289923e+01 3.05e-03 1.05e-05  -3.8 1.03e+00    -  1.00e+00 1.00e+00h  1
+  26  1.6289753e+01 1.16e-07 1.47e-09  -3.8 5.97e-03    -  1.00e+00 1.00e+00h  1
+  27  1.6287822e+01 9.84e-06 3.34e-08  -5.7 5.95e-02    -  1.00e+00 1.00e+00f  1
+  28  1.6287798e+01 1.59e-09 5.42e-12  -8.6 7.53e-04    -  1.00e+00 1.00e+00h  1
+
+Number of Iterations....: 28
+
+                                   (scaled)                 (unscaled)
+Objective...............:   1.6287797665173553e+01    1.6287797665173553e+01
+Dual infeasibility......:   5.4235099871471539e-12    5.4235099871471539e-12
+Constraint violation....:   1.5949126463965513e-09    1.5949126463965513e-09
+Complementarity.........:   2.5440456242856559e-09    2.5440456242856559e-09
+Overall NLP error.......:   2.5440456242856559e-09    2.5440456242856559e-09
+
+
+Number of objective function evaluations             = 106
+Number of objective gradient evaluations             = 23
+Number of equality constraint evaluations            = 106
+Number of inequality constraint evaluations          = 0
+Number of equality constraint Jacobian evaluations   = 30
+Number of inequality constraint Jacobian evaluations = 0
+Number of Lagrangian Hessian evaluations             = 28
+Total CPU secs in IPOPT (w/o function evaluations)   =      0.014
+Total CPU secs in NLP function evaluations           =      0.001
+
+EXIT: Optimal Solution Found.
+final time =  16.29
+</pre>
+</div>
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+
+
+    
+<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<h3 id="2.6.1.2-Orthogonal-Collocation-on-Finite-Elements:-Pyomo.dae">2.6.1.2 Orthogonal Collocation on Finite Elements: Pyomo.dae<a class="anchor-link" href="#2.6.1.2-Orthogonal-Collocation-on-Finite-Elements:-Pyomo.dae">&#182;</a></h3><h4 id="Declare-Model">Declare Model<a class="anchor-link" href="#Declare-Model">&#182;</a></h4>
+</div>
+</div>
+
+
+
+    <div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[4]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">m</span> <span class="o">=</span> <span class="n">ConcreteModel</span><span class="p">()</span>
+
+<span class="n">m</span><span class="o">.</span><span class="n">R</span> <span class="o">=</span> <span class="n">Param</span><span class="p">(</span><span class="n">initialize</span><span class="o">=</span><span class="mf">0.001</span><span class="p">)</span> <span class="c1">#  Friction factor</span>
+<span class="n">m</span><span class="o">.</span><span class="n">L</span> <span class="o">=</span> <span class="n">Param</span><span class="p">(</span><span class="n">initialize</span><span class="o">=</span><span class="mf">100.0</span><span class="p">)</span> <span class="c1">#  Final position</span>
+
+<span class="n">m</span><span class="o">.</span><span class="n">tau</span> <span class="o">=</span> <span class="n">ContinuousSet</span><span class="p">(</span><span class="n">bounds</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">))</span> <span class="c1"># Unscaled time</span>
+<span class="n">m</span><span class="o">.</span><span class="n">time</span> <span class="o">=</span> <span class="n">Var</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">tau</span><span class="p">)</span> <span class="c1"># Scaled time</span>
+<span class="n">m</span><span class="o">.</span><span class="n">tf</span> <span class="o">=</span> <span class="n">Var</span><span class="p">()</span>
+<span class="n">m</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="n">Var</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">tau</span><span class="p">,</span><span class="n">bounds</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">m</span><span class="o">.</span><span class="n">L</span><span class="o">+</span><span class="mi">50</span><span class="p">))</span>
+<span class="n">m</span><span class="o">.</span><span class="n">v</span> <span class="o">=</span> <span class="n">Var</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">tau</span><span class="p">,</span><span class="n">bounds</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="kc">None</span><span class="p">))</span>
+<span class="n">m</span><span class="o">.</span><span class="n">u</span> <span class="o">=</span> <span class="n">Var</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">tau</span><span class="p">,</span> <span class="n">bounds</span><span class="o">=</span><span class="p">(</span><span class="o">-</span><span class="mf">3.0</span><span class="p">,</span><span class="mf">1.0</span><span class="p">),</span><span class="n">initialize</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+
+<span class="n">m</span><span class="o">.</span><span class="n">dtime</span> <span class="o">=</span> <span class="n">DerivativeVar</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">time</span><span class="p">)</span>
+<span class="n">m</span><span class="o">.</span><span class="n">dx</span> <span class="o">=</span> <span class="n">DerivativeVar</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">x</span><span class="p">)</span>
+<span class="n">m</span><span class="o">.</span><span class="n">dv</span> <span class="o">=</span> <span class="n">DerivativeVar</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">v</span><span class="p">)</span>
+
+<span class="n">m</span><span class="o">.</span><span class="n">obj</span> <span class="o">=</span> <span class="n">Objective</span><span class="p">(</span><span class="n">expr</span><span class="o">=</span><span class="n">m</span><span class="o">.</span><span class="n">tf</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">_ode1</span><span class="p">(</span><span class="n">m</span><span class="p">,</span><span class="n">i</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">i</span> <span class="o">==</span> <span class="mi">0</span> <span class="p">:</span>
+        <span class="k">return</span> <span class="n">Constraint</span><span class="o">.</span><span class="n">Skip</span>
+    <span class="k">return</span> <span class="n">m</span><span class="o">.</span><span class="n">dx</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">==</span> <span class="n">m</span><span class="o">.</span><span class="n">tf</span> <span class="o">*</span> <span class="n">m</span><span class="o">.</span><span class="n">v</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+<span class="n">m</span><span class="o">.</span><span class="n">ode1</span> <span class="o">=</span> <span class="n">Constraint</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">tau</span><span class="p">,</span> <span class="n">rule</span><span class="o">=</span><span class="n">_ode1</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">_ode2</span><span class="p">(</span><span class="n">m</span><span class="p">,</span><span class="n">i</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">i</span> <span class="o">==</span> <span class="mi">0</span> <span class="p">:</span>
+        <span class="k">return</span> <span class="n">Constraint</span><span class="o">.</span><span class="n">Skip</span>
+    <span class="k">return</span> <span class="n">m</span><span class="o">.</span><span class="n">dv</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">==</span> <span class="n">m</span><span class="o">.</span><span class="n">tf</span><span class="o">*</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">u</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">-</span> <span class="n">m</span><span class="o">.</span><span class="n">R</span><span class="o">*</span><span class="n">m</span><span class="o">.</span><span class="n">v</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">m</span><span class="o">.</span><span class="n">ode2</span> <span class="o">=</span> <span class="n">Constraint</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">tau</span><span class="p">,</span> <span class="n">rule</span><span class="o">=</span><span class="n">_ode2</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">_ode3</span><span class="p">(</span><span class="n">m</span><span class="p">,</span><span class="n">i</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">i</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">Constraint</span><span class="o">.</span><span class="n">Skip</span>
+    <span class="k">return</span> <span class="n">m</span><span class="o">.</span><span class="n">dtime</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">==</span> <span class="n">m</span><span class="o">.</span><span class="n">tf</span>
+<span class="n">m</span><span class="o">.</span><span class="n">ode3</span> <span class="o">=</span> <span class="n">Constraint</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">tau</span><span class="p">,</span> <span class="n">rule</span><span class="o">=</span><span class="n">_ode3</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">_init</span><span class="p">(</span><span class="n">m</span><span class="p">):</span>
+    <span class="k">yield</span> <span class="n">m</span><span class="o">.</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span>
+    <span class="k">yield</span> <span class="n">m</span><span class="o">.</span><span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="n">m</span><span class="o">.</span><span class="n">L</span>
+    <span class="k">yield</span> <span class="n">m</span><span class="o">.</span><span class="n">v</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span>
+    <span class="k">yield</span> <span class="n">m</span><span class="o">.</span><span class="n">v</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span>
+    <span class="k">yield</span> <span class="n">m</span><span class="o">.</span><span class="n">time</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span>
+<span class="n">m</span><span class="o">.</span><span class="n">initcon</span> <span class="o">=</span> <span class="n">ConstraintList</span><span class="p">(</span><span class="n">rule</span><span class="o">=</span><span class="n">_init</span><span class="p">)</span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+</div>
+
+
+
+    
+<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<h4 id="2.6.1.2.1-Discretize/Transcribe-and-Solve">2.6.1.2.1 Discretize/Transcribe and Solve<a class="anchor-link" href="#2.6.1.2.1-Discretize/Transcribe-and-Solve">&#182;</a></h4>
+</div>
+</div>
+
+
+
+    <div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[5]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#discretizer = TransformationFactory(&#39;dae.finite_difference&#39;)</span>
+<span class="c1">#discretizer.apply_to(m,nfe=15,scheme=&#39;BACKWARD&#39;)</span>
+
+<span class="n">discretizer</span> <span class="o">=</span> <span class="n">TransformationFactory</span><span class="p">(</span><span class="s1">&#39;dae.collocation&#39;</span><span class="p">)</span>
+<span class="n">discretizer</span><span class="o">.</span><span class="n">apply_to</span><span class="p">(</span><span class="n">m</span><span class="p">,</span><span class="n">nfe</span><span class="o">=</span><span class="mi">15</span><span class="p">,</span><span class="n">scheme</span><span class="o">=</span><span class="s1">&#39;LAGRANGE-RADAU&#39;</span><span class="p">,</span><span class="n">ncp</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+<span class="c1">#discretizer.apply_to(m,nfe=15,scheme=&#39;LAGRANGE-LEGENDRE&#39;,ncp=3)</span>
+
+<span class="c1"># force piecewise constant controls (acceleration) over each finite element</span>
+<span class="n">m</span> <span class="o">=</span> <span class="n">discretizer</span><span class="o">.</span><span class="n">reduce_collocation_points</span><span class="p">(</span><span class="n">m</span><span class="p">,</span><span class="n">var</span><span class="o">=</span><span class="n">m</span><span class="o">.</span><span class="n">u</span><span class="p">,</span><span class="n">ncp</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span><span class="n">contset</span><span class="o">=</span><span class="n">m</span><span class="o">.</span><span class="n">tau</span><span class="p">)</span>
+
+<span class="n">solver</span> <span class="o">=</span> <span class="n">SolverFactory</span><span class="p">(</span><span class="s1">&#39;ipopt&#39;</span><span class="p">)</span>
+<span class="n">solver</span><span class="o">.</span><span class="n">solve</span><span class="p">(</span><span class="n">m</span><span class="p">,</span><span class="n">tee</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;final time = </span><span class="si">%6.2f</span><span class="s2">&quot;</span> <span class="o">%</span><span class="p">(</span><span class="n">value</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">tf</span><span class="p">)))</span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+<div class="jp-Cell-outputWrapper">
+
+
+<div class="jp-OutputArea jp-Cell-outputArea">
+
+<div class="jp-OutputArea-child">
+
+    
+    <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
+
+
+<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
+<pre>Ipopt 3.13.2: 
+
+******************************************************************************
+This program contains Ipopt, a library for large-scale nonlinear optimization.
+ Ipopt is released as open source code under the Eclipse Public License (EPL).
+         For more information visit http://projects.coin-or.org/Ipopt
+******************************************************************************
+
+This is Ipopt version 3.13.2, running with linear solver ma27.
+
+Number of nonzeros in equality constraint Jacobian...:     1145
+Number of nonzeros in inequality constraint Jacobian.:        0
+Number of nonzeros in Lagrangian Hessian.............:      135
+
+Total number of variables............................:      319
+                     variables with only lower bounds:       46
+                variables with lower and upper bounds:       91
+                     variables with only upper bounds:        0
+Total number of equality constraints.................:      305
+Total number of inequality constraints...............:        0
+        inequality constraints with only lower bounds:        0
+   inequality constraints with lower and upper bounds:        0
+        inequality constraints with only upper bounds:        0
+
+iter    objective    inf_pr   inf_du lg(mu)  ||d||  lg(rg) alpha_du alpha_pr  ls
+   0  0.0000000e+00 1.00e+02 1.00e+00  -1.0 0.00e+00    -  0.00e+00 0.00e+00   0
+   1  3.6882930e+01 9.96e+01 6.45e+02  -1.0 1.00e+04    -  9.91e-05 3.69e-03h  9
+   2  3.9470634e+01 1.07e+01 1.19e+03  -1.0 1.53e+02   0.0 2.42e-03 9.90e-01f  1
+   3  3.8532247e+01 2.51e-01 2.03e+02  -1.0 2.54e+00  -0.5 9.65e-01 9.90e-01h  1
+   4  3.8410228e+01 7.80e-04 3.81e-01  -1.0 1.22e-01  -1.0 1.00e+00 1.00e+00h  1
+   5  1.1753203e+01 1.06e+02 6.26e+03  -2.5 2.54e+03    -  6.71e-02 1.02e-01f  1
+   6  1.4082983e+01 7.02e+01 4.81e+04  -2.5 1.08e+02    -  7.78e-02 3.38e-01h  1
+   7  1.5801574e+01 3.64e+01 8.78e+04  -2.5 8.55e+01    -  8.81e-02 4.94e-01h  1
+   8  1.6404903e+01 1.44e+01 8.17e+04  -2.5 7.55e+01    -  2.84e-01 6.29e-01h  1
+   9  1.6434448e+01 6.13e+00 2.33e+04  -2.5 4.53e+01    -  6.87e-01 5.78e-01h  1
+iter    objective    inf_pr   inf_du lg(mu)  ||d||  lg(rg) alpha_du alpha_pr  ls
+  10  1.6664583e+01 1.13e-01 2.73e+03  -2.5 7.97e+00    -  9.14e-01 1.00e+00h  1
+  11  1.6635032e+01 8.41e-03 1.02e-05  -2.5 4.85e+00    -  1.00e+00 1.00e+00h  1
+  12  1.6528482e+01 1.77e-02 3.21e-04  -3.8 1.54e+00    -  1.00e+00 1.00e+00h  1
+  13  1.6526502e+01 7.15e-06 5.43e-08  -3.8 2.76e-02    -  1.00e+00 1.00e+00h  1
+  14  1.6520275e+01 6.32e-05 1.05e-06  -5.7 9.58e-02    -  1.00e+00 1.00e+00h  1
+  15  1.6520269e+01 7.57e-11 1.88e-11  -5.7 1.33e-04    -  1.00e+00 1.00e+00h  1
+  16  1.6520192e+01 9.76e-09 1.62e-10  -8.6 1.19e-03    -  1.00e+00 1.00e+00f  1
+
+Number of Iterations....: 16
+
+                                   (scaled)                 (unscaled)
+Objective...............:   1.6520191521080921e+01    1.6520191521080921e+01
+Dual infeasibility......:   1.6218795328535750e-10    1.6218795328535750e-10
+Constraint violation....:   9.7603845006233314e-09    9.7603845006233314e-09
+Complementarity.........:   2.5852537039546602e-09    2.5852537039546602e-09
+Overall NLP error.......:   9.7603845006233314e-09    9.7603845006233314e-09
+
+
+Number of objective function evaluations             = 27
+Number of objective gradient evaluations             = 17
+Number of equality constraint evaluations            = 27
+Number of inequality constraint evaluations          = 0
+Number of equality constraint Jacobian evaluations   = 17
+Number of inequality constraint Jacobian evaluations = 0
+Number of Lagrangian Hessian evaluations             = 16
+Total CPU secs in IPOPT (w/o function evaluations)   =      0.009
+Total CPU secs in NLP function evaluations           =      0.001
+
+EXIT: Optimal Solution Found.
+final time =  16.52
+</pre>
+</div>
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+
+
+    
+<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<h4 id="2.6.1.2.2-Plot-Results">2.6.1.2.2 Plot Results<a class="anchor-link" href="#2.6.1.2.2-Plot-Results">&#182;</a></h4>
+</div>
+</div>
+
+
+
+    <div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[6]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">v</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">u</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">time</span><span class="o">=</span><span class="p">[]</span>
+
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">m</span><span class="o">.</span><span class="n">tau</span><span class="p">:</span>
+    <span class="n">time</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">value</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">time</span><span class="p">[</span><span class="n">i</span><span class="p">]))</span>
+    <span class="n">x</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">value</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">x</span><span class="p">[</span><span class="n">i</span><span class="p">]))</span>
+    <span class="n">v</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">value</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">v</span><span class="p">[</span><span class="n">i</span><span class="p">]))</span>
+    <span class="n">u</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">value</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">u</span><span class="p">[</span><span class="n">i</span><span class="p">]))</span>
+    
+<span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">131</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">time</span><span class="p">,</span><span class="n">x</span><span class="p">,</span><span class="n">label</span><span class="o">=</span><span class="s1">&#39;x&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;location&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;time&#39;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">132</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">time</span><span class="p">,</span><span class="n">v</span><span class="p">,</span><span class="n">label</span><span class="o">=</span><span class="s1">&#39;v&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;time&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;velocity&#39;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">133</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">time</span><span class="p">,</span><span class="n">u</span><span class="p">,</span><span class="n">label</span><span class="o">=</span><span class="s1">&#39;a&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;time&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;acceleration&#39;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+<div class="jp-Cell-outputWrapper">
+
+
+<div class="jp-OutputArea jp-Cell-outputArea">
+
+<div class="jp-OutputArea-child">
+
+    
+    <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
+
+
+
+
+<div class="jp-RenderedImage jp-OutputArea-output ">
+<img src="data:image/png;base64,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
+"
+>
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+
+
+    <div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-ipython3"><pre><span></span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+</div>
+
+
+
+    
+<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<p><!--NAVIGATION-->
+&lt; <a href="https://ndcbe.github.io/CBE60499/02.05-Numeric-Integration.html">2.5 Numeric Integration for DAEs</a> | <a href="toc.html">Contents</a> | <a href="tag_index.html">Tag Index</a> | <a href="https://ndcbe.github.io/CBE60499/02.07-SP.html">2.7 Stochastic Programming</a> &gt;<p><a href="https://colab.research.google.com/github/ndcbe/CBE60499/blob/master/docs/02.06-Pyomo-DAE.ipynb"> <img align="left" src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open in Colab" title="Open in Google Colaboratory"></a><p><a href="https://ndcbe.github.io/CBE60499/02.06-Pyomo-DAE.ipynb"> <img align="left" src="https://img.shields.io/badge/Github-Download-blue.svg" alt="Download" title="Download Notebook"></a></p>
+
+</div>
+</div>
+
+
 </body>
 
 
