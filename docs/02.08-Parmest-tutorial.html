@@ -14282,6 +14282,40 @@ content is available <a href="git@github.com:ndcbe/CBE60499.git">on Github</a>.<
 
 
 
+    <div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># IMPORT DATA FILES USED BY THIS NOTEBOOK</span>
+<span class="kn">import</span> <span class="nn">os</span><span class="o">,</span>  <span class="nn">requests</span>
+
+<span class="n">file_links</span> <span class="o">=</span> <span class="p">[(</span><span class="s2">&quot;data/parmest_20210609_data_exp1.csv&quot;</span><span class="p">,</span> <span class="s2">&quot;https://ndcbe.github.io/CBE60499/data/parmest_20210609_data_exp1.csv&quot;</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">&quot;data/parmest_log_file.csv&quot;</span><span class="p">,</span> <span class="s2">&quot;https://ndcbe.github.io/CBE60499/data/parmest_log_file.csv&quot;</span><span class="p">)]</span>
+
+<span class="c1"># This cell has been added by nbpages. Run this cell to download data files required for this notebook.</span>
+
+<span class="k">for</span> <span class="n">filepath</span><span class="p">,</span> <span class="n">fileurl</span> <span class="ow">in</span> <span class="n">file_links</span><span class="p">:</span>
+    <span class="n">stem</span><span class="p">,</span> <span class="n">filename</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">filepath</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">stem</span><span class="p">:</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">stem</span><span class="p">):</span>
+            <span class="n">os</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="n">stem</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="n">filepath</span><span class="p">):</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">filepath</span><span class="p">,</span> <span class="s1">&#39;wb&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+            <span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">fileurl</span><span class="p">)</span>
+            <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">content</span><span class="p">)</span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+</div>
+
+
+
     
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
@@ -14298,6 +14332,34 @@ content is available <a href="git@github.com:ndcbe/CBE60499.git">on Github</a>.<
 <div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[1]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># This code cell installs packages on Colab</span>
+
+<span class="kn">import</span> <span class="nn">sys</span>
+<span class="k">if</span> <span class="s2">&quot;google.colab&quot;</span> <span class="ow">in</span> <span class="n">sys</span><span class="o">.</span><span class="n">modules</span><span class="p">:</span>
+    <span class="err">!</span><span class="n">wget</span> <span class="s2">&quot;https://raw.githubusercontent.com/ndcbe/CBE60499/main/notebooks/helper.py&quot;</span>
+    <span class="kn">import</span> <span class="nn">helper</span>
+    <span class="n">helper</span><span class="o">.</span><span class="n">install_idaes</span><span class="p">()</span>
+    <span class="n">helper</span><span class="o">.</span><span class="n">install_ipopt</span><span class="p">()</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">17</span><span class="p">):</span>
+        <span class="n">helper</span><span class="o">.</span><span class="n">download_data</span><span class="p">([</span><span class="s1">&#39;parmest_20210609_data_exp</span><span class="si">{:d}</span><span class="s1">.csv&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">i</span><span class="p">)])</span>
+    <span class="n">helper</span><span class="o">.</span><span class="n">download_data</span><span class="p">([</span><span class="s1">&#39;parmest_log_file.csv&#39;</span><span class="p">])</span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+</div>
+
+
+
+    <div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[2]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
@@ -14305,7 +14367,7 @@ content is available <a href="git@github.com:ndcbe/CBE60499.git">on Github</a>.<
 <span class="kn">from</span> <span class="nn">pyomo.dae</span> <span class="kn">import</span> <span class="o">*</span>
 
 <span class="c1"># Define the directory to save/read the data files</span>
-<span class="n">data_dir</span> <span class="o">=</span> <span class="s1">&#39;./data/parmest_tutorial/&#39;</span>
+<span class="n">data_dir</span> <span class="o">=</span> <span class="s1">&#39;./data/&#39;</span>
 </pre></div>
 
      </div>
@@ -14422,7 +14484,7 @@ $$C_A(t) = C_{A,0} \exp(-k_1 t)$$$$C_B(t) = \frac{k_1}{k_2 - k_1} C_{A,0} \left[
     <div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[2]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[3]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">kinetics</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">E</span><span class="p">,</span> <span class="n">T</span><span class="p">):</span>
@@ -14472,7 +14534,7 @@ $$C_A(t) = C_{A,0} \exp(-k_1 t)$$$$C_B(t) = \frac{k_1}{k_2 - k_1} C_{A,0} \left[
     <div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[3]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[4]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">CA0</span> <span class="o">=</span> <span class="mi">1</span> <span class="c1"># Moles/L</span>
@@ -14538,25 +14600,7 @@ $$C_A(t) = C_{A,0} \exp(-k_1 t)$$$$C_B(t) = \frac{k_1}{k_2 - k_1} C_{A,0} \left[
     <div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
-<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-     <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span>
-</pre></div>
-
-     </div>
-</div>
-</div>
-</div>
-
-</div>
-
-
-
-    <div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[4]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[5]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># define function to plot</span>
@@ -14612,7 +14656,7 @@ $$C_A(t) = C_{A,0} \exp(-k_1 t)$$$$C_B(t) = \frac{k_1}{k_2 - k_1} C_{A,0} \left[
     <div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[5]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[6]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">create_model</span><span class="p">(</span><span class="n">data</span><span class="p">):</span>
@@ -14769,12 +14813,12 @@ $$\min_{\hat{\theta}} \quad \sum (y_i - \hat{y}_i)^2$$
     <div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[6]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[10]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># read-in data from csv file</span>
 
-<span class="n">data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;./data/parmest_tutorial/20200420_data_exp1.csv&#39;</span><span class="p">,</span><span class="n">index_col</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;./data/parmest_20210609_data_exp1.csv&#39;</span><span class="p">,</span><span class="n">index_col</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
 <span class="c1"># create dictionary of data</span>
 <span class="c1"># format of dictionary needs to be consistent with input provided to create_model() function</span>
 <span class="n">data_dict</span> <span class="o">=</span> <span class="p">{}</span>
@@ -14785,10 +14829,9 @@ $$\min_{\hat{\theta}} \quad \sum (y_i - \hat{y}_i)^2$$
 
 <span class="c1"># create pyomo model instance</span>
 <span class="n">model</span> <span class="o">=</span> <span class="n">create_model</span><span class="p">(</span><span class="n">data_dict</span><span class="p">)</span>
-
+<span class="c1"># model.pprint()</span>
 <span class="c1"># create solver instance for IPOPT</span>
 <span class="n">solver</span> <span class="o">=</span> <span class="n">SolverFactory</span><span class="p">(</span><span class="s1">&#39;ipopt&#39;</span><span class="p">)</span>
-<span class="n">solver</span><span class="o">.</span><span class="n">options</span><span class="p">[</span><span class="s1">&#39;tol&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">10</span><span class="o">**-</span><span class="mi">9</span>
 
 <span class="c1"># solve model</span>
 <span class="n">solver</span><span class="o">.</span><span class="n">solve</span><span class="p">(</span><span class="n">model</span><span class="p">,</span><span class="n">tee</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
@@ -14817,8 +14860,7 @@ $$\min_{\hat{\theta}} \quad \sum (y_i - \hat{y}_i)^2$$
 
 
 <div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
-<pre>Ipopt 3.13.2: tol=1e-09
-
+<pre>Ipopt 3.13.2: 
 
 ******************************************************************************
 This program contains Ipopt, a library for large-scale nonlinear optimization.
@@ -14855,14 +14897,14 @@ Total number of inequality constraints...............:        0
         inequality constraints with only upper bounds:        0
 
 iter    objective    inf_pr   inf_du lg(mu)  ||d||  lg(rg) alpha_du alpha_pr  ls
-   0  1.2972274e+00 4.02e-01 1.00e+00  -1.0 0.00e+00    -  0.00e+00 0.00e+00   0
-   1  2.4968926e-01 2.78e-17 1.11e-16  -1.7 4.02e-01    -  1.00e+00 1.00e+00f  1
+   0  1.6338341e+00 4.02e-01 1.17e+00  -1.0 0.00e+00    -  0.00e+00 0.00e+00   0
+   1  1.9673796e-01 2.78e-17 1.11e-16  -1.0 4.02e-01    -  1.00e+00 1.00e+00f  1
 
 Number of Iterations....: 1
 
                                    (scaled)                 (unscaled)
-Objective...............:   2.4968925619588114e-01    2.4968925619588114e-01
-Dual infeasibility......:   0.0000000000000000e+00    0.0000000000000000e+00
+Objective...............:   1.9673796490655646e-01    1.9673796490655646e-01
+Dual infeasibility......:   1.3877787807814457e-17    1.3877787807814457e-17
 Constraint violation....:   2.7755575615628914e-17    2.7755575615628914e-17
 Complementarity.........:   0.0000000000000000e+00    0.0000000000000000e+00
 Overall NLP error.......:   2.7755575615628914e-17    2.7755575615628914e-17
@@ -14930,7 +14972,7 @@ $$\min_{\hat{\theta}} \quad \frac{1}{N}\sum_{j}^{}\sum_{i}^{} (y_i - \hat{y}_i)^
     <div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[7]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[13]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">create_data_dict</span><span class="p">(</span><span class="n">files</span><span class="p">):</span>
@@ -14961,7 +15003,7 @@ $$\min_{\hat{\theta}} \quad \frac{1}{N}\sum_{j}^{}\sum_{i}^{} (y_i - \hat{y}_i)^
 <span class="n">CA0_vals</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.5</span><span class="p">,</span><span class="mf">1.0</span><span class="p">,</span><span class="mf">1.5</span><span class="p">,</span><span class="mf">2.0</span><span class="p">]</span> <span class="c1"># mol/L</span>
 
 <span class="c1"># read-in file names from log file created using gen_data()</span>
-<span class="n">file_list</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">data_dir</span> <span class="o">+</span> <span class="s1">&#39;log_file.csv&#39;</span><span class="p">)</span>
+<span class="n">file_list</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">data_dir</span> <span class="o">+</span> <span class="s1">&#39;parmest_log_file.csv&#39;</span><span class="p">)</span>
 
 <span class="c1"># create a list with all experiments stored separately as dictionaries</span>
 <span class="n">data_dict_overall</span> <span class="o">=</span> <span class="n">create_data_dict</span><span class="p">(</span><span class="n">file_list</span><span class="p">)</span>
@@ -15032,7 +15074,7 @@ $$\min_{\hat{\theta}} \quad \frac{1}{N}\sum_{j}^{}\sum_{i}^{} (y_i - \hat{y}_i)^
     <div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[8]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[14]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># import parmest</span>
@@ -15130,7 +15172,7 @@ Number of inequality constraint evaluations          = 0
 Number of equality constraint Jacobian evaluations   = 3
 Number of inequality constraint Jacobian evaluations = 0
 Number of Lagrangian Hessian evaluations             = 2
-Total CPU secs in IPOPT (w/o function evaluations)   =      0.002
+Total CPU secs in IPOPT (w/o function evaluations)   =      0.003
 Total CPU secs in NLP function evaluations           =      0.000
 
 EXIT: Optimal Solution Found.
@@ -15161,7 +15203,7 @@ theta:
     <div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[9]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[15]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Parameter values from parameter estimation using parmest</span>
@@ -15478,7 +15520,7 @@ $$C_A(t=0) = C_{A0} \quad C_B(t=0) = 0 \quad C_C(t=0) = 0$$<p>In the following c
     <div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[10]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[16]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">create_model_DAE</span><span class="p">(</span><span class="n">data</span><span class="p">):</span>
@@ -15630,7 +15672,7 @@ $$C_A(t=0) = C_{A0} \quad C_B(t=0) = 0 \quad C_C(t=0) = 0$$<p>In the following c
     <div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[11]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[17]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># import parmest</span>
@@ -15728,7 +15770,7 @@ Number of inequality constraint evaluations          = 0
 Number of equality constraint Jacobian evaluations   = 3
 Number of inequality constraint Jacobian evaluations = 0
 Number of Lagrangian Hessian evaluations             = 2
-Total CPU secs in IPOPT (w/o function evaluations)   =      0.029
+Total CPU secs in IPOPT (w/o function evaluations)   =      0.027
 Total CPU secs in NLP function evaluations           =      0.001
 
 EXIT: Optimal Solution Found.
@@ -15759,7 +15801,7 @@ theta:
     <div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[12]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[18]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Parameter values from parameter estimation using parmest</span>
@@ -16079,10 +16121,10 @@ theta:
 
 
 
-    <div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
+    <div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[20]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># defining the names of the parameters in a list</span>
@@ -16090,7 +16132,7 @@ theta:
 
 <span class="c1"># create an object using parmest.Estimator() that stores the Pyomo model realizations for the datasets provided.</span>
 <span class="c1"># This object which will be used to determined the parameter values that best fit all the datasets</span>
-<span class="n">pest</span> <span class="o">=</span> <span class="n">parmest</span><span class="o">.</span><span class="n">parmest</span><span class="o">.</span><span class="n">Estimator</span><span class="p">(</span><span class="n">create_model_DAE</span><span class="p">,</span><span class="n">data_dict_overall</span><span class="p">,</span><span class="n">theta_names</span><span class="p">,</span><span class="n">tee</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">pest</span> <span class="o">=</span> <span class="n">parmest</span><span class="o">.</span><span class="n">Estimator</span><span class="p">(</span><span class="n">create_model_DAE</span><span class="p">,</span><span class="n">data_dict_overall</span><span class="p">,</span><span class="n">theta_names</span><span class="p">,</span><span class="n">tee</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
 <span class="c1"># call the method theta_est() for the Estimator() object defined above to solve </span>
 <span class="c1"># the parameter estimation problem.</span>
@@ -16103,6 +16145,153 @@ theta:
      </div>
 </div>
 </div>
+</div>
+
+<div class="jp-Cell-outputWrapper">
+
+
+<div class="jp-OutputArea jp-Cell-outputArea">
+
+<div class="jp-OutputArea-child">
+
+    
+    <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
+
+
+<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
+<pre>Ipopt 3.13.2: bound_relax_factor=0
+honor_original_bounds=no
+
+
+******************************************************************************
+This program contains Ipopt, a library for large-scale nonlinear optimization.
+ Ipopt is released as open source code under the Eclipse Public License (EPL).
+         For more information visit http://projects.coin-or.org/Ipopt
+
+This version of Ipopt was compiled from source code available at
+    https://github.com/IDAES/Ipopt as part of the Institute for the Design of
+    Advanced Energy Systems Process Systems Engineering Framework (IDAES PSE
+    Framework) Copyright (c) 2018-2019. See https://github.com/IDAES/idaes-pse.
+
+This version of Ipopt was compiled using HSL, a collection of Fortran codes
+    for large-scale scientific computation.  All technical papers, sales and
+    publicity material resulting from use of the HSL codes within IPOPT must
+    contain the following acknowledgement:
+        HSL, a collection of Fortran codes for large-scale scientific
+        computation. See http://www.hsl.rl.ac.uk.
+******************************************************************************
+
+This is Ipopt version 3.13.2, running with linear solver ma27.
+
+Number of nonzeros in equality constraint Jacobian...:    32288
+Number of nonzeros in inequality constraint Jacobian.:        0
+Number of nonzeros in Lagrangian Hessian.............:      432
+
+Total number of variables............................:     7844
+                     variables with only lower bounds:        0
+                variables with lower and upper bounds:        0
+                     variables with only upper bounds:        0
+Total number of equality constraints.................:     7840
+Total number of inequality constraints...............:        0
+        inequality constraints with only lower bounds:        0
+   inequality constraints with lower and upper bounds:        0
+        inequality constraints with only upper bounds:        0
+
+iter    objective    inf_pr   inf_du lg(mu)  ||d||  lg(rg) alpha_du alpha_pr  ls
+   0  1.7039989e+01 4.00e+02 1.36e-13  -1.0 0.00e+00    -  0.00e+00 0.00e+00   0
+   1  2.2541349e-01 1.34e-13 3.76e-02  -1.0 3.76e+02  -4.0 1.00e+00 1.00e+00h  1
+   2  2.2541349e-01 1.25e-13 5.72e-17  -2.5 1.36e-14  -4.5 1.00e+00 1.00e+00h  1
+
+Number of Iterations....: 2
+
+                                   (scaled)                 (unscaled)
+Objective...............:   2.2541349182633455e-01    2.2541349182633455e-01
+Dual infeasibility......:   5.7245874707234634e-17    5.7245874707234634e-17
+Constraint violation....:   3.8857805861880479e-14    1.2478906796786760e-13
+Complementarity.........:   0.0000000000000000e+00    0.0000000000000000e+00
+Overall NLP error.......:   3.8857805861880479e-14    1.2478906796786760e-13
+
+
+Number of objective function evaluations             = 3
+Number of objective gradient evaluations             = 3
+Number of equality constraint evaluations            = 3
+Number of inequality constraint evaluations          = 0
+Number of equality constraint Jacobian evaluations   = 3
+Number of inequality constraint Jacobian evaluations = 0
+Number of Lagrangian Hessian evaluations             = 2
+Total CPU secs in IPOPT (w/o function evaluations)   =      0.027
+Total CPU secs in NLP function evaluations           =      0.001
+
+EXIT: Optimal Solution Found.
+</pre>
+</div>
+</div>
+
+<div class="jp-OutputArea-child">
+
+    
+    <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
+
+
+<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="application/vnd.jupyter.stderr">
+<pre>
+<span class="ansi-red-fg">-------------------------------------------------------------------------</span>
+<span class="ansi-red-fg">RuntimeError</span>                            Traceback (most recent call last)
+<span class="ansi-green-fg">&lt;ipython-input-20-dcdfb8bfa597&gt;</span> in <span class="ansi-cyan-fg">&lt;module&gt;</span>
+<span class="ansi-green-intense-fg ansi-bold">      9</span> <span class="ansi-red-fg"># the parameter estimation problem.</span>
+<span class="ansi-green-intense-fg ansi-bold">     10</span> <span class="ansi-red-fg"># Argument calc_cov=True is used to return the reduced Hessian matrix for parameter sensitivities</span>
+<span class="ansi-green-fg">---&gt; 11</span><span class="ansi-red-fg"> </span>obj<span class="ansi-blue-fg">,</span> theta<span class="ansi-blue-fg">,</span> cov <span class="ansi-blue-fg">=</span> pest<span class="ansi-blue-fg">.</span>theta_est<span class="ansi-blue-fg">(</span>calc_cov<span class="ansi-blue-fg">=</span><span class="ansi-green-fg">True</span><span class="ansi-blue-fg">)</span>
+<span class="ansi-green-intense-fg ansi-bold">     12</span> 
+<span class="ansi-green-intense-fg ansi-bold">     13</span> print<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">&#39;theta:\n&#39;</span><span class="ansi-blue-fg">,</span>theta<span class="ansi-blue-fg">)</span>
+
+<span class="ansi-green-fg">~/anaconda3/envs/idaes-pse-dev/lib/python3.8/site-packages/pyomo/contrib/parmest/parmest.py</span> in <span class="ansi-cyan-fg">theta_est</span><span class="ansi-blue-fg">(self, solver, return_values, bootlist, calc_cov)</span>
+<span class="ansi-green-intense-fg ansi-bold">    835</span>         <span class="ansi-green-fg">assert</span> isinstance<span class="ansi-blue-fg">(</span>bootlist<span class="ansi-blue-fg">,</span> <span class="ansi-blue-fg">(</span>type<span class="ansi-blue-fg">(</span><span class="ansi-green-fg">None</span><span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">,</span> list<span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">)</span>
+<span class="ansi-green-intense-fg ansi-bold">    836</span> 
+<span class="ansi-green-fg">--&gt; 837</span><span class="ansi-red-fg">         return self._Q_opt(solver=solver, return_values=return_values,
+</span><span class="ansi-green-intense-fg ansi-bold">    838</span>                            bootlist=bootlist, calc_cov=calc_cov)
+<span class="ansi-green-intense-fg ansi-bold">    839</span> 
+
+<span class="ansi-green-fg">~/anaconda3/envs/idaes-pse-dev/lib/python3.8/site-packages/pyomo/contrib/parmest/parmest.py</span> in <span class="ansi-cyan-fg">_Q_opt</span><span class="ansi-blue-fg">(self, ThetaVals, solver, return_values, bootlist, calc_cov)</span>
+<span class="ansi-green-intense-fg ansi-bold">    546</span>                 <span class="ansi-red-fg"># calculate the reduced hessian</span>
+<span class="ansi-green-intense-fg ansi-bold">    547</span>                 solve_result<span class="ansi-blue-fg">,</span> inv_red_hes <span class="ansi-blue-fg">=</span><span class="ansi-red-fg"> </span><span class="ansi-red-fg">\</span>
+<span class="ansi-green-fg">--&gt; 548</span><span class="ansi-red-fg">                     inverse_reduced_hessian.inv_reduced_hessian_barrier(
+</span><span class="ansi-green-intense-fg ansi-bold">    549</span>                         self<span class="ansi-blue-fg">.</span>ef_instance<span class="ansi-blue-fg">,</span>
+<span class="ansi-green-intense-fg ansi-bold">    550</span>                         independent_variables<span class="ansi-blue-fg">=</span> ind_vars<span class="ansi-blue-fg">,</span>
+
+<span class="ansi-green-fg">~/anaconda3/envs/idaes-pse-dev/lib/python3.8/site-packages/pyomo/contrib/interior_point/inverse_reduced_hessian.py</span> in <span class="ansi-cyan-fg">inv_reduced_hessian_barrier</span><span class="ansi-blue-fg">(model, independent_variables, bound_tolerance, solver_options, tee)</span>
+<span class="ansi-green-intense-fg ansi-bold">    130</span>     linear_solver <span class="ansi-blue-fg">=</span> ScipyInterface<span class="ansi-blue-fg">(</span>compute_inertia<span class="ansi-blue-fg">=</span><span class="ansi-green-fg">False</span><span class="ansi-blue-fg">)</span>
+<span class="ansi-green-intense-fg ansi-bold">    131</span>     linear_solver<span class="ansi-blue-fg">.</span>do_symbolic_factorization<span class="ansi-blue-fg">(</span>kkt<span class="ansi-blue-fg">)</span>
+<span class="ansi-green-fg">--&gt; 132</span><span class="ansi-red-fg">     </span>linear_solver<span class="ansi-blue-fg">.</span>do_numeric_factorization<span class="ansi-blue-fg">(</span>kkt<span class="ansi-blue-fg">)</span>
+<span class="ansi-green-intense-fg ansi-bold">    133</span> 
+<span class="ansi-green-intense-fg ansi-bold">    134</span>     n_rh <span class="ansi-blue-fg">=</span> len<span class="ansi-blue-fg">(</span>ind_var_indices<span class="ansi-blue-fg">)</span>
+
+<span class="ansi-green-fg">~/anaconda3/envs/idaes-pse-dev/lib/python3.8/site-packages/pyomo/contrib/interior_point/linalg/scipy_interface.py</span> in <span class="ansi-cyan-fg">do_numeric_factorization</span><span class="ansi-blue-fg">(self, matrix, raise_on_error)</span>
+<span class="ansi-green-intense-fg ansi-bold">     31</span>         <span class="ansi-green-fg">except</span> RuntimeError <span class="ansi-green-fg">as</span> err<span class="ansi-blue-fg">:</span>
+<span class="ansi-green-intense-fg ansi-bold">     32</span>             <span class="ansi-green-fg">if</span> raise_on_error<span class="ansi-blue-fg">:</span>
+<span class="ansi-green-fg">---&gt; 33</span><span class="ansi-red-fg">                 </span><span class="ansi-green-fg">raise</span> err
+<span class="ansi-green-intense-fg ansi-bold">     34</span>             <span class="ansi-green-fg">if</span> <span class="ansi-blue-fg">&#39;Factor is exactly singular&#39;</span> <span class="ansi-green-fg">in</span> str<span class="ansi-blue-fg">(</span>err<span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">:</span>
+<span class="ansi-green-intense-fg ansi-bold">     35</span>                 res<span class="ansi-blue-fg">.</span>status <span class="ansi-blue-fg">=</span> LinearSolverStatus<span class="ansi-blue-fg">.</span>singular
+
+<span class="ansi-green-fg">~/anaconda3/envs/idaes-pse-dev/lib/python3.8/site-packages/pyomo/contrib/interior_point/linalg/scipy_interface.py</span> in <span class="ansi-cyan-fg">do_numeric_factorization</span><span class="ansi-blue-fg">(self, matrix, raise_on_error)</span>
+<span class="ansi-green-intense-fg ansi-bold">     27</span>         res <span class="ansi-blue-fg">=</span> LinearSolverResults<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">)</span>
+<span class="ansi-green-intense-fg ansi-bold">     28</span>         <span class="ansi-green-fg">try</span><span class="ansi-blue-fg">:</span>
+<span class="ansi-green-fg">---&gt; 29</span><span class="ansi-red-fg">             </span>self<span class="ansi-blue-fg">.</span>_lu <span class="ansi-blue-fg">=</span> splu<span class="ansi-blue-fg">(</span>matrix<span class="ansi-blue-fg">)</span>
+<span class="ansi-green-intense-fg ansi-bold">     30</span>             res<span class="ansi-blue-fg">.</span>status <span class="ansi-blue-fg">=</span> LinearSolverStatus<span class="ansi-blue-fg">.</span>successful
+<span class="ansi-green-intense-fg ansi-bold">     31</span>         <span class="ansi-green-fg">except</span> RuntimeError <span class="ansi-green-fg">as</span> err<span class="ansi-blue-fg">:</span>
+
+<span class="ansi-green-fg">~/anaconda3/envs/idaes-pse-dev/lib/python3.8/site-packages/scipy/sparse/linalg/dsolve/linsolve.py</span> in <span class="ansi-cyan-fg">splu</span><span class="ansi-blue-fg">(A, permc_spec, diag_pivot_thresh, relax, panel_size, options)</span>
+<span class="ansi-green-intense-fg ansi-bold">    322</span>     <span class="ansi-green-fg">if</span> options <span class="ansi-green-fg">is</span> <span class="ansi-green-fg">not</span> <span class="ansi-green-fg">None</span><span class="ansi-blue-fg">:</span>
+<span class="ansi-green-intense-fg ansi-bold">    323</span>         _options<span class="ansi-blue-fg">.</span>update<span class="ansi-blue-fg">(</span>options<span class="ansi-blue-fg">)</span>
+<span class="ansi-green-fg">--&gt; 324</span><span class="ansi-red-fg">     return _superlu.gstrf(N, A.nnz, A.data, A.indices, A.indptr,
+</span><span class="ansi-green-intense-fg ansi-bold">    325</span>                           csc_construct_func<span class="ansi-blue-fg">=</span>csc_construct_func<span class="ansi-blue-fg">,</span>
+<span class="ansi-green-intense-fg ansi-bold">    326</span>                           ilu=False, options=_options)
+
+<span class="ansi-red-fg">RuntimeError</span>: Factor is exactly singular</pre>
+</div>
+</div>
+
+</div>
+
 </div>
 
 </div>
@@ -16149,16 +16338,20 @@ theta:
     <div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[13]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[21]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">itertools</span> <span class="kn">import</span> <span class="n">product</span>
 <span class="c1">### Likelihood ratio test</span>
 
+<span class="c1"># generate arrays of parameter values</span>
 <span class="n">A1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mf">170.0</span><span class="p">,</span> <span class="mf">200.0</span><span class="p">,</span> <span class="mf">10.0</span><span class="p">)</span>
 <span class="n">A2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mf">360.0</span><span class="p">,</span> <span class="mf">390.0</span><span class="p">,</span> <span class="mf">10.0</span><span class="p">)</span>
 <span class="n">E1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mf">5.0</span><span class="p">,</span> <span class="mf">15.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">)</span>
 <span class="n">E2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mf">10.0</span><span class="p">,</span> <span class="mf">20.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">)</span>
+
+<span class="c1"># format parameter values into a pandas dataframe to be provided as input to calculate </span>
+<span class="c1"># corresponding objective function values</span>
 <span class="n">theta_vals</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">product</span><span class="p">(</span><span class="n">A1</span><span class="p">,</span> <span class="n">A2</span><span class="p">,</span> <span class="n">E1</span><span class="p">,</span> <span class="n">E2</span><span class="p">)),</span> <span class="n">columns</span><span class="o">=</span><span class="n">theta_names</span><span class="p">)</span>
 
 <span class="n">obj_at_theta</span> <span class="o">=</span> <span class="n">pest</span><span class="o">.</span><span class="n">objective_at_theta</span><span class="p">(</span><span class="n">theta_vals</span><span class="p">)</span>
@@ -16195,14 +16388,13 @@ theta:
 
 <div class="jp-RenderedText jp-OutputArea-output" data-mime-type="application/vnd.jupyter.stderr">
 <pre>
-<span class="ansi-red-fg">---------------------------------------------------------------------------</span>
-<span class="ansi-red-fg">ApplicationError</span>                          Traceback (most recent call last)
-<span class="ansi-green-fg">&lt;ipython-input-13-54f4c550a227&gt;</span> in <span class="ansi-cyan-fg">&lt;module&gt;</span>
-<span class="ansi-green-intense-fg ansi-bold">      8</span> theta_vals <span class="ansi-blue-fg">=</span> pd<span class="ansi-blue-fg">.</span>DataFrame<span class="ansi-blue-fg">(</span>list<span class="ansi-blue-fg">(</span>product<span class="ansi-blue-fg">(</span>A1<span class="ansi-blue-fg">,</span> A2<span class="ansi-blue-fg">,</span> E1<span class="ansi-blue-fg">,</span> E2<span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">,</span> columns<span class="ansi-blue-fg">=</span>theta_names<span class="ansi-blue-fg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">      9</span> 
-<span class="ansi-green-fg">---&gt; 10</span><span class="ansi-red-fg"> </span>obj_at_theta <span class="ansi-blue-fg">=</span> pest<span class="ansi-blue-fg">.</span>objective_at_theta<span class="ansi-blue-fg">(</span>theta_vals<span class="ansi-blue-fg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">     11</span> print<span class="ansi-blue-fg">(</span>obj_at_theta<span class="ansi-blue-fg">.</span>head<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">     12</span> 
+<span class="ansi-red-fg">-------------------------------------------------------------------------</span>
+<span class="ansi-red-fg">ApplicationError</span>                        Traceback (most recent call last)
+<span class="ansi-green-fg">&lt;ipython-input-21-e59857a56451&gt;</span> in <span class="ansi-cyan-fg">&lt;module&gt;</span>
+<span class="ansi-green-intense-fg ansi-bold">     12</span> theta_vals <span class="ansi-blue-fg">=</span> pd<span class="ansi-blue-fg">.</span>DataFrame<span class="ansi-blue-fg">(</span>list<span class="ansi-blue-fg">(</span>product<span class="ansi-blue-fg">(</span>A1<span class="ansi-blue-fg">,</span> A2<span class="ansi-blue-fg">,</span> E1<span class="ansi-blue-fg">,</span> E2<span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">,</span> columns<span class="ansi-blue-fg">=</span>theta_names<span class="ansi-blue-fg">)</span>
+<span class="ansi-green-intense-fg ansi-bold">     13</span> 
+<span class="ansi-green-fg">---&gt; 14</span><span class="ansi-red-fg"> </span>obj_at_theta <span class="ansi-blue-fg">=</span> pest<span class="ansi-blue-fg">.</span>objective_at_theta<span class="ansi-blue-fg">(</span>theta_vals<span class="ansi-blue-fg">)</span>
+<span class="ansi-green-intense-fg ansi-bold">     15</span> print<span class="ansi-blue-fg">(</span>obj_at_theta<span class="ansi-blue-fg">.</span>head<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">)</span>
 
 <span class="ansi-green-fg">~/anaconda3/envs/idaes-pse-dev/lib/python3.8/site-packages/pyomo/contrib/parmest/parmest.py</span> in <span class="ansi-cyan-fg">objective_at_theta</span><span class="ansi-blue-fg">(self, theta_values)</span>
 <span class="ansi-green-intense-fg ansi-bold">   1071</span>         all_obj <span class="ansi-blue-fg">=</span> list<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">)</span>
@@ -16272,7 +16464,6 @@ theta:
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1">### Parameter estimation with bootstrap resampling</span>
-
 <span class="n">bootstrap_theta</span> <span class="o">=</span> <span class="n">pest</span><span class="o">.</span><span class="n">theta_est_bootstrap</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">bootstrap_theta</span><span class="o">.</span><span class="n">head</span><span class="p">())</span>
 </pre></div>
