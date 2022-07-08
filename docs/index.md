@@ -20,7 +20,7 @@
 - [2.5 Numeric Integration for DAEs](https://ndcbe.github.io/CBE60499/02.05-Numeric-Integration.html)
 - [2.6 Dynamic Optimization with Pyomo.DAE](https://ndcbe.github.io/CBE60499/02.06-Pyomo-DAE.html)
 - [2.7 Stochastic Programming](https://ndcbe.github.io/CBE60499/02.07-SP.html)
-- [2.8 Parameter estimation with parmest](https://ndcbe.github.io/CBE60499/02.08-Parmest-tutorial.html)
+- [2.8 Parameter estimation with `parmest`](https://ndcbe.github.io/CBE60499/02.08-Parmest-tutorial.html)
 - [2.9 Supplementary material: data for parmest tutorial](https://ndcbe.github.io/CBE60499/02.09-Parmest-generate-data.html)
 - [2.10 Pyomo Homework 1](https://ndcbe.github.io/CBE60499/02.10-Pyomo1.html)
 - [2.11 Pyomo Homework 2](https://ndcbe.github.io/CBE60499/02.11-Pyomo2.html)
