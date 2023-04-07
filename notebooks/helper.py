@@ -44,15 +44,25 @@ def install_ipopt():
         # Check if we are running on Google Colab
         if on_colab():
             # Install idaes solvers
-            print("Running idaes get-extensions to install Ipopt and k_aug...")
+            print("Running idaes get-extensions to install Ipopt, k_aug, and more...")
             os.system("idaes get-extensions")
 
             # Add symbolic link for idaes solvers
             os.system("ln -s /root/.idaes/bin/ipopt ipopt")
             os.system("ln -s /root/.idaes/bin/k_aug k_aug")
+            os.system("ln -s /root/.idaes/bin/couenne couenne")
+            os.system("ln -s /root/.idaes/bin/bonmin bonmin")
+            os.system("ln -s /root/.idaes/bin/cbc cbc")
+            os.system("ln -s /root/.idaes/bin/clp clp")
+            os.system("ln -s /root/.idaes/bin/ipopt_l1 ipopt_l1")
             
             command_with_output('./ipopt -v')
             command_with_output('./k_aug -v')
+            command_with_output('./couenne -v')
+            command_with_output('./bonmin -v')
+            command_with_output('./cbc -v')
+            command_with_output('./clp -v')
+            command_with_output('./ipopt_l1 -v')
             
 
         # Check again if Ipopt is available
