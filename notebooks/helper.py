@@ -60,8 +60,8 @@ def install_ipopt():
             command_with_output('./k_aug -v')
             command_with_output('./couenne -v')
             command_with_output('./bonmin -v')
-            command_with_output('./cbc -v')
-            command_with_output('./clp -v')
+            #command_with_output('./cbc -v')
+            #command_with_output('./clp -v')
             command_with_output('./ipopt_l1 -v')
             
 
@@ -90,8 +90,10 @@ def install_ipopt():
     
     print("ipopt was successfully installed")
     
-    if package_available("k_aug"):
-        print("k_aug was successfully installed")
+    solvers = ["k_aug", "cbc", "clp", "bonmin", "couenne"]
+    for s in solvers:
+        if package_available(s):
+            print(s,"was successfuly installed")
 
 
 def install_glpk():
