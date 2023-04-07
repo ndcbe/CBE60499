@@ -90,11 +90,11 @@ def install_ipopt():
     
     print("ipopt was successfully installed")
     
-    solvers = ["k_aug", "cbc", "clp", "bonmin", "couenne"]
+    solvers = ["k_aug", "cbc", "clp", "bonmin", "couenne", "ipopt_l1"]
     for s in solvers:
         if package_available(s):
             print(s,"was successfuly installed")
-
+    print(" ")
 
 def install_glpk():
     if not package_available("glpk") and on_colab():
