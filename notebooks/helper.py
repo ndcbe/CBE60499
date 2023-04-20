@@ -55,6 +55,7 @@ def install_ipopt():
             os.system("ln -s /root/.idaes/bin/cbc cbc")
             os.system("ln -s /root/.idaes/bin/clp clp")
             os.system("ln -s /root/.idaes/bin/ipopt_l1 ipopt_l1")
+            os.system("ln -s /root/.idaes/bin/dot_sens dot_sens")
             
             command_with_output('./ipopt -v')
             command_with_output('./k_aug -v')
